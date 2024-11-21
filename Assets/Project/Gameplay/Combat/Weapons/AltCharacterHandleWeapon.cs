@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using MoreMountains.Tools;
 using MoreMountains.TopDownEngine;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Project.Gameplay.Combat.Weapons
 {
@@ -27,8 +28,8 @@ namespace Project.Gameplay.Combat.Weapons
         [Header("Weapon Attachment Points")] [Tooltip("List of attachment points based on weapon types.")]
         public List<AttachmentPoint> AttachmentPointList;
 
-        [Tooltip("The position the weapon will be attached to. If left blank, will be this.transform.")]
-        public new Transform WeaponAttachment;
+        [FormerlySerializedAs("WeaponAttachment")] [Tooltip("The position the weapon will be attached to. If left blank, will be this.transform.")]
+        public new Transform weaponAttachment;
 
         public WeaponIK WeaponIK;
 
@@ -39,15 +40,15 @@ namespace Project.Gameplay.Combat.Weapons
         {
             base.PreInitialization();
 
-            WeaponAttachment = transform; // Default if no specific attachment is found
+            weaponAttachment = transform; // Default if no specific attachment is found
             foreach (var point in AttachmentPointList)
                 if (point.Type == WeaponAttachmentType)
                 {
-                    WeaponAttachment = point.Attachment;
+                    weaponAttachment = point.Attachment;
                     break;
                 }
 
-            Debug.Log($"WeaponAttachment set to {WeaponAttachment.name} for {WeaponAttachmentType}");
+            Debug.Log($"WeaponAttachment set to {weaponAttachment.name} for {WeaponAttachmentType}");
         }
 
         /// <summary>
@@ -55,16 +56,16 @@ namespace Project.Gameplay.Combat.Weapons
         /// </summary>
         protected override void InstantiateWeapon(Weapon newWeapon, string weaponID, bool combo = false)
         {
-            if (WeaponAttachment == null) PreInitialization();
+            if (weaponAttachment == null) PreInitialization();
 
             if (!combo)
                 CurrentWeapon = Instantiate(
                     newWeapon,
-                    WeaponAttachment.position + newWeapon.WeaponAttachmentOffset,
-                    WeaponAttachment.rotation);
+                    weaponAttachment.position + newWeapon.WeaponAttachmentOffset,
+                    weaponAttachment.rotation);
 
             CurrentWeapon.name = newWeapon.name;
-            CurrentWeapon.transform.parent = WeaponAttachment;
+            CurrentWeapon.transform.parent = weaponAttachment;
             CurrentWeapon.transform.localPosition = newWeapon.WeaponAttachmentOffset;
             CurrentWeapon.SetOwner(_character, this);
             CurrentWeapon.WeaponID = weaponID;
@@ -141,16 +142,16 @@ namespace Project.Gameplay.Combat.Weapons
 
         void SetWeaponAttachment()
         {
-            WeaponAttachment = transform; // Default to the character's transform
+            weaponAttachment = transform; // Default to the character's transform
 
             foreach (var point in AttachmentPointList)
                 if (point.Type == WeaponAttachmentType)
                 {
-                    WeaponAttachment = point.Attachment;
+                    weaponAttachment = point.Attachment;
                     break;
                 }
 
-            Debug.Log($"WeaponAttachment set to {WeaponAttachment.name} for {WeaponAttachmentType}");
+            Debug.Log($"WeaponAttachment set to {weaponAttachment.name} for {WeaponAttachmentType}");
         }
 
         void ToggleWeaponIK(bool enable)

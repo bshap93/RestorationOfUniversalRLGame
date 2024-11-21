@@ -10,8 +10,8 @@ namespace Project.Gameplay.Magic
 
         public CharacterClass characterClass;
 
-        public MagicResource PrimaryResource => characterClass == CharacterClass.Automaton ? Kinema : Favour;
-        public MagicResource SecondaryResource => characterClass == CharacterClass.Automaton ? Favour : Kinema;
+        public MagicResource PrimaryResource => Kinema;
+        public MagicResource SecondaryResource => Favour;
 
         public void ReceiveKinema(float kinema, GameObject instigator)
         {

@@ -18,7 +18,7 @@ namespace Project.Gameplay.Combat
             if (newWeapon == null) return;
 
             // Default attachment point
-            var chosenAttachment = WeaponAttachment;
+            var chosenAttachment = weaponAttachment;
 
             // Decide attachment point based on weapon type
             if (newWeapon is MeleeWeapon)
