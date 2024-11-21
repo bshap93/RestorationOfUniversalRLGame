@@ -9,17 +9,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 376808973974494ebd3533bdb5f073ce, type: 3}
-  m_Name: TorchItem
+  m_Script: {fileID: 11500000, guid: d25b92b39c4c4d22a2445d8c585394b7, type: 3}
+  m_Name: WeakerKinemaPotion
   m_EditorClassIdentifier: 
-  ItemID: Torch1
+  ItemID: KinemaPotion1
   TargetInventoryName: MainPlayerInventory
   ForceSlotIndex: 0
   TargetIndex: 0
-  Usable: 1
-  Consumable: 0
+  Usable: 0
+  Consumable: 1
   ConsumeQuantity: 1
-  Equippable: 1
+  Equippable: 0
   EquippableIfInventoryIsFull: 1
   MoveWhenEquipped: 1
   Droppable: 1
@@ -38,13 +38,11 @@ MonoBehaviour:
     AllowEquipShortcut: 1
     AllowUseShortcut: 1
   Quantity: 1
-  ItemName: Handheld Torch
-  ShortDescription: A wooden torch with a metal bulb.
-  Description: Torch with protective hexagonal metal lantern at the top, containing
-    a flame. The flame is emitting sparks that rise above the lantern, creating a
-    dynamic and fiery effect.
-  Icon: {fileID: 21300000, guid: fb16c0784abf4014ea69f2a166a1655c, type: 3}
-  Prefab: {fileID: 5927210506826425232, guid: c7738066a36ffd647a07d498bfc3fd8a, type: 3}
+  ItemName: Kinema Potion Weak
+  ShortDescription: A basic potion to restore your Kinema reserves 20K.
+  Description: 
+  Icon: {fileID: 21300000, guid: 728e831732287ca41a3b2f2f91e4772a, type: 3}
+  Prefab: {fileID: 4613189399510398810, guid: df343e11b6caaab4885af5f32a2945e4, type: 3}
   ForcePrefabDropQuantity: 0
   PrefabDropQuantity: 1
   DropProperties:
@@ -92,13 +90,10 @@ MonoBehaviour:
   MaximumStack: 1
   MaximumQuantity: 999999999
   ItemClass: 0
-  TargetEquipmentInventoryName: EquipmentInventory
-  EquippedSound: {fileID: 8300000, guid: 48dc3d22e0d9e4b59969381cf89e2da9, type: 3}
+  TargetEquipmentInventoryName: 
+  EquippedSound: {fileID: 0}
   UsedSound: {fileID: 0}
   MovedSound: {fileID: 0}
   DroppedSound: {fileID: 0}
   UseDefaultSoundsIfNull: 1
-  TorchPrefab: {fileID: 7008384287521584254, guid: 4745d1d7800129342a1b23f92c31715a,
-    type: 3}
-  EquipmentInventoryName: EquipmentInventory
-  AutoEquipOnPickup: 1
+  KinemaToGive: 20

@@ -13,9 +13,14 @@ namespace Project.Gameplay.Magic
         public MagicResource PrimaryResource => characterClass == CharacterClass.Automaton ? Kinema : Favour;
         public MagicResource SecondaryResource => characterClass == CharacterClass.Automaton ? Favour : Kinema;
 
-        void Start()
+        public void ReceiveKinema(float kinema, GameObject instigator)
         {
-            // Optionally initialize resources here
+            Kinema.RestoreResource(kinema);
+        }
+
+        public void ReceiveFavour(float favour, GameObject instigator)
+        {
+            Favour.RestoreResource(favour);
         }
 
         public bool CanConsumePrimary(float amount)

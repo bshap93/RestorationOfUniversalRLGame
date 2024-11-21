@@ -6,9 +6,11 @@ namespace Project.Gameplay.Magic
     public class MagicResource : MonoBehaviour
     {
         public string ResourceName; // Name of the resource (e.g., Kinema, Favour)
-        public float MaxResource = 100f; // Maximum resource capacity
+        public float MaxResource = 20f; // Maximum resource capacity
         public float CurrentResource; // Current resource amount
-        public float RegenerationRate = 5f; // Amount regenerated per second
+        public float RegenerationRate; // Amount regenerated per second
+
+        public float InitialResource; // Initial resource amount
 
         public MMFeedbacks OnDepletedFeedback; // Feedbacks when the resource is depleted
         public MMFeedbacks OnRestoredFeedback; // Feedbacks when the resource is restored
@@ -16,7 +18,7 @@ namespace Project.Gameplay.Magic
 
         void Start()
         {
-            CurrentResource = MaxResource;
+            CurrentResource = InitialResource;
         }
 
         void Update()
