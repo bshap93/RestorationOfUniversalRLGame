@@ -133,7 +133,6 @@ namespace Project.Core.SaveSystem
                         playerGameObject.transform.rotation = CurrentSave.playerData.rotation.ToQuaternion();
                     }
 
-                    Debug.Log("Game loaded successfully.");
                     return true;
                 }
 
@@ -169,7 +168,6 @@ namespace Project.Core.SaveSystem
                 Debug.LogError("Player GameObject not found in the scene.");
             }
         }
-
 
 
         public void ClearCurrentSave()

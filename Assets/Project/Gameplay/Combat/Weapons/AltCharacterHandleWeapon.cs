@@ -28,8 +28,9 @@ namespace Project.Gameplay.Combat.Weapons
         [Header("Weapon Attachment Points")] [Tooltip("List of attachment points based on weapon types.")]
         public List<AttachmentPoint> AttachmentPointList;
 
-        [FormerlySerializedAs("WeaponAttachment")] [Tooltip("The position the weapon will be attached to. If left blank, will be this.transform.")]
-        public new Transform weaponAttachment;
+        [FormerlySerializedAs("WeaponAttachment")]
+        [Tooltip("The position the weapon will be attached to. If left blank, will be this.transform.")]
+        public Transform weaponAttachment;
 
         public WeaponIK WeaponIK;
 
@@ -47,8 +48,6 @@ namespace Project.Gameplay.Combat.Weapons
                     weaponAttachment = point.Attachment;
                     break;
                 }
-
-            Debug.Log($"WeaponAttachment set to {weaponAttachment.name} for {WeaponAttachmentType}");
         }
 
         /// <summary>
@@ -150,22 +149,12 @@ namespace Project.Gameplay.Combat.Weapons
                     weaponAttachment = point.Attachment;
                     break;
                 }
-
-            Debug.Log($"WeaponAttachment set to {weaponAttachment.name} for {WeaponAttachmentType}");
         }
 
         void ToggleWeaponIK(bool enable)
         {
             // Find the child object containing WeaponIK
-            if (WeaponIK != null)
-            {
-                WeaponIK.enabled = enable;
-                Debug.Log($"WeaponIK {(enable ? "enabled" : "disabled")}");
-            }
-            else
-            {
-                Debug.LogWarning("WeaponIKObject not found. Please ensure the hierarchy is correct.");
-            }
+            if (WeaponIK != null) WeaponIK.enabled = enable;
         }
 
         [Serializable]
