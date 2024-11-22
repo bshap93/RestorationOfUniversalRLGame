@@ -75,7 +75,7 @@ namespace Project.Gameplay.Player.Inventory
             {
                 // Hide the prompt and preview panel on successful pickup
                 _pickupPromptManager?.HidePickupPrompt();
-                _pickupPromptManager?.HidePreviewPanel();
+                // _pickupPromptManager?.HidePreviewPanel();
 
                 // Play feedbacks on successful pickup
                 if (pickedMmFeedbacks != null) pickedMmFeedbacks.PlayFeedbacks();
