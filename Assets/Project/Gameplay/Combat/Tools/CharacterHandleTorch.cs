@@ -1,6 +1,7 @@
 using MoreMountains.Feedbacks;
 using MoreMountains.TopDownEngine;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Project.Gameplay.Combat.Tools
 {
@@ -21,10 +22,11 @@ namespace Project.Gameplay.Combat.Tools
         [Header("Torch Feedbacks")] public MMFeedbacks TorchLitFeedback;
         public MMFeedbacks TorchExtinguishedFeedback;
         public MMFeedbacks TorchBurnOutFeedback;
+
+        [FormerlySerializedAs("_currentTorch")]
+        public GameObject currentTorch;
         protected Animator _animator;
         protected float _burnTimer;
-
-        protected GameObject _currentTorch;
         protected bool _torchActive;
 
         protected override void Initialization()
@@ -50,14 +52,14 @@ namespace Project.Gameplay.Combat.Tools
 
         public virtual void EquipTorch(GameObject newTorch)
         {
-            if (_currentTorch != null) Destroy(_currentTorch);
+            if (currentTorch != null) Destroy(currentTorch);
 
             if (newTorch != null)
             {
-                _currentTorch = Instantiate(newTorch, TorchAttachment.position, TorchAttachment.rotation);
-                _currentTorch.transform.SetParent(TorchAttachment);
-                _currentTorch.transform.localPosition = Vector3.zero;
-                _currentTorch.transform.localRotation = Quaternion.identity;
+                currentTorch = Instantiate(newTorch, TorchAttachment.position, TorchAttachment.rotation);
+                currentTorch.transform.SetParent(TorchAttachment);
+                currentTorch.transform.localPosition = Vector3.zero;
+                currentTorch.transform.localRotation = Quaternion.identity;
 
                 _burnTimer = TorchBurnTime;
                 _torchActive = false;
@@ -66,7 +68,7 @@ namespace Project.Gameplay.Combat.Tools
 
         protected override void HandleInput()
         {
-            if (!AbilityAuthorized || _currentTorch == null) return;
+            if (!AbilityAuthorized || currentTorch == null) return;
 
             // Activate or deactivate the torch using a button (e.g., 'T')
             if (UnityEngine.Input.GetKeyDown(KeyCode.T))
@@ -127,7 +129,6 @@ namespace Project.Gameplay.Combat.Tools
 
         protected override void OnRespawn()
         {
-            base.OnRespawn();
             EquipTorch(InitialTorch);
         }
     }

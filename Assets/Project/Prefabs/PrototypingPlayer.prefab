@@ -7274,15 +7274,14 @@ GameObject:
   - component: {fileID: 743801165420944651}
   - component: {fileID: 8294267455872793848}
   - component: {fileID: 436030599449463590}
-  - component: {fileID: 5605469439708390913}
   - component: {fileID: 3927299879870572010}
   - component: {fileID: 2190125629540307051}
   - component: {fileID: 8058876779074257797}
   - component: {fileID: 3122707553842577923}
   - component: {fileID: 4473471485751944869}
   - component: {fileID: 9078600043551628577}
-  - component: {fileID: 3730508844039164129}
   - component: {fileID: 7845501128029657194}
+  - component: {fileID: 3730508844039164129}
   - component: {fileID: 972333610728565172}
   - component: {fileID: 962769219621710381}
   m_Layer: 10
@@ -7765,27 +7764,6 @@ MonoBehaviour:
   MainInventoryName: MainPlayerInventory
   EquipmentInventoryName: EquipmentInventory
   StartingShield: {fileID: 0}
---- !u!114 &5605469439708390913
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4194478886614523176}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3b1c0fc1f870c9e4b908bfb73e021bf1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  AbilityStartSfx: {fileID: 0}
-  AbilityInProgressSfx: {fileID: 0}
-  AbilityStopSfx: {fileID: 0}
-  AbilityStartFeedbacks: {fileID: 0}
-  AbilityStopFeedbacks: {fileID: 0}
-  AbilityPermitted: 1
-  BlockingMovementStates: 
-  BlockingConditionStates: 
-  BlockingWeaponStates: 
 --- !u!114 &3927299879870572010
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7821,7 +7799,7 @@ MonoBehaviour:
   intuition: 0
   playerClass: 
   chosenTraits: []
-  Health: 2000
+  Health: 200
 --- !u!114 &8058876779074257797
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8093,6 +8071,21 @@ MonoBehaviour:
   IgnoreUnknownDamageTypes: 0
   DamageResistanceList:
   - {fileID: 557013825266843806}
+--- !u!114 &7845501128029657194
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4194478886614523176}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc32baaa111c4a8f8d88a0f9089b7f90, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Kinema: {fileID: 5042032949878203872}
+  Favour: {fileID: 5473879459364201077}
+  characterClass: 0
 --- !u!114 &3730508844039164129
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8121,21 +8114,7 @@ MonoBehaviour:
   TorchLitFeedback: {fileID: 0}
   TorchExtinguishedFeedback: {fileID: 0}
   TorchBurnOutFeedback: {fileID: 0}
---- !u!114 &7845501128029657194
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4194478886614523176}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cc32baaa111c4a8f8d88a0f9089b7f90, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Kinema: {fileID: 5042032949878203872}
-  Favour: {fileID: 5473879459364201077}
-  characterClass: 0
+  currentTorch: {fileID: 0}
 --- !u!114 &972333610728565172
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8186,8 +8165,7 @@ MonoBehaviour:
   BlockingMovementStates: 
   BlockingConditionStates: 
   BlockingWeaponStates: 
-  InitialWeapon: {fileID: 8159000169692753781, guid: 904bd19c73093da479ce55c8e23f91c5,
-    type: 3}
+  InitialWeapon: {fileID: 0}
   CanPickupWeapons: 1
   WeaponUseFeedback: {fileID: 0}
   WeaponAttachment: {fileID: 0}

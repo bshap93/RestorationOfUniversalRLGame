@@ -29,7 +29,7 @@ namespace Project.Gameplay.Combat.Shields
         Shield _currentShield;
 
 
-        public Shield CurrentShield { get; protected set; }
+        public Shield CurrentShield { get; set; }
 
         protected override void Start()
         {
