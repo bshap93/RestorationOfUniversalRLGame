@@ -27,16 +27,21 @@ namespace Project.Gameplay.Combat.Shields
         [Tooltip("Amount of stamina consumed per block")]
         public float StaminaConsumption = 10f;
 
+        [Tooltip("if this is true all movement will be prevented (even flip) while the weapon is active")]
+        public bool PreventAllMovementWhileInUse;
+
         [Header("Feedbacks")] public MMFeedbacks ShieldRaiseFeedback;
         public MMFeedbacks ShieldLowerFeedback;
         public MMFeedbacks ShieldBlockFeedback;
         public MMFeedbacks ShieldBreakFeedback;
         protected Animator _animator;
+        protected CharacterMovement _characterMovement;
         protected CharacterHandleShield _handler;
 
         protected Character _owner;
         protected float _recoveryTimer;
         protected int _shieldStateParameter;
+
 
         public float CurrentShieldHealth { get; protected set; }
         public ShieldStates CurrentState { get; protected set; }
@@ -79,6 +84,8 @@ namespace Project.Gameplay.Combat.Shields
             _owner = owner;
             _handler = handler;
             _animator = _handler.CharacterAnimator;
+
+            _characterMovement = _owner.GetComponent<Character>()?.FindAbility<CharacterMovement>();
         }
 
         public virtual void Initialization()
@@ -102,11 +109,13 @@ namespace Project.Gameplay.Combat.Shields
             if (CurrentState != ShieldStates.Inactive) return;
 
 
-
             CurrentState = ShieldStates.Starting;
             UpdateAnimator();
             ShieldRaiseFeedback?.PlayFeedbacks();
             OnShieldRaised?.Invoke(true); // Raise event for animation feedback
+
+            _characterMovement.SetMovement(Vector2.zero);
+            _characterMovement.MovementForbidden = true;
 
             if (ShieldProtectionArea != null) ShieldProtectionArea.ShieldIsActive = true;
         }
@@ -120,6 +129,9 @@ namespace Project.Gameplay.Combat.Shields
             UpdateAnimator();
             ShieldLowerFeedback?.PlayFeedbacks();
             OnShieldRaised?.Invoke(false); // Raise event for animation feedback
+
+            _characterMovement.MovementForbidden = false;
+
 
             if (ShieldProtectionArea != null) ShieldProtectionArea.ShieldIsActive = false;
         }
