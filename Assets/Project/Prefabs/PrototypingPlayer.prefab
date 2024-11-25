@@ -7341,7 +7341,7 @@ MonoBehaviour:
   RunAnimatorSanityChecks: 1
   DisableAnimatorLogs: 1
   CharacterModel: {fileID: 2679787714724300331}
-  CharacterHealth: {fileID: 0}
+  CharacterHealth: {fileID: 4473471485751944869}
   SendStateChangeEvents: 1
   AdditionalAbilityNodes: []
   CharacterBrain: {fileID: 0}
@@ -7813,6 +7813,7 @@ MonoBehaviour:
   moveSpeedMult: 0
   attackPower: 0
   damageMult: 0
+  overrideAutoHealth: 1
   strength: 0
   agility: 0
   endurance: 0
@@ -7820,6 +7821,7 @@ MonoBehaviour:
   intuition: 0
   playerClass: 
   chosenTraits: []
+  Health: 2000
 --- !u!114 &8058876779074257797
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8044,14 +8046,14 @@ MonoBehaviour:
   Model: {fileID: 0}
   CurrentHealth: 0
   Invulnerable: 0
-  InitialHealth: 20
-  MaximumHealth: 20
+  InitialHealth: 200
+  MaximumHealth: 200
   ResetHealthOnEnable: 0
-  ImmuneToDamage: 1
+  ImmuneToDamage: 0
   DamageMMFeedbacks: {fileID: 3664632713051404768}
   FeedbackIsProportionalToDamage: 0
   PreventTakeSelfDamage: 0
-  ImmuneToKnockback: 1
+  ImmuneToKnockback: 0
   ImmuneToKnockbackIfZeroDamage: 0
   KnockbackForceMultiplier: 1
   DestroyOnDeath: 0
@@ -8062,11 +8064,11 @@ MonoBehaviour:
   DisableModelOnDeath: 0
   DisableCollisionsOnDeath: 0
   DisableChildCollisionsOnDeath: 0
-  ChangeLayerOnDeath: 0
+  ChangeLayerOnDeath: 1
   ChangeLayersRecursivelyOnDeath: 0
   LayerOnDeath:
     _layerIndex: 23
-  DeathMMFeedbacks: {fileID: 0}
+  DeathMMFeedbacks: {fileID: 2718568940206370742}
   ResetColorOnRevive: 1
   ColorMaterialPropertyName: _Color
   UseMaterialPropertyBlocks: 0
@@ -8184,7 +8186,8 @@ MonoBehaviour:
   BlockingMovementStates: 
   BlockingConditionStates: 
   BlockingWeaponStates: 
-  InitialWeapon: {fileID: 0}
+  InitialWeapon: {fileID: 8159000169692753781, guid: 904bd19c73093da479ce55c8e23f91c5,
+    type: 3}
   CanPickupWeapons: 1
   WeaponUseFeedback: {fileID: 0}
   WeaponAttachment: {fileID: 0}

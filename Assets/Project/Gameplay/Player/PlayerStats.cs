@@ -21,6 +21,7 @@ namespace Project.Gameplay.Player
         [SerializeField] float attackPower;
         [FormerlySerializedAs("defense")] [SerializeField]
         float damageMult;
+        [SerializeField] bool overrideAutoHealth;
 
         // Attributes assigned by the player
         [SerializeField] int strength;
@@ -36,6 +37,7 @@ namespace Project.Gameplay.Player
         // Runtime references to ScriptableObjects for class and traits
         StartingClass startingClass;
         List<CharacterTrait> traits = new();
+        public float Health; 
 
         public int Strength => strength;
         public int AttackPower => (int)attackPower;
@@ -62,7 +64,20 @@ namespace Project.Gameplay.Player
             // Initialize current health to max health
             // currentHealth = maxHealth;
             var playerHealth = gameObject.GetComponent<HealthAlt>();
-            if (playerHealth != null) playerHealth.CurrentHealth = playerHealth.MaximumHealth;
+
+            if (playerHealth != null)
+            {
+                if (overrideAutoHealth)
+                {
+                    playerHealth.CurrentHealth = Health;
+                    playerHealth.MaximumHealth = Health;
+                    playerHealth.InitialHealth = Health;
+                }
+                else
+                {
+                    playerHealth.CurrentHealth = playerHealth.MaximumHealth;
+                }
+            }
 
             // Debug.Log(
             //     $"Initialized Player Stats: Class={playerClass}, MaxHealth={maxHealth}, MoveSpeed={moveSpeedMult}, AttackPower={attackPower}, Defense={damageMult}");
@@ -106,8 +121,9 @@ namespace Project.Gameplay.Player
 
             var playerHealth = gameObject.GetComponent<HealthAlt>();
             // Apply base stats from the class
-            if (startingClass.baseStats.TryGetValue(StatType.Endurance, out var enduranceBase))
-                playerHealth.MaximumHealth = enduranceBase * 10;
+            if (!overrideAutoHealth)
+                if (startingClass.baseStats.TryGetValue(StatType.Endurance, out var enduranceBase))
+                    playerHealth.MaximumHealth = enduranceBase * 10;
 
             if (startingClass.baseStats.TryGetValue(StatType.Agility, out var agilityBase))
                 moveSpeedMult = agilityBase * 0.5f;
@@ -121,21 +137,25 @@ namespace Project.Gameplay.Player
 
         void ApplyAttributesToBaseStats()
         {
-            var playerHealth = gameObject.GetComponent<HealthAlt>();
+            if (!overrideAutoHealth)
+            {
+                var playerHealth = gameObject.GetComponent<HealthAlt>();
+                playerHealth.MaximumHealth = endurance * 2 + 20;
+
+                if (playerHealth != null)
+                {
+                    playerHealth.InitialHealth = playerHealth.MaximumHealth;
+                    // currentHealth = maxHealth;
+                    playerHealth.CurrentHealth = playerHealth.InitialHealth;
+                    // playerHealth.CurrentHealth = currentHealth;
+                }
+            }
+
             // Modify base stats by adding attribute bonuses
-            playerHealth.MaximumHealth = endurance * 2 + 20;
             moveSpeedMult = 1 + (agility - 2) * 0.05f;
             attackPower += strength * 2;
             damageMult = 0.9f + endurance * 0.05f;
 
-
-            if (playerHealth != null)
-            {
-                playerHealth.InitialHealth = playerHealth.MaximumHealth;
-                // currentHealth = maxHealth;
-                playerHealth.CurrentHealth = playerHealth.InitialHealth;
-                // playerHealth.CurrentHealth = currentHealth;
-            }
 
             var damageResistance = gameObject.GetComponent<DamageResistanceProcessor>().DamageResistanceList[0];
             if (damageResistance != null) damageResistance.DamageMultiplier = damageMult;
