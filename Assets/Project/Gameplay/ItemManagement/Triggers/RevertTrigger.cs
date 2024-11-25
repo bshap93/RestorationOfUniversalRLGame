@@ -1,11 +1,14 @@
 using MoreMountains.Tools;
 using UnityEngine;
 
-public class RevertTrigger : MonoBehaviour
+namespace Project.Gameplay.ItemManagement.Triggers
 {
-    // Start is called before the first frame update
-    public static void Revert()
+    public class RevertTrigger : MonoBehaviour
     {
-        MMGameEvent.Trigger("Revert");
+        // Start is called before the first frame update
+        public static void Revert()
+        {
+            MMGameEvent.Trigger("Revert");
+        }
     }
 }

@@ -52,8 +52,12 @@ namespace Project.Gameplay.ItemManagement
             if (_altCharacterHandleWeapon == null)
                 _altCharacterHandleWeapon = FindObjectOfType<AltCharacterHandleWeapon>();
 
+            Debug.Log("Weapon: " + _altCharacterHandleWeapon.CurrentWeapon);
+
             // Save Equipment
-            _savedWeaponState = SaveWeaponState(_altCharacterHandleWeapon.CurrentWeapon);
+            _savedWeaponState = SaveWeaponState(_altCharacterHandleWeapon.CurrentWeapon as UnivWeapon);
+
+            Debug.Log("Weapon save: " + _savedWeaponState);
 
 
             Debug.Log("Inventories saved.");
