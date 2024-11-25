@@ -2,7 +2,6 @@ using MoreMountains.InventoryEngine;
 using MoreMountains.Tools;
 using MoreMountains.TopDownEngine;
 using Project.Gameplay.Combat.Shields;
-using Project.Gameplay.Combat.Tools;
 using Project.Gameplay.Combat.Weapons;
 using UnityEngine;
 
@@ -10,21 +9,17 @@ namespace Project.Gameplay.ItemManagement
 {
     public class InventoryPersistenceManager : MonoBehaviour, MMEventListener<MMGameEvent>
     {
-        [SerializeField] Inventory mainInventory; // Assign your Main Inventory here
-
+        [Header("Inventories")] [SerializeField]
+        Inventory mainInventory; // Assign your Main Inventory here
         [SerializeField] Inventory equipmentInventory; // Assign your Equipment Inventory here
+
+        [Header("Equipment")] [SerializeField] Shield _savedShieldState;
+        [SerializeField] GameObject _savedTorchState;
+        [SerializeField] Weapon _savedWeaponState;
+
+        [SerializeField] AltCharacterHandleWeapon _altCharacterHandleWeapon;
         InventoryItem[] _equipmentInventorySavedState;
-
         InventoryItem[] _mainInventorySavedState;
-        Shield _savedShieldState;
-        GameObject _savedTorchState;
-
-        // New fields to track handler states
-        Weapon _savedWeaponState;
-        CharacterHandleShield _shieldHandler;
-
-        CharacterHandleTorch _torchHandler;
-        AltCharacterHandleWeapon _weaponHandler;
 
 
         void OnEnable()
@@ -54,24 +49,20 @@ namespace Project.Gameplay.ItemManagement
             // Save Equipment Inventory
             _equipmentInventorySavedState = SaveInventoryState(equipmentInventory);
 
-            if (_shieldHandler == null) _shieldHandler = FindObjectOfType<CharacterHandleShield>();
-            if (_torchHandler == null) _torchHandler = FindObjectOfType<CharacterHandleTorch>();
-            if (_weaponHandler == null) _weaponHandler = FindObjectOfType<AltCharacterHandleWeapon>();
+            if (_altCharacterHandleWeapon == null)
+                _altCharacterHandleWeapon = FindObjectOfType<AltCharacterHandleWeapon>();
 
-            // Save equipped items from handlers
-            _savedShieldState = _shieldHandler?.CurrentShield;
-            _savedTorchState = _torchHandler?.currentTorch;
+            // Save Equipment
+            _savedWeaponState = SaveWeaponState(_altCharacterHandleWeapon.CurrentWeapon);
 
-
-            _savedWeaponState = _weaponHandler?.CurrentWeapon;
-
-            if (_savedWeaponState != null)
-                // Equip the weapon to the player
-                _weaponHandler.ChangeWeapon(_savedWeaponState, _savedWeaponState.WeaponID);
-
-            Debug.Log("Weapon during save inv: " + _savedWeaponState);
 
             Debug.Log("Inventories saved.");
+        }
+
+        Weapon SaveWeaponState(UnivWeapon weapon)
+        {
+            if (weapon == null) return null;
+            return weapon.Copy();
         }
 
         void RevertInventoriesToLastSave()
@@ -82,18 +73,6 @@ namespace Project.Gameplay.ItemManagement
             // Revert Equipment Inventory
             if (_equipmentInventorySavedState != null)
                 RevertInventoryState(equipmentInventory, _equipmentInventorySavedState);
-
-            if (_shieldHandler == null) _shieldHandler = FindObjectOfType<CharacterHandleShield>();
-            if (_torchHandler == null) _torchHandler = FindObjectOfType<CharacterHandleTorch>();
-            if (_weaponHandler == null) _weaponHandler = FindObjectOfType<AltCharacterHandleWeapon>();
-
-            Debug.Log("Inventories reverted to last saved state.");
-
-            _shieldHandler.CurrentShield = _savedShieldState;
-            _torchHandler.currentTorch = _savedTorchState;
-            _weaponHandler.CurrentWeapon = _savedWeaponState;
-            Debug.Log("Weapon handler:" + _weaponHandler);
-            Debug.Log("Weapon current:" + _weaponHandler.CurrentWeapon);
         }
 
         InventoryItem[] SaveInventoryState(Inventory inventory)
