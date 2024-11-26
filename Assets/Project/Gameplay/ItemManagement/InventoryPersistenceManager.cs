@@ -2,6 +2,7 @@ using MoreMountains.InventoryEngine;
 using MoreMountains.Tools;
 using MoreMountains.TopDownEngine;
 using Project.Gameplay.Combat.Shields;
+using Project.Gameplay.Combat.Tools;
 using Project.Gameplay.Combat.Weapons;
 using UnityEngine;
 
@@ -13,11 +14,11 @@ namespace Project.Gameplay.ItemManagement
         Inventory mainInventory; // Assign your Main Inventory here
         [SerializeField] Inventory equipmentInventory; // Assign your Equipment Inventory here
 
-        [Header("Equipment")] [SerializeField] Shield _savedShieldState;
-        [SerializeField] GameObject _savedTorchState;
-        [SerializeField] Weapon _savedWeaponState;
 
         [SerializeField] AltCharacterHandleWeapon _altCharacterHandleWeapon;
+        [SerializeField] CharacterHandleShield _characterHandleShield;
+        [SerializeField] CharacterHandleTorch _characterHandleTorch;
+
         InventoryItem[] _equipmentInventorySavedState;
         InventoryItem[] _mainInventorySavedState;
 
@@ -49,15 +50,7 @@ namespace Project.Gameplay.ItemManagement
             // Save Equipment Inventory
             _equipmentInventorySavedState = SaveInventoryState(equipmentInventory);
 
-            if (_altCharacterHandleWeapon == null)
-                _altCharacterHandleWeapon = FindObjectOfType<AltCharacterHandleWeapon>();
-
-            Debug.Log("Weapon: " + _altCharacterHandleWeapon.CurrentWeapon);
-
-            // Save Equipment
-            _savedWeaponState = SaveWeaponState(_altCharacterHandleWeapon.CurrentWeapon as UnivWeapon);
-
-            Debug.Log("Weapon save: " + _savedWeaponState);
+            ReEquipItemsInEquipmentInventory();
 
 
             Debug.Log("Inventories saved.");
@@ -76,7 +69,12 @@ namespace Project.Gameplay.ItemManagement
 
             // Revert Equipment Inventory
             if (_equipmentInventorySavedState != null)
+            {
                 RevertInventoryState(equipmentInventory, _equipmentInventorySavedState);
+
+                // For each item in the equipment inventory, equip it
+                ReEquipItemsInEquipmentInventory();
+            }
         }
 
         InventoryItem[] SaveInventoryState(Inventory inventory)
@@ -89,6 +87,34 @@ namespace Project.Gameplay.ItemManagement
             Debug.Log("Inventory state saved.");
 
             return savedState;
+        }
+
+        void ReEquipItemsInEquipmentInventory()
+        {
+            if (_altCharacterHandleWeapon == null || _characterHandleShield == null || _characterHandleTorch == null)
+            {
+                _altCharacterHandleWeapon = FindObjectOfType<AltCharacterHandleWeapon>();
+                _characterHandleShield = FindObjectOfType<CharacterHandleShield>();
+                _characterHandleTorch = FindObjectOfType<CharacterHandleTorch>();
+            }
+
+            if (_altCharacterHandleWeapon == null || _characterHandleShield == null || _characterHandleTorch == null)
+            {
+                Debug.LogError("CharacterHandle components not found. Cannot re-equip items in equipment inventory.");
+                return;
+            }
+
+            Debug.Log("Re-equipping items in equipment inventory...");
+            for (var i = 0; i < equipmentInventory.Content.Length; i++)
+            {
+                if (equipmentInventory.Content[i] == null) continue;
+                if (equipmentInventory.Content[i] is InventoryWeapon weapon)
+                    _altCharacterHandleWeapon.ChangeWeapon(weapon.EquippableWeapon, weapon.ItemID);
+                else if (equipmentInventory.Content[i] is InventoryShieldItem shield)
+                    _characterHandleShield.EquipShield(shield.ShieldPrefab);
+                else if (equipmentInventory.Content[i] is TorchItem torch)
+                    _characterHandleTorch.EquipTorch(torch.TorchPrefab);
+            }
         }
 
 
