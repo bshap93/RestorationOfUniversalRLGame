@@ -22,6 +22,7 @@ namespace Project.Gameplay.Player.Health
             ShieldProtectionArea.OnShieldEquipped -= AssignShield;
         }
 
+        
         public override void Damage(float damage, GameObject instigator, float flickerDuration,
             float invincibilityDuration, Vector3 damageDirection, List<TypedDamage> typedDamages = null)
         {

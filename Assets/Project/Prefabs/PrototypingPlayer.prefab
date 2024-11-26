@@ -863,6 +863,37 @@ Transform:
   - {fileID: 926699070491889522}
   m_Father: {fileID: 3358642396533715875}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2952896119123541301
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4568006973812082559}
+  m_Layer: 10
+  m_Name: PlayerHealth
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4568006973812082559
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2952896119123541301}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 145866661030460284}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3006248282301735021
 GameObject:
   m_ObjectHideFlags: 0
@@ -7284,6 +7315,7 @@ GameObject:
   - component: {fileID: 3730508844039164129}
   - component: {fileID: 972333610728565172}
   - component: {fileID: 962769219621710381}
+  - component: {fileID: 8367561029511908223}
   m_Layer: 10
   m_Name: PrototypingPlayer
   m_TagString: Player
@@ -7306,6 +7338,7 @@ Transform:
   m_Children:
   - {fileID: 8639264317532475337}
   - {fileID: 1571460652576475118}
+  - {fileID: 4568006973812082559}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2891477120561290126
@@ -7791,7 +7824,7 @@ MonoBehaviour:
   moveSpeedMult: 0
   attackPower: 0
   damageMult: 0
-  overrideAutoHealth: 1
+  overrideAutoHealth: 0
   strength: 0
   agility: 0
   endurance: 0
@@ -7799,7 +7832,7 @@ MonoBehaviour:
   intuition: 0
   playerClass: 
   chosenTraits: []
-  Health: 200
+  Health: 150
 --- !u!114 &8058876779074257797
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7983,8 +8016,8 @@ MonoBehaviour:
   HideBarAtZero: 1
   HideBarAtZeroDelay: 1
   TestMinHealth: 0
-  TestMaxHealth: 100
-  TestCurrentHealth: 25
+  TestMaxHealth: 40
+  TestCurrentHealth: 0
   TestUpdateHealthButton: 0
 --- !u!114 &3122707553842577923
 MonoBehaviour:
@@ -8024,9 +8057,9 @@ MonoBehaviour:
   Model: {fileID: 0}
   CurrentHealth: 0
   Invulnerable: 0
-  InitialHealth: 200
-  MaximumHealth: 200
-  ResetHealthOnEnable: 0
+  InitialHealth: 40
+  MaximumHealth: 40
+  ResetHealthOnEnable: 1
   ImmuneToDamage: 0
   DamageMMFeedbacks: {fileID: 3664632713051404768}
   FeedbackIsProportionalToDamage: 0
@@ -8038,7 +8071,7 @@ MonoBehaviour:
   DelayBeforeDestruction: 0
   PointsWhenDestroyed: 0
   RespawnAtInitialLocation: 0
-  DisableControllerOnDeath: 1
+  DisableControllerOnDeath: 0
   DisableModelOnDeath: 0
   DisableCollisionsOnDeath: 0
   DisableChildCollisionsOnDeath: 0
@@ -8200,6 +8233,18 @@ MonoBehaviour:
     Attachment: {fileID: 7915113437398518031}
   weaponAttachment: {fileID: 0}
   WeaponIK: {fileID: 8739110422865151715}
+--- !u!114 &8367561029511908223
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4194478886614523176}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9a92fd65ddd3634da826f51aa0abc9f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4210891894166820022
 GameObject:
   m_ObjectHideFlags: 0
