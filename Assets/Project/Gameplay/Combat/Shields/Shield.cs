@@ -5,6 +5,7 @@ using UnityEngine;
 
 namespace Project.Gameplay.Combat.Shields
 {
+    [Serializable]
     public class Shield : MonoBehaviour
     {
         public enum ShieldStates

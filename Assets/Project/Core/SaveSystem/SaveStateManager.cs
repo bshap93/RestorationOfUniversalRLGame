@@ -1,21 +1,41 @@
+using MoreMountains.Tools;
+using TopDownEngine.Common.Scripts.Spawn;
 using UnityEngine;
 
-public class SaveStateManager : MonoBehaviour
+namespace Project.Core.SaveSystem
 {
-    public static SaveStateManager Instance;
-
-    [Tooltip("Is a valid save loaded?")] public bool IsSaveLoaded;
-
-    void Awake()
+    public class SaveStateManager : MonoBehaviour, MMEventListener<CheckPointEvent>
     {
-        if (Instance == null)
+        public static SaveStateManager Instance;
+        [Tooltip("Is a valid save loaded?")] public bool IsSaveLoaded;
+
+
+        void Awake()
         {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
+            if (Instance == null)
+            {
+                Instance = this;
+                DontDestroyOnLoad(gameObject);
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
         }
-        else
+
+        void OnEnable()
         {
-            Destroy(gameObject);
+            this.MMEventStartListening();
+        }
+
+        void OnDisable()
+        {
+            this.MMEventStopListening();
+        }
+
+        public void OnMMEvent(CheckPointEvent checkPointEvent)
+        {
+            Debug.Log("SaveStateManager: Checkpoint reached.");
         }
     }
 }

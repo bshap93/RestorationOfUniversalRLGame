@@ -1,10 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using MoreMountains.TopDownEngine;
 using Project.Gameplay.Combat.Shields;
 using UnityEngine;
 
 namespace Project.Gameplay.Player.Health
 {
+    [Serializable]
     public class HealthAlt : MoreMountains.TopDownEngine.Health
     {
         GameObject _shield;
@@ -22,7 +24,7 @@ namespace Project.Gameplay.Player.Health
             ShieldProtectionArea.OnShieldEquipped -= AssignShield;
         }
 
-        
+
         public override void Damage(float damage, GameObject instigator, float flickerDuration,
             float invincibilityDuration, Vector3 damageDirection, List<TypedDamage> typedDamages = null)
         {
@@ -46,6 +48,10 @@ namespace Project.Gameplay.Player.Health
             _shield = shield.gameObject;
             _shieldComponent = _shield.GetComponent<Shield>();
             Debug.Log("Shield assigned to ShieldedHealth.");
+        }
+        public void SetMaximumHealth(float savedMaxHealth)
+        {
+            MaximumHealth = savedMaxHealth;
         }
     }
 }

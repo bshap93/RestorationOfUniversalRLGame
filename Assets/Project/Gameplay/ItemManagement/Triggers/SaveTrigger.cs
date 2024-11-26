@@ -8,7 +8,7 @@ namespace Project.Gameplay.ItemManagement.Triggers
         public static void Save()
         {
             MMGameEvent.Trigger("SaveInventory");
+            MMGameEvent.Trigger("SaveResources");
         }
-        
     }
 }

@@ -56,12 +56,6 @@ namespace Project.Gameplay.ItemManagement
             Debug.Log("Inventories saved.");
         }
 
-        Weapon SaveWeaponState(UnivWeapon weapon)
-        {
-            if (weapon == null) return null;
-            return weapon.Copy();
-        }
-
         void RevertInventoriesToLastSave()
         {
             // Revert Main Inventory

@@ -3,6 +3,7 @@ using UnityEngine;
 
 namespace Project.Gameplay.Combat.Shields
 {
+    [Serializable]
     public class ShieldProtectionArea : MonoBehaviour
     {
         [Tooltip("The angle within which the shield blocks damage")]
