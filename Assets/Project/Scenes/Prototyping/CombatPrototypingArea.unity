@@ -5440,51 +5440,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6576596358431855892, guid: 93d6accce51944748bc55c39edd37f63,
-        type: 3}
-      propertyPath: States.Array.data[2].Actions.array.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 6576596358431855892, guid: 93d6accce51944748bc55c39edd37f63,
-        type: 3}
-      propertyPath: States.Array.data[2].Transitions.array.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 6576596358431855892, guid: 93d6accce51944748bc55c39edd37f63,
-        type: 3}
-      propertyPath: States.Array.data[2].Transitions.array.Array.data[1].Decision
-      value: 
-      objectReference: {fileID: 1145468552}
-    - target: {fileID: 6576596358431855892, guid: 93d6accce51944748bc55c39edd37f63,
-        type: 3}
-      propertyPath: States.Array.data[2].Transitions.array.Array.data[2].Decision
-      value: 
-      objectReference: {fileID: 1145468527}
-    - target: {fileID: 6576596358431855892, guid: 93d6accce51944748bc55c39edd37f63,
-        type: 3}
-      propertyPath: States.Array.data[2].Transitions.array.Array.data[1].TrueState
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 6576596358431855892, guid: 93d6accce51944748bc55c39edd37f63,
-        type: 3}
-      propertyPath: States.Array.data[2].Transitions.array.Array.data[2].TrueState
-      value: Dead
-      objectReference: {fileID: 0}
-    - target: {fileID: 6576596358431855892, guid: 93d6accce51944748bc55c39edd37f63,
-        type: 3}
-      propertyPath: States.Array.data[2].Transitions.array.Array.data[2].FalseState
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 8425482677026497669, guid: 93d6accce51944748bc55c39edd37f63,
-        type: 3}
-      propertyPath: Label
-      value: Is2Paces
-      objectReference: {fileID: 0}
-    - target: {fileID: 8425482677026497669, guid: 93d6accce51944748bc55c39edd37f63,
-        type: 3}
-      propertyPath: Distance
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 8630113383585973405, guid: 93d6accce51944748bc55c39edd37f63,
         type: 3}
       propertyPath: m_Name
@@ -5493,11 +5448,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 8630113383585973405, guid: 93d6accce51944748bc55c39edd37f63,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1145468552}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 93d6accce51944748bc55c39edd37f63, type: 3}
 --- !u!4 &794599633 stripped
 Transform:
@@ -8149,39 +8100,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1129522302}
   m_CullTransparentMesh: 0
---- !u!1 &1145468513 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8630113383585973405, guid: 93d6accce51944748bc55c39edd37f63,
-    type: 3}
-  m_PrefabInstance: {fileID: 794599632}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1145468527 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6492603793464822548, guid: 93d6accce51944748bc55c39edd37f63,
-    type: 3}
-  m_PrefabInstance: {fileID: 794599632}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1145468513}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5368d2e2e3d277e4da4498e2dc72d17f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1145468552
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1145468513}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 206825d6db9c84741810b9da915cfb9c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Label: Is2_5Pace
-  ComparisonMode: 1
-  Distance: 2.5
 --- !u!4 &1178350787 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2171114107813125637, guid: c7738066a36ffd647a07d498bfc3fd8a,
