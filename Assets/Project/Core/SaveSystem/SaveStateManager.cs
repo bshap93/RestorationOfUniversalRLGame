@@ -36,6 +36,7 @@ namespace Project.Core.SaveSystem
         public void OnMMEvent(CheckPointEvent checkPointEvent)
         {
             Debug.Log("SaveStateManager: Checkpoint reached.");
+            MMGameEvent.Trigger("RevertResources");
         }
     }
 }

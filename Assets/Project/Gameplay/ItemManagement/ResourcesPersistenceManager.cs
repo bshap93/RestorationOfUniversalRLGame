@@ -7,8 +7,8 @@ namespace Project.Gameplay.ItemManagement
 {
     public class ResourcesPersistenceManager : MonoBehaviour, MMEventListener<MMGameEvent>
     {
-        const string HealthFileName = "PlayerHealth";
-        const string MaxHealthFileName = "PlayerMaxHealth";
+        const string HealthFileName = "PlayerHealth.save";
+        const string MaxHealthFileName = "PlayerMaxHealth.save";
 
         const string SaveFolderName = "Player";
         [FormerlySerializedAs("_playerHealth")] [Header("Health")] [SerializeField]
@@ -84,11 +84,11 @@ namespace Project.Gameplay.ItemManagement
             }
 
             // Load current health
-            var loadedHealth = MMSaveLoadManager.Load(typeof(float), "PlayerHealth.save", "PlayerData");
+            var loadedHealth = MMSaveLoadManager.Load(typeof(float), HealthFileName, SaveFolderName);
             var savedHealth = loadedHealth != null ? (float)loadedHealth : playerHealth.MaximumHealth;
 
             // Load maximum health
-            var loadedMaxHealth = MMSaveLoadManager.Load(typeof(float), "PlayerMaxHealth.save", "PlayerData");
+            var loadedMaxHealth = MMSaveLoadManager.Load(typeof(float), MaxHealthFileName, SaveFolderName);
             var savedMaxHealth = loadedMaxHealth != null ? (float)loadedMaxHealth : playerHealth.MaximumHealth;
 
             // Apply loaded health values
