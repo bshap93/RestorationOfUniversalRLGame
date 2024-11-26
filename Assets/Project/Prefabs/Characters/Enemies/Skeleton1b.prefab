@@ -18452,6 +18452,7 @@ GameObject:
   - component: {fileID: 846782495798838712}
   - component: {fileID: 4465640160700182719}
   - component: {fileID: 8721650923252333522}
+  - component: {fileID: 4822260521804366692}
   - component: {fileID: 6576596358431855892}
   - component: {fileID: 1592970657915755346}
   - component: {fileID: 1906030084815719412}
@@ -18477,13 +18478,16 @@ GameObject:
   - component: {fileID: 3406198506542537422}
   - component: {fileID: 1514604955836793774}
   - component: {fileID: 4146308831145357692}
-  - component: {fileID: 480643612463687529}
   - component: {fileID: 5569737335014806179}
   - component: {fileID: 1071806877139256525}
   - component: {fileID: -3210329729932564686}
   - component: {fileID: 7002994996758455815}
   - component: {fileID: 485355744322854463}
   - component: {fileID: 701135277692826362}
+  - component: {fileID: 3339418587617012437}
+  - component: {fileID: 2843384048577219824}
+  - component: {fileID: 4318084904813282589}
+  - component: {fileID: 69883790858204324}
   m_Layer: 3
   m_Name: Skeleton1b
   m_TagString: Enemy
@@ -18590,6 +18594,40 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &4822260521804366692
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8630113383585973405}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 443ebf149b5f47147a1076bea95f5134, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AbilityStartSfx: {fileID: 0}
+  AbilityInProgressSfx: {fileID: 0}
+  AbilityStopSfx: {fileID: 0}
+  AbilityStartFeedbacks: {fileID: 0}
+  AbilityStopFeedbacks: {fileID: 0}
+  AbilityPermitted: 1
+  BlockingMovementStates: 
+  BlockingConditionStates: 
+  BlockingWeaponStates: 
+  Target: {fileID: 0}
+  AreaMask: -1
+  DistanceToWaypointThreshold: 1
+  ClosestPointThreshold: 3
+  MinimumDelayBeforePollingNavmesh: 0.1
+  PathRefreshMode: 0
+  RefreshSpeedThreshold: 1
+  RefreshInterval: 2
+  DebugDrawPath: 0
+  Waypoints: []
+  NextWaypointIndex: 0
+  NextWaypointDirection: {x: 0, y: 0, z: 0}
+  DistanceToNextWaypoint: 0
 --- !u!114 &6576596358431855892
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18622,19 +18660,19 @@ MonoBehaviour:
   - StateName: Moving
     Actions:
       array:
-      - {fileID: 480643612463687529}
+      - {fileID: 3339418587617012437}
       - {fileID: 5569737335014806179}
     Transitions:
       array:
       - Decision: {fileID: 1592970657915755346}
         TrueState: 
-        FalseState: Detecting
+        FalseState: BackToPatrol
       - Decision: {fileID: 701135277692826362}
         TrueState: Attacking
         FalseState: 
       - Decision: {fileID: 485355744322854463}
         TrueState: 
-        FalseState: Detecting
+        FalseState: BackToPatrol
   - StateName: Attacking
     Actions:
       array:
@@ -18644,7 +18682,7 @@ MonoBehaviour:
       array:
       - Decision: {fileID: 485355744322854463}
         TrueState: 
-        FalseState: Detecting
+        FalseState: BackToPatrol
       - Decision: {fileID: 701135277692826362}
         TrueState: 
         FalseState: Moving
@@ -18657,6 +18695,15 @@ MonoBehaviour:
       - {fileID: 8391969685599743200}
     Transitions:
       array: []
+  - StateName: BackToPatrol
+    Actions:
+      array:
+      - {fileID: 2843384048577219824}
+    Transitions:
+      array:
+      - Decision: {fileID: 69883790858204324}
+        TrueState: Detecting
+        FalseState: 
   TimeInThisState: 0
   Target: {fileID: 0}
   _lastKnownTargetPosition: {x: 0, y: 0, z: 0}
@@ -19398,13 +19445,13 @@ MonoBehaviour:
   LoopInitialMovementDirection: 0
   PathElements:
   - PathElementPosition: {x: -0.010377884, y: 0.050000012, z: 0.007183075}
-    Delay: 0
+    Delay: 1
   - PathElementPosition: {x: -11.870886, y: 0.05, z: 0.7889137}
-    Delay: 0
-  - PathElementPosition: {x: 1.0335833, y: 0.050000012, z: -4.530796}
+    Delay: 1
+  - PathElementPosition: {x: 1.0407878, y: 0.050000012, z: -4.5203743}
     Delay: 3
   - PathElementPosition: {x: -10.891991, y: 0.050000012, z: -4.964138}
-    Delay: 0
+    Delay: 1
   ReferenceMMPath: {fileID: 0}
   AbsoluteReferencePath: 0
   MinDistanceToGoal: 0.5
@@ -19484,21 +19531,6 @@ MonoBehaviour:
   InitializationMode: 0
   Label: MoveWhileAttacking
   MinimumDistance: 0.55
---- !u!114 &480643612463687529
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8630113383585973405}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 97230edd623230e4ea486ef91a6d23e1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  InitializationMode: 0
-  Label: MoveMoving
-  MinimumDistance: 3
 --- !u!114 &5569737335014806179
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19602,6 +19634,63 @@ MonoBehaviour:
   Label: Is2_5Pace
   ComparisonMode: 1
   Distance: 2.5
+--- !u!114 &3339418587617012437
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8630113383585973405}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3320c9b468b2c8a4692e20ae1e813732, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  InitializationMode: 0
+  Label: PathfindToTarget
+  MinimumDelayBeforeUpdatingTarget: 0.3
+--- !u!114 &2843384048577219824
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8630113383585973405}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6383fad85525624bb743f73fa0668c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  InitializationMode: 0
+  Label: PathfindPatrol
+--- !u!114 &4318084904813282589
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8630113383585973405}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99dba042064644648b3f650bca3e7db5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Label: 
+--- !u!114 &69883790858204324
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8630113383585973405}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 206825d6db9c84741810b9da915cfb9c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Label: IsBackAtPatrol
+  ComparisonMode: 1
+  Distance: 3
 --- !u!1 &8698070050492997390
 GameObject:
   m_ObjectHideFlags: 0
