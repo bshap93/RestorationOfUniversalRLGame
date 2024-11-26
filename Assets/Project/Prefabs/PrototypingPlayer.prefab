@@ -7307,15 +7307,15 @@ GameObject:
   - component: {fileID: 436030599449463590}
   - component: {fileID: 3927299879870572010}
   - component: {fileID: 2190125629540307051}
-  - component: {fileID: 8058876779074257797}
   - component: {fileID: 3122707553842577923}
-  - component: {fileID: 4473471485751944869}
   - component: {fileID: 9078600043551628577}
   - component: {fileID: 7845501128029657194}
   - component: {fileID: 3730508844039164129}
   - component: {fileID: 972333610728565172}
   - component: {fileID: 962769219621710381}
-  - component: {fileID: 8367561029511908223}
+  - component: {fileID: 5831126372535588822}
+  - component: {fileID: 4447566021230676104}
+  - component: {fileID: 7797245315524161999}
   m_Layer: 10
   m_Name: PrototypingPlayer
   m_TagString: Player
@@ -7373,7 +7373,7 @@ MonoBehaviour:
   RunAnimatorSanityChecks: 1
   DisableAnimatorLogs: 1
   CharacterModel: {fileID: 2679787714724300331}
-  CharacterHealth: {fileID: 4473471485751944869}
+  CharacterHealth: {fileID: 0}
   SendStateChangeEvents: 1
   AdditionalAbilityNodes: []
   CharacterBrain: {fileID: 0}
@@ -7833,7 +7833,221 @@ MonoBehaviour:
   playerClass: 
   chosenTraits: []
   Health: 150
---- !u!114 &8058876779074257797
+--- !u!114 &3122707553842577923
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4194478886614523176}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a87ffdd7d8febb24b817b1d3d350bef7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AbilityStartSfx: {fileID: 0}
+  AbilityInProgressSfx: {fileID: 0}
+  AbilityStopSfx: {fileID: 0}
+  AbilityStartFeedbacks: {fileID: 7877526737149747986}
+  AbilityStopFeedbacks: {fileID: 0}
+  AbilityPermitted: 1
+  BlockingMovementStates: 
+  BlockingConditionStates: 
+  BlockingWeaponStates: 
+  PreventJumpInButtonActivatedZone: 1
+  ButtonActivatedZone: {fileID: 0}
+--- !u!114 &9078600043551628577
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4194478886614523176}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a6f32aaa00064e488ee9421aeb0d5f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AutoFillDamageResistanceList: 1
+  IgnoreDisabledResistances: 1
+  IgnoreUnknownDamageTypes: 0
+  DamageResistanceList:
+  - {fileID: 557013825266843806}
+--- !u!114 &7845501128029657194
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4194478886614523176}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc32baaa111c4a8f8d88a0f9089b7f90, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Kinema: {fileID: 5042032949878203872}
+  Favour: {fileID: 5473879459364201077}
+  characterClass: 0
+--- !u!114 &3730508844039164129
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4194478886614523176}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ddb2240e4e7ca8241b20d1b75999e209, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AbilityStartSfx: {fileID: 0}
+  AbilityInProgressSfx: {fileID: 0}
+  AbilityStopSfx: {fileID: 0}
+  AbilityStartFeedbacks: {fileID: 0}
+  AbilityStopFeedbacks: {fileID: 0}
+  AbilityPermitted: 1
+  BlockingMovementStates: 
+  BlockingConditionStates: 
+  BlockingWeaponStates: 
+  InitialTorch: {fileID: 0}
+  TorchAttachment: {fileID: 4547365059969702342}
+  AutomaticallyBindAnimator: 1
+  TorchBurnTime: 60
+  TorchLitFeedback: {fileID: 0}
+  TorchExtinguishedFeedback: {fileID: 0}
+  TorchBurnOutFeedback: {fileID: 0}
+  currentTorch: {fileID: 0}
+--- !u!114 &972333610728565172
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4194478886614523176}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e8bb77d39584108949ac745be9601dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AbilityStartSfx: {fileID: 0}
+  AbilityInProgressSfx: {fileID: 0}
+  AbilityStopSfx: {fileID: 0}
+  AbilityStartFeedbacks: {fileID: 0}
+  AbilityStopFeedbacks: {fileID: 0}
+  AbilityPermitted: 1
+  BlockingMovementStates: 
+  BlockingConditionStates: 
+  BlockingWeaponStates: 
+  InitialShield: {fileID: 7086176435164650944, guid: 0b13b46a6ef0a594a9f8a43ce125deb6,
+    type: 3}
+  ShieldAttachment: {fileID: 4547365059969702342}
+  AutomaticallyBindAnimator: 1
+  HandleShieldID: 1
+  InputAuthorized: 1
+  ContinuousPress: 1
+  CharacterAnimator: {fileID: 2202077426921942116}
+  shieldActive: 0
+--- !u!114 &962769219621710381
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4194478886614523176}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22606ad8f7b9a3d4c95d4708f29b49ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AbilityStartSfx: {fileID: 0}
+  AbilityInProgressSfx: {fileID: 0}
+  AbilityStopSfx: {fileID: 0}
+  AbilityStartFeedbacks: {fileID: 0}
+  AbilityStopFeedbacks: {fileID: 0}
+  AbilityPermitted: 1
+  BlockingMovementStates: 
+  BlockingConditionStates: 
+  BlockingWeaponStates: 
+  InitialWeapon: {fileID: 8159000169692753781, guid: 904bd19c73093da479ce55c8e23f91c5,
+    type: 3}
+  CanPickupWeapons: 1
+  WeaponUseFeedback: {fileID: 0}
+  WeaponAttachment: {fileID: 0}
+  ProjectileSpawn: {fileID: 0}
+  AutomaticallyBindAnimator: 1
+  AmmoDisplayID: 0
+  AutoIK: 1
+  ContinuousPress: 0
+  GettingHitInterruptsAttack: 0
+  UseSecondaryAxisThresholdToShoot: 0
+  ForceWeaponAimControl: 0
+  ForcedWeaponAimControl: 1
+  ForceAlwaysShoot: 0
+  BufferInput: 0
+  NewInputExtendsBuffer: 0
+  MaximumBufferDuration: 0.25
+  RequiresPerfectTile: 0
+  CurrentWeapon: {fileID: 0}
+  WeaponAttachmentType: 0
+  AttachmentPointList:
+  - Type: 0
+    Attachment: {fileID: 7005164097417099851}
+  - Type: 1
+    Attachment: {fileID: 7005164097417099851}
+  - Type: 2
+    Attachment: {fileID: 7005164097417099851}
+  - Type: 3
+    Attachment: {fileID: 7005164097417099851}
+  - Type: 4
+    Attachment: {fileID: 7915113437398518031}
+  weaponAttachment: {fileID: 0}
+  WeaponIK: {fileID: 8739110422865151715}
+--- !u!114 &5831126372535588822
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4194478886614523176}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3cc980f5ea7692419e201c28d3ae49c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Model: {fileID: 0}
+  CurrentHealth: 0
+  Invulnerable: 0
+  InitialHealth: 40
+  MaximumHealth: 40
+  ResetHealthOnEnable: 1
+  ImmuneToDamage: 0
+  DamageMMFeedbacks: {fileID: 3664632713051404768}
+  FeedbackIsProportionalToDamage: 0
+  PreventTakeSelfDamage: 0
+  ImmuneToKnockback: 0
+  ImmuneToKnockbackIfZeroDamage: 0
+  KnockbackForceMultiplier: 1
+  DestroyOnDeath: 0
+  DelayBeforeDestruction: 0
+  PointsWhenDestroyed: 0
+  RespawnAtInitialLocation: 0
+  DisableControllerOnDeath: 0
+  DisableModelOnDeath: 0
+  DisableCollisionsOnDeath: 0
+  DisableChildCollisionsOnDeath: 0
+  ChangeLayerOnDeath: 1
+  ChangeLayersRecursivelyOnDeath: 0
+  LayerOnDeath:
+    _layerIndex: 23
+  DeathMMFeedbacks: {fileID: 2718568940206370742}
+  ResetColorOnRevive: 1
+  ColorMaterialPropertyName: _Color
+  UseMaterialPropertyBlocks: 0
+  MasterHealth: {fileID: 0}
+  TargetDamageResistanceProcessor: {fileID: 0}
+  TargetAnimator: {fileID: 0}
+  DisableAnimatorLogs: 1
+--- !u!114 &4447566021230676104
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8019,221 +8233,7 @@ MonoBehaviour:
   TestMaxHealth: 40
   TestCurrentHealth: 0
   TestUpdateHealthButton: 0
---- !u!114 &3122707553842577923
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4194478886614523176}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a87ffdd7d8febb24b817b1d3d350bef7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  AbilityStartSfx: {fileID: 0}
-  AbilityInProgressSfx: {fileID: 0}
-  AbilityStopSfx: {fileID: 0}
-  AbilityStartFeedbacks: {fileID: 7877526737149747986}
-  AbilityStopFeedbacks: {fileID: 0}
-  AbilityPermitted: 1
-  BlockingMovementStates: 
-  BlockingConditionStates: 
-  BlockingWeaponStates: 
-  PreventJumpInButtonActivatedZone: 1
-  ButtonActivatedZone: {fileID: 0}
---- !u!114 &4473471485751944869
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4194478886614523176}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c3cc980f5ea7692419e201c28d3ae49c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Model: {fileID: 0}
-  CurrentHealth: 0
-  Invulnerable: 0
-  InitialHealth: 40
-  MaximumHealth: 40
-  ResetHealthOnEnable: 1
-  ImmuneToDamage: 0
-  DamageMMFeedbacks: {fileID: 3664632713051404768}
-  FeedbackIsProportionalToDamage: 0
-  PreventTakeSelfDamage: 0
-  ImmuneToKnockback: 0
-  ImmuneToKnockbackIfZeroDamage: 0
-  KnockbackForceMultiplier: 1
-  DestroyOnDeath: 0
-  DelayBeforeDestruction: 0
-  PointsWhenDestroyed: 0
-  RespawnAtInitialLocation: 0
-  DisableControllerOnDeath: 0
-  DisableModelOnDeath: 0
-  DisableCollisionsOnDeath: 0
-  DisableChildCollisionsOnDeath: 0
-  ChangeLayerOnDeath: 1
-  ChangeLayersRecursivelyOnDeath: 0
-  LayerOnDeath:
-    _layerIndex: 23
-  DeathMMFeedbacks: {fileID: 2718568940206370742}
-  ResetColorOnRevive: 1
-  ColorMaterialPropertyName: _Color
-  UseMaterialPropertyBlocks: 0
-  MasterHealth: {fileID: 0}
-  TargetDamageResistanceProcessor: {fileID: 0}
-  TargetAnimator: {fileID: 0}
-  DisableAnimatorLogs: 1
---- !u!114 &9078600043551628577
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4194478886614523176}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0a6f32aaa00064e488ee9421aeb0d5f8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  AutoFillDamageResistanceList: 1
-  IgnoreDisabledResistances: 1
-  IgnoreUnknownDamageTypes: 0
-  DamageResistanceList:
-  - {fileID: 557013825266843806}
---- !u!114 &7845501128029657194
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4194478886614523176}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cc32baaa111c4a8f8d88a0f9089b7f90, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Kinema: {fileID: 5042032949878203872}
-  Favour: {fileID: 5473879459364201077}
-  characterClass: 0
---- !u!114 &3730508844039164129
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4194478886614523176}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ddb2240e4e7ca8241b20d1b75999e209, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  AbilityStartSfx: {fileID: 0}
-  AbilityInProgressSfx: {fileID: 0}
-  AbilityStopSfx: {fileID: 0}
-  AbilityStartFeedbacks: {fileID: 0}
-  AbilityStopFeedbacks: {fileID: 0}
-  AbilityPermitted: 1
-  BlockingMovementStates: 
-  BlockingConditionStates: 
-  BlockingWeaponStates: 
-  InitialTorch: {fileID: 0}
-  TorchAttachment: {fileID: 4547365059969702342}
-  AutomaticallyBindAnimator: 1
-  TorchBurnTime: 60
-  TorchLitFeedback: {fileID: 0}
-  TorchExtinguishedFeedback: {fileID: 0}
-  TorchBurnOutFeedback: {fileID: 0}
-  currentTorch: {fileID: 0}
---- !u!114 &972333610728565172
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4194478886614523176}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5e8bb77d39584108949ac745be9601dd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  AbilityStartSfx: {fileID: 0}
-  AbilityInProgressSfx: {fileID: 0}
-  AbilityStopSfx: {fileID: 0}
-  AbilityStartFeedbacks: {fileID: 0}
-  AbilityStopFeedbacks: {fileID: 0}
-  AbilityPermitted: 1
-  BlockingMovementStates: 
-  BlockingConditionStates: 
-  BlockingWeaponStates: 
-  InitialShield: {fileID: 7086176435164650944, guid: 0b13b46a6ef0a594a9f8a43ce125deb6,
-    type: 3}
-  ShieldAttachment: {fileID: 4547365059969702342}
-  AutomaticallyBindAnimator: 1
-  HandleShieldID: 1
-  InputAuthorized: 1
-  ContinuousPress: 1
-  CharacterAnimator: {fileID: 2202077426921942116}
-  shieldActive: 0
---- !u!114 &962769219621710381
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4194478886614523176}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 22606ad8f7b9a3d4c95d4708f29b49ef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  AbilityStartSfx: {fileID: 0}
-  AbilityInProgressSfx: {fileID: 0}
-  AbilityStopSfx: {fileID: 0}
-  AbilityStartFeedbacks: {fileID: 0}
-  AbilityStopFeedbacks: {fileID: 0}
-  AbilityPermitted: 1
-  BlockingMovementStates: 
-  BlockingConditionStates: 
-  BlockingWeaponStates: 
-  InitialWeapon: {fileID: 8159000169692753781, guid: 904bd19c73093da479ce55c8e23f91c5,
-    type: 3}
-  CanPickupWeapons: 1
-  WeaponUseFeedback: {fileID: 0}
-  WeaponAttachment: {fileID: 0}
-  ProjectileSpawn: {fileID: 0}
-  AutomaticallyBindAnimator: 1
-  AmmoDisplayID: 0
-  AutoIK: 1
-  ContinuousPress: 0
-  GettingHitInterruptsAttack: 0
-  UseSecondaryAxisThresholdToShoot: 0
-  ForceWeaponAimControl: 0
-  ForcedWeaponAimControl: 1
-  ForceAlwaysShoot: 0
-  BufferInput: 0
-  NewInputExtendsBuffer: 0
-  MaximumBufferDuration: 0.25
-  RequiresPerfectTile: 0
-  CurrentWeapon: {fileID: 0}
-  WeaponAttachmentType: 0
-  AttachmentPointList:
-  - Type: 0
-    Attachment: {fileID: 7005164097417099851}
-  - Type: 1
-    Attachment: {fileID: 7005164097417099851}
-  - Type: 2
-    Attachment: {fileID: 7005164097417099851}
-  - Type: 3
-    Attachment: {fileID: 7005164097417099851}
-  - Type: 4
-    Attachment: {fileID: 7915113437398518031}
-  weaponAttachment: {fileID: 0}
-  WeaponIK: {fileID: 8739110422865151715}
---- !u!114 &8367561029511908223
+--- !u!114 &7797245315524161999
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8245,6 +8245,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9a92fd65ddd3634da826f51aa0abc9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerHealth: {fileID: 5831126372535588822}
+  damageAmount: 10
 --- !u!1 &4210891894166820022
 GameObject:
   m_ObjectHideFlags: 0
