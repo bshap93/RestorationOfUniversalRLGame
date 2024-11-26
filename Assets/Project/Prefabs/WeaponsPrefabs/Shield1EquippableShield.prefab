@@ -54,7 +54,7 @@ MonoBehaviour:
   AutoPlayOnEnable: 0
   ForceTimescaleMode: 0
   ForcedTimescaleMode: 1
-  DurationMultiplier: 1
+  DurationMultiplier: 0.1
   TimescaleMultiplier: 1
   RandomizeDuration: 0
   RandomDurationMultiplier: {x: 0.5, y: 1.5}
@@ -164,7 +164,7 @@ MonoBehaviour:
           PlayCount: 0
           LimitPlayCount: 0
           MaxPlayCount: 1
-          SetPlayCountToZeroOnReset: 1
+          SetPlayCountToZeroOnReset: 0
           MMFeedbacksDirectionCondition: 0
           PlayDirection: 0
           ConstantIntensity: 0
@@ -229,8 +229,8 @@ MonoBehaviour:
         PoolSize: 10
         UseLegacyEventsMode: 0
         StopSoundOnFeedbackStop: 1
-        MinVolume: 1
-        MaxVolume: 1
+        MinVolume: 0.037
+        MaxVolume: 0.434
         MinPitch: 1
         MaxPitch: 1
         SfxAudioMixerGroup: {fileID: 0}
@@ -786,9 +786,10 @@ MonoBehaviour:
   MaxShieldHealth: 100
   RecoveryTime: 2
   StaminaConsumption: 10
-  ShieldRaiseFeedback: {fileID: 4020693992533028218}
+  PreventAllMovementWhileInUse: 1
+  ShieldRaiseFeedback: {fileID: 0}
   ShieldLowerFeedback: {fileID: 0}
-  ShieldBlockFeedback: {fileID: 4794434303631735377}
+  ShieldBlockFeedback: {fileID: 0}
   ShieldBreakFeedback: {fileID: 0}
 --- !u!114 &5337622635536975667
 MonoBehaviour:

@@ -25,7 +25,6 @@ namespace Project.Gameplay.Combat.Tools
 
         [FormerlySerializedAs("_currentTorch")]
         public GameObject currentTorch;
-        protected Animator _animator;
         protected float _burnTimer;
         protected bool _torchActive;
 

@@ -31,7 +31,6 @@ namespace Project.Gameplay.Player.Health
                 Debug.Log(
                     $"Shield blocked damage from {instigator.name}, _shieldProtection: {_shieldProtection != null}, _shieldProtection.ISBlocking: {_shieldProtection.IsBlocking(instigator.transform.position)}");
 
-                _shieldComponent.ShieldBlockFeedback?.PlayFeedbacks();
 
                 return; // Exit early if shield blocks damage
             }
