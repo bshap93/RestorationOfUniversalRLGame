@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using MoreMountains.Tools;
+using Project.Core.Graphical.Effects;
 using UnityEngine;
 
 namespace Project.Gameplay.Combat.Weapons
