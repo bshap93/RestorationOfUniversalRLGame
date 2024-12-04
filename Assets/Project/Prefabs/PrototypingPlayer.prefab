@@ -752,6 +752,7 @@ GameObject:
   - component: {fileID: 2202077426921942116}
   - component: {fileID: 5988340008919336060}
   - component: {fileID: 8739110422865151715}
+  - component: {fileID: 5476513741189328}
   m_Layer: 10
   m_Name: Dark-knight_1
   m_TagString: Untagged
@@ -831,6 +832,18 @@ MonoBehaviour:
   AttachLeftHand: 1
   AttachRightHand: 1
   HeadWeights: {x: 0, y: 1}
+--- !u!114 &5476513741189328
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2679787714724300331}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 93c8ce1b01d84ed381836d80f98dcfeb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2935624977991216314
 GameObject:
   m_ObjectHideFlags: 0
@@ -7967,11 +7980,10 @@ MonoBehaviour:
   BlockingMovementStates: 
   BlockingConditionStates: 
   BlockingWeaponStates: 
-  InitialWeapon: {fileID: 5243515455946337366, guid: 13246a4367cfa6648af91c5646264a96,
-    type: 3}
+  InitialWeapon: {fileID: 0}
   CanPickupWeapons: 1
   WeaponUseFeedback: {fileID: 0}
-  WeaponAttachment: {fileID: 7915113437398518031}
+  WeaponAttachment: {fileID: 0}
   ProjectileSpawn: {fileID: 0}
   AutomaticallyBindAnimator: 1
   AmmoDisplayID: 0
@@ -7988,23 +8000,17 @@ MonoBehaviour:
   RequiresPerfectTile: 0
   CurrentWeapon: {fileID: 0}
   WeaponAttachmentType: 0
-  playerAnimator: {fileID: 0}
   AttachmentPointList:
   - Type: 0
     Attachment: {fileID: 7005164097417099851}
-    ShouldAimByDefault: 0
   - Type: 1
     Attachment: {fileID: 7005164097417099851}
-    ShouldAimByDefault: 0
   - Type: 2
     Attachment: {fileID: 7005164097417099851}
-    ShouldAimByDefault: 0
   - Type: 3
     Attachment: {fileID: 7005164097417099851}
-    ShouldAimByDefault: 0
   - Type: 4
     Attachment: {fileID: 7915113437398518031}
-    ShouldAimByDefault: 0
   weaponAttachment: {fileID: 0}
   WeaponIK: {fileID: 8739110422865151715}
 --- !u!114 &5831126372535588822
