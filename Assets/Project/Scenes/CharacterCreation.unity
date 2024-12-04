@@ -340,6 +340,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2893b67619b44fdcbb1b7020554d55bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &29464364 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3335767233824063500, guid: 070fdaf04a2209d49a982198559658b7,
+    type: 3}
+  m_PrefabInstance: {fileID: 29464361}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1364696213}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6da43522623d4704e979466dc7650b65, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &29464365 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1294640041674591503, guid: 070fdaf04a2209d49a982198559658b7,
+    type: 3}
+  m_PrefabInstance: {fileID: 29464361}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 859427652}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6da43522623d4704e979466dc7650b65, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &37900817
 GameObject:
   m_ObjectHideFlags: 0
@@ -968,6 +992,74 @@ CanvasRenderer:
     type: 3}
   m_PrefabInstance: {fileID: 311162890}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &147795858
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 5772382130947384849, guid: ee54288854cabd74c94845af0a2286f7,
+        type: 3}
+      propertyPath: m_Name
+      value: SoundManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 7798870387459028034, guid: ee54288854cabd74c94845af0a2286f7,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -1.7742858
+      objectReference: {fileID: 0}
+    - target: {fileID: 7798870387459028034, guid: ee54288854cabd74c94845af0a2286f7,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 3.336374
+      objectReference: {fileID: 0}
+    - target: {fileID: 7798870387459028034, guid: ee54288854cabd74c94845af0a2286f7,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.3587923
+      objectReference: {fileID: 0}
+    - target: {fileID: 7798870387459028034, guid: ee54288854cabd74c94845af0a2286f7,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7798870387459028034, guid: ee54288854cabd74c94845af0a2286f7,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7798870387459028034, guid: ee54288854cabd74c94845af0a2286f7,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7798870387459028034, guid: ee54288854cabd74c94845af0a2286f7,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7798870387459028034, guid: ee54288854cabd74c94845af0a2286f7,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7798870387459028034, guid: ee54288854cabd74c94845af0a2286f7,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7798870387459028034, guid: ee54288854cabd74c94845af0a2286f7,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: ee54288854cabd74c94845af0a2286f7, type: 3}
 --- !u!1 &154276174
 GameObject:
   m_ObjectHideFlags: 0
@@ -980,6 +1072,7 @@ GameObject:
   - component: {fileID: 154276178}
   - component: {fileID: 154276177}
   - component: {fileID: 154276176}
+  - component: {fileID: 154276179}
   m_Layer: 5
   m_Name: ConfirmationButton
   m_TagString: Untagged
@@ -1050,7 +1143,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 154276177}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 154276179}
+        m_TargetAssemblyTypeName: MoreMountains.Feedbacks.MMF_Player, MoreMountains.Tools
+        m_MethodName: PlayFeedbacks
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &154276177
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1089,6 +1194,238 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 154276174}
   m_CullTransparentMesh: 1
+--- !u!114 &154276179
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 154276174}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6da43522623d4704e979466dc7650b65, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Feedbacks: []
+  InitializationMode: 2
+  AutoInitialization: 1
+  SafeMode: 3
+  Direction: 0
+  AutoChangeDirectionOnEnd: 0
+  AutoPlayOnStart: 0
+  AutoPlayOnEnable: 0
+  ForceTimescaleMode: 0
+  ForcedTimescaleMode: 1
+  DurationMultiplier: 1
+  TimescaleMultiplier: 1
+  RandomizeDuration: 0
+  RandomDurationMultiplier: {x: 0.5, y: 1.5}
+  DisplayFullDurationDetails: 0
+  PlayerTimescaleMode: 1
+  OnlyPlayIfWithinRange: 0
+  RangeCenter: {fileID: 0}
+  RangeDistance: 5
+  UseRangeFalloff: 0
+  RangeFalloff:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  RemapRangeFalloff: {x: 0, y: 1}
+  IgnoreRangeEvents: 0
+  CooldownDuration: 0
+  InitialDelay: 0
+  CanPlay: 1
+  CanPlayWhileAlreadyPlaying: 1
+  ChanceToPlay: 100
+  FeedbacksIntensity: 1
+  Events:
+    TriggerMMFeedbacksEvents: 0
+    TriggerUnityEvents: 1
+    OnPlay:
+      m_PersistentCalls:
+        m_Calls: []
+    OnPause:
+      m_PersistentCalls:
+        m_Calls: []
+    OnResume:
+      m_PersistentCalls:
+        m_Calls: []
+    OnRevert:
+      m_PersistentCalls:
+        m_Calls: []
+    OnComplete:
+      m_PersistentCalls:
+        m_Calls: []
+    OnRestoreInitialValues:
+      m_PersistentCalls:
+        m_Calls: []
+    OnSkipToTheEnd:
+      m_PersistentCalls:
+        m_Calls: []
+    OnInitializationComplete:
+      m_PersistentCalls:
+        m_Calls: []
+    OnEnable:
+      m_PersistentCalls:
+        m_Calls: []
+    OnDisable:
+      m_PersistentCalls:
+        m_Calls: []
+  DebugActive: 0
+  FeedbacksList:
+  - rid: 509909622741794823
+  KeepPlayModeChanges: 0
+  PerformanceMode: 0
+  StopFeedbacksOnDisable: 0
+  PlayCount: 0
+  references:
+    version: 2
+    RefIds:
+    - rid: 509909622741794823
+      type: {class: MMF_Sound, ns: MoreMountains.Feedbacks, asm: MoreMountains.Tools}
+      data:
+        Active: 1
+        UniqueID: -1027187777
+        Label: Sound
+        ChannelMode: 0
+        Channel: 0
+        MMChannelDefinition: {fileID: 0}
+        Chance: 100
+        DisplayColor: {r: 0, g: 0, b: 0, a: 1}
+        Timing:
+          TimescaleMode: 0
+          ExcludeFromHoldingPauses: 0
+          ContributeToTotalDuration: 1
+          InitialDelay: 0
+          CooldownDuration: 0
+          InterruptsOnStop: 1
+          NumberOfRepeats: 0
+          RepeatForever: 0
+          DelayBetweenRepeats: 1
+          PlayCount: 0
+          LimitPlayCount: 0
+          MaxPlayCount: 3
+          SetPlayCountToZeroOnReset: 0
+          MMFeedbacksDirectionCondition: 0
+          PlayDirection: 0
+          ConstantIntensity: 0
+          UseIntensityInterval: 0
+          IntensityIntervalMin: 0
+          IntensityIntervalMax: 0
+          Sequence: {fileID: 0}
+          TrackID: 0
+          Quantized: 0
+          TargetBPM: 120
+        AutomatedTargetAcquisition:
+          Mode: 0
+          ChildIndex: 0
+        RandomizeOutput: 0
+        RandomMultiplier: {x: 0.8, y: 1}
+        RandomizeDuration: 0
+        RandomDurationMultiplier: {x: 0.5, y: 2}
+        UseRange: 0
+        RangeDistance: 5
+        UseRangeFalloff: 0
+        RangeFalloff:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: 0
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 0
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        RemapRangeFalloff: {x: 0, y: 1}
+        AutomaticShakerSetupButton:
+          ButtonText: Automatic Shaker Setup
+        Owner: {fileID: 154276179}
+        DebugActive: 0
+        Sfx: {fileID: 8300000, guid: 83aaa86a8d7fb6e40b2544e02356d6b4, type: 3}
+        RandomSfx: []
+        TestPlayButton:
+          ButtonText: Debug Play Sound
+        TestStopButton:
+          ButtonText: Debug Stop Sound
+        PlayMethod: 0
+        PoolSize: 10
+        UseLegacyEventsMode: 0
+        StopSoundOnFeedbackStop: 1
+        MinVolume: 1
+        MaxVolume: 1
+        MinPitch: 1
+        MaxPitch: 1
+        SfxAudioMixerGroup: {fileID: 0}
+        Priority: 128
+        PanStereo: 0
+        SpatialBlend: 0
+        DopplerLevel: 1
+        Spread: 0
+        RolloffMode: 0
+        MinDistance: 1
+        MaxDistance: 500
+        UseCustomRolloffCurve: 0
+        CustomRolloffCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        UseSpatialBlendCurve: 0
+        SpatialBlendCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        UseReverbZoneMixCurve: 0
+        ReverbZoneMixCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        UseSpreadCurve: 0
+        SpreadCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
 --- !u!1 &169791801 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8177895576556323441, guid: 070fdaf04a2209d49a982198559658b7,
@@ -1607,6 +1944,30 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2893b67619b44fdcbb1b7020554d55bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &311162893 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3335767233824063500, guid: 070fdaf04a2209d49a982198559658b7,
+    type: 3}
+  m_PrefabInstance: {fileID: 311162890}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1348749119}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6da43522623d4704e979466dc7650b65, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &311162894 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1294640041674591503, guid: 070fdaf04a2209d49a982198559658b7,
+    type: 3}
+  m_PrefabInstance: {fileID: 311162890}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1184620228}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6da43522623d4704e979466dc7650b65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &343378580
@@ -2557,6 +2918,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2893b67619b44fdcbb1b7020554d55bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &629019229 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3335767233824063500, guid: 070fdaf04a2209d49a982198559658b7,
+    type: 3}
+  m_PrefabInstance: {fileID: 629019226}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 896152427}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6da43522623d4704e979466dc7650b65, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &629019230 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1294640041674591503, guid: 070fdaf04a2209d49a982198559658b7,
+    type: 3}
+  m_PrefabInstance: {fileID: 629019226}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 169791801}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6da43522623d4704e979466dc7650b65, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &656975369 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3956682564851380980, guid: 070fdaf04a2209d49a982198559658b7,
@@ -3046,6 +3431,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2893b67619b44fdcbb1b7020554d55bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &865639603 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3335767233824063500, guid: 070fdaf04a2209d49a982198559658b7,
+    type: 3}
+  m_PrefabInstance: {fileID: 865639600}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1006060681}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6da43522623d4704e979466dc7650b65, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &865639604 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1294640041674591503, guid: 070fdaf04a2209d49a982198559658b7,
+    type: 3}
+  m_PrefabInstance: {fileID: 865639600}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1237109380}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6da43522623d4704e979466dc7650b65, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &876317812
 GameObject:
   m_ObjectHideFlags: 0
@@ -3388,7 +3797,7 @@ MonoBehaviour:
   openPrefabs: 0
   prefabs: []
   idRef:
-    _Keys: 9bd0abbec22f90374c3672754605b4435cfefc4c7c85a50c077e91c99ba82604e74cd267bf312a48487a0cb017ac472117d885cdfb49073af2c61b8654d2f315d5612889a3d6887d9f44d23407fbd408b9e2c95bff27ee62bb678a06ea5b0b1a6d21dbb684bd7e139ffcd149892ccc09f2133f379b4f155172c5ce3b4b829306fe56f47b0c599602c370228f2e48532d51eda228d68a8c039c4943fca95a2771657f070265bc4942362d44beee42c71d98346688300b1f66873c9b520b18a832ed3f9fcb8a966b6c5ba0a0fc30b50d2112616574f49e40599f5f84d7de08c84f2b892e505c036c2da1d3e4d1ab1b973b4abc40a9b2333e7380f82b2a12938e52ee4875924fe9dc7c0ddc75e7fa67865928aed9451ca1820d566bc38e8032ff56f538d420ba6fad44eee9907777bb3e7bf6bf209a497201084bbbd1542e973f349ec95603bdaee0573a32b57a5e1db810a56f335273f40966b1e1fb60d02ddf5c075f417b3a4ffd4821362b83d883982c03c0fa9ecb92a75543941ee43f1fb543e9bbe63a521e745341104c6056bed70baca77d42a0cbb4568e148c55df73c12d4acf5e0f334190652bc21cded47cdc0efa6844b564a26061a0dfcf80fe2532328aafef49faae8a334f1f178760c8d81238e33b090f6aba14ce244cb2c3a0c115b52bf6bf42422b6efe6f661ccf25a0570d8899bb7426fe69b7e1481be92823200b2502da5ab68a0c0c567a30d10a1e1243e4fc86d0fe9f252a6077248a47572ab4b9d80bd7854e3cee5a51e1533167523dc927fad463b0093ad74f05c19a7e53525b1b751cd616373239732b4f817907f924e7c11f5c5650f631ba502bac0178d9a490f815f236666c2be842be427f66b4f02d0dd6db59465e47fde6823f720b06cb6c4e90666379c904fc0bed8de205a6941fd08f853517ef810d2f2f48792d76ff0e1b51e40918189bf34a86e8d54d25cc8aa1e2e1732d8db345d2df4e59132903d4044da23a42adc1266ea7b7d81cfbe3f3519a987f06adc0a27b02a74e265905baaa46f19a46d736f8480f44f4448d61d7fb5a07783d82dbb00d44b545550f4d14a2fd2ed5137e3a7b64a037f76834a2115f2fad33617df8276b418c017384b2a8a3a768be4538ea7d1f8c149d45d218d9a2a4e62562e64cdbfbf9962e0a3ceee853df9a0f341d3469e5d4ac126d6a9267d64ca131628d4588f444b93e5e448c1b62d3b5996dd8f24126b0f4c938c5916d99d1a8416542791fdbddfc872a74c82a61c874411e2dd4ff59600ab27df23ed14db45a72634ab61f5995be8f2cee283bcdf6295656688e558fc774163685944c183597903ad38cc5a5a79bc54dd46233e3322a2118a93954806c654b159bd4200ba8354c76d00b214020170b50f12d94b330f2b17f0f2ed2070d8ca150b6656efc430fce6ebf4ff62c85455a09b0aa142609e0f83e45a48f9a3752232775715443c650332126707d2fde213437d4c95762777a4668a35249607fccc911731ea2f69a9ecf0022c9b385a1d8e22390a791ff567a6010494319e7666c5e0dc6715e023cd52e35fa5785402dcc097bcb932e28c5354407be92ae5784e8997128c04b1237e460457a5c05fef41fe27bc6624d0665792c04b76545aa26d7b010be1369ee181bb21932e9a1213b43fc62b0331de636a0d6519346c89c290a6c5dacf541e1b6f4621d1466d47bd70bc90663a7faf3b9c9da1cc3e87ea11bb0bc277d43cd3085de1945d100fb9d745229777dc2ffd1055f161ee4da5a608dfcc6645653016bc2677f403fbfdc4631c2581511f52359b1eb221d2caf4caa83b8b833c760472050bdb41a413f914583d0ec227ebbb06827934c41771f9872b32ac378f957f26ef5869931aa3d187259dc9a5c3ed5d8c197dfa433ecfa55cedbbd996b030a3ddac25a1709227f1264abbe9b52baf535dd5202e118b3bf5befdc680c12a3ac6f4f9ebf9a68eee19f17cc40875495a788d1f277bd05eb568d81b607e546730008572deaf178919df07062c94c72c8f97a7b0f21fb2c07dda3301d03ca05110b149b9446d578418cb53909feb809ee6963483118b10ac8e6a4cc372f267f67ff9e7098d1974aa2ffb9bc8c6a376b04cbb968b1c555574ffaa87c247f3a07e1051df13f943b3fff525acda00b82311e10d102e98f312cab0ade62d6e4da22c63f626d78d75466fa0698fcdfdc074379765e14ae381d512b0e63b68d61ea1c2d7d0861a814b946bc6a09e3f6344c771121db4c43efd172221199863a0bf45af1b5cf62d4a59b6443e8a6bbd1c5a560a5255b947a62261cb185bf6885ccf34f76aef24065eaa348bd40095b4815a11949051eea509f1f71714ceca69afb1577f457317fb7e6c545821351ba6b8264641d5ae08052f70015ce64b2b1d649e23e2a9266f0e4226263c027939b0f26220c50af3d0b236a3613a8b9b3e46789e3383112e5fde855483e43bc3fd59b9bfa5842a562270bd71a6b378567622ab93536bba59403bedbdc0668fe4ee0a90caf42b40ba2c126bb2c59f979c663eee613030f89e609f909651d8368c00c883ac12a29db51e1e98cf077d1eefc38a23ff47e14b42ee0da5ab756597bc04204e02f4247637236c80b136586a12417f9613f3d5e3e213d68a20530dc04789134528c0ebebaf03ecdbeb6096036a5c6c960a308c57d60bcfd935416da017f1803db1628c1d2eda6d4b26c30cc25fbab7ae1677a975dee327b5a6627d3cda6c08eff8f1bf52add32fc3e667a9f8f32480e30ef52f1f92ad553177a042f820b03461c863aee45c7d3b5221958f773d10b8daf36024306306a2b463822b0d9627e4969c07d08f83654f8c20731e0d1dfe0456f762148f240c014e3f0338115dc243f65f173b3541386e58bfa7f0100b602dae69840634137572900681417952d1d1a1c0d443cadd10fa30fc444083e40ecd211a668ae1d86809c489c4d130090b0a1229b1bf3713f88b8a8e471067b5f684055e6283d95cc37a28ee10bef7c045c81ec5d1aa324df44512f205601f88618a7048e68194712c8112d41649134993ba487f0181e450b64342b7a6b4addc765ea064c0c0b6d443ada95082e9abc2b7937a40476e89e36ed10f29d123359ec110b59b0697e59cec9bc49c1773ddcca77ff003411e13e7c4cd05ffc02f5a992cc7ee5c50c6e95f89172cd3361ddbe2aedbd1512338dfd2fcddc64991fa3342cec480b0722a3d70a6a07a39e508f2191eecaf0bb20965f3f80b5f8302d2f18ee3ea1461816c64c8f951f7c3b309b7f5bfef687ea4e86f37c58b577286509383cefb45fae47f6854ae97fafc019240ee5359c323749fdc33a6a3c8f334edcd562a747d51a04d25cf88ec3fe3128cd9dcb596d0d373a907a138766e67b67af033aaaee989f06d816f806d53af304f46237d95a8cbc324fca130a7ed10d0f62d8c73e165e9547d960e0bfc3863934ffc581571531653593e86dfc505df23bc06c0dc75fdd1c3554bfd28ba5ccbf7b649428dff1ecb86cc3032e01346e677b6ea4ff567972d420aa4babd403f1da5e58176643caecb62ca8499282e48a251fb5a0055caf1a013d264df94acb16f40f40f7ca5abe1c962f29d0594bd5aa455aa4d35d2792878e71b59104af15dad541225703d3225c6e2f383433dfc0b5682e6dac5a074732834798a75bd3e719e6025a6491d251e78348652e5ec6bb6d316bfa321cc134dd885525b5953647bee81e4f303925473b805330a26c75914a0205263832e5ca58c87cdb3bf7077cb99024177c14eca757b235b270f0d74afee7254c6fa27f0e3117590649ff7ccd782f1734908c0d5feeac307b02cda5980ecd22ac2e45f2e9efea1a65bbe55d5835673a40d90adb8af4853b1bd3f910ffbcf215e9ded70342deff43598e8ce52cf6774f95f8198de657525fb4800dbce8fb1957c8d045360d6b7d1fd94e81fc679f0f24a55584f95c9bd140cfc8af3d2fbca454a7e41d5bb041422986054b6729aa075370cde86d89df0564a2866645bc3fef1ca92c558382b3731a67528ba8b095e97930fd329d2bc83437dfb8b92adafc6d3bf6681056ff8bd54359ce0537535cb40c9ced75b9718d4871618ca3c9fa493f6be4509d18a640785b28eff7facd6b8b7c04ac8eed87b4c97d4f7d4773d160c2108e995203be9b665b8ce61f9e7bbdc1331720c44dba52e3308620c828f8058a774df877994271c4684632786ed368f80c3e7b5bb19c74553cb6217c9ed33d636f7197ec73345a75595b5b0788d9755c1ed944158256262426a23be320f426950931f62195ab94be66f0b555406dcd62403ca189e8ad1a39498d3aea90c26ab1343a014630690d364486ae730c7c65942a285da4694f824916bdd722e67e4e2979fcde8590eb6c562d6c4562fea72dcd0dcf14b81f0f1a8348b8307391eb50c5377a06ee6220fcc145f98801f6e0b490700b14b5920649891663cdd8bbf9c4411b802a79ae1c2f2e2dad8dd979e672986cc1e487d79a32303b70fa3b112a83c142c91c760b2d3e8c25197819868ff0d00f366cfa143d69804cfa3d3e21f41c03283468bcfc175c660072adf1134cb7cb6034b523427652fb339dc3056a7cae19367b41512633d4f86ed3faa38f786d004273de56a940459f1d9376a0aba8047c1f38d87171f60d6c60bcb51471f58bac0a3db823a5fb3c893fe16fb9a975a416317f83c850de72397f4bb666f55a10131ddd54900f1e29db7561b0908754c3eb189ee2f07853fce8367fa35a44d694e50d83d6cc20130713585f3eb28f03c0d40da27f933d018c711f94a6713e7cdfb40a6b61fc810935fa69cf97d792ae77394131b35ca8ff57f30fb9134c4586ad2a7e8ba725a1c453046c852a0c996303ce0b1f4c8fcfc3a2f63eaaf33609164b1d7d3ea9e3a96324f97bb7c82d29648c734b454065d33dfa422d619cb34776f17c30b776a445dfda5744460a17fb75ccd91e8014b1a84f0e454267b60affd841f139b5038d1217d2941f99a91948123da26a3e6a38755dda7f394519536a1aa8e378fc51af785aec355281910fa5f5fc3029ec5f3d91f68323267cab320180d6fb0fc7a14463ed1bc429a08af4cbcbda444717d5a8851a8a9078d277035146cb2e5673e020ac4833c4082466318178eef15611851555d28a0a50cd426e8ae88c1d2b5d9e3eabfaf0901c11a061b3580fff3f6a5a40c0b6d98302158e20fa3ac6df68b7fa21e9d262ae1ff6f96673ecbea941422ef342ccdee27c1b3c976bd096e127803595adcf16ed06ac20cbbc721015561a21c39646ddca6bdd9ece96cb434f5fe7c00c48d7038d59e40512125661100a274186f159776d5d0101d13048573b682f935ccce3a1d2166d9686b410223e7a723b8f7642a1fa5e2e6949d8d5bea2733556be1642221237ec637a3c0e46b322c456a284e6b1ab7267026185a706be2ac70616991eab424fd7a87620d842af184ad963d49ed9a518ffce82ba7c68200ddf5b8bf7cfe6fc6ec14e1bcedb98c323e71210e067da6e0d99bafcd7d17ef10f9bb059c5afae151f4363c46c2b0a183120d323217a919219e00d6695959bf50a81edd5efbd443469273023cb9eda3872a2cbb7fd5ad09508e2bf5943eb554a22a63014c1cbd78b246046b6554aa24805d4f3366053f3654f58cdd27d9d77552d1bfedb9239895879a823a15f7915ac407082465fbc0dcd22a10f4a785c81374ca3f10f53ce33c03389ab9108e116304c353be66756f63d279be46f497dda3f5db45048d0adf9296d7a12f5f1e64c4b04cf8f5dfea2f0236029846a4e605ed13dbadf2a89a6d23d75d2175c52a6e43022ece2786642bdbf0450c72d7d3c5c6f1ffa30ddf3a383b90dc4a559b0691bfc39b9e2ba61cd1cf229e416a128767bd6724cc89f6916d4e029651b5c0bcc2f4b1f3eb791a6cebcd15385cbe5ef30c77312f103fb7a95956b6c56d1a8959c3aa513e5132d227f69a65012f942f2f5b17627a3484aed058ef616e6b74128497b8560b5a144175abdb567377716bf17edac2923a8ea8bb8e98e23
+    _Keys: 9bd0abbec22f90374c3672754605b4435cfefc4c7c85a50c077e91c99ba82604e74cd267bf312a48487a0cb017ac472117d885cdfb49073af2c61b8654d2f315d5612889a3d6887d9f44d23407fbd408b9e2c95bff27ee62bb678a06ea5b0b1a6d21dbb684bd7e139ffcd149892ccc09f2133f379b4f155172c5ce3b4b829306fe56f47b0c599602c370228f2e48532d51eda228d68a8c039c4943fca95a2771657f070265bc4942362d44beee42c71d98346688300b1f66873c9b520b18a832ed3f9fcb8a966b6c5ba0a0fc30b50d2112616574f49e40599f5f84d7de08c84f2b892e505c036c2da1d3e4d1ab1b973b4abc40a9b2333e7380f82b2a12938e52ee4875924fe9dc7c0ddc75e7fa67865928aed9451ca1820d566bc38e8032ff56f538d420ba6fad44eee9907777bb3e7bf6bf209a497201084bbbd1542e973f349ec95603bdaee0573a32b57a5e1db810a56f335273f40966b1e1fb60d02ddf5c075f417b3a4ffd4821362b83d883982c03c0fa9ecb92a75543941ee43f1fb543e9bbe63a521e745341104c6056bed70baca77d42a0cbb4568e148c55df73c12d4acf5e0f334190652bc21cded47cdc0efa6844b564a26061a0dfcf80fe2532328aafef49faae8a334f1f178760c8d81238e33b090f6aba14ce244cb2c3a0c115b52bf6bf42422b6efe6f661ccf25a0570d8899bb7426fe69b7e1481be92823200b2502da5ab68a0c0c567a30d10a1e1243e4fc86d0fe9f252a6077248a47572ab4b9d80bd7854e3cee5a51e1533167523dc927fad463b0093ad74f05c19a7e53525b1b751cd616373239732b4f817907f924e7c11f5c5650f631ba502bac0178d9a490f815f236666c2be842be427f66b4f02d0dd6db59465e47fde6823f720b06cb6c4e90666379c904fc0bed8de205a6941fd08f853517ef810d2f2f48792d76ff0e1b51e40918189bf34a86e8d54d25cc8aa1e2e1732d8db345d2df4e59132903d4044da23a42adc1266ea7b7d81cfbe3f3519a987f06adc0a27b02a74e265905baaa46f19a46d736f8480f44f4448d61d7fb5a07783d82dbb00d44b545550f4d14a2fd2ed5137e3a7b64a037f76834a2115f2fad33617df8276b418c017384b2a8a3a768be4538ea7d1f8c149d45d218d9a2a4e62562e64cdbfbf9962e0a3ceee853df9a0f341d3469e5d4ac126d6a9267d64ca131628d4588f444b93e5e448c1b62d3b5996dd8f24126b0f4c938c5916d99d1a8416542791fdbddfc872a74c82a61c874411e2dd4ff59600ab27df23ed14db45a72634ab61f5995be8f2cee283bcdf6295656688e558fc774163685944c183597903ad38cc5a5a79bc54dd46233e3322a2118a93954806c654b159bd4200ba8354c76d00b214020170b50f12d94b330f2b17f0f2ed2070d8ca150b6656efc430fce6ebf4ff62c85455a09b0aa142609e0f83e45a48f9a3752232775715443c650332126707d2fde213437d4c95762777a4668a35249607fccc911731ea2f69a9ecf0022c9b385a1d8e22390a791ff567a6010494319e7666c5e0dc6715e023cd52e35fa5785402dcc097bcb932e28c5354407be92ae5784e8997128c04b1237e460457a5c05fef41fe27bc6624d0665792c04b76545aa26d7b010be1369ee181bb21932e9a1213b43fc62b0331de636a0d6519346c89c290a6c5dacf541e1b6f4621d1466d47bd70bc90663a7faf3b9c9da1cc3e87ea11bb0bc277d43cd3085de1945d100fb9d745229777dc2ffd1055f161ee4da5a608dfcc6645653016bc2677f403fbfdc4631c2581511f52359b1eb221d2caf4caa83b8b833c760472050bdb41a413f914583d0ec227ebbb06827934c41771f9872b32ac378f957f26ef5869931aa3d187259dc9a5c3ed5d8c197dfa433ecfa55cedbbd996b030a3ddac25a1709227f1264abbe9b52baf535dd5202e118b3bf5befdc680c12a3ac6f4f9ebf9a68eee19f17cc40875495a788d1f277bd05eb568d81b607e546730008572deaf178919df07062c94c72c8f97a7b0f21fb2c07dda3301d03ca05110b149b9446d578418cb53909feb809ee6963483118b10ac8e6a4cc372f267f67ff9e7098d1974aa2ffb9bc8c6a376b04cbb968b1c555574ffaa87c247f3a07e1051df13f943b3fff525acda00b82311e10d102e98f312cab0ade62d6e4da22c63f626d78d75466fa0698fcdfdc074379765e14ae381d512b0e63b68d61ea1c2d7d0861a814b946bc6a09e3f6344c771121db4c43efd172221199863a0bf45af1b5cf62d4a59b6443e8a6bbd1c5a560a5255b947a62261cb185bf6885ccf34f76aef24065eaa348bd40095b4815a11949051eea509f1f71714ceca69afb1577f457317fb7e6c545821351ba6b8264641d5ae08052f70015ce64b2b1d649e23e2a9266f0e4226263c027939b0f26220c50af3d0b236a3613a8b9b3e46789e3383112e5fde855483e43bc3fd59b9bfa5842a562270bd71a6b378567622ab93536bba59403bedbdc0668fe4ee0a90caf42b40ba2c126bb2c59f979c663eee613030f89e609f909651d8368c00c883ac12a29db51e1e98cf077d1eefc38a23ff47e14b42ee0da5ab756597bc04204e02f4247637236c80b136586a12417f9613f3d5e3e213d68a20530dc04789134528c0ebebaf03ecdbeb6096036a5c6c960a308c57d60bcfd935416da017f1803db1628c1d2eda6d4b26c30cc25fbab7ae1677a975dee327b5a6627d3cda6c08eff8f1bf52add32fc3e667a9f8f32480e30ef52f1f92ad553177a042f820b03461c863aee45c7d3b5221958f773d10b8daf36024306306a2b463822b0d9627e4969c07d08f83654f8c20731e0d1dfe0456f762148f240c014e3f0338115dc243f65f173b3541386e58bfa7f0100b602dae69840634137572900681417952d1d1a1c0d443cadd10fa30fc444083e40ecd211a668ae1d86809c489c4d130090b0a1229b1bf3713f88b8a8e471067b5f684055e6283d95cc37a28ee10bef7c045c81ec5d1aa324df44512f205601f88618a7048e68194712c8112d41649134993ba487f0181e450b64342b7a6b4addc765ea064c0c0b6d443ada95082e9abc2b7937a40476e89e36ed10f29d123359ec110b59b0697e59cec9bc49c1773ddcca77ff003411e13e7c4cd05ffc02f5a992cc7ee5c50c6e95f89172cd3361ddbe2aedbd1512338dfd2fcddc64991fa3342cec480b0722a3d70a6a07a39e508f2191eecaf0bb20965f3f80b5f8302d2f18ee3ea1461816c64c8f951f7c3b309b7f5bfef687ea4e86f37c58b577286509383cefb45fae47f6854ae97fafc019240ee5359c323749fdc33a6a3c8f334edcd562a747d51a04d25cf88ec3fe3128cd9dcb596d0d373a907a138766e67b67af033aaaee989f06d816f806d53af304f46237d95a8cbc324fca130a7ed10d0f62d8c73e165e9547d960e0bfc3863934ffc581571531653593e86dfc505df23bc06c0dc75fdd1c3554bfd28ba5ccbf7b649428dff1ecb86cc3032e01346e677b6ea4ff567972d420aa4babd403f1da5e58176643caecb62ca8499282e48a251fb5a0055caf1a013d264df94acb16f40f40f7ca5abe1c962f29d0594bd5aa455aa4d35d2792878e71b59104af15dad541225703d3225c6e2f383433dfc0b5682e6dac5a074732834798a75bd3e719e6025a6491d251e78348652e5ec6bb6d316bfa321cc134dd885525b5953647bee81e4f303925473b805330a26c75914a0205263832e5ca58c87cdb3bf7077cb99024177c14eca757b235b270f0d74afee7254c6fa27f0e3117590649ff7ccd782f1734908c0d5feeac307b02cda5980ecd22ac2e45f2e9efea1a65bbe55d5835673a40d90adb8af4853b1bd3f910ffbcf215e9ded70342deff43598e8ce52cf6774f95f8198de657525fb4800dbce8fb1957c8d045360d6b7d1fd94e81fc679f0f24a55584f95c9bd140cfc8af3d2fbca454a7e41d5bb041422986054b6729aa075370cde86d89df0564a2866645bc3fef1ca92c558382b3731a67528ba8b095e97930fd329d2bc83437dfb8b92adafc6d3bf6681056ff8bd54359ce0537535cb40c9ced75b9718d4871618ca3c9fa493f6be4509d18a640785b28eff7facd6b8b7c04ac8eed87b4c97d4f7d4773d160c2108e995203be9b665b8ce61f9e7bbdc1331720c44dba52e3308620c828f8058a774df877994271c4684632786ed368f80c3e7b5bb19c74553cb6217c9ed33d636f7197ec73345a75595b5b0788d9755c1ed944158256262426a23be320f426950931f62195ab94be66f0b555406dcd62403ca189e8ad1a39498d3aea90c26ab1343a014630690d364486ae730c7c65942a285da4694f824916bdd722e67e4e2979fcde8590eb6c562d6c4562fea72dcd0dcf14b81f0f1a8348b8307391eb50c5377a06ee6220fcc145f98801f6e0b490700b14b5920649891663cdd8bbf9c4411b802a79ae1c2f2e2dad8dd979e672986cc1e487d79a32303b70fa3b112a83c142c91c760b2d3e8c25197819868ff0d00f366cfa143d69804cfa3d3e21f41c03283468bcfc175c660072adf1134cb7cb6034b523427652fb339dc3056a7cae19367b41512633d4f86ed3faa38f786d004273de56a940459f1d9376a0aba8047c1f38d87171f60d6c60bcb51471f58bac0a3db823a5fb3c893fe16fb9a975a416317f83c850de72397f4bb666f55a10131ddd54900f1e29db7561b0908754c3eb189ee2f07853fce8367fa35a44d694e50d83d6cc20130713585f3eb28f03c0d40da27f933d018c711f94a6713e7cdfb40a6b61fc810935fa69cf97d792ae77394131b35ca8ff57f30fb9134c4586ad2a7e8ba725a1c453046c852a0c996303ce0b1f4c8fcfc3a2f63eaaf33609164b1d7d3ea9e3a96324f97bb7c82d29648c734b454065d33dfa422d619cb34776f17c30b776a445dfda5744460a17fb75ccd91e8014b1a84f0e454267b60affd841f139b5038d1217d2941f99a91948123da26a3e6a38755dda7f394519536a1aa8e378fc51af785aec355281910fa5f5fc3029ec5f3d91f68323267cab320180d6fb0fc7a14463ed1bc429a08af4cbcbda444717d5a8851a8a9078d277035146cb2e5673e020ac4833c4082466318178eef15611851555d28a0a50cd426e8ae88c1d2b5d9e3eabfaf0901c11a061b3580fff3f6a5a40c0b6d98302158e20fa3ac6df68b7fa21e9d262ae1ff6f96673ecbea941422ef342ccdee27c1b3c976bd096e127803595adcf16ed06ac20cbbc721015561a21c39646ddca6bdd9ece96cb434f5fe7c00c48d7038d59e40512125661100a274186f159776d5d0101d13048573b682f935ccce3a1d2166d9686b410223e7a723b8f7642a1fa5e2e6949d8d5bea2733556be1642221237ec637a3c0e46b322c456a284e6b1ab7267026185a706be2ac70616991eab424fd7a87620d842af184ad963d49ed9a518ffce82ba7c68200ddf5b8bf7cfe6fc6ec14e1bcedb98c323e71210e067da6e0d99bafcd7d17ef10f9bb059c5afae151f4363c46c2b0a183120d323217a919219e00d6695959bf50a81edd5efbd443469273023cb9eda3872a2cbb7fd5ad09508e2bf5943eb554a22a63014c1cbd78b246046b6554aa24805d4f3366053f3654f58cdd27d9d77552d1bfedb9239895879a823a15f7915ac407082465fbc0dcd22a10f4a785c81374ca3f10f53ce33c03389ab9108e116304c353be66756f63d279be46f497dda3f5db45048d0adf9296d7a12f5f1e64c4b04cf8f5dfea2f0236029846a4e605ed13dbadf2a89a6d23d75d2175c52a6e43022ece2786642bdbf0450c72d7d3c5c6f1ffa30ddf3a383b90dc4a559b0691bfc39b9e2ba61cd1cf229e416a128767bd6724cc89f6916d4e029651b5c0bcc2f4b1f3eb791a6cebcd15385cbe5ef30c77312f103fb7a95956b6c56d1a8959c3aa513e5132d227f69a65012f942f2f5b17627a3484aed058ef616e6b74128497b8560b5a144175abdb567377716bf17edac2923a8ea8bb8e98e23534f027d998def0195c7227ebf3c0735421048c2c88b78169e054296e5ae4d3dfc19610b67e68a0d9395e25ba364a434a131a5302856de38d6ec1a9fcf85e619851b7d592504322865aaaba1912b45399ff20a4cf7e3eb5b3b29e2540029dc1884031e401e01a55b9b31338154c35802cfacff228466de5dd0dd6cb01979d63ace9226944a8657624caeb0c6af69070283e4855429ba93155016317a65f75e060509b70cc885964df4f7b7053697bf1f4804887ea8839c0300053ded945b1a7aa6f7e3e645f7d55a42e17510fedd2a09797fdfe66155546234eb4f0389e64c2d5708755ec74675760bc5e00dcca77321db3474147b331850a3811a3046d9e3272fa2baf668cb41320b69dc9b75479623a28f2142a59e5722f025bc462b442f31e3b9df29ed7cb90ff4420a11577ddb5b15087048485e7d708487110c27da7d092c11f1e6270e314c
     _Values:
     - {fileID: 4800000, guid: e6e9a19c3678ded42a3bc431ebef7dbd, type: 3}
     - {fileID: 4800000, guid: 36e335017ad71d54fbb10842863188ae, type: 3}
@@ -3926,6 +4335,47 @@ MonoBehaviour:
     - {fileID: 3151852366497263865, guid: 3f591f08e1e179b47ac576fd2ce6d291, type: 3}
     - {fileID: 4025957535321886950, guid: 3f591f08e1e179b47ac576fd2ce6d291, type: 3}
     - {fileID: 11500000, guid: d570618d127b0a045a180d11e01fe83c, type: 3}
+    - {fileID: 1549384527}
+    - {fileID: 11400000, guid: 07ea3ff88e1ecb84d91f58aa804badc6, type: 2}
+    - {fileID: 11500000, guid: aa48f53704ecf834c9f5e203a06874d3, type: 3}
+    - {fileID: 5772382130947384849, guid: ee54288854cabd74c94845af0a2286f7, type: 3}
+    - {fileID: 24300002, guid: 7e984f512e89b60468e829489e8883e3, type: 2}
+    - {fileID: -2273146209696275378, guid: 7e984f512e89b60468e829489e8883e3, type: 2}
+    - {fileID: -3165942800488051908, guid: 7e984f512e89b60468e829489e8883e3, type: 2}
+    - {fileID: -3783893103257190392, guid: 7e984f512e89b60468e829489e8883e3, type: 2}
+    - {fileID: 24100000, guid: 7e984f512e89b60468e829489e8883e3, type: 2}
+    - {fileID: 1850473822310176745, guid: ee54288854cabd74c94845af0a2286f7, type: 3}
+    - {fileID: 11500000, guid: 614edb33c38bcf949846d5675f29f9fb, type: 3}
+    - {fileID: 7798870387459028034, guid: ee54288854cabd74c94845af0a2286f7, type: 3}
+    - {fileID: 1549384526}
+    - {fileID: 1549384528}
+    - {fileID: 24500006, guid: 7e984f512e89b60468e829489e8883e3, type: 2}
+    - {fileID: 8853607793962168722}
+    - {fileID: 11500000, guid: 6da43522623d4704e979466dc7650b65, type: 3}
+    - {fileID: 8300000, guid: bb674f74ab78c424a9efdec242708fdf, type: 3}
+    - {fileID: 8746826497324137848}
+    - {fileID: 1412369213}
+    - {fileID: 8300000, guid: e86346c15add24da4911015e6787b3be, type: 3}
+    - {fileID: 8300000, guid: 5e7d45faaf8d84e7b8fea19b12389d36, type: 3}
+    - {fileID: 1884022888}
+    - {fileID: 629019230}
+    - {fileID: 1294640041674591503, guid: 070fdaf04a2209d49a982198559658b7, type: 3}
+    - {fileID: 29464365}
+    - {fileID: 8841017238447824586}
+    - {fileID: 865639604}
+    - {fileID: 311162894}
+    - {fileID: 8300000, guid: 219c128bb5466495184d344182224ed2, type: 3}
+    - {fileID: 3335767233824063500, guid: 070fdaf04a2209d49a982198559658b7, type: 3}
+    - {fileID: 629019229}
+    - {fileID: 29464364}
+    - {fileID: 8841017238447824585}
+    - {fileID: 865639603}
+    - {fileID: 311162893}
+    - {fileID: 8300000, guid: 31d4f1dd43729438dad0be3f00964d04, type: 3}
+    - {fileID: 154276179}
+    - {fileID: 8300000, guid: 83aaa86a8d7fb6e40b2544e02356d6b4, type: 3}
+    - {fileID: 4393798557231097858, guid: 4c3f413fbc2b5bd419e996c8a5a1f9a1, type: 3}
+    - {fileID: 8300000, guid: 4d515f2e056524e138b70c4cfd44f0c3, type: 3}
 --- !u!4 &955088976
 Transform:
   m_ObjectHideFlags: 0
@@ -5615,6 +6065,7 @@ GameObject:
   - component: {fileID: 1412369211}
   - component: {fileID: 1412369210}
   - component: {fileID: 1412369212}
+  - component: {fileID: 1412369213}
   m_Layer: 5
   m_Name: Next
   m_TagString: Untagged
@@ -5723,7 +6174,251 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1412369210}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1412369213}
+        m_TargetAssemblyTypeName: MoreMountains.Feedbacks.MMF_Player, MoreMountains.Tools
+        m_MethodName: PlayFeedbacks
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &1412369213
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1412369208}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6da43522623d4704e979466dc7650b65, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Feedbacks: []
+  InitializationMode: 2
+  AutoInitialization: 1
+  SafeMode: 3
+  Direction: 0
+  AutoChangeDirectionOnEnd: 0
+  AutoPlayOnStart: 0
+  AutoPlayOnEnable: 0
+  ForceTimescaleMode: 0
+  ForcedTimescaleMode: 1
+  DurationMultiplier: 1
+  TimescaleMultiplier: 1
+  RandomizeDuration: 0
+  RandomDurationMultiplier: {x: 0.5, y: 1.5}
+  DisplayFullDurationDetails: 0
+  PlayerTimescaleMode: 1
+  OnlyPlayIfWithinRange: 0
+  RangeCenter: {fileID: 0}
+  RangeDistance: 5
+  UseRangeFalloff: 0
+  RangeFalloff:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  RemapRangeFalloff: {x: 0, y: 1}
+  IgnoreRangeEvents: 0
+  CooldownDuration: 0
+  InitialDelay: 0
+  CanPlay: 1
+  CanPlayWhileAlreadyPlaying: 1
+  ChanceToPlay: 100
+  FeedbacksIntensity: 1
+  Events:
+    TriggerMMFeedbacksEvents: 0
+    TriggerUnityEvents: 1
+    OnPlay:
+      m_PersistentCalls:
+        m_Calls: []
+    OnPause:
+      m_PersistentCalls:
+        m_Calls: []
+    OnResume:
+      m_PersistentCalls:
+        m_Calls: []
+    OnRevert:
+      m_PersistentCalls:
+        m_Calls: []
+    OnComplete:
+      m_PersistentCalls:
+        m_Calls: []
+    OnRestoreInitialValues:
+      m_PersistentCalls:
+        m_Calls: []
+    OnSkipToTheEnd:
+      m_PersistentCalls:
+        m_Calls: []
+    OnInitializationComplete:
+      m_PersistentCalls:
+        m_Calls: []
+    OnEnable:
+      m_PersistentCalls:
+        m_Calls: []
+    OnDisable:
+      m_PersistentCalls:
+        m_Calls: []
+  DebugActive: 0
+  FeedbacksList:
+  - rid: 509909622741794819
+  KeepPlayModeChanges: 0
+  PerformanceMode: 0
+  StopFeedbacksOnDisable: 0
+  PlayCount: 0
+  references:
+    version: 2
+    RefIds:
+    - rid: 509909622741794819
+      type: {class: MMF_Sound, ns: MoreMountains.Feedbacks, asm: MoreMountains.Tools}
+      data:
+        Active: 1
+        UniqueID: -2078999853
+        Label: Sound
+        ChannelMode: 0
+        Channel: 0
+        MMChannelDefinition: {fileID: 0}
+        Chance: 100
+        DisplayColor: {r: 0, g: 0, b: 0, a: 1}
+        Timing:
+          TimescaleMode: 0
+          ExcludeFromHoldingPauses: 0
+          ContributeToTotalDuration: 1
+          InitialDelay: 0
+          CooldownDuration: 0
+          InterruptsOnStop: 1
+          NumberOfRepeats: 0
+          RepeatForever: 0
+          DelayBetweenRepeats: 1
+          PlayCount: 0
+          LimitPlayCount: 0
+          MaxPlayCount: 3
+          SetPlayCountToZeroOnReset: 0
+          MMFeedbacksDirectionCondition: 0
+          PlayDirection: 0
+          ConstantIntensity: 0
+          UseIntensityInterval: 0
+          IntensityIntervalMin: 0
+          IntensityIntervalMax: 0
+          Sequence: {fileID: 0}
+          TrackID: 0
+          Quantized: 0
+          TargetBPM: 120
+        AutomatedTargetAcquisition:
+          Mode: 0
+          ChildIndex: 0
+        RandomizeOutput: 0
+        RandomMultiplier: {x: 0.8, y: 1}
+        RandomizeDuration: 0
+        RandomDurationMultiplier: {x: 0.5, y: 2}
+        UseRange: 0
+        RangeDistance: 5
+        UseRangeFalloff: 0
+        RangeFalloff:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: 0
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 0
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        RemapRangeFalloff: {x: 0, y: 1}
+        AutomaticShakerSetupButton:
+          ButtonText: Automatic Shaker Setup
+        Owner: {fileID: 1412369213}
+        DebugActive: 0
+        Sfx: {fileID: 8300000, guid: 5e7d45faaf8d84e7b8fea19b12389d36, type: 3}
+        RandomSfx: []
+        TestPlayButton:
+          ButtonText: Debug Play Sound
+        TestStopButton:
+          ButtonText: Debug Stop Sound
+        PlayMethod: 0
+        PoolSize: 10
+        UseLegacyEventsMode: 0
+        StopSoundOnFeedbackStop: 1
+        MinVolume: 1
+        MaxVolume: 1
+        MinPitch: 1
+        MaxPitch: 1
+        SfxAudioMixerGroup: {fileID: 0}
+        Priority: 128
+        PanStereo: 0
+        SpatialBlend: 0
+        DopplerLevel: 1
+        Spread: 0
+        RolloffMode: 0
+        MinDistance: 1
+        MaxDistance: 500
+        UseCustomRolloffCurve: 0
+        CustomRolloffCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        UseSpatialBlendCurve: 0
+        SpatialBlendCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        UseReverbZoneMixCurve: 0
+        ReverbZoneMixCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        UseSpreadCurve: 0
+        SpreadCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
 --- !u!1 &1454665594 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3755378489020487096, guid: 070fdaf04a2209d49a982198559658b7,
@@ -5933,6 +6628,30 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 3956682564851380980, guid: 070fdaf04a2209d49a982198559658b7,
     type: 3}
   m_PrefabInstance: {fileID: 8841017238447824582}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1549384526 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5772382130947384849, guid: ee54288854cabd74c94845af0a2286f7,
+    type: 3}
+  m_PrefabInstance: {fileID: 147795858}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1549384527 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1850473822310176745, guid: ee54288854cabd74c94845af0a2286f7,
+    type: 3}
+  m_PrefabInstance: {fileID: 147795858}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1549384526}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 614edb33c38bcf949846d5675f29f9fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1549384528 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7798870387459028034, guid: ee54288854cabd74c94845af0a2286f7,
+    type: 3}
+  m_PrefabInstance: {fileID: 147795858}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1647428861
 GameObject:
@@ -6424,6 +7143,7 @@ GameObject:
   - component: {fileID: 1884022886}
   - component: {fileID: 1884022885}
   - component: {fileID: 1884022884}
+  - component: {fileID: 1884022888}
   m_Layer: 5
   m_Name: Back
   m_TagString: Untagged
@@ -6533,6 +7253,238 @@ RectTransform:
   m_AnchoredPosition: {x: -41.999756, y: 363}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1884022888
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1884022883}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6da43522623d4704e979466dc7650b65, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Feedbacks: []
+  InitializationMode: 2
+  AutoInitialization: 1
+  SafeMode: 3
+  Direction: 0
+  AutoChangeDirectionOnEnd: 0
+  AutoPlayOnStart: 0
+  AutoPlayOnEnable: 0
+  ForceTimescaleMode: 0
+  ForcedTimescaleMode: 1
+  DurationMultiplier: 1
+  TimescaleMultiplier: 1
+  RandomizeDuration: 0
+  RandomDurationMultiplier: {x: 0.5, y: 1.5}
+  DisplayFullDurationDetails: 0
+  PlayerTimescaleMode: 1
+  OnlyPlayIfWithinRange: 0
+  RangeCenter: {fileID: 0}
+  RangeDistance: 5
+  UseRangeFalloff: 0
+  RangeFalloff:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  RemapRangeFalloff: {x: 0, y: 1}
+  IgnoreRangeEvents: 0
+  CooldownDuration: 0
+  InitialDelay: 0
+  CanPlay: 1
+  CanPlayWhileAlreadyPlaying: 1
+  ChanceToPlay: 100
+  FeedbacksIntensity: 1
+  Events:
+    TriggerMMFeedbacksEvents: 0
+    TriggerUnityEvents: 1
+    OnPlay:
+      m_PersistentCalls:
+        m_Calls: []
+    OnPause:
+      m_PersistentCalls:
+        m_Calls: []
+    OnResume:
+      m_PersistentCalls:
+        m_Calls: []
+    OnRevert:
+      m_PersistentCalls:
+        m_Calls: []
+    OnComplete:
+      m_PersistentCalls:
+        m_Calls: []
+    OnRestoreInitialValues:
+      m_PersistentCalls:
+        m_Calls: []
+    OnSkipToTheEnd:
+      m_PersistentCalls:
+        m_Calls: []
+    OnInitializationComplete:
+      m_PersistentCalls:
+        m_Calls: []
+    OnEnable:
+      m_PersistentCalls:
+        m_Calls: []
+    OnDisable:
+      m_PersistentCalls:
+        m_Calls: []
+  DebugActive: 0
+  FeedbacksList:
+  - rid: 509909622741794820
+  KeepPlayModeChanges: 0
+  PerformanceMode: 0
+  StopFeedbacksOnDisable: 0
+  PlayCount: 0
+  references:
+    version: 2
+    RefIds:
+    - rid: 509909622741794820
+      type: {class: MMF_Sound, ns: MoreMountains.Feedbacks, asm: MoreMountains.Tools}
+      data:
+        Active: 1
+        UniqueID: -452535100
+        Label: Sound
+        ChannelMode: 0
+        Channel: 0
+        MMChannelDefinition: {fileID: 0}
+        Chance: 100
+        DisplayColor: {r: 0, g: 0, b: 0, a: 1}
+        Timing:
+          TimescaleMode: 0
+          ExcludeFromHoldingPauses: 0
+          ContributeToTotalDuration: 1
+          InitialDelay: 0
+          CooldownDuration: 0
+          InterruptsOnStop: 1
+          NumberOfRepeats: 0
+          RepeatForever: 0
+          DelayBetweenRepeats: 1
+          PlayCount: 0
+          LimitPlayCount: 0
+          MaxPlayCount: 3
+          SetPlayCountToZeroOnReset: 0
+          MMFeedbacksDirectionCondition: 0
+          PlayDirection: 0
+          ConstantIntensity: 0
+          UseIntensityInterval: 0
+          IntensityIntervalMin: 0
+          IntensityIntervalMax: 0
+          Sequence: {fileID: 0}
+          TrackID: 0
+          Quantized: 0
+          TargetBPM: 120
+        AutomatedTargetAcquisition:
+          Mode: 0
+          ChildIndex: 0
+        RandomizeOutput: 0
+        RandomMultiplier: {x: 0.8, y: 1}
+        RandomizeDuration: 0
+        RandomDurationMultiplier: {x: 0.5, y: 2}
+        UseRange: 0
+        RangeDistance: 5
+        UseRangeFalloff: 0
+        RangeFalloff:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: 0
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 0
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        RemapRangeFalloff: {x: 0, y: 1}
+        AutomaticShakerSetupButton:
+          ButtonText: Automatic Shaker Setup
+        Owner: {fileID: 1884022888}
+        DebugActive: 0
+        Sfx: {fileID: 8300000, guid: e86346c15add24da4911015e6787b3be, type: 3}
+        RandomSfx: []
+        TestPlayButton:
+          ButtonText: Debug Play Sound
+        TestStopButton:
+          ButtonText: Debug Stop Sound
+        PlayMethod: 0
+        PoolSize: 10
+        UseLegacyEventsMode: 0
+        StopSoundOnFeedbackStop: 1
+        MinVolume: 1
+        MaxVolume: 1
+        MinPitch: 1
+        MaxPitch: 1
+        SfxAudioMixerGroup: {fileID: 0}
+        Priority: 128
+        PanStereo: 0
+        SpatialBlend: 0
+        DopplerLevel: 1
+        Spread: 0
+        RolloffMode: 0
+        MinDistance: 1
+        MaxDistance: 500
+        UseCustomRolloffCurve: 0
+        CustomRolloffCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        UseSpatialBlendCurve: 0
+        SpatialBlendCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        UseReverbZoneMixCurve: 0
+        ReverbZoneMixCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        UseSpreadCurve: 0
+        SpreadCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
 --- !u!1 &1931934768 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8629362469058627167, guid: 070fdaf04a2209d49a982198559658b7,
@@ -6993,7 +7945,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 8853607793962168721}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 8853607793962168722}
+        m_TargetAssemblyTypeName: MoreMountains.Feedbacks.MMF_Player, MoreMountains.Tools
+        m_MethodName: PlayFeedbacks
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!222 &1251439468715764749
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -7313,7 +8277,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 6265403673745390450}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 8746826497324137848}
+        m_TargetAssemblyTypeName: MoreMountains.Feedbacks.MMF_Player, MoreMountains.Tools
+        m_MethodName: PlayFeedbacks
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &2416936821746488096
 GameObject:
   m_ObjectHideFlags: 0
@@ -7326,6 +8302,7 @@ GameObject:
   - component: {fileID: 8746826497324137847}
   - component: {fileID: 6265403673745390450}
   - component: {fileID: 2167223464873579265}
+  - component: {fileID: 8746826497324137848}
   m_Layer: 5
   m_Name: ClassSelectionButton
   m_TagString: Untagged
@@ -7507,6 +8484,7 @@ GameObject:
   - component: {fileID: 66483429826421192}
   - component: {fileID: 8853607793962168721}
   - component: {fileID: 991372132994234373}
+  - component: {fileID: 8853607793962168722}
   m_Layer: 5
   m_Name: ClassSelectionButton
   m_TagString: Untagged
@@ -8073,6 +9051,238 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2416936821746488096}
   m_CullTransparentMesh: 1
+--- !u!114 &8746826497324137848
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2416936821746488096}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6da43522623d4704e979466dc7650b65, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Feedbacks: []
+  InitializationMode: 2
+  AutoInitialization: 1
+  SafeMode: 3
+  Direction: 0
+  AutoChangeDirectionOnEnd: 0
+  AutoPlayOnStart: 0
+  AutoPlayOnEnable: 0
+  ForceTimescaleMode: 0
+  ForcedTimescaleMode: 1
+  DurationMultiplier: 1
+  TimescaleMultiplier: 1
+  RandomizeDuration: 0
+  RandomDurationMultiplier: {x: 0.5, y: 1.5}
+  DisplayFullDurationDetails: 0
+  PlayerTimescaleMode: 1
+  OnlyPlayIfWithinRange: 0
+  RangeCenter: {fileID: 0}
+  RangeDistance: 5
+  UseRangeFalloff: 0
+  RangeFalloff:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  RemapRangeFalloff: {x: 0, y: 1}
+  IgnoreRangeEvents: 0
+  CooldownDuration: 0
+  InitialDelay: 0
+  CanPlay: 1
+  CanPlayWhileAlreadyPlaying: 1
+  ChanceToPlay: 100
+  FeedbacksIntensity: 1
+  Events:
+    TriggerMMFeedbacksEvents: 0
+    TriggerUnityEvents: 1
+    OnPlay:
+      m_PersistentCalls:
+        m_Calls: []
+    OnPause:
+      m_PersistentCalls:
+        m_Calls: []
+    OnResume:
+      m_PersistentCalls:
+        m_Calls: []
+    OnRevert:
+      m_PersistentCalls:
+        m_Calls: []
+    OnComplete:
+      m_PersistentCalls:
+        m_Calls: []
+    OnRestoreInitialValues:
+      m_PersistentCalls:
+        m_Calls: []
+    OnSkipToTheEnd:
+      m_PersistentCalls:
+        m_Calls: []
+    OnInitializationComplete:
+      m_PersistentCalls:
+        m_Calls: []
+    OnEnable:
+      m_PersistentCalls:
+        m_Calls: []
+    OnDisable:
+      m_PersistentCalls:
+        m_Calls: []
+  DebugActive: 0
+  FeedbacksList:
+  - rid: 509909622741794818
+  KeepPlayModeChanges: 0
+  PerformanceMode: 0
+  StopFeedbacksOnDisable: 0
+  PlayCount: 0
+  references:
+    version: 2
+    RefIds:
+    - rid: 509909622741794818
+      type: {class: MMF_Sound, ns: MoreMountains.Feedbacks, asm: MoreMountains.Tools}
+      data:
+        Active: 1
+        UniqueID: -256748561
+        Label: Sound
+        ChannelMode: 0
+        Channel: 0
+        MMChannelDefinition: {fileID: 0}
+        Chance: 100
+        DisplayColor: {r: 0, g: 0, b: 0, a: 1}
+        Timing:
+          TimescaleMode: 0
+          ExcludeFromHoldingPauses: 0
+          ContributeToTotalDuration: 1
+          InitialDelay: 0
+          CooldownDuration: 0
+          InterruptsOnStop: 1
+          NumberOfRepeats: 0
+          RepeatForever: 0
+          DelayBetweenRepeats: 1
+          PlayCount: 0
+          LimitPlayCount: 0
+          MaxPlayCount: 3
+          SetPlayCountToZeroOnReset: 0
+          MMFeedbacksDirectionCondition: 0
+          PlayDirection: 0
+          ConstantIntensity: 0
+          UseIntensityInterval: 0
+          IntensityIntervalMin: 0
+          IntensityIntervalMax: 0
+          Sequence: {fileID: 0}
+          TrackID: 0
+          Quantized: 0
+          TargetBPM: 120
+        AutomatedTargetAcquisition:
+          Mode: 0
+          ChildIndex: 0
+        RandomizeOutput: 0
+        RandomMultiplier: {x: 0.8, y: 1}
+        RandomizeDuration: 0
+        RandomDurationMultiplier: {x: 0.5, y: 2}
+        UseRange: 0
+        RangeDistance: 5
+        UseRangeFalloff: 0
+        RangeFalloff:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: 0
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 0
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        RemapRangeFalloff: {x: 0, y: 1}
+        AutomaticShakerSetupButton:
+          ButtonText: Automatic Shaker Setup
+        Owner: {fileID: 8746826497324137848}
+        DebugActive: 0
+        Sfx: {fileID: 8300000, guid: bb674f74ab78c424a9efdec242708fdf, type: 3}
+        RandomSfx: []
+        TestPlayButton:
+          ButtonText: Debug Play Sound
+        TestStopButton:
+          ButtonText: Debug Stop Sound
+        PlayMethod: 0
+        PoolSize: 10
+        UseLegacyEventsMode: 0
+        StopSoundOnFeedbackStop: 1
+        MinVolume: 1
+        MaxVolume: 1
+        MinPitch: 1
+        MaxPitch: 1
+        SfxAudioMixerGroup: {fileID: 0}
+        Priority: 128
+        PanStereo: 0
+        SpatialBlend: 0
+        DopplerLevel: 1
+        Spread: 0
+        RolloffMode: 0
+        MinDistance: 1
+        MaxDistance: 500
+        UseCustomRolloffCurve: 0
+        CustomRolloffCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        UseSpatialBlendCurve: 0
+        SpatialBlendCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        UseReverbZoneMixCurve: 0
+        ReverbZoneMixCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        UseSpreadCurve: 0
+        SpreadCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
 --- !u!1001 &8841017238447824582
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8209,6 +9419,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2893b67619b44fdcbb1b7020554d55bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &8841017238447824585 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3335767233824063500, guid: 070fdaf04a2209d49a982198559658b7,
+    type: 3}
+  m_PrefabInstance: {fileID: 8841017238447824582}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1454665594}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6da43522623d4704e979466dc7650b65, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &8841017238447824586 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1294640041674591503, guid: 070fdaf04a2209d49a982198559658b7,
+    type: 3}
+  m_PrefabInstance: {fileID: 8841017238447824582}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1343837282}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6da43522623d4704e979466dc7650b65, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &8853607793962168721
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8239,6 +9473,238 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &8853607793962168722
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3039256477025165568}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6da43522623d4704e979466dc7650b65, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Feedbacks: []
+  InitializationMode: 2
+  AutoInitialization: 1
+  SafeMode: 3
+  Direction: 0
+  AutoChangeDirectionOnEnd: 0
+  AutoPlayOnStart: 0
+  AutoPlayOnEnable: 0
+  ForceTimescaleMode: 0
+  ForcedTimescaleMode: 1
+  DurationMultiplier: 1
+  TimescaleMultiplier: 1
+  RandomizeDuration: 0
+  RandomDurationMultiplier: {x: 0.5, y: 1.5}
+  DisplayFullDurationDetails: 0
+  PlayerTimescaleMode: 1
+  OnlyPlayIfWithinRange: 0
+  RangeCenter: {fileID: 0}
+  RangeDistance: 5
+  UseRangeFalloff: 0
+  RangeFalloff:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  RemapRangeFalloff: {x: 0, y: 1}
+  IgnoreRangeEvents: 0
+  CooldownDuration: 0
+  InitialDelay: 0
+  CanPlay: 1
+  CanPlayWhileAlreadyPlaying: 1
+  ChanceToPlay: 100
+  FeedbacksIntensity: 1
+  Events:
+    TriggerMMFeedbacksEvents: 0
+    TriggerUnityEvents: 1
+    OnPlay:
+      m_PersistentCalls:
+        m_Calls: []
+    OnPause:
+      m_PersistentCalls:
+        m_Calls: []
+    OnResume:
+      m_PersistentCalls:
+        m_Calls: []
+    OnRevert:
+      m_PersistentCalls:
+        m_Calls: []
+    OnComplete:
+      m_PersistentCalls:
+        m_Calls: []
+    OnRestoreInitialValues:
+      m_PersistentCalls:
+        m_Calls: []
+    OnSkipToTheEnd:
+      m_PersistentCalls:
+        m_Calls: []
+    OnInitializationComplete:
+      m_PersistentCalls:
+        m_Calls: []
+    OnEnable:
+      m_PersistentCalls:
+        m_Calls: []
+    OnDisable:
+      m_PersistentCalls:
+        m_Calls: []
+  DebugActive: 0
+  FeedbacksList:
+  - rid: 509909622741794818
+  KeepPlayModeChanges: 0
+  PerformanceMode: 0
+  StopFeedbacksOnDisable: 0
+  PlayCount: 0
+  references:
+    version: 2
+    RefIds:
+    - rid: 509909622741794818
+      type: {class: MMF_Sound, ns: MoreMountains.Feedbacks, asm: MoreMountains.Tools}
+      data:
+        Active: 1
+        UniqueID: -256748561
+        Label: Sound
+        ChannelMode: 0
+        Channel: 0
+        MMChannelDefinition: {fileID: 0}
+        Chance: 100
+        DisplayColor: {r: 0, g: 0, b: 0, a: 1}
+        Timing:
+          TimescaleMode: 0
+          ExcludeFromHoldingPauses: 0
+          ContributeToTotalDuration: 1
+          InitialDelay: 0
+          CooldownDuration: 0
+          InterruptsOnStop: 1
+          NumberOfRepeats: 0
+          RepeatForever: 0
+          DelayBetweenRepeats: 1
+          PlayCount: 0
+          LimitPlayCount: 0
+          MaxPlayCount: 3
+          SetPlayCountToZeroOnReset: 0
+          MMFeedbacksDirectionCondition: 0
+          PlayDirection: 0
+          ConstantIntensity: 0
+          UseIntensityInterval: 0
+          IntensityIntervalMin: 0
+          IntensityIntervalMax: 0
+          Sequence: {fileID: 0}
+          TrackID: 0
+          Quantized: 0
+          TargetBPM: 120
+        AutomatedTargetAcquisition:
+          Mode: 0
+          ChildIndex: 0
+        RandomizeOutput: 0
+        RandomMultiplier: {x: 0.8, y: 1}
+        RandomizeDuration: 0
+        RandomDurationMultiplier: {x: 0.5, y: 2}
+        UseRange: 0
+        RangeDistance: 5
+        UseRangeFalloff: 0
+        RangeFalloff:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: 0
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 0
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        RemapRangeFalloff: {x: 0, y: 1}
+        AutomaticShakerSetupButton:
+          ButtonText: Automatic Shaker Setup
+        Owner: {fileID: 8853607793962168722}
+        DebugActive: 0
+        Sfx: {fileID: 8300000, guid: bb674f74ab78c424a9efdec242708fdf, type: 3}
+        RandomSfx: []
+        TestPlayButton:
+          ButtonText: Debug Play Sound
+        TestStopButton:
+          ButtonText: Debug Stop Sound
+        PlayMethod: 0
+        PoolSize: 10
+        UseLegacyEventsMode: 0
+        StopSoundOnFeedbackStop: 1
+        MinVolume: 1
+        MaxVolume: 1
+        MinPitch: 1
+        MaxPitch: 1
+        SfxAudioMixerGroup: {fileID: 0}
+        Priority: 128
+        PanStereo: 0
+        SpatialBlend: 0
+        DopplerLevel: 1
+        Spread: 0
+        RolloffMode: 0
+        MinDistance: 1
+        MaxDistance: 500
+        UseCustomRolloffCurve: 0
+        CustomRolloffCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        UseSpatialBlendCurve: 0
+        SpatialBlendCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        UseReverbZoneMixCurve: 0
+        ReverbZoneMixCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        UseSpreadCurve: 0
+        SpreadCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
 --- !u!224 &8863901042709214875
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8290,3 +9756,4 @@ SceneRoots:
   - {fileID: 955088976}
   - {fileID: 890651125}
   - {fileID: 373232431}
+  - {fileID: 147795858}
