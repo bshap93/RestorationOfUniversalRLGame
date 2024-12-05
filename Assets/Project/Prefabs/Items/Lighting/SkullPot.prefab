@@ -526,8 +526,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2005789077713578471}
   - component: {fileID: 362075129754425138}
-  - component: {fileID: 3968111546782409145}
   - component: {fileID: 3525664449471152523}
+  - component: {fileID: 4872957951875037828}
   m_Layer: 16
   m_Name: Lightsource
   m_TagString: Untagged
@@ -563,7 +563,7 @@ Light:
   m_Shape: 0
   m_Color: {r: 1, g: 0.8933586, b: 0.35820895, a: 1}
   m_Intensity: 8.47
-  m_Range: 32.8
+  m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
@@ -599,7 +599,7 @@ Light:
   m_RenderMode: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 251592703
   m_RenderingLayerMask: 1
   m_Lightmapping: 1
   m_LightShadowCasterMode: 0
@@ -612,22 +612,6 @@ Light:
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
---- !u!123 &3968111546782409145
-LensFlare:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4690343204125753905}
-  m_Enabled: 0
-  m_Flare: {fileID: 12100000, guid: 183c70acd2d53a44ba3eb830a7e96d7a, type: 2}
-  m_Color: {r: 1, g: 0.5803922, b: 0, a: 1}
-  m_Brightness: 1
-  m_FadeSpeed: 3
-  m_IgnoreLayers:
-    serializedVersion: 2
-    m_Bits: 6
-  m_Directional: 0
 --- !u!114 &3525664449471152523
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -651,6 +635,132 @@ MonoBehaviour:
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
   m_SoftShadowQuality: 0
+--- !u!114 &4872957951875037828
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4690343204125753905}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc4d76f733087744991913c9d19d5274, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_LensFlareData: {fileID: 0}
+  intensity: 1
+  maxAttenuationDistance: 100
+  maxAttenuationScale: 100
+  distanceAttenuationCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  scaleByDistanceCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  attenuationByLightShape: 1
+  radialScreenAttenuationCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  useOcclusion: 0
+  occlusionRadius: 0.1
+  useBackgroundCloudOcclusion: 0
+  sampleCount: 32
+  occlusionOffset: 0.05
+  scale: 1
+  allowOffScreen: 0
+  volumetricCloudOcclusion: 0
+  occlusionRemapCurve:
+    <length>k__BackingField: 2
+    m_Loop: 0
+    m_ZeroValue: 1
+    m_Range: 1
+    m_Curve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 1
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 1
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
 --- !u!1 &4897728110817893050
 GameObject:
   m_ObjectHideFlags: 0
