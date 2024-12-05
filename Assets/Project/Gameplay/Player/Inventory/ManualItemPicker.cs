@@ -18,14 +18,14 @@ namespace Project.Gameplay.Player.Inventory
         public MMFeedbacks pickedMmFeedbacks; // Feedbacks to play when the item is picked up
 
         bool _isInRange;
-        PickupPromptManager _pickupPromptManager;
         PreviewManager _previewManager;
+        PromptManager _promptManager;
         MoreMountains.InventoryEngine.Inventory _targetInventory;
 
         void Start()
         {
-            _pickupPromptManager = FindObjectOfType<PickupPromptManager>();
-            if (_pickupPromptManager == null) Debug.LogWarning("PickupPromptManager not found in the scene.");
+            _promptManager = FindObjectOfType<PromptManager>();
+            if (_promptManager == null) Debug.LogWarning("PickupPromptManager not found in the scene.");
 
             _previewManager = FindObjectOfType<PreviewManager>();
             if (_previewManager == null) Debug.LogWarning("PlayerItemPreviewManager not found in the scene.");
@@ -52,8 +52,8 @@ namespace Project.Gameplay.Player.Inventory
             if (itemPickerCollider.CompareTag("Player"))
             {
                 _isInRange = true;
-                _pickupPromptManager?.ShowPickupPrompt();
-                _pickupPromptManager?.ShowPreviewPanel(Item); // Show preview when entering
+                _promptManager?.ShowPickupPrompt();
+                _promptManager?.ShowPreviewPanel(Item); // Show preview when entering
             }
         }
 
@@ -62,8 +62,8 @@ namespace Project.Gameplay.Player.Inventory
             if (collider.CompareTag("Player"))
             {
                 _isInRange = false;
-                _pickupPromptManager?.HidePickupPrompt();
-                _pickupPromptManager?.HidePreviewPanel(); // Ensure preview hides on exit
+                _promptManager?.HidePickupPrompt();
+                _promptManager?.HidePreviewPanel(); // Ensure preview hides on exit
             }
         }
 
@@ -74,7 +74,7 @@ namespace Project.Gameplay.Player.Inventory
             if (_targetInventory.AddItem(Item, Quantity))
             {
                 // Hide the prompt and preview panel on successful pickup
-                _pickupPromptManager?.HidePickupPrompt();
+                _promptManager?.HidePickupPrompt();
                 // _pickupPromptManager?.HidePreviewPanel();
 
                 // Play feedbacks on successful pickup

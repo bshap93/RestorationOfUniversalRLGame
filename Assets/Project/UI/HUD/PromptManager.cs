@@ -1,16 +1,21 @@
 using MoreMountains.InventoryEngine;
+using TMPro;
 using UnityEngine;
 
 namespace Project.UI.HUD
 {
-    public class PickupPromptManager : MonoBehaviour
+    public class PromptManager : MonoBehaviour
     {
         public GameObject PickupPromptUI; // Reference to the pickup prompt UI element
         public GameObject PreviewPanelUI;
+        public GameObject InteractPromptUI;
+        string _interactPromptText;
+        TMP_Text _interactPromptTextComponent;
 
         void Start()
         {
             PickupPromptUI.SetActive(false);
+            InteractPromptUI.SetActive(false);
         }
 
         public void ShowPickupPrompt()
@@ -31,6 +36,21 @@ namespace Project.UI.HUD
         public void ShowPreviewPanel(InventoryItem item)
         {
             if (PreviewPanelUI != null) PreviewPanelUI.SetActive(true);
+        }
+
+        public void ShowInteractPrompt(string text)
+        {
+            if (InteractPromptUI != null)
+            {
+                InteractPromptUI.SetActive(true);
+                _interactPromptTextComponent = InteractPromptUI.GetComponentInChildren<TMP_Text>();
+                _interactPromptTextComponent.text = text;
+            }
+        }
+
+        public void HideInteractPrompt()
+        {
+            if (InteractPromptUI != null) InteractPromptUI.SetActive(false);
         }
     }
 }

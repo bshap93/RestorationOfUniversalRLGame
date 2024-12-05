@@ -3,6 +3,7 @@ using MoreMountains.Feedbacks;
 using MoreMountains.InventoryEngine;
 using Project.Gameplay.ItemManagement;
 using Project.Gameplay.Player.Inventory;
+using Project.UI.HUD;
 using UnityEngine;
 
 public class LootChest : MonoBehaviour
@@ -15,10 +16,18 @@ public class LootChest : MonoBehaviour
 
     public List<Transform> itemSlots;
 
+    public GameObject chestLid;
+
+    bool _isInRange;
+
+
     List<GameObject> _itemInstances;
+
+    PromptManager _promptManager;
     // Start is called before the first frame update
     void Start()
     {
+        _promptManager = FindObjectOfType<PromptManager>();
         for (var i = 0; i < items.Count; i++)
         {
             if (i >= maxItems) break;
@@ -38,8 +47,27 @@ public class LootChest : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            _isInRange = true;
+            _promptManager?.ShowInteractPrompt("Press F to Open Chest");
+        }
+    }
+     
     void Update()
     {
+        if (_isInRange && UnityEngine.Input.GetKeyDown(KeyCode.F)) OpenChest();
+    }
+    
+    void OpenChest()
+    {
+        chestLid.SetActive(false);
+        foreach (var itemSlot in itemSlots)
+        {
+            itemSlot.gameObject.SetActive(true);
+        }
+        _promptManager?.HideInteractPrompt();
     }
 }
