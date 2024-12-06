@@ -1442,6 +1442,7 @@ GameObject:
   - component: {fileID: 3073709283732881986}
   - component: {fileID: 261074148920114004}
   - component: {fileID: 5240913593905366626}
+  - component: {fileID: 6924445214908498405}
   m_Layer: 3
   m_Name: SpiderEnemy2
   m_TagString: Enemy
@@ -1949,7 +1950,7 @@ MonoBehaviour:
   Model: {fileID: 0}
   CurrentHealth: 100
   Invulnerable: 0
-  InitialHealth: 100
+  InitialHealth: 1
   MaximumHealth: 100
   ResetHealthOnEnable: 1
   ImmuneToDamage: 0
@@ -2270,7 +2271,7 @@ MonoBehaviour:
   BrainActive: 1
   ResetBrainOnStart: 1
   ResetBrainOnEnable: 0
-  ActionsFrequency: 0.7
+  ActionsFrequency: 1
   DecisionFrequency: 0.3
   RandomizeFrequencies: 0
   RandomActionFrequency: {x: 0.5, y: 1}
@@ -2435,6 +2436,40 @@ MonoBehaviour:
   InitializationMode: 0
   Label: 
   MinimumDelayBeforeUpdatingTarget: 0.3
+--- !u!114 &6924445214908498405
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2246649116668966876}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 443ebf149b5f47147a1076bea95f5134, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AbilityStartSfx: {fileID: 0}
+  AbilityInProgressSfx: {fileID: 0}
+  AbilityStopSfx: {fileID: 0}
+  AbilityStartFeedbacks: {fileID: 0}
+  AbilityStopFeedbacks: {fileID: 0}
+  AbilityPermitted: 1
+  BlockingMovementStates: 
+  BlockingConditionStates: 
+  BlockingWeaponStates: 
+  Target: {fileID: 0}
+  AreaMask: -1
+  DistanceToWaypointThreshold: 1
+  ClosestPointThreshold: 3
+  MinimumDelayBeforePollingNavmesh: 0.1
+  PathRefreshMode: 0
+  RefreshSpeedThreshold: 1
+  RefreshInterval: 2
+  DebugDrawPath: 0
+  Waypoints: []
+  NextWaypointIndex: 0
+  NextWaypointDirection: {x: 0, y: 0, z: 0}
+  DistanceToNextWaypoint: 0
 --- !u!1 &2266002505852219774
 GameObject:
   m_ObjectHideFlags: 0
