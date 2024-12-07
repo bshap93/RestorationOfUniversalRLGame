@@ -157,8 +157,8 @@ MonoBehaviour:
   Flipped: 0
   MeleeDamageAreaMode: 0
   DamageAreaShape: 3
-  AreaOffset: {x: 0.37, y: -0.28, z: -0.49}
-  AreaSize: {x: 2.48, y: 1.02, z: 1.41}
+  AreaOffset: {x: 0.23, y: -0.28, z: -0.49}
+  AreaSize: {x: 1.69, y: 1.02, z: 1.41}
   TriggerFilter: 195
   HitDamageableFeedback: {fileID: 9128628198398673260}
   HitNonDamageableFeedback: {fileID: 7792262091957854783}
@@ -251,14 +251,14 @@ MonoBehaviour:
   Flipped: 0
   MeleeDamageAreaMode: 0
   DamageAreaShape: 3
-  AreaOffset: {x: 0.37, y: -0.28, z: -0.49}
-  AreaSize: {x: 2.48, y: 1.02, z: 1.41}
+  AreaOffset: {x: 0.23, y: -0.28, z: -0.49}
+  AreaSize: {x: 1.69, y: 1.02, z: 1.41}
   TriggerFilter: 195
   HitDamageableFeedback: {fileID: 9128628198398673260}
   HitNonDamageableFeedback: {fileID: 7792262091957854783}
   ExistingDamageArea: {fileID: 0}
-  InitialDelay: 0.16
-  ActiveDuration: 0.2
+  InitialDelay: 0.24
+  ActiveDuration: 0.39
   TargetLayerMask:
     serializedVersion: 2
     m_Bits: 33554696
@@ -345,14 +345,14 @@ MonoBehaviour:
   Flipped: 0
   MeleeDamageAreaMode: 0
   DamageAreaShape: 3
-  AreaOffset: {x: 0.37, y: -0.28, z: -0.49}
-  AreaSize: {x: 2.48, y: 1.02, z: 1.41}
+  AreaOffset: {x: 0.23, y: -0.28, z: -0.49}
+  AreaSize: {x: 1.69, y: 1.02, z: 1.41}
   TriggerFilter: 195
   HitDamageableFeedback: {fileID: 9128628198398673260}
   HitNonDamageableFeedback: {fileID: 7792262091957854783}
   ExistingDamageArea: {fileID: 0}
   InitialDelay: 0.3
-  ActiveDuration: 0.2
+  ActiveDuration: 0.38
   TargetLayerMask:
     serializedVersion: 2
     m_Bits: 33554696
@@ -1456,6 +1456,7 @@ MonoBehaviour:
   FeedbacksList:
   - rid: 4950071964368371715
   - rid: 4950072260260265987
+  - rid: 509909688221696023
   KeepPlayModeChanges: 0
   PerformanceMode: 0
   StopFeedbacksOnDisable: 0
@@ -1463,6 +1464,100 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
+    - rid: 509909688221696023
+      type: {class: MMF_ParticlesInstantiation, ns: MoreMountains.Feedbacks, asm: MoreMountains.Tools}
+      data:
+        Active: 1
+        UniqueID: 2060630840
+        Label: Particles Instantiation
+        ChannelMode: 0
+        Channel: 0
+        MMChannelDefinition: {fileID: 0}
+        Chance: 100
+        DisplayColor: {r: 0, g: 0, b: 0, a: 1}
+        Timing:
+          TimescaleMode: 0
+          ExcludeFromHoldingPauses: 0
+          ContributeToTotalDuration: 1
+          InitialDelay: 0
+          CooldownDuration: 0
+          InterruptsOnStop: 1
+          NumberOfRepeats: 0
+          RepeatForever: 0
+          DelayBetweenRepeats: 1
+          PlayCount: 0
+          LimitPlayCount: 0
+          MaxPlayCount: 3
+          SetPlayCountToZeroOnReset: 0
+          MMFeedbacksDirectionCondition: 0
+          PlayDirection: 0
+          ConstantIntensity: 0
+          UseIntensityInterval: 0
+          IntensityIntervalMin: 0
+          IntensityIntervalMax: 0
+          Sequence: {fileID: 0}
+          TrackID: 0
+          Quantized: 0
+          TargetBPM: 120
+        AutomatedTargetAcquisition:
+          Mode: 0
+          ChildIndex: 0
+        RandomizeOutput: 0
+        RandomMultiplier: {x: 0.8, y: 1}
+        RandomizeDuration: 0
+        RandomDurationMultiplier: {x: 0.5, y: 2}
+        UseRange: 0
+        RangeDistance: 5
+        UseRangeFalloff: 0
+        RangeFalloff:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: 0
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 0
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        RemapRangeFalloff: {x: 0, y: 1}
+        AutomaticShakerSetupButton:
+          ButtonText: 
+        Owner: {fileID: 9128628198398673260}
+        DebugActive: 0
+        Mode: 1
+        ObjectPoolSize: 5
+        MutualizePools: 0
+        ParentTransform: {fileID: 0}
+        CachedRecycle: 1
+        ParticlesPrefab: {fileID: 19800000, guid: 452ea01263a6f7b4b85471afc8f73eb4,
+          type: 3}
+        RandomParticlePrefabs: []
+        ForceSetActiveOnPlay: 1
+        StopOnReset: 0
+        DeclaredDuration: 0
+        PositionMode: 1
+        InstantiateParticlesPosition: {fileID: 5596820791566915652}
+        TargetWorldPosition: {x: 0, y: 0, z: 0}
+        Offset: {x: 0, y: 0, z: 0}
+        NestParticles: 0
+        ApplyRotation: 1
+        ApplyScale: 0
+        ForceSimulationSpeed: 0
+        ForcedSimulationSpeed: {x: 0, y: 0}
     - rid: 4950071964368371715
       type: {class: MMF_Sound, ns: MoreMountains.Feedbacks, asm: MoreMountains.Tools}
       data:
