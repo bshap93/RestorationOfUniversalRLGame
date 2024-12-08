@@ -67,7 +67,7 @@ namespace Project.UI.HUD
         /// <param name="newCurrencyAmount">The new value of the player's currency</param>
         void UpdateCurrencyText(int newCurrencyAmount)
         {
-            currencyText.text = $"Coins: {newCurrencyAmount}";
+            currencyText.text = $"{newCurrencyAmount}";
         }
     }
 }
