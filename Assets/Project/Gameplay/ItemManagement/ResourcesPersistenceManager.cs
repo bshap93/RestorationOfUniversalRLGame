@@ -1,4 +1,5 @@
 ﻿using MoreMountains.Tools;
+using Project.Gameplay.Player;
 using Project.Gameplay.Player.Health;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -9,10 +10,16 @@ namespace Project.Gameplay.ItemManagement
     {
         const string HealthFileName = "PlayerHealth.save";
         const string MaxHealthFileName = "PlayerMaxHealth.save";
+        const string CurrentCurrencyFileName = "PlayerCurrency.save";
+
 
         const string SaveFolderName = "Player";
         [FormerlySerializedAs("_playerHealth")] [Header("Health")] [SerializeField]
         HealthAlt playerHealth;
+
+        [Header("Player Stats")] [SerializeField]
+        PlayerStats playerStats;
+
 
         void OnEnable()
         {
@@ -39,15 +46,59 @@ namespace Project.Gameplay.ItemManagement
             // Save Player Health
             SaveHealthState();
 
+            SavePlayerStats();
+
+
             Debug.Log("Resources saved.");
         }
+        void SavePlayerStats()
+        {
+            if (playerStats == null)
+            {
+                playerStats = FindObjectOfType<PlayerStats>();
+                if (playerStats == null)
+                {
+                    Debug.LogWarning("Player Stats is null. Cannot save player stats.");
+                    return;
+                }
+            }
+
+            MMSaveLoadManager.Save(playerStats.playerCurrency, CurrentCurrencyFileName, SaveFolderName);
+
+            Debug.Log($"Player currency saved: {playerStats.playerCurrency}");
+        }
+
 
         void RevertResourcesToLastSave()
         {
             // Revert Player Health
             RevertHealthToLastSave();
 
+            RevertPlayerStats();
+
+
             Debug.Log("Resources reverted.");
+        }
+        void RevertPlayerStats()
+        {
+            if (playerStats == null)
+            {
+                playerStats = FindObjectOfType<PlayerStats>();
+                if (playerStats == null)
+                {
+                    Debug.LogWarning("Player Stats is null. Cannot revert player stats.");
+                    return;
+                }
+            }
+
+            // Load current currency
+            var loadedCurrency = MMSaveLoadManager.Load(typeof(int), CurrentCurrencyFileName, SaveFolderName);
+            var savedCurrency = loadedCurrency != null ? (int)loadedCurrency : 0;
+
+            // Apply loaded currency value
+            playerStats.playerCurrency = savedCurrency;
+
+            Debug.Log($"Player currency reverted: {savedCurrency}");
         }
 
 

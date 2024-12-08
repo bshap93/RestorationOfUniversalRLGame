@@ -33,14 +33,22 @@ namespace Project.Gameplay.Player
         // Character creation data for reference
         [SerializeField] string playerClass; // Stores the class name
         [SerializeField] List<string> chosenTraits; // Stores the trait names
+        public float Health;
+
+        public int playerExperiencePoints;
+        public int playerCurrentLevel;
+
+        public int playerCurrency;
 
         // Runtime references to ScriptableObjects for class and traits
         StartingClass startingClass;
         List<CharacterTrait> traits = new();
-        public float Health; 
 
         public int Strength => strength;
         public int AttackPower => (int)attackPower;
+
+        // Event that triggers whenever currency changes
+        public event Action<int> OnCurrencyChanged;
 
         public event Action OnStatsUpdated;
 
@@ -79,8 +87,9 @@ namespace Project.Gameplay.Player
                 }
             }
 
-            // Debug.Log(
-            //     $"Initialized Player Stats: Class={playerClass}, MaxHealth={maxHealth}, MoveSpeed={moveSpeedMult}, AttackPower={attackPower}, Defense={damageMult}");
+            playerExperiencePoints = 0;
+            playerCurrentLevel = 1;
+            playerCurrency = 0;
         }
 
         void LoadStartingClass(string className)
@@ -197,6 +206,24 @@ namespace Project.Gameplay.Player
         public void LevelUp()
         {
             Debug.Log("Player leveled up!");
+            NotifyStatUpdates();
+        }
+
+        public void AddExperience(int experience)
+        {
+            playerExperiencePoints += experience;
+            Debug.Log($"Player gained {experience} experience points.");
+            NotifyStatUpdates();
+        }
+
+        public void AddCoins(int currency)
+        {
+            playerCurrency += currency;
+
+            // Trigger the event to notify listeners
+
+            OnCurrencyChanged?.Invoke(playerCurrency);
+            Debug.Log($"Player gained {currency} currency.");
             NotifyStatUpdates();
         }
 

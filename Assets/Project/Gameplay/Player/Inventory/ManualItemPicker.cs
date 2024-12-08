@@ -1,6 +1,6 @@
 using MoreMountains.Feedbacks;
 using MoreMountains.InventoryEngine;
-using Project.Gameplay.ItemManagement;
+using Project.Gameplay.ItemManagement.InventoryItemTypes;
 using Project.UI.HUD;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -69,29 +69,47 @@ namespace Project.Gameplay.Player.Inventory
 
         void PickItem()
         {
-            if (Item == null || _targetInventory == null || _previewManager.CurrentPreviewedItem != Item) return;
+            if (Item == null) return;
 
-            if (_targetInventory.AddItem(Item, Quantity))
+            // If the item is a coin, add coins directly to PlayerStats and skip inventory
+            if (Item is InventoryCoinPickup coinPickup)
             {
-                // Hide the prompt and preview panel on successful pickup
-                _promptManager?.HidePickupPrompt();
-                // _pickupPromptManager?.HidePreviewPanel();
+                var player = GameObject.FindWithTag("Player");
+                if (player != null)
+                {
+                    var playerStats = player.GetComponent<PlayerStats>();
+
+                    if (playerStats != null)
+                    {
+                        // Determine how many coins to add
+                        var coinsToAdd = Random.Range(coinPickup.MinimumCoins, coinPickup.MaximumCoins + 1);
+                        playerStats.AddCoins(coinsToAdd);
+                        Debug.Log($"Picked up {coinsToAdd} coins. Total Coins: {playerStats.playerCurrency}");
+                    }
+                }
 
                 // Play feedbacks on successful pickup
-                if (pickedMmFeedbacks != null) pickedMmFeedbacks.PlayFeedbacks();
+                pickedMmFeedbacks?.PlayFeedbacks();
 
-
-                // Inform PlayerItemPreviewManager to update the preview
-                var playerItemPreviewManager = FindObjectOfType<PlayerItemPreviewManager>();
-                if (playerItemPreviewManager != null)
-                    playerItemPreviewManager.UnregisterItem(GetComponent<ItemPreviewTrigger>());
-
-
+                // Destroy the item after pickup
                 Destroy(gameObject);
             }
             else
             {
-                ShowInventoryFullMessage();
+                // Standard inventory handling
+                if (_targetInventory != null && _previewManager.CurrentPreviewedItem == Item)
+                {
+                    if (_targetInventory.AddItem(Item, Quantity))
+                    {
+                        _promptManager?.HidePickupPrompt();
+                        pickedMmFeedbacks?.PlayFeedbacks();
+                        Destroy(gameObject);
+                    }
+                    else
+                    {
+                        ShowInventoryFullMessage();
+                    }
+                }
             }
         }
 
