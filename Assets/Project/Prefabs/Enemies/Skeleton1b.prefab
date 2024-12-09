@@ -2412,12 +2412,12 @@ MonoBehaviour:
         SfxAudioMixerGroup: {fileID: 0}
         Priority: 128
         PanStereo: 0
-        SpatialBlend: 0
+        SpatialBlend: 1
         DopplerLevel: 1
         Spread: 0
-        RolloffMode: 1
+        RolloffMode: 0
         MinDistance: 1
-        MaxDistance: 50
+        MaxDistance: 25
         UseCustomRolloffCurve: 0
         CustomRolloffCurve:
           serializedVersion: 2
@@ -16722,6 +16722,7 @@ GameObject:
   - component: {fileID: 8677582764982103784}
   - component: {fileID: 1938277560262268222}
   - component: {fileID: 8089678602817292058}
+  - component: {fileID: 7323346820591638297}
   m_Layer: 0
   m_Name: Skeleton-Warrior_2 Variant
   m_TagString: Untagged
@@ -16868,6 +16869,18 @@ LODGroup:
     - renderer: {fileID: 3606812026601907168}
     - renderer: {fileID: 7254401212776341488}
   m_Enabled: 1
+--- !u!114 &7323346820591638297
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7714322381367651186}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 93c8ce1b01d84ed381836d80f98dcfeb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7772020170047208889
 GameObject:
   m_ObjectHideFlags: 0
@@ -17174,6 +17187,7 @@ MonoBehaviour:
   - rid: 4950072140132515845
   - rid: 4950072300340510723
   - rid: 509909688221696035
+  - rid: 509909688221696036
   KeepPlayModeChanges: 0
   PerformanceMode: 0
   StopFeedbacksOnDisable: 0
@@ -17261,6 +17275,110 @@ MonoBehaviour:
         Vector3Parameter: {x: 0, y: 0, z: 0}
         BoolParameter: 0
         StringParameter: 
+    - rid: 509909688221696036
+      type: {class: MMF_Animation, ns: MoreMountains.Feedbacks, asm: MoreMountains.Tools}
+      data:
+        Active: 1
+        UniqueID: -1123577559
+        Label: Animation Parameter
+        ChannelMode: 0
+        Channel: 0
+        MMChannelDefinition: {fileID: 0}
+        Chance: 100
+        DisplayColor: {r: 0, g: 0, b: 0, a: 1}
+        Timing:
+          TimescaleMode: 0
+          ExcludeFromHoldingPauses: 0
+          ContributeToTotalDuration: 1
+          InitialDelay: 0
+          CooldownDuration: 0
+          InterruptsOnStop: 1
+          NumberOfRepeats: 0
+          RepeatForever: 0
+          DelayBetweenRepeats: 1
+          PlayCount: 0
+          LimitPlayCount: 0
+          MaxPlayCount: 3
+          SetPlayCountToZeroOnReset: 0
+          MMFeedbacksDirectionCondition: 0
+          PlayDirection: 0
+          ConstantIntensity: 0
+          UseIntensityInterval: 0
+          IntensityIntervalMin: 0
+          IntensityIntervalMax: 0
+          Sequence: {fileID: 0}
+          TrackID: 0
+          Quantized: 0
+          TargetBPM: 120
+        AutomatedTargetAcquisition:
+          Mode: 0
+          ChildIndex: 0
+        RandomizeOutput: 0
+        RandomMultiplier: {x: 0.8, y: 1}
+        RandomizeDuration: 0
+        RandomDurationMultiplier: {x: 0.5, y: 2}
+        UseRange: 0
+        RangeDistance: 5
+        UseRangeFalloff: 0
+        RangeFalloff:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: 0
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 0
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        RemapRangeFalloff: {x: 0, y: 1}
+        AutomaticShakerSetupButton:
+          ButtonText: 
+        Owner: {fileID: 2051331349666486407}
+        DebugActive: 0
+        BoundAnimator: {fileID: 1938277560262268222}
+        ExtraBoundAnimators: []
+        DeclaredDuration: 0
+        UpdateTrigger: 1
+        TriggerMode: 0
+        TriggerParameterName: Die
+        UpdateRandomTrigger: 0
+        RandomTriggerMode: 0
+        RandomTriggerParameterNames: []
+        UpdateBool: 0
+        BoolParameterName: 
+        BoolParameterValue: 1
+        UpdateRandomBool: 0
+        RandomBoolParameterValue: 1
+        RandomBoolParameterNames: []
+        IntValueMode: 0
+        IntParameterName: 
+        IntValue: 0
+        IntValueMin: 0
+        IntValueMax: 5
+        IntIncrement: 1
+        FloatValueMode: 0
+        FloatParameterName: 
+        FloatValue: 0
+        FloatValueMin: 0
+        FloatValueMax: 5
+        FloatIncrement: 1
+        SetLayerWeight: 0
+        TargetLayerIndex: 1
+        NewWeight: 0.5
     - rid: 4950072140132515845
       type: {class: MMF_Sound, ns: MoreMountains.Feedbacks, asm: MoreMountains.Tools}
       data:
@@ -18931,7 +19049,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01754710d9f92ec4d9a21b81f5682667, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Model: {fileID: 0}
+  Model: {fileID: 7714322381367651186}
   CurrentHealth: 100
   Invulnerable: 0
   InitialHealth: 100
@@ -18949,7 +19067,7 @@ MonoBehaviour:
   PointsWhenDestroyed: 0
   RespawnAtInitialLocation: 0
   DisableControllerOnDeath: 1
-  DisableModelOnDeath: 1
+  DisableModelOnDeath: 0
   DisableCollisionsOnDeath: 1
   DisableChildCollisionsOnDeath: 1
   ChangeLayerOnDeath: 0
@@ -19362,11 +19480,11 @@ MonoBehaviour:
   PathElements:
   - PathElementPosition: {x: -0.010377884, y: 0.050000012, z: 0.007183075}
     Delay: 1
-  - PathElementPosition: {x: -11.870886, y: 0.05, z: 0.7889137}
+  - PathElementPosition: {x: -0.38765717, y: 0.05, z: 3.9084868}
     Delay: 1
-  - PathElementPosition: {x: 1.0407878, y: 0.050000012, z: -4.5203743}
+  - PathElementPosition: {x: -10.424583, y: 0.050000012, z: 2.1882844}
     Delay: 3
-  - PathElementPosition: {x: -10.891991, y: 0.050000012, z: -4.964138}
+  - PathElementPosition: {x: -6.911297, y: 0.050000012, z: 5.5824003}
     Delay: 1
   ReferenceMMPath: {fileID: 0}
   AbsoluteReferencePath: 0

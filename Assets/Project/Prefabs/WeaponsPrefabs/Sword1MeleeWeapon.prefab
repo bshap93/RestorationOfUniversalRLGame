@@ -96,10 +96,10 @@ MonoBehaviour:
   WeaponName: Sword1a
   WeaponCurrentlyActive: 1
   InputAuthorized: 1
-  TriggerMode: 0
+  TriggerMode: 1
   DelayBeforeUse: 0
   DelayBeforeUseReleaseInterruption: 1
-  TimeBetweenUses: 1.2
+  TimeBetweenUses: 1.22
   TimeBetweenUsesReleaseInterruption: 0
   UseBurstMode: 0
   BurstLength: 3
@@ -143,7 +143,7 @@ MonoBehaviour:
   ReloadStopAnimationParameter: 
   WeaponAngleAnimationParameter: 
   WeaponAngleRelativeAnimationParameter: 
-  EquippedAnimationParameter: 
+  EquippedAnimationParameter: EquipSword
   InterruptedAnimationParameter: 
   WeaponStartMMFeedback: {fileID: 0}
   WeaponUsedMMFeedback: {fileID: 8494275033942933626}
@@ -168,12 +168,12 @@ MonoBehaviour:
   TargetLayerMask:
     serializedVersion: 2
     m_Bits: 33554696
-  MinDamageCaused: 10
-  MaxDamageCaused: 50
+  MinDamageCaused: 20
+  MaxDamageCaused: 30
   Knockback: 1
-  KnockbackForce: {x: 10, y: 2, z: 0}
+  KnockbackForce: {x: 2, y: 2, z: 2}
   KnockbackDirection: 0
-  InvincibilityDuration: 0.5
+  InvincibilityDuration: 0.27
   CanDamageOwner: 0
 --- !u!114 &1831488948309725400
 MonoBehaviour:
@@ -193,7 +193,7 @@ MonoBehaviour:
   TriggerMode: 0
   DelayBeforeUse: 0
   DelayBeforeUseReleaseInterruption: 1
-  TimeBetweenUses: 1.2
+  TimeBetweenUses: 1.14
   TimeBetweenUsesReleaseInterruption: 0
   UseBurstMode: 0
   BurstLength: 3
@@ -262,12 +262,12 @@ MonoBehaviour:
   TargetLayerMask:
     serializedVersion: 2
     m_Bits: 33554696
-  MinDamageCaused: 10
-  MaxDamageCaused: 50
+  MinDamageCaused: 20
+  MaxDamageCaused: 40
   Knockback: 1
-  KnockbackForce: {x: 10, y: 2, z: 0}
+  KnockbackForce: {x: 3, y: 3, z: 3}
   KnockbackDirection: 0
-  InvincibilityDuration: 0.5
+  InvincibilityDuration: 0.48
   CanDamageOwner: 0
 --- !u!114 &440286729994389184
 MonoBehaviour:
@@ -287,7 +287,7 @@ MonoBehaviour:
   TriggerMode: 0
   DelayBeforeUse: 0
   DelayBeforeUseReleaseInterruption: 1
-  TimeBetweenUses: 1.2
+  TimeBetweenUses: 1.24
   TimeBetweenUsesReleaseInterruption: 0
   UseBurstMode: 0
   BurstLength: 3
@@ -356,12 +356,12 @@ MonoBehaviour:
   TargetLayerMask:
     serializedVersion: 2
     m_Bits: 33554696
-  MinDamageCaused: 10
-  MaxDamageCaused: 50
+  MinDamageCaused: 40
+  MaxDamageCaused: 70
   Knockback: 1
-  KnockbackForce: {x: 10, y: 2, z: 0}
+  KnockbackForce: {x: 4, y: 4, z: 4}
   KnockbackDirection: 0
-  InvincibilityDuration: 0.5
+  InvincibilityDuration: 0.4
   CanDamageOwner: 0
 --- !u!114 &4179246508374869324
 MonoBehaviour:
@@ -396,7 +396,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DroppableCombo: 1
   DropComboDelay: 0.8
-  InputMode: 1
+  InputMode: 0
   ComboInProgressAnimationParameter: ComboInProgress
   Weapons:
   - {fileID: 1831488948309725400}
@@ -918,11 +918,9 @@ MonoBehaviour:
         DebugActive: 0
         Sfx: {fileID: 0}
         RandomSfx:
-        - {fileID: 8300000, guid: e945ae282c1c548c3bb168b0606333ba, type: 3}
-        - {fileID: 8300000, guid: ab38c8f953789430691b634dd685119b, type: 3}
-        - {fileID: 8300000, guid: abf4caad1f5a24e49a317937ebf12163, type: 3}
-        - {fileID: 8300000, guid: d637bacd075454147bb398300d59dc3e, type: 3}
-        - {fileID: 8300000, guid: 7cbfafc671f0e4426a71d276a8bb71ec, type: 3}
+        - {fileID: 8300000, guid: e4bd2b9f2efc0c544a777d132d35c973, type: 3}
+        - {fileID: 8300000, guid: 4604e8211ceabe846a9ef84bd5603bd2, type: 3}
+        - {fileID: 8300000, guid: 3e61f634acaf9b84ea3fb309061f5142, type: 3}
         TestPlayButton:
           ButtonText: Debug Play Sound
         TestStopButton:
@@ -1071,6 +1069,7 @@ Transform:
   - {fileID: 1213982582377753525}
   - {fileID: 4309039823132190700}
   - {fileID: 3446973004828328497}
+  - {fileID: 5152275423314772117}
   m_Father: {fileID: 8927191285216027353}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6025076248900268071
@@ -1634,9 +1633,10 @@ MonoBehaviour:
         DebugActive: 0
         Sfx: {fileID: 0}
         RandomSfx:
-        - {fileID: 8300000, guid: 328546264e8994e47b0794190395ae0e, type: 3}
-        - {fileID: 8300000, guid: daa7dcf7b8eb5465a9f92c914ea2b370, type: 3}
-        - {fileID: 8300000, guid: 1148150c53a904f12b0640ec255a3cca, type: 3}
+        - {fileID: 8300000, guid: 78045c047f5bf41ca9f5138cb9cebedf, type: 3}
+        - {fileID: 8300000, guid: a8f8fe48392484af8ba6df8ccce17865, type: 3}
+        - {fileID: 8300000, guid: 0d37e6c4b00564acb902eac4803eee82, type: 3}
+        - {fileID: 8300000, guid: 81d4cf103f1ba42f8b7ec0f951ac3f98, type: 3}
         TestPlayButton:
           ButtonText: Debug Play Sound
         TestStopButton:
@@ -1803,6 +1803,270 @@ Transform:
   m_Children: []
   m_Father: {fileID: 7088680373105841062}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &7474045930769051058
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5152275423314772117}
+  - component: {fileID: 8793613104596410466}
+  m_Layer: 0
+  m_Name: DrawSwordFeedback
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5152275423314772117
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7474045930769051058}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1064079736301431254}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8793613104596410466
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7474045930769051058}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6da43522623d4704e979466dc7650b65, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Feedbacks: []
+  InitializationMode: 2
+  AutoInitialization: 1
+  SafeMode: 3
+  Direction: 0
+  AutoChangeDirectionOnEnd: 0
+  AutoPlayOnStart: 0
+  AutoPlayOnEnable: 0
+  ForceTimescaleMode: 0
+  ForcedTimescaleMode: 1
+  DurationMultiplier: 1
+  TimescaleMultiplier: 1
+  RandomizeDuration: 0
+  RandomDurationMultiplier: {x: 0.5, y: 1.5}
+  DisplayFullDurationDetails: 0
+  PlayerTimescaleMode: 1
+  OnlyPlayIfWithinRange: 0
+  RangeCenter: {fileID: 0}
+  RangeDistance: 5
+  UseRangeFalloff: 0
+  RangeFalloff:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  RemapRangeFalloff: {x: 0, y: 1}
+  IgnoreRangeEvents: 0
+  CooldownDuration: 0
+  InitialDelay: 0
+  CanPlay: 1
+  CanPlayWhileAlreadyPlaying: 1
+  ChanceToPlay: 100
+  FeedbacksIntensity: 1
+  Events:
+    TriggerMMFeedbacksEvents: 0
+    TriggerUnityEvents: 1
+    OnPlay:
+      m_PersistentCalls:
+        m_Calls: []
+    OnPause:
+      m_PersistentCalls:
+        m_Calls: []
+    OnResume:
+      m_PersistentCalls:
+        m_Calls: []
+    OnRevert:
+      m_PersistentCalls:
+        m_Calls: []
+    OnComplete:
+      m_PersistentCalls:
+        m_Calls: []
+    OnRestoreInitialValues:
+      m_PersistentCalls:
+        m_Calls: []
+    OnSkipToTheEnd:
+      m_PersistentCalls:
+        m_Calls: []
+    OnInitializationComplete:
+      m_PersistentCalls:
+        m_Calls: []
+    OnEnable:
+      m_PersistentCalls:
+        m_Calls: []
+    OnDisable:
+      m_PersistentCalls:
+        m_Calls: []
+  DebugActive: 0
+  FeedbacksList:
+  - rid: 509909688221696037
+  KeepPlayModeChanges: 0
+  PerformanceMode: 0
+  StopFeedbacksOnDisable: 0
+  PlayCount: 0
+  references:
+    version: 2
+    RefIds:
+    - rid: 509909688221696037
+      type: {class: MMF_Sound, ns: MoreMountains.Feedbacks, asm: MoreMountains.Tools}
+      data:
+        Active: 1
+        UniqueID: -1621935667
+        Label: Sound
+        ChannelMode: 0
+        Channel: 0
+        MMChannelDefinition: {fileID: 0}
+        Chance: 100
+        DisplayColor: {r: 0, g: 0, b: 0, a: 1}
+        Timing:
+          TimescaleMode: 0
+          ExcludeFromHoldingPauses: 0
+          ContributeToTotalDuration: 1
+          InitialDelay: 0
+          CooldownDuration: 0
+          InterruptsOnStop: 1
+          NumberOfRepeats: 0
+          RepeatForever: 0
+          DelayBetweenRepeats: 1
+          PlayCount: 0
+          LimitPlayCount: 0
+          MaxPlayCount: 3
+          SetPlayCountToZeroOnReset: 0
+          MMFeedbacksDirectionCondition: 0
+          PlayDirection: 0
+          ConstantIntensity: 0
+          UseIntensityInterval: 0
+          IntensityIntervalMin: 0
+          IntensityIntervalMax: 0
+          Sequence: {fileID: 0}
+          TrackID: 0
+          Quantized: 0
+          TargetBPM: 120
+        AutomatedTargetAcquisition:
+          Mode: 0
+          ChildIndex: 0
+        RandomizeOutput: 0
+        RandomMultiplier: {x: 0.8, y: 1}
+        RandomizeDuration: 0
+        RandomDurationMultiplier: {x: 0.5, y: 2}
+        UseRange: 0
+        RangeDistance: 5
+        UseRangeFalloff: 0
+        RangeFalloff:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: 0
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 0
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        RemapRangeFalloff: {x: 0, y: 1}
+        AutomaticShakerSetupButton:
+          ButtonText: Automatic Shaker Setup
+        Owner: {fileID: 8793613104596410466}
+        DebugActive: 0
+        Sfx: {fileID: 8300000, guid: 2a4fbac9114e5435194423c3b7fdd8a8, type: 3}
+        RandomSfx: []
+        TestPlayButton:
+          ButtonText: Debug Play Sound
+        TestStopButton:
+          ButtonText: Debug Stop Sound
+        PlayMethod: 0
+        PoolSize: 10
+        UseLegacyEventsMode: 0
+        StopSoundOnFeedbackStop: 1
+        MinVolume: 1
+        MaxVolume: 1
+        MinPitch: 1
+        MaxPitch: 1
+        SfxAudioMixerGroup: {fileID: 0}
+        Priority: 128
+        PanStereo: 0
+        SpatialBlend: 0
+        DopplerLevel: 1
+        Spread: 0
+        RolloffMode: 0
+        MinDistance: 1
+        MaxDistance: 500
+        UseCustomRolloffCurve: 0
+        CustomRolloffCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        UseSpatialBlendCurve: 0
+        SpatialBlendCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        UseReverbZoneMixCurve: 0
+        ReverbZoneMixCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        UseSpreadCurve: 0
+        SpreadCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
 --- !u!1 &8699560975485068011
 GameObject:
   m_ObjectHideFlags: 0
@@ -2050,9 +2314,10 @@ MonoBehaviour:
         DebugActive: 0
         Sfx: {fileID: 0}
         RandomSfx:
-        - {fileID: 8300000, guid: f68121c5dbad948d882085b7505c4c9f, type: 3}
-        - {fileID: 8300000, guid: b593b4adc70f649a0902c944dd87f25b, type: 3}
-        - {fileID: 8300000, guid: 9e9c63533e5b54c77bc2af82384a5688, type: 3}
+        - {fileID: 8300000, guid: 6635fbceb5ac140588857369e6071ca8, type: 3}
+        - {fileID: 8300000, guid: 89e83e0c790874b37b45fbc574ebb489, type: 3}
+        - {fileID: 8300000, guid: 38814d8dd7c244437b0301cb7d24d566, type: 3}
+        - {fileID: 8300000, guid: 377abdadcdcdc4323a435f589905d79d, type: 3}
         TestPlayButton:
           ButtonText: Debug Play Sound
         TestStopButton:

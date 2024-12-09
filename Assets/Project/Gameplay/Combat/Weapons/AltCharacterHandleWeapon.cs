@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using MoreMountains.Feedbacks;
 using MoreMountains.Tools;
 using MoreMountains.TopDownEngine;
 using UnityEngine;
@@ -33,6 +34,10 @@ namespace Project.Gameplay.Combat.Weapons
         public Transform weaponAttachment;
 
         public WeaponIK WeaponIK;
+
+        [Header("Weapon Equip Feedback")] [Tooltip("Feedback to play when a weapon is equipped")]
+        public MMFeedbacks WeaponEquipFeedback;
+
 
         /// <summary>
         ///     Sets the weapon attachment based on WeaponAttachmentType.
@@ -79,6 +84,7 @@ namespace Project.Gameplay.Combat.Weapons
             CurrentWeapon.InitializeComboWeapons();
             CurrentWeapon.InitializeAnimatorParameters();
             InitializeAnimatorParameters();
+            WeaponEquipFeedback?.Initialization(gameObject);
         }
 
         public override void ChangeWeapon(Weapon newWeapon, string weaponID, bool combo = false)
@@ -124,6 +130,9 @@ namespace Project.Gameplay.Combat.Weapons
                 SetWeaponAttachment();
 
                 InstantiateWeapon(newWeapon, weaponID, combo);
+
+
+                WeaponEquipFeedback?.PlayFeedbacks();
             }
             else
             {
