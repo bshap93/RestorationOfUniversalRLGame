@@ -84,7 +84,6 @@ namespace Project.Gameplay.Player.Inventory
                         // Determine how many coins to add
                         var coinsToAdd = Random.Range(coinPickup.MinimumCoins, coinPickup.MaximumCoins + 1);
                         playerStats.AddCoins(coinsToAdd);
-                        Debug.Log($"Picked up {coinsToAdd} coins. Total Coins: {playerStats.playerCurrency}");
                     }
                 }
 

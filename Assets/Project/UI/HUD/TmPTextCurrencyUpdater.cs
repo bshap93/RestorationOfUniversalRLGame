@@ -17,7 +17,7 @@ namespace Project.UI.HUD
             this.MMEventStartListening();
 
             // Subscribe to OnStatsUpdated event from ResourcesPersistenceManager
-            ResourcesPersistenceManager manager = FindObjectOfType<ResourcesPersistenceManager>();
+            var manager = FindObjectOfType<ResourcesPersistenceManager>();
             if (manager != null) manager.OnStatsUpdated += RefreshCurrencyText;
         }
 
@@ -28,7 +28,7 @@ namespace Project.UI.HUD
             if (playerStats != null) playerStats.OnCurrencyChanged -= UpdateCurrencyText;
 
             // Unsubscribe from OnStatsUpdated event
-            ResourcesPersistenceManager manager = FindObjectOfType<ResourcesPersistenceManager>();
+            var manager = FindObjectOfType<ResourcesPersistenceManager>();
             if (manager != null) manager.OnStatsUpdated -= RefreshCurrencyText;
         }
 
@@ -40,8 +40,6 @@ namespace Project.UI.HUD
         {
             if (eventType.EventType == MMCameraEventTypes.SetTargetCharacter)
             {
-                Debug.Log("TMPTextCurrencyUpdater: SetTargetCharacter event received.");
-
                 if (playerStats != null) playerStats.OnCurrencyChanged -= UpdateCurrencyText;
 
                 var newCharacter = eventType.TargetCharacter.gameObject;

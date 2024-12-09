@@ -1,17 +1,34 @@
-﻿using System;
+﻿using MoreMountains.Tools;
 using Project.Gameplay.Player.Health;
 using UnityEngine;
 
 namespace Project.Gameplay.Player.Stats
 {
-    public class XpManager : MonoBehaviour
+    public class XpManager : MonoBehaviour, MMEventListener<MMGameEvent>
     {
         public int playerExperiencePoints;
         public int playerCurrentLevel;
         public int playerXpForNextLevel;
 
-        public event Action<int> OnLevelChanged;
-        public event Action<int> OnExperienceChanged;
+        void OnEnable()
+        {
+            this.MMEventStartListening();
+        }
+
+        void OnDisable()
+        {
+            this.MMEventStopListening();
+        }
+
+        public void OnMMEvent(MMGameEvent eventType)
+        {
+            if (eventType.EventName == "PlayerExperienceChanged")
+            {
+                var newXp = eventType.IntParameter;
+                AddExperience(newXp);
+            }
+        }
+
 
         public void Initialize()
         {
@@ -20,32 +37,39 @@ namespace Project.Gameplay.Player.Stats
             playerXpForNextLevel = 20;
         }
 
+        /// <summary>
+        ///     Adds experience to the player and triggers an MMGameEvent to notify listeners.
+        /// </summary>
+        /// <param name="experience">Amount of experience to add</param>
         public void AddExperience(int experience)
         {
             playerExperiencePoints += experience;
             Debug.Log($"Player gained {experience} experience points.");
 
-            OnExperienceChanged?.Invoke(playerExperiencePoints);
 
             if (playerExperiencePoints >= playerXpForNextLevel) LevelUp();
         }
 
+        /// <summary>
+        ///     Handles leveling up the player and triggers an MMGameEvent to notify listeners.
+        /// </summary>
         public void LevelUp()
         {
             playerCurrentLevel++;
 
             playerExperiencePoints -= playerXpForNextLevel;
 
-            playerXpForNextLevel = (playerCurrentLevel + 1) * 20;
+            playerXpForNextLevel = Mathf.RoundToInt(20 * Mathf.Pow(1.5f, playerCurrentLevel - 1));
 
-            OnLevelChanged?.Invoke(playerCurrentLevel);
 
             ApplyLevelUpBonuses();
         }
 
+        /// <summary>
+        ///     Applies level-up bonuses to the player's health and other stats.
+        /// </summary>
         void ApplyLevelUpBonuses()
         {
-            // Increase max health by 10
             var playerHealth = gameObject.GetComponent<HealthAlt>();
             if (playerHealth != null)
             {

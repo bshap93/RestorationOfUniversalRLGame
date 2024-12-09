@@ -62,7 +62,6 @@ namespace Project.Core.GameInitialization
         {
             if (eventType.EventType == MMCameraEventTypes.SetTargetCharacter)
             {
-                Debug.Log("SetTargetCharacter event received. Applying CharacterCreationData...");
                 MMGameEvent.Trigger("SaveInventory");
                 ApplyCharacterCreationDataToPlayer(eventType.TargetCharacter.gameObject);
             }
@@ -116,14 +115,9 @@ namespace Project.Core.GameInitialization
             {
                 var playerStats = playerGameObject.GetComponent<PlayerStats>();
                 if (playerStats != null)
-                {
                     playerStats.Initialize(NewSaveManager.Instance.CurrentSave.characterCreationData);
-                    Debug.Log("CharacterCreationData applied to PlayerStats.");
-                }
                 else
-                {
                     Debug.LogError("PlayerStats component not found on Player GameObject.");
-                }
             }
             else
             {

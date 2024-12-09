@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.Generic;
+using MoreMountains.Tools;
 using MoreMountains.TopDownEngine;
 using Project.Core.CharacterCreation;
 using Project.Gameplay.Player.Health;
@@ -12,7 +13,7 @@ using UnityEngine.Serialization;
 namespace Project.Gameplay.Player
 {
     [Serializable]
-    public class PlayerStats : MonoBehaviour
+    public class PlayerStats : MonoBehaviour, MMEventListener<MMGameEvent>
     {
         public XpManager XpManager;
         public AttributeManager AttributeManager;
@@ -40,11 +41,35 @@ namespace Project.Gameplay.Player
 
         public int AttackPower => (int)attackPower;
 
+        void OnEnable()
+        {
+            this.MMEventStartListening();
+        }
+
+        void OnDisable()
+        {
+            this.MMEventStopListening();
+        }
+
+
+        public void OnMMEvent(MMGameEvent eventType)
+        {
+            if (eventType.EventName == "EnemyDeathXP")
+            {
+                var xpAwarded = eventType.IntParameter; // Extract the XP from the event
+                XpManager.AddExperience(xpAwarded);
+
+
+                NotifyStatUpdates();
+            }
+        }
+
         // Event that triggers whenever currency changes
         public event Action<int> OnCurrencyChanged;
 
 
         public event Action OnStatsUpdated;
+
 
         public void Initialize(CharacterCreationData creationData)
         {
@@ -187,7 +212,16 @@ namespace Project.Gameplay.Player
             // Trigger the event to notify listeners
 
             OnCurrencyChanged?.Invoke(playerCurrency);
-            Debug.Log($"Player gained {currency} currency.");
+            NotifyStatUpdates();
+        }
+
+        /// <summary>
+        ///     Handles the OnExperienceChanged event from XpManager.
+        /// </summary>
+        /// <param name="newXp">The new XP value after the change</param>
+        void HandleExperienceChanged(int newXp)
+        {
+            Debug.Log($"PlayerStats: Player experience updated to {newXp}.");
             NotifyStatUpdates();
         }
 

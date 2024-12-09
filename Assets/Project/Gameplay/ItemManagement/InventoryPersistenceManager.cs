@@ -51,9 +51,6 @@ namespace Project.Gameplay.ItemManagement
             _equipmentInventorySavedState = SaveInventoryState(equipmentInventory);
 
             ReEquipItemsInEquipmentInventory();
-
-
-            Debug.Log("Inventories saved.");
         }
 
         void RevertInventoriesToLastSave()
@@ -78,7 +75,6 @@ namespace Project.Gameplay.ItemManagement
                 if (!InventoryItem.IsNull(inventory.Content[i]))
                     savedState[i] = inventory.Content[i].Copy();
 
-            Debug.Log("Inventory state saved.");
 
             return savedState;
         }
@@ -98,7 +94,6 @@ namespace Project.Gameplay.ItemManagement
                 return;
             }
 
-            Debug.Log("Re-equipping items in equipment inventory...");
             for (var i = 0; i < equipmentInventory.Content.Length; i++)
             {
                 if (equipmentInventory.Content[i] == null) continue;

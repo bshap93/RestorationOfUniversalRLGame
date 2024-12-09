@@ -1,9 +1,10 @@
-﻿using Project.Core.CharacterCreation;
+﻿using MoreMountains.Tools;
+using Project.Core.CharacterCreation;
 using UnityEngine;
 
 namespace Project.Gameplay.Player.Stats
 {
-    public class AttributeManager : MonoBehaviour
+    public class AttributeManager : MonoBehaviour, MMEventListener<MMGameEvent>
     {
         public int Strength;
         public int Agility;
@@ -13,6 +14,28 @@ namespace Project.Gameplay.Player.Stats
 
         public int UnusedAttributePoints;
 
+        void OnEnable()
+        {
+            this.MMEventStartListening();
+        }
+
+        void OnDisable()
+        {
+            this.MMEventStopListening();
+        }
+
+        public void OnMMEvent(MMGameEvent eventType)
+        {
+            if (eventType.EventName == "PlayerLevelChanged")
+            {
+                var newLevel = eventType.IntParameter;
+                Debug.Log($"PlayerStats: Player leveled up to {newLevel}.");
+                OnPlayerLevelUp(newLevel);
+                // Do something with the new level
+            }
+        }
+
+
         public void Initialize(CharacterCreationData creationData, PlayerStats playerStats)
         {
             Strength = creationData.attributes.strength;
@@ -20,9 +43,6 @@ namespace Project.Gameplay.Player.Stats
             Endurance = creationData.attributes.endurance;
             Intelligence = creationData.attributes.intelligence;
             Intuition = creationData.attributes.intuition;
-
-            // Listen for level up events from the XPManager
-            playerStats.XpManager.OnLevelChanged += OnPlayerLevelUp;
         }
 
         /// <summary>

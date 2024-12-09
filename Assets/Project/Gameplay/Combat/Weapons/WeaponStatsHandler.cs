@@ -56,8 +56,6 @@ namespace Project.Gameplay.Combat.Weapons
                     meleeWeapon.MinDamageCaused = 8 + _playerStats.AttackPower * 0.5f;
                     meleeWeapon.MaxDamageCaused = 46 + _playerStats.AttackPower * 1f;
                 }
-
-                Debug.Log($"Strength modifier updated to: {StrengthModifier}");
             }
         }
     }
