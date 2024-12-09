@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using MoreMountains.TopDownEngine;
 using Project.Core.CharacterCreation;
 using Project.Gameplay.Player.Health;
+using Project.Gameplay.Player.Stats;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -13,6 +14,8 @@ namespace Project.Gameplay.Player
     [Serializable]
     public class PlayerStats : MonoBehaviour
     {
+        public XpManager XpManager;
+        public AttributeManager AttributeManager;
         // Base Stats
         // [SerializeField] float maxHealth;
         // [SerializeField] float currentHealth;
@@ -23,20 +26,11 @@ namespace Project.Gameplay.Player
         float damageMult;
         [SerializeField] bool overrideAutoHealth;
 
-        // Attributes assigned by the player
-        [SerializeField] int strength;
-        [SerializeField] int agility;
-        [SerializeField] int endurance;
-        [SerializeField] int intelligence;
-        [SerializeField] int intuition;
-
         // Character creation data for reference
         [SerializeField] string playerClass; // Stores the class name
         [SerializeField] List<string> chosenTraits; // Stores the trait names
         public float Health;
 
-        public int playerExperiencePoints;
-        public int playerCurrentLevel;
 
         public int playerCurrency;
 
@@ -44,11 +38,11 @@ namespace Project.Gameplay.Player
         StartingClass startingClass;
         List<CharacterTrait> traits = new();
 
-        public int Strength => strength;
         public int AttackPower => (int)attackPower;
 
         // Event that triggers whenever currency changes
         public event Action<int> OnCurrencyChanged;
+
 
         public event Action OnStatsUpdated;
 
@@ -58,13 +52,14 @@ namespace Project.Gameplay.Player
             playerClass = creationData.selectedClassName;
             chosenTraits = new List<string>(creationData.selectedTraitNames);
 
+            XpManager.Initialize();
+
             // Load StartingClass and CharacterTrait ScriptableObjects
             LoadStartingClass(playerClass);
             LoadTraits(chosenTraits);
 
             // Assign attributes directly from creation data
-            SetAttributes(creationData);
-
+            AttributeManager.Initialize(creationData, this);
             // Set class and base stats
             ApplyBaseStatsFromClass();
             ApplyAttributesToBaseStats();
@@ -87,8 +82,8 @@ namespace Project.Gameplay.Player
                 }
             }
 
-            playerExperiencePoints = 0;
-            playerCurrentLevel = 1;
+            XpManager.playerExperiencePoints = 0;
+            XpManager.playerCurrentLevel = 1;
             playerCurrency = 0;
         }
 
@@ -111,14 +106,6 @@ namespace Project.Gameplay.Player
             }
         }
 
-        void SetAttributes(CharacterCreationData creationData)
-        {
-            strength = creationData.attributes.strength;
-            agility = creationData.attributes.agility;
-            endurance = creationData.attributes.endurance;
-            intelligence = creationData.attributes.intelligence;
-            intuition = creationData.attributes.intuition;
-        }
 
         void ApplyBaseStatsFromClass()
         {
@@ -149,7 +136,7 @@ namespace Project.Gameplay.Player
             if (!overrideAutoHealth)
             {
                 var playerHealth = gameObject.GetComponent<HealthAlt>();
-                playerHealth.MaximumHealth = endurance * 2 + 20;
+                playerHealth.MaximumHealth = AttributeManager.Endurance * 2 + 20;
 
                 if (playerHealth != null)
                 {
@@ -161,9 +148,9 @@ namespace Project.Gameplay.Player
             }
 
             // Modify base stats by adding attribute bonuses
-            moveSpeedMult = 1 + (agility - 2) * 0.05f;
-            attackPower += strength * 2;
-            damageMult = 0.9f + endurance * 0.05f;
+            moveSpeedMult = 1 + (AttributeManager.Agility - 2) * 0.05f;
+            attackPower += AttributeManager.Strength * 2;
+            damageMult = 0.9f + AttributeManager.Endurance * 0.05f;
 
 
             var damageResistance = gameObject.GetComponent<DamageResistanceProcessor>().DamageResistanceList[0];
@@ -192,29 +179,6 @@ namespace Project.Gameplay.Player
             }
         }
 
-        public void DisplayStats()
-        {
-            // Debug.Log(
-            //     $"Class: {playerClass}, Max Health: {maxHealth}, Current Health: {currentHealth}, Move Speed: {moveSpeedMult}, Attack Power: {attackPower}, Defense: {damageMult}");
-            //
-            Debug.Log(
-                $"Attributes - Strength: {strength}, Agility: {agility}, Endurance: {endurance}, Intelligence: {intelligence}, Intuition: {intuition}");
-
-            Debug.Log($"Chosen Traits: {string.Join(", ", chosenTraits)}");
-        }
-
-        public void LevelUp()
-        {
-            Debug.Log("Player leveled up!");
-            NotifyStatUpdates();
-        }
-
-        public void AddExperience(int experience)
-        {
-            playerExperiencePoints += experience;
-            Debug.Log($"Player gained {experience} experience points.");
-            NotifyStatUpdates();
-        }
 
         public void AddCoins(int currency)
         {

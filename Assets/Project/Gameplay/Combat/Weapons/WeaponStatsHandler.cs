@@ -49,7 +49,7 @@ namespace Project.Gameplay.Combat.Weapons
         {
             if (_playerStats != null)
             {
-                StrengthModifier = _playerStats.Strength;
+                StrengthModifier = _playerStats.AttributeManager.Strength;
                 var meleeWeapon = gameObject.GetComponent<MeleeWeapon>();
                 if (meleeWeapon != null)
                 {
