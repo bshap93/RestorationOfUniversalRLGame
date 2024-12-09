@@ -1,8 +1,8 @@
-﻿using MoreMountains.Tools;
+﻿using System;
+using MoreMountains.Tools;
 using Project.Gameplay.Player;
 using Project.Gameplay.Player.Health;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Project.Gameplay.ItemManagement
 {
@@ -11,15 +11,18 @@ namespace Project.Gameplay.ItemManagement
         const string HealthFileName = "PlayerHealth.save";
         const string MaxHealthFileName = "PlayerMaxHealth.save";
         const string CurrentCurrencyFileName = "PlayerCurrency.save";
-
+        const string XPFileName = "PlayerXP.save";
+        const string LevelFileName = "PlayerLevel.save";
+        const string XPForNextLevelFileName = "PlayerXPForNextLevel.save";
 
         const string SaveFolderName = "Player";
-        [FormerlySerializedAs("_playerHealth")] [Header("Health")] [SerializeField]
-        HealthAlt playerHealth;
+
+        [Header("Health")] [SerializeField] HealthAlt playerHealth;
 
         [Header("Player Stats")] [SerializeField]
         PlayerStats playerStats;
 
+        public Action OnStatsUpdated;
 
         void OnEnable()
         {
@@ -27,18 +30,19 @@ namespace Project.Gameplay.ItemManagement
             this.MMEventStartListening();
         }
 
+
         void OnDisable()
         {
             // Unsubscribe to prevent leaks
             this.MMEventStopListening();
         }
 
-
         public void OnMMEvent(MMGameEvent eventType)
         {
             if (eventType.EventName == "SaveResources")
                 SaveResources();
-            else if (eventType.EventName == "RevertResources") RevertResourcesToLastSave();
+            else if (eventType.EventName == "RevertResources")
+                RevertResourcesToLastSave();
         }
 
         void SaveResources()
@@ -46,11 +50,12 @@ namespace Project.Gameplay.ItemManagement
             // Save Player Health
             SaveHealthState();
 
+            // Save Player Stats (currency, XP, level, etc.)
             SavePlayerStats();
-
 
             Debug.Log("Resources saved.");
         }
+
         void SavePlayerStats()
         {
             if (playerStats == null)
@@ -63,22 +68,44 @@ namespace Project.Gameplay.ItemManagement
                 }
             }
 
+            // Save player currency
             MMSaveLoadManager.Save(playerStats.playerCurrency, CurrentCurrencyFileName, SaveFolderName);
-
             Debug.Log($"Player currency saved: {playerStats.playerCurrency}");
-        }
 
+            // Save XPManager data
+            var xpManager = playerStats.XpManager;
+            if (xpManager != null)
+            {
+                MMSaveLoadManager.Save(xpManager.playerExperiencePoints, XPFileName, SaveFolderName);
+                MMSaveLoadManager.Save(xpManager.playerCurrentLevel, LevelFileName, SaveFolderName);
+                MMSaveLoadManager.Save(xpManager.playerXpForNextLevel, XPForNextLevelFileName, SaveFolderName);
+                Debug.Log(
+                    $"XP data saved: XP={xpManager.playerExperiencePoints}, Level={xpManager.playerCurrentLevel}, XPForNextLevel={xpManager.playerXpForNextLevel}");
+            }
+            else
+            {
+                Debug.LogWarning("XPManager is null. Cannot save XP data.");
+            }
+        }
 
         void RevertResourcesToLastSave()
         {
             // Revert Player Health
             RevertHealthToLastSave();
 
+            // Revert Player Stats (currency, XP, level, etc.)
             RevertPlayerStats();
 
-
             Debug.Log("Resources reverted.");
+
+            UpdateUI();
         }
+
+        void UpdateUI()
+        {
+            NotifyUIOfUpdatedStats();
+        }
+
         void RevertPlayerStats()
         {
             if (playerStats == null)
@@ -91,14 +118,35 @@ namespace Project.Gameplay.ItemManagement
                 }
             }
 
-            // Load current currency
+            // Load player currency
             var loadedCurrency = MMSaveLoadManager.Load(typeof(int), CurrentCurrencyFileName, SaveFolderName);
-            var savedCurrency = loadedCurrency != null ? (int)loadedCurrency : 0;
+            playerStats.playerCurrency = loadedCurrency != null ? (int)loadedCurrency : 0;
+            Debug.Log($"Player currency reverted: {playerStats.playerCurrency}");
 
-            // Apply loaded currency value
-            playerStats.playerCurrency = savedCurrency;
+            // Load XPManager data
+            var xpManager = playerStats.XpManager;
+            if (xpManager != null)
+            {
+                var loadedXP = MMSaveLoadManager.Load(typeof(int), XPFileName, SaveFolderName);
+                var loadedLevel = MMSaveLoadManager.Load(typeof(int), LevelFileName, SaveFolderName);
+                var loadedXPForNextLevel = MMSaveLoadManager.Load(typeof(int), XPForNextLevelFileName, SaveFolderName);
 
-            Debug.Log($"Player currency reverted: {savedCurrency}");
+                xpManager.playerExperiencePoints = loadedXP != null ? (int)loadedXP : 0;
+                xpManager.playerCurrentLevel = loadedLevel != null ? (int)loadedLevel : 1;
+                xpManager.playerXpForNextLevel = loadedXPForNextLevel != null ? (int)loadedXPForNextLevel : 20;
+
+                Debug.Log(
+                    $"XP data reverted: XP={xpManager.playerExperiencePoints}, Level={xpManager.playerCurrentLevel}, XPForNextLevel={xpManager.playerXpForNextLevel}");
+            }
+            else
+            {
+                Debug.LogWarning("XPManager is null. Cannot revert XP data.");
+            }
+        }
+
+        void NotifyUIOfUpdatedStats()
+        {
+            OnStatsUpdated?.Invoke();
         }
 
 
@@ -114,7 +162,6 @@ namespace Project.Gameplay.ItemManagement
                 }
             }
 
-            // Save primitive health values instead of the class
             MMSaveLoadManager.Save(playerHealth.CurrentHealth, HealthFileName, SaveFolderName);
             MMSaveLoadManager.Save(playerHealth.MaximumHealth, MaxHealthFileName, SaveFolderName);
 
@@ -134,19 +181,15 @@ namespace Project.Gameplay.ItemManagement
                 }
             }
 
-            // Load current health
             var loadedHealth = MMSaveLoadManager.Load(typeof(float), HealthFileName, SaveFolderName);
-            var savedHealth = loadedHealth != null ? (float)loadedHealth : playerHealth.MaximumHealth;
-
-            // Load maximum health
             var loadedMaxHealth = MMSaveLoadManager.Load(typeof(float), MaxHealthFileName, SaveFolderName);
-            var savedMaxHealth = loadedMaxHealth != null ? (float)loadedMaxHealth : playerHealth.MaximumHealth;
 
-            // Apply loaded health values
-            playerHealth.SetHealth(savedHealth);
-            playerHealth.SetMaximumHealth(savedMaxHealth);
+            playerHealth.SetHealth(loadedHealth != null ? (float)loadedHealth : playerHealth.MaximumHealth);
+            playerHealth.SetMaximumHealth(
+                loadedMaxHealth != null ? (float)loadedMaxHealth : playerHealth.MaximumHealth);
 
-            Debug.Log($"Health reverted: CurrentHealth={savedHealth}, MaximumHealth={savedMaxHealth}");
+            Debug.Log(
+                $"Health reverted: CurrentHealth={playerHealth.CurrentHealth}, MaximumHealth={playerHealth.MaximumHealth}");
         }
     }
 }

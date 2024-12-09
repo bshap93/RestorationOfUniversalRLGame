@@ -1,5 +1,6 @@
 ﻿using MoreMountains.Tools;
 using MoreMountains.TopDownEngine;
+using Project.Gameplay.ItemManagement;
 using Project.Gameplay.Player;
 using TMPro;
 using UnityEngine;
@@ -13,16 +14,22 @@ namespace Project.UI.HUD
 
         void OnEnable()
         {
-            // Listen for the SetTargetCharacter event
             this.MMEventStartListening();
+
+            // Subscribe to OnStatsUpdated event from ResourcesPersistenceManager
+            ResourcesPersistenceManager manager = FindObjectOfType<ResourcesPersistenceManager>();
+            if (manager != null) manager.OnStatsUpdated += RefreshCurrencyText;
         }
 
         void OnDisable()
         {
-            // Unsubscribe from all events
             this.MMEventStopListening();
 
             if (playerStats != null) playerStats.OnCurrencyChanged -= UpdateCurrencyText;
+
+            // Unsubscribe from OnStatsUpdated event
+            ResourcesPersistenceManager manager = FindObjectOfType<ResourcesPersistenceManager>();
+            if (manager != null) manager.OnStatsUpdated -= RefreshCurrencyText;
         }
 
         /// <summary>
@@ -35,10 +42,8 @@ namespace Project.UI.HUD
             {
                 Debug.Log("TMPTextCurrencyUpdater: SetTargetCharacter event received.");
 
-                // Unsubscribe from the previous playerStats event, if any
                 if (playerStats != null) playerStats.OnCurrencyChanged -= UpdateCurrencyText;
 
-                // Get PlayerStats from the new character
                 var newCharacter = eventType.TargetCharacter.gameObject;
                 if (newCharacter != null)
                 {
@@ -46,10 +51,7 @@ namespace Project.UI.HUD
 
                     if (playerStats != null)
                     {
-                        // Subscribe to currency change event
                         playerStats.OnCurrencyChanged += UpdateCurrencyText;
-
-                        // Initialize the text with the current currency
                         UpdateCurrencyText(playerStats.playerCurrency);
                     }
                     else
@@ -68,6 +70,14 @@ namespace Project.UI.HUD
         void UpdateCurrencyText(int newCurrencyAmount)
         {
             currencyText.text = $"{newCurrencyAmount}";
+        }
+
+        /// <summary>
+        ///     Refreshes the currency text when OnStatsUpdated is invoked.
+        /// </summary>
+        void RefreshCurrencyText()
+        {
+            if (playerStats != null) UpdateCurrencyText(playerStats.playerCurrency);
         }
     }
 }

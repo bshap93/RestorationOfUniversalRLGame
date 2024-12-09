@@ -1,5 +1,6 @@
 ﻿using MoreMountains.Tools;
 using MoreMountains.TopDownEngine;
+using Project.Gameplay.ItemManagement;
 using Project.Gameplay.Player;
 using TMPro;
 using UnityEngine;
@@ -13,13 +14,15 @@ namespace Project.UI.HUD
 
         void OnEnable()
         {
-            // Listen for the SetTargetCharacter event
             this.MMEventStartListening();
+
+            // Subscribe to OnStatsUpdated event from ResourcesPersistenceManager
+            var manager = FindObjectOfType<ResourcesPersistenceManager>();
+            if (manager != null) manager.OnStatsUpdated += RefreshXPText;
         }
 
         void OnDisable()
         {
-            // Unsubscribe from all events
             this.MMEventStopListening();
 
             if (playerStats != null)
@@ -27,6 +30,10 @@ namespace Project.UI.HUD
                 playerStats.XpManager.OnExperienceChanged -= UpdateXPText;
                 playerStats.XpManager.OnLevelChanged -= UpdateXPText;
             }
+
+            // Unsubscribe from OnStatsUpdated event
+            var manager = FindObjectOfType<ResourcesPersistenceManager>();
+            if (manager != null) manager.OnStatsUpdated -= RefreshXPText;
         }
 
         /// <summary>
@@ -39,14 +46,12 @@ namespace Project.UI.HUD
             {
                 Debug.Log("TMPTextXPUpdater: SetTargetCharacter event received.");
 
-                // Unsubscribe from the previous playerStats event, if any
                 if (playerStats != null)
                 {
                     playerStats.XpManager.OnExperienceChanged -= UpdateXPText;
                     playerStats.XpManager.OnLevelChanged -= UpdateXPText;
                 }
 
-                // Get PlayerStats from the new character
                 var newCharacter = eventType.TargetCharacter.gameObject;
                 if (newCharacter != null)
                 {
@@ -54,11 +59,8 @@ namespace Project.UI.HUD
 
                     if (playerStats != null && playerStats.XpManager != null)
                     {
-                        // Subscribe to XP and Level change events
                         playerStats.XpManager.OnExperienceChanged += UpdateXPText;
                         playerStats.XpManager.OnLevelChanged += UpdateXPText;
-
-                        // Initialize the text with the current level, current XP, and XP to next level
                         UpdateXPText(playerStats.XpManager.playerExperiencePoints);
                     }
                     else
@@ -87,6 +89,15 @@ namespace Project.UI.HUD
             var requiredXP = playerStats.XpManager.playerXpForNextLevel;
 
             xpText.text = $"LVL: {currentLevel} Exp: {currentXP} / {requiredXP}";
+        }
+
+        /// <summary>
+        ///     Refreshes the XP text when OnStatsUpdated is invoked.
+        /// </summary>
+        void RefreshXPText()
+        {
+            if (playerStats != null && playerStats.XpManager != null)
+                UpdateXPText(playerStats.XpManager.playerExperiencePoints);
         }
     }
 }
