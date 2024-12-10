@@ -3,31 +3,42 @@ using MoreMountains.Tools;
 using MoreMountains.TopDownEngine;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Project.Gameplay.Combat.Weapons
 {
-    public class CustomAmmoDisplay : AmmoDisplay, MMEventListener<MMInventoryEvent>
+    public class CustomAmmoDisplay : AmmoDisplay, MMEventListener<MMInventoryEvent>, MMEventListener<MMGameEvent>
     {
+        [FormerlySerializedAs("TotalAmmoTextDisplay")]
         [MMInspectorGroup("Total Ammo in Main Inventory", true, 12)]
-        /// the ID of the AmmoDisplay 
         [Tooltip("Total Ammo in Main Inventory")]
-        public TMP_Text TotalAmmoTextDisplay;
-        public Inventory AmmoInventory;
-        public string AmmoID;
+        public TMP_Text totalAmmoTextDisplay;
+        [FormerlySerializedAs("AmmoInventory")]
+        public Inventory ammoInventory;
+        [FormerlySerializedAs("AmmoID")] public string ammoID;
         /// the current amount of ammo available in the inventory
-        [MMReadOnly] [Tooltip("the current amount of ammo available in the inventory")]
-        public int CurrentAmmoAvailable;
+        [FormerlySerializedAs("CurrentAmmoAvailable")]
+        [MMReadOnly]
+        [Tooltip("the current amount of ammo available in the inventory")]
+        public int currentAmmoAvailable;
 
-        void OnEnable()
+        protected override void OnEnable()
         {
+            base.OnEnable();
             // Start listening for both MMGameEvent and MMCameraEvent
-            this.MMEventStartListening();
+            this.MMEventStartListening<MMGameEvent>();
+            this.MMEventStartListening<MMInventoryEvent>();
         }
 
         void OnDisable()
         {
             // Stop listening to avoid memory leaks
-            this.MMEventStopListening();
+            this.MMEventStopListening<MMGameEvent>();
+            this.MMEventStopListening<MMInventoryEvent>();
+        }
+        public void OnMMEvent(MMGameEvent eventType)
+        {
+            if (eventType.EventName == "FiredProjectile") RefreshCurrentAmmoAvailable();
         }
 
         public void OnMMEvent(MMInventoryEvent eventType)
@@ -38,16 +49,14 @@ namespace Project.Gameplay.Combat.Weapons
                 RefreshCurrentAmmoAvailable();
                 Debug.Log("Item Equipped");
             }
-
-            if (eventType.InventoryEventType is MMInventoryEventType.ItemUnEquipped) gameObject.SetActive(false);
         }
 
 
         protected virtual void RefreshCurrentAmmoAvailable()
         {
-            CurrentAmmoAvailable = AmmoInventory.GetQuantity(AmmoID);
-            TotalAmmoTextDisplay.text = CurrentAmmoAvailable.ToString();
-            Debug.Log("Current Ammo: " + CurrentAmmoAvailable);
+            currentAmmoAvailable = ammoInventory.GetQuantity(ammoID);
+            totalAmmoTextDisplay.text = currentAmmoAvailable.ToString();
+            Debug.Log("Current Ammo: " + currentAmmoAvailable);
         }
     }
 }
