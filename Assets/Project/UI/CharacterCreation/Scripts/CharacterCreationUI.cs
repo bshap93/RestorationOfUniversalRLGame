@@ -120,7 +120,7 @@ namespace Project.UI.CharacterCreation.Scripts
         void UpdatePointsDisplay()
         {
             if (pointsRemainingText != null)
-                pointsRemainingText.text = $"Points Remaining: {_remainingPoints}";
+                pointsRemainingText.text = $"{_remainingPoints}";
 
             foreach (var row in attributeRows)
                 if (row != null)

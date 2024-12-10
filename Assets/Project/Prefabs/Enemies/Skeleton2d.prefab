@@ -18485,7 +18485,6 @@ GameObject:
   - component: {fileID: 1845119300140328944}
   - component: {fileID: 6492603793464822548}
   - component: {fileID: 8391969685599743200}
-  - component: {fileID: 7273385952093629917}
   - component: {fileID: 177020591618680840}
   - component: {fileID: 3406198506542537422}
   - component: {fileID: 1514604955836793774}
@@ -18502,6 +18501,7 @@ GameObject:
   - component: {fileID: 3599802579912288438}
   - component: {fileID: 2836072597082869222}
   - component: {fileID: 3935258345484010880}
+  - component: {fileID: 7279137017314317}
   m_Layer: 3
   m_Name: Skeleton2d
   m_TagString: Enemy
@@ -19464,35 +19464,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   InitializationMode: 0
   Label: 
---- !u!114 &7273385952093629917
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8630113383585973405}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b81dc1a6e4b189d4bae2faab8a2a1a25, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  CycleOption: 1
-  LoopInitialMovementDirection: 0
-  PathElements:
-  - PathElementPosition: {x: -0.010377884, y: 0.050000012, z: 0.007183075}
-    Delay: 1
-  - PathElementPosition: {x: -0.38765717, y: 0.05, z: 3.9084868}
-    Delay: 1
-  - PathElementPosition: {x: -10.424583, y: 0.050000012, z: 2.1882844}
-    Delay: 3
-  - PathElementPosition: {x: -6.911297, y: 0.050000012, z: 5.5824003}
-    Delay: 1
-  ReferenceMMPath: {fileID: 0}
-  AbsoluteReferencePath: 0
-  MinDistanceToGoal: 0.5
-  LockHandlesOnXAxis: 0
-  LockHandlesOnYAxis: 1
-  LockHandlesOnZAxis: 0
 --- !u!114 &177020591618680840
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19844,6 +19815,35 @@ MonoBehaviour:
   GizmosColor: {r: 0.827451, g: 0.827451, b: 0.827451, a: 1}
   GimosSize: 1
   SpawnLootButton: 0
+--- !u!114 &7279137017314317
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8630113383585973405}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b81dc1a6e4b189d4bae2faab8a2a1a25, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CycleOption: 0
+  LoopInitialMovementDirection: 0
+  PathElements:
+  - PathElementPosition: {x: -0.010377884, y: 0.050000012, z: 0.007183075}
+    Delay: 1
+  - PathElementPosition: {x: 7.794302, y: 2.013331, z: 1.2275162}
+    Delay: 1
+  - PathElementPosition: {x: 13.075027, y: 1.9222584, z: -0.100933075}
+    Delay: 3
+  - PathElementPosition: {x: 25.676876, y: 2.0257945, z: 1.8662453}
+    Delay: 1
+  ReferenceMMPath: {fileID: 0}
+  AbsoluteReferencePath: 0
+  MinDistanceToGoal: 0.5
+  LockHandlesOnXAxis: 1
+  LockHandlesOnYAxis: 0
+  LockHandlesOnZAxis: 1
 --- !u!1 &8698070050492997390
 GameObject:
   m_ObjectHideFlags: 0
