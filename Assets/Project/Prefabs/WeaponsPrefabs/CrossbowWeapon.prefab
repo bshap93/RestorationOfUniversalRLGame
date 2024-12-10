@@ -254,9 +254,9 @@ MonoBehaviour:
   BurstTimeBetweenShots: 0.1
   MagazineBased: 1
   MagazineSize: 1
-  AutoReload: 1
-  NoInputReload: 1
-  ReloadTime: 2
+  AutoReload: 0
+  NoInputReload: 0
+  ReloadTime: 0.5
   AmmoConsumedPerShot: 1
   AutoDestroyWhenEmpty: 0
   AutoDestroyWhenEmptyDelay: 1
@@ -275,7 +275,8 @@ MonoBehaviour:
   PreventAllMovementWhileInUse: 0
   PreventAllAimWhileInUse: 0
   RecoilForce: 0
-  Animators: []
+  Animators:
+  - {fileID: 3973598087459094619}
   PerformAnimatorSanityChecks: 0
   MirrorCharacterAnimatorParameters: 0
   WeaponAnimationID: 0
@@ -283,11 +284,11 @@ MonoBehaviour:
   StartAnimationParameter: 
   DelayBeforeUseAnimationParameter: 
   SingleUseAnimationParameter: 
-  UseAnimationParameter: 
+  UseAnimationParameter: Shoot
   DelayBetweenUsesAnimationParameter: 
   StopAnimationParameter: 
   ReloadStartAnimationParameter: 
-  ReloadAnimationParameter: 
+  ReloadAnimationParameter: Reload
   ReloadStopAnimationParameter: 
   WeaponAngleAnimationParameter: 
   WeaponAngleRelativeAnimationParameter: 
@@ -406,7 +407,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AttachmentType: 4
   UseWeaponIK: 1
-  UsesAimByDefault: 0
 --- !u!1 &4884498120077673153
 GameObject:
   m_ObjectHideFlags: 0
@@ -547,7 +547,7 @@ Animator:
   m_GameObject: {fileID: 5713665326847691381}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 4a7e041f88cdcf54ea7e909807442b2a, type: 3}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: a0afe4ea8a36e8f4090087665040711c, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 1
