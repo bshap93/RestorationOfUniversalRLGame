@@ -17,8 +17,12 @@ public class LootChest : MonoBehaviour
     public List<Transform> itemSlots;
 
     public GameObject chestLid;
+    
+    private bool isOpen = false;
 
     bool _isInRange;
+    
+    [SerializeField] MMFeedbacks openChestFeedbacks;
 
 
     List<GameObject> _itemInstances;
@@ -28,6 +32,7 @@ public class LootChest : MonoBehaviour
     void Start()
     {
         _promptManager = FindObjectOfType<PromptManager>();
+        
         for (var i = 0; i < items.Count; i++)
         {
             if (i >= maxItems) break;
@@ -63,11 +68,14 @@ public class LootChest : MonoBehaviour
     
     void OpenChest()
     {
+        if (isOpen) return;
         chestLid.SetActive(false);
         foreach (var itemSlot in itemSlots)
         {
             itemSlot.gameObject.SetActive(true);
         }
+        openChestFeedbacks?.PlayFeedbacks();
         _promptManager?.HideInteractPrompt();
+        isOpen = true;
     }
 }
