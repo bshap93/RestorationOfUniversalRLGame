@@ -15,12 +15,13 @@ namespace Project.UI.CharacterCreation.Scripts
         [SerializeField] TextMeshProUGUI descriptionText;
         [SerializeField] TextMeshProUGUI selectionCounterText;
 
+
         [Header("Settings")] [SerializeField] int maxTraitSelections = 2;
-        CharacterClass currentClass;
         readonly List<CharacterTrait> selectedTraits = new();
 
         // Private state
         readonly List<TraitUI> traitUIs = new();
+        CharacterClass currentClass;
 
         public void Initialize(List<CharacterTrait> availableTraits, CharacterClass characterClass)
         {

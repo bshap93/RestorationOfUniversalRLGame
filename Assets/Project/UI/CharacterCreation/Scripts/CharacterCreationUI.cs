@@ -136,7 +136,7 @@ namespace Project.UI.CharacterCreation.Scripts
                     break;
                 case CreationStep.Attributes:
 
-                    _currentStep = CreationStep.Traits;
+                    _currentStep = CreationStep.Confirmation;
                     traitsPanelScript.Initialize(
                         RunManager.Instance.GetAvailableTraits(), _selectedClass.ClassType);
 
