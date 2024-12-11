@@ -69,20 +69,29 @@ namespace Project.Gameplay.Player.Inventory
         {
             if (Item == null) return;
 
+            // Get reference to the PlayerItemPreviewManager
+            var player = GameObject.FindWithTag("Player");
+            if (player == null) return;
+
+            var previewManager = player.GetComponent<PlayerItemPreviewManager>();
+            if (previewManager == null) return;
+
+            // Only pick up the item if it is the currently previewed item
+            if (previewManager.CurrentPreviewedItem != Item)
+            {
+                Debug.Log($"Item '{Item.ItemID}' is not the currently previewed item. Cannot pick up.");
+                return;
+            }
+
             // If the item is a coin, add coins directly to PlayerStats and skip inventory
             if (Item is InventoryCoinPickup coinPickup)
             {
-                var player = GameObject.FindWithTag("Player");
-                if (player != null)
+                var playerStats = player.GetComponent<PlayerStats>();
+                if (playerStats != null)
                 {
-                    var playerStats = player.GetComponent<PlayerStats>();
-
-                    if (playerStats != null)
-                    {
-                        // Determine how many coins to add
-                        var coinsToAdd = Random.Range(coinPickup.MinimumCoins, coinPickup.MaximumCoins + 1);
-                        playerStats.AddCoins(coinsToAdd);
-                    }
+                    // Determine how many coins to add
+                    var coinsToAdd = Random.Range(coinPickup.MinimumCoins, coinPickup.MaximumCoins + 1);
+                    playerStats.AddCoins(coinsToAdd);
                 }
 
                 // Play feedbacks on successful pickup
@@ -94,7 +103,6 @@ namespace Project.Gameplay.Player.Inventory
             else
             {
                 // Standard inventory handling
-                // if (_targetInventory != null && _previewManager.CurrentPreviewedItem == Item)
                 if (_targetInventory != null)
                 {
                     if (_targetInventory.AddItem(Item, Quantity))
@@ -111,6 +119,7 @@ namespace Project.Gameplay.Player.Inventory
                 }
             }
         }
+
 
         void ShowInventoryFullMessage()
         {

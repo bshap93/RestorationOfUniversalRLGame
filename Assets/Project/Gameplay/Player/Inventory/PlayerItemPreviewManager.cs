@@ -78,7 +78,6 @@ namespace Project.Gameplay.Player.Inventory
 
         void DisplayNearestItem()
         {
-            // Avoid updating the preview if sorting is currently happening
             if (_isSorting) return;
 
             _isSorting = true;
@@ -110,21 +109,14 @@ namespace Project.Gameplay.Player.Inventory
             _itemsInRange.Sort(
                 (a, b) =>
                 {
-                    if (!_itemTransforms.ContainsKey(a.ItemID) || !_itemTransforms.ContainsKey(b.ItemID))
-                    {
-                        Debug.LogError($"Missing key in _itemTransforms for ItemID a: {a.ItemID} or b: {b.ItemID}");
-                        return 0;
-                    }
+                    if (!_itemTransforms.ContainsKey(a.ItemID) ||
+                        !_itemTransforms.ContainsKey(b.ItemID)) return 0; // Skip if either item transform is missing
 
                     var transformA = _itemTransforms[a.ItemID];
                     var transformB = _itemTransforms[b.ItemID];
 
-                    // Check if the transforms are null or destroyed
-                    if (transformA == null || transformB == null)
-                    {
-                        Debug.LogError($"Transform for ItemID a: {a.ItemID} or b: {b.ItemID} is destroyed");
-                        return 0;
-                    }
+                    if (transformA == null ||
+                        transformB == null) return 0; // Skip if either item transform is destroyed
 
                     return Vector3.Distance(transform.position, transformA.position)
                         .CompareTo(Vector3.Distance(transform.position, transformB.position));
@@ -132,9 +124,9 @@ namespace Project.Gameplay.Player.Inventory
             );
 
             var closestItem = _itemsInRange[0];
-            if (CurrentPreviewedItem == null || CurrentPreviewedItem != closestItem)
+            if (CurrentPreviewedItem != closestItem)
             {
-                CurrentPreviewedItem = _itemsInRange[0];
+                CurrentPreviewedItem = closestItem;
                 _previewManager.ShowPreview(CurrentPreviewedItem);
             }
 
