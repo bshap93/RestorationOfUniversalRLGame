@@ -1,31 +1,15 @@
 using MoreMountains.InventoryEngine;
-using MoreMountains.Tools;
 using Project.Prefabs.UI.PrefabRequiredScripts;
 using UnityEngine;
 
 namespace Project.UI.HUD
 {
-    public class PreviewManager : MonoBehaviour, MMEventListener<MMGameEvent>
+    public class PreviewManager : MonoBehaviour
     {
         public TMPInventoryDetails InventoryDetails;
+
+
         public InventoryItem CurrentPreviewedItem { get; set; }
-
-
-        void OnEnable()
-        {
-            // Start listening for both MMGameEvent and MMCameraEvent
-            this.MMEventStartListening();
-        }
-
-        void OnDisable()
-        {
-            // Stop listening to avoid memory leaks
-            this.MMEventStopListening();
-        }
-
-        public void OnMMEvent(MMGameEvent eventType)
-        {
-        }
 
 
         public void ShowPreview(InventoryItem item)

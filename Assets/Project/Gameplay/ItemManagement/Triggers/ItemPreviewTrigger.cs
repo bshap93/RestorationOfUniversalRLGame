@@ -13,7 +13,7 @@ namespace Project.Gameplay.ItemManagement
             if (other.CompareTag("Player"))
             {
                 var previewManager = other.GetComponent<PlayerItemPreviewManager>();
-                previewManager.RegisterItem(this);
+                previewManager.RegisterItem(Item);
             }
         }
 
@@ -22,7 +22,7 @@ namespace Project.Gameplay.ItemManagement
             if (other.CompareTag("Player"))
             {
                 var previewManager = other.GetComponent<PlayerItemPreviewManager>();
-                previewManager.UnregisterItem(this);
+                previewManager.UnregisterItem(Item);
             }
         }
     }
