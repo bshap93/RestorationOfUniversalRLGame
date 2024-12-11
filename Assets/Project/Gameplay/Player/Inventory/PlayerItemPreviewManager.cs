@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using MoreMountains.InventoryEngine;
 using MoreMountains.Tools;
 using Project.Gameplay.Events;
@@ -82,11 +83,16 @@ namespace Project.Gameplay.Player.Inventory
 
             _isSorting = true;
 
-            // Remove items that no longer exist in _itemTransforms (clean up destroyed items)
             var destroyedKeys = new List<string>();
-            foreach (var entry in _itemTransforms)
-                if (entry.Value == null)
-                    destroyedKeys.Add(entry.Key);
+
+            foreach (var key in _itemTransforms.Keys.ToList())
+            {
+                if (_itemTransforms[key] == null)
+                {
+                    _itemTransforms.Remove(key);
+                }
+            }
+
 
             foreach (var key in destroyedKeys) _itemTransforms.Remove(key);
 
