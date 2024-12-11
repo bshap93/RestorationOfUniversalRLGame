@@ -1,5 +1,6 @@
 using MoreMountains.Feedbacks;
 using MoreMountains.InventoryEngine;
+using Project.Gameplay.Events;
 using Project.Gameplay.ItemManagement.InventoryItemTypes;
 using Project.UI.HUD;
 using UnityEngine;
@@ -18,7 +19,6 @@ namespace Project.Gameplay.Player.Inventory
         public MMFeedbacks pickedMmFeedbacks; // Feedbacks to play when the item is picked up
 
         bool _isInRange;
-        PreviewManager _previewManager;
         PromptManager _promptManager;
         MoreMountains.InventoryEngine.Inventory _targetInventory;
 
@@ -26,9 +26,6 @@ namespace Project.Gameplay.Player.Inventory
         {
             _promptManager = FindObjectOfType<PromptManager>();
             if (_promptManager == null) Debug.LogWarning("PickupPromptManager not found in the scene.");
-
-            _previewManager = FindObjectOfType<PreviewManager>();
-            if (_previewManager == null) Debug.LogWarning("PlayerItemPreviewManager not found in the scene.");
 
 
             // Locate PortableSystems and retrieve the appropriate inventory
@@ -53,7 +50,7 @@ namespace Project.Gameplay.Player.Inventory
             {
                 _isInRange = true;
                 _promptManager?.ShowPickupPrompt();
-                _promptManager?.ShowPreviewPanel(Item); // Show preview when entering
+                ItemEvent.Trigger("ItemPickupRangeEntered", Item, transform);
             }
         }
 
@@ -63,28 +60,38 @@ namespace Project.Gameplay.Player.Inventory
             {
                 _isInRange = false;
                 _promptManager?.HidePickupPrompt();
-                _promptManager?.HidePreviewPanel(); // Ensure preview hides on exit
+                ItemEvent.Trigger("ItemPickupRangeExited", Item, transform);
             }
         }
+
 
         void PickItem()
         {
             if (Item == null) return;
 
+            // Get reference to the PlayerItemPreviewManager
+            var player = GameObject.FindWithTag("Player");
+            if (player == null) return;
+
+            var previewManager = player.GetComponent<PlayerItemPreviewManager>();
+            if (previewManager == null) return;
+
+            // Only pick up the item if it is the currently previewed item
+            if (previewManager.CurrentPreviewedItem != Item)
+            {
+                Debug.Log($"Item '{Item.ItemID}' is not the currently previewed item. Cannot pick up.");
+                return;
+            }
+
             // If the item is a coin, add coins directly to PlayerStats and skip inventory
             if (Item is InventoryCoinPickup coinPickup)
             {
-                var player = GameObject.FindWithTag("Player");
-                if (player != null)
+                var playerStats = player.GetComponent<PlayerStats>();
+                if (playerStats != null)
                 {
-                    var playerStats = player.GetComponent<PlayerStats>();
-
-                    if (playerStats != null)
-                    {
-                        // Determine how many coins to add
-                        var coinsToAdd = Random.Range(coinPickup.MinimumCoins, coinPickup.MaximumCoins + 1);
-                        playerStats.AddCoins(coinsToAdd);
-                    }
+                    // Determine how many coins to add
+                    var coinsToAdd = Random.Range(coinPickup.MinimumCoins, coinPickup.MaximumCoins + 1);
+                    playerStats.AddCoins(coinsToAdd);
                 }
 
                 // Play feedbacks on successful pickup
@@ -96,11 +103,12 @@ namespace Project.Gameplay.Player.Inventory
             else
             {
                 // Standard inventory handling
-                if (_targetInventory != null && _previewManager.CurrentPreviewedItem == Item)
+                if (_targetInventory != null)
                 {
                     if (_targetInventory.AddItem(Item, Quantity))
                     {
                         _promptManager?.HidePickupPrompt();
+                        ItemEvent.Trigger("ItemPickedUp", Item, transform);
                         pickedMmFeedbacks?.PlayFeedbacks();
                         Destroy(gameObject);
                     }
@@ -111,6 +119,7 @@ namespace Project.Gameplay.Player.Inventory
                 }
             }
         }
+
 
         void ShowInventoryFullMessage()
         {

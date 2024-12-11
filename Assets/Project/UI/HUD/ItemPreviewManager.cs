@@ -7,6 +7,8 @@ namespace Project.UI.HUD
     public class PreviewManager : MonoBehaviour
     {
         public TMPInventoryDetails InventoryDetails;
+
+
         public InventoryItem CurrentPreviewedItem { get; set; }
 
 
