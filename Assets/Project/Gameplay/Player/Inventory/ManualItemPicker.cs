@@ -67,6 +67,7 @@ namespace Project.Gameplay.Player.Inventory
             }
         }
 
+
         void PickItem()
         {
             if (Item == null) return;
@@ -101,6 +102,7 @@ namespace Project.Gameplay.Player.Inventory
                     if (_targetInventory.AddItem(Item, Quantity))
                     {
                         _promptManager?.HidePickupPrompt();
+                        _promptManager?.HidePreviewPanel(); // Ensure preview hides on exit
                         pickedMmFeedbacks?.PlayFeedbacks();
                         Destroy(gameObject);
                     }

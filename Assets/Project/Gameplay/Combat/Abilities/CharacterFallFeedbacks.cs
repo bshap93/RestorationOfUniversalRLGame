@@ -1,17 +1,16 @@
 ﻿using MoreMountains.Feedbacks;
-using MoreMountains.TopDownEngine;
 using UnityEngine;
 
-namespace Project.Gameplay.Combat.Abilities
+namespace MoreMountains.TopDownEngine
 {
     [AddComponentMenu("TopDown Engine/Character/Abilities/Character Fall Feedbacks")]
     public class CharacterFallFeedbacks : CharacterAbility
     {
-        [Header("Feedbacks")]
-        [Tooltip("The feedbacks to play when the character starts falling.")]
+        [Header("Feedbacks")] [Tooltip("The feedbacks to play when the character starts falling.")]
         public MMFeedbacks FallStartFeedbacks;
-        
-        [Tooltip("The feedbacks to play when the character touches the ground. These feedbacks will change based on the distance of the fall.")]
+
+        [Tooltip(
+            "The feedbacks to play when the character touches the ground. These feedbacks will change based on the distance of the fall.")]
         public MMFeedbacks GroundTouchFeedbacks;
 
         [Tooltip("The minimum fall distance to trigger the light landing feedbacks.")]
@@ -26,73 +25,61 @@ namespace Project.Gameplay.Combat.Abilities
         [Tooltip("The feedbacks to play for a heavy landing.")]
         public MMFeedbacks HeavyLandingFeedbacks;
 
-        private Vector3 _fallStartPosition;
-        private bool _isFalling;
+        Vector3 _fallStartPosition;
+        bool _isFalling;
 
         /// <summary>
-        /// On init we initialize feedbacks
+        ///     On init we initialize feedbacks
         /// </summary>
         protected override void Initialization()
         {
             base.Initialization();
-            FallStartFeedbacks?.Initialization(this.gameObject);
-            GroundTouchFeedbacks?.Initialization(this.gameObject);
-            LightLandingFeedbacks?.Initialization(this.gameObject);
-            HeavyLandingFeedbacks?.Initialization(this.gameObject);
+            FallStartFeedbacks?.Initialization(gameObject);
+            GroundTouchFeedbacks?.Initialization(gameObject);
+            LightLandingFeedbacks?.Initialization(gameObject);
+            HeavyLandingFeedbacks?.Initialization(gameObject);
         }
 
         /// <summary>
-        /// This method monitors the character's state to detect when it starts falling and when it lands on the ground.
+        ///     This method monitors the character's state to detect when it starts falling and when it lands on the ground.
         /// </summary>
         public override void ProcessAbility()
         {
             base.ProcessAbility();
 
-            if (_movement.CurrentState == CharacterStates.MovementStates.Falling && !_isFalling)
-            {
-                StartFalling();
-            }
+            if (_movement.CurrentState == CharacterStates.MovementStates.Falling && !_isFalling) StartFalling();
 
-            if (_controller.JustGotGrounded && _isFalling)
-            {
-                StopFalling();
-            }
+            if (_controller.JustGotGrounded && _isFalling) StopFalling();
         }
 
         /// <summary>
-        /// This method is triggered when the character starts falling.
+        ///     This method is triggered when the character starts falling.
         /// </summary>
-        private void StartFalling()
+        void StartFalling()
         {
             _isFalling = true;
-            _fallStartPosition = this.transform.position;
-            FallStartFeedbacks?.PlayFeedbacks(this.transform.position);
+            _fallStartPosition = transform.position;
+            FallStartFeedbacks?.PlayFeedbacks(transform.position);
         }
 
         /// <summary>
-        /// This method is triggered when the character stops falling and lands on the ground.
+        ///     This method is triggered when the character stops falling and lands on the ground.
         /// </summary>
-        private void StopFalling()
+        void StopFalling()
         {
             _isFalling = false;
-            float fallDistance = _fallStartPosition.y - this.transform.position.y;
+            var fallDistance = Mathf.Max(0, _fallStartPosition.y - transform.position.y);
 
-            if (fallDistance > HeavyLandingDistanceThreshold)
-            {
-                HeavyLandingFeedbacks?.PlayFeedbacks(this.transform.position);
-            }
-            else if (fallDistance > LightLandingDistanceThreshold)
-            {
-                LightLandingFeedbacks?.PlayFeedbacks(this.transform.position);
-            }
+            if (fallDistance >= HeavyLandingDistanceThreshold)
+                HeavyLandingFeedbacks?.PlayFeedbacks(transform.position);
+            else if (fallDistance >= LightLandingDistanceThreshold && fallDistance < HeavyLandingDistanceThreshold)
+                LightLandingFeedbacks?.PlayFeedbacks(transform.position);
             else
-            {
-                GroundTouchFeedbacks?.PlayFeedbacks(this.transform.position);
-            }
+                GroundTouchFeedbacks?.PlayFeedbacks(transform.position);
         }
 
         /// <summary>
-        /// Reset the fall start position and stop all feedbacks if required.
+        ///     Reset the fall start position and stop all feedbacks if required.
         /// </summary>
         public override void ResetAbility()
         {
@@ -103,9 +90,9 @@ namespace Project.Gameplay.Combat.Abilities
         }
 
         /// <summary>
-        /// Stops all feedbacks related to falling and landing.
+        ///     Stops all feedbacks related to falling and landing.
         /// </summary>
-        private void StopAllFeedbacks()
+        void StopAllFeedbacks()
         {
             FallStartFeedbacks?.StopFeedbacks();
             GroundTouchFeedbacks?.StopFeedbacks();
@@ -114,7 +101,7 @@ namespace Project.Gameplay.Combat.Abilities
         }
 
         /// <summary>
-        /// Adds required animator parameters to the animator parameters list if they exist.
+        ///     Adds required animator parameters to the animator parameters list if they exist.
         /// </summary>
         protected override void InitializeAnimatorParameters()
         {
@@ -122,7 +109,7 @@ namespace Project.Gameplay.Combat.Abilities
         }
 
         /// <summary>
-        /// Sends the current states to the animator.
+        ///     Sends the current states to the animator.
         /// </summary>
         public override void UpdateAnimator()
         {
@@ -130,7 +117,7 @@ namespace Project.Gameplay.Combat.Abilities
         }
 
         /// <summary>
-        /// When the character dies, we reset everything.
+        ///     When the character dies, we reset everything.
         /// </summary>
         protected override void OnDeath()
         {
@@ -139,7 +126,7 @@ namespace Project.Gameplay.Combat.Abilities
         }
 
         /// <summary>
-        /// When the character respawns, we reset everything.
+        ///     When the character respawns, we reset everything.
         /// </summary>
         protected override void OnRespawn()
         {
