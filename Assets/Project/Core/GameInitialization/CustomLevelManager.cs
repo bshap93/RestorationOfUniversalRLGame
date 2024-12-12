@@ -1,28 +1,32 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
 using DunGen;
 using MoreMountains.TopDownEngine;
+using Project.Core.SaveSystem;
+using TopDownEngine.Common.Scripts.Spawn;
 using UnityEngine;
 
 namespace Project.Core.GameInitialization
 {
     public class CustomLevelManager : LevelManager
     {
-        [Tooltip("the Room prefav with the checkpoint to use as initial spawn point if no point of entry is specified")]
-
-        RuntimeDungeon runtimeDungeon;
-
-        List<GameObject> EntryCheckpoints = new List<GameObject>();
+        [Header("Custom Level Manager")] [Tooltip("The ID of the spawn point to use")]
+        public string SpawnPointID;
+        // Readonly 
+        [ReadOnly(true)] public Dungeon generatedDungeon;
+        [ReadOnly(true)] public RuntimeDungeon runtimeDungeon;
 
         protected override void Awake()
         {
-            runtimeDungeon = GetComponent<RuntimeDungeon>();
+            runtimeDungeon = FindObjectOfType<RuntimeDungeon>();
             runtimeDungeon.Generator.OnGenerationStatusChanged += OnDungeonGenerationStatusChanged;
         }
 
-        protected override void Start()
-        {
-            // Do nothing 
-        }
+        // protected override void Start()
+        // {
+        //     // Do nothing 
+        // }
 
         void OnDestroy()
         {
@@ -33,7 +37,51 @@ namespace Project.Core.GameInitialization
         {
             if (status == GenerationStatus.Complete)
             {
-                
+                Debug.Log("Dungeon Generation Complete");
+                generatedDungeon = FindObjectOfType<Dungeon>();
+
+                if (generatedDungeon == null)
+                {
+                    Debug.LogWarning("No Dungeon found in the scene");
+                    return;
+                }
+
+                var initialSpawnPoints = generatedDungeon.GetComponentsInChildren<InitialSpawnPoint>();
+
+                PointsOfEntry = new Transform[initialSpawnPoints.Length];
+
+                for (var i = 0; i < initialSpawnPoints.Length; i++)
+                    PointsOfEntry[i] = initialSpawnPoints[i].gameObject.transform;
+
+
+                if (initialSpawnPoints.Length == 0)
+                {
+                    Debug.LogWarning("No Checkpoints found in the dungeon");
+                    return;
+                }
+
+                if (SpawnPointID != null)
+                {
+                    var spawnPoint = initialSpawnPoints.FirstOrDefault(x => x.SpawnPointID == SpawnPointID);
+
+                    if (spawnPoint != null)
+                    {
+                        InitialSpawnPoint = spawnPoint.gameObject.GetComponent<CheckPoint>();
+
+                        if (InitialSpawnPoint == null)
+                            InitialSpawnPoint = initialSpawnPoints[0].gameObject.AddComponent<CheckPoint>();
+                    }
+                    else
+                    {
+                        InitialSpawnPoint = initialSpawnPoints[0].gameObject.AddComponent<CheckPoint>();
+                    }
+                }
+                else
+                {
+                    InitialSpawnPoint = initialSpawnPoints[0].gameObject.AddComponent<CheckPoint>();
+                }
+
+
                 StartCoroutine(InitializationCoroutine());
             }
         }

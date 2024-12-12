@@ -1,5 +1,9 @@
 using UnityEngine;
 
-public class InitialSpawnPoint : MonoBehaviour
+namespace Project.Core.SaveSystem
 {
+    public class InitialSpawnPoint : MonoBehaviour
+    {
+        public string SpawnPointID;
+    }
 }
