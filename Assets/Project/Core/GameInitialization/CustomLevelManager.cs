@@ -20,7 +20,15 @@ namespace Project.Core.GameInitialization
         protected override void Awake()
         {
             runtimeDungeon = FindObjectOfType<RuntimeDungeon>();
+            if (runtimeDungeon == null)
+            {
+                Debug.LogWarning("No RuntimeDungeon found in the scene");
+                return;
+            }
+
             runtimeDungeon.Generator.OnGenerationStatusChanged += OnDungeonGenerationStatusChanged;
+
+            Debug.Log("Custom Level Manager Awake");
         }
 
         // protected override void Start()
@@ -35,6 +43,7 @@ namespace Project.Core.GameInitialization
 
         void OnDungeonGenerationStatusChanged(DungeonGenerator generator, GenerationStatus status)
         {
+            Debug.Log("Dungeon Generation Status Changed");
             if (status == GenerationStatus.Complete)
             {
                 Debug.Log("Dungeon Generation Complete");

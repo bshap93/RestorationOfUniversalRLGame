@@ -1,5 +1,6 @@
 ﻿using DunGen;
 using DunGen.Adapters;
+using MoreMountains.Tools;
 using Unity.AI.Navigation;
 using UnityEngine;
 
@@ -43,6 +44,7 @@ namespace Project.Gameplay.Navigation
 
             // Add custom logic for after the dungeon generation
             Debug.Log("Custom Generate logic has finished!");
+            MMGameEvent.Trigger("DungeonGenerationComplete");
         }
     }
 }
