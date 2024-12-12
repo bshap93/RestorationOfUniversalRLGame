@@ -19,6 +19,12 @@ namespace Project.Core.GameInitialization
 
         protected override void Awake()
         {
+            if (InitialSpawnPoint != null)
+            {
+                base.Awake();
+                return;
+            }
+
             runtimeDungeon = FindObjectOfType<RuntimeDungeon>();
             if (runtimeDungeon == null)
             {
@@ -31,10 +37,16 @@ namespace Project.Core.GameInitialization
             Debug.Log("Custom Level Manager Awake");
         }
 
-        // protected override void Start()
-        // {
-        //     // Do nothing 
-        // }
+        protected override void Start()
+        {
+            if (InitialSpawnPoint != null)
+            {
+                base.Start();
+                return;
+            }
+
+            Debug.Log("Custom Level Manager Start");
+        }
 
         void OnDestroy()
         {

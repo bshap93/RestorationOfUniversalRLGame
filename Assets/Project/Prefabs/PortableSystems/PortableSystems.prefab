@@ -4737,83 +4737,6 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
---- !u!1 &4096284407770017741
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2936785733922563879}
-  - component: {fileID: 5486328793873522870}
-  m_Layer: 0
-  m_Name: RuntimeDungeon
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2936785733922563879
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4096284407770017741}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 4011567099558779947}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5486328793873522870
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4096284407770017741}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 510e6e61902a25245878393904bd5d0d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Generator:
-    allowImmediateRepeats: 0
-    Seed: 0
-    ShouldRandomizeSeed: 1
-    MaxAttemptCount: 20
-    UseMaximumPairingAttempts: 0
-    MaxPairingAttempts: 5
-    IgnoreSpriteBounds: 0
-    UpDirection: 2
-    OverrideRepeatMode: 0
-    RepeatMode: 0
-    OverrideAllowTileRotation: 0
-    AllowTileRotation: 0
-    DebugRender: 0
-    LengthMultiplier: 1
-    PlaceTileTriggers: 1
-    TileTriggerLayer: 2
-    GenerateAsynchronously: 0
-    MaxAsyncFrameMilliseconds: 50
-    PauseBetweenRooms: 0
-    RestrictDungeonToBounds: 0
-    TilePlacementBounds:
-      m_Center: {x: 0, y: 0, z: 0}
-      m_Extent: {x: 5, y: 5, z: 5}
-    OverlapThreshold: 0.01
-    Padding: 0
-    DisallowOverhangs: 0
-    AvoidCollisionsWithOtherDungeons: 1
-    Root: {fileID: 0}
-    DungeonFlow: {fileID: 11400000, guid: a2192e0a6c7d2ac4390450c68ac6582c, type: 2}
-    fileVersion: 1
-  GenerateOnStart: 0
-  Root: {fileID: 8188874111671158827}
 --- !u!1 &4300435196371501618
 GameObject:
   m_ObjectHideFlags: 0
@@ -8017,7 +7940,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 4011567099558779947}
   - {fileID: 1812955167626419140}
   - {fileID: 4811648181949724576}
   m_Father: {fileID: 8312579675693235546}
@@ -8725,39 +8647,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7981598515768883560}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &7237462917733340815
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4011567099558779947}
-  m_Layer: 0
-  m_Name: Generator
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &4011567099558779947
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7237462917733340815}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 2936785733922563879}
-  - {fileID: 261106830857531922}
-  m_Father: {fileID: 4442989972197375184}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7266627193727814201
 GameObject:
@@ -10655,55 +10544,6 @@ MonoBehaviour:
   Persistent: 0
   ResetThisInventorySaveOnStart: 0
   DrawContentInInspector: 1
---- !u!1 &8919833518230325138
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 261106830857531922}
-  - component: {fileID: 5342636892294616179}
-  m_Layer: 0
-  m_Name: DungeonManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &261106830857531922
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8919833518230325138}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 4011567099558779947}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5342636892294616179
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8919833518230325138}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ad852606f755d4d4a835b2f15d0d3baa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isTestMode: 1
-  runtimeDungeon: {fileID: 5486328793873522870}
-  playerPrefab: {fileID: 4194478886614523176, guid: 33911cec535715a4bbb0eacb8f0ef2f5,
-    type: 3}
-  playerSpawnPoint: {fileID: 0}
 --- !u!1 &8973392972800874200
 GameObject:
   m_ObjectHideFlags: 0
