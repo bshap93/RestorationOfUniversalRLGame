@@ -1,6 +1,7 @@
 using MoreMountains.Feedbacks;
 using MoreMountains.InventoryEngine;
 using Project.Gameplay.Events;
+using Project.Gameplay.ItemManagement;
 using Project.Gameplay.ItemManagement.InventoryItemTypes;
 using Project.UI.HUD;
 using UnityEngine;
@@ -31,7 +32,7 @@ namespace Project.Gameplay.Player.Inventory
             // Locate PortableSystems and retrieve the appropriate inventory
             var portableSystems = GameObject.Find("PortableSystems");
             if (portableSystems != null)
-                _targetInventory = portableSystems.GetComponentInChildren<MoreMountains.InventoryEngine.Inventory>();
+                _targetInventory = portableSystems.GetComponentInChildren<HotbarInventory>();
 
             if (_targetInventory == null) Debug.LogWarning("Target inventory not found in PortableSystems.");
 
