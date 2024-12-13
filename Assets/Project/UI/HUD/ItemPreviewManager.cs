@@ -1,15 +1,34 @@
 using MoreMountains.InventoryEngine;
+using MoreMountains.Tools;
 using Project.Prefabs.UI.PrefabRequiredScripts;
 using UnityEngine;
 
 namespace Project.UI.HUD
 {
-    public class PreviewManager : MonoBehaviour
+    public class PreviewManager : MonoBehaviour, MMEventListener<MMInventoryEvent>
     {
         public TMPInventoryDetails InventoryDetails;
 
 
         public InventoryItem CurrentPreviewedItem { get; set; }
+        void OnEnable()
+        {
+            this.MMEventStartListening();
+        }
+
+        void OnDisable()
+        {
+            this.MMEventStopListening();
+        }
+
+        public void OnMMEvent(MMInventoryEvent inventoryEvent)
+        {
+            if (inventoryEvent.InventoryEventType == MMInventoryEventType.InventoryOpens)
+            {
+                Debug.Log("Inventory Opens");
+                HidePreview();
+            }
+        }
 
 
         public void ShowPreview(InventoryItem item)
