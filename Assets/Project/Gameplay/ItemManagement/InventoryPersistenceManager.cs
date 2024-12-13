@@ -12,15 +12,19 @@ namespace Project.Gameplay.ItemManagement
     {
         [Header("Inventories")] [SerializeField]
         Inventory mainInventory; // Assign your Main Inventory here
-        [SerializeField] Inventory equipmentInventory; // Assign your Equipment Inventory here
+        [SerializeField] Inventory rightHandInventory; // Assign your Right Hand Inventory here
+        [SerializeField] Inventory leftHandInventory; // Assign your Left Hand Inventory here
+        [SerializeField] HotbarInventory hotbarInventory; // Assign your Hotbar Inventory here
 
 
         [SerializeField] AltCharacterHandleWeapon _altCharacterHandleWeapon;
         [SerializeField] CharacterHandleShield _characterHandleShield;
         [SerializeField] CharacterHandleTorch _characterHandleTorch;
-
-        InventoryItem[] _equipmentInventorySavedState;
+        InventoryItem[] _hotbarInventorySavedState;
+        InventoryItem[] _leftHandInventorySavedState;
         InventoryItem[] _mainInventorySavedState;
+
+        InventoryItem[] _rightHandInventorySavedState;
 
 
         void OnEnable()
@@ -48,7 +52,10 @@ namespace Project.Gameplay.ItemManagement
             _mainInventorySavedState = SaveInventoryState(mainInventory);
 
             // Save Equipment Inventory
-            _equipmentInventorySavedState = SaveInventoryState(equipmentInventory);
+            _rightHandInventorySavedState = SaveInventoryState(rightHandInventory);
+            _leftHandInventorySavedState = SaveInventoryState(leftHandInventory);
+            _hotbarInventorySavedState = SaveInventoryState(hotbarInventory);
+
 
             ReEquipItemsInEquipmentInventory();
         }
@@ -58,14 +65,15 @@ namespace Project.Gameplay.ItemManagement
             // Revert Main Inventory
             if (_mainInventorySavedState != null) RevertInventoryState(mainInventory, _mainInventorySavedState);
 
-            // Revert Equipment Inventory
-            if (_equipmentInventorySavedState != null)
-            {
-                RevertInventoryState(equipmentInventory, _equipmentInventorySavedState);
+            if (_rightHandInventorySavedState != null)
+                RevertInventoryState(rightHandInventory, _rightHandInventorySavedState);
 
-                // For each item in the equipment inventory, equip it
-                ReEquipItemsInEquipmentInventory();
-            }
+            if (_leftHandInventorySavedState != null)
+                RevertInventoryState(leftHandInventory, _leftHandInventorySavedState);
+
+            ReEquipItemsInEquipmentInventory();
+
+            if (_hotbarInventorySavedState != null) RevertInventoryState(hotbarInventory, _hotbarInventorySavedState);
         }
 
         InventoryItem[] SaveInventoryState(Inventory inventory)
@@ -94,14 +102,20 @@ namespace Project.Gameplay.ItemManagement
                 return;
             }
 
-            for (var i = 0; i < equipmentInventory.Content.Length; i++)
+
+            ReEquipInventory(rightHandInventory);
+            ReEquipInventory(leftHandInventory);
+        }
+        void ReEquipInventory(Inventory equipmentUInventoryLocal)
+        {
+            for (var i = 0; i < rightHandInventory.Content.Length; i++)
             {
-                if (equipmentInventory.Content[i] == null) continue;
-                if (equipmentInventory.Content[i] is InventoryWeapon weapon)
+                if (equipmentUInventoryLocal.Content[i] == null) continue;
+                if (equipmentUInventoryLocal.Content[i] is InventoryWeapon weapon)
                     _altCharacterHandleWeapon.ChangeWeapon(weapon.EquippableWeapon, weapon.ItemID);
-                else if (equipmentInventory.Content[i] is InventoryShieldItem shield)
+                else if (equipmentUInventoryLocal.Content[i] is InventoryShieldItem shield)
                     _characterHandleShield.EquipShield(shield.ShieldPrefab);
-                else if (equipmentInventory.Content[i] is TorchItem torch)
+                else if (equipmentUInventoryLocal.Content[i] is TorchItem torch)
                     _characterHandleTorch.EquipTorch(torch.TorchPrefab);
             }
         }

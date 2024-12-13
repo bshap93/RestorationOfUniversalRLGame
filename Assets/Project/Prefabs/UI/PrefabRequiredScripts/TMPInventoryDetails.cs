@@ -89,7 +89,6 @@ namespace Project.Prefabs.UI.PrefabRequiredScripts
         public override void OnMMEvent(MMInventoryEvent inventoryEvent)
         {
             base.OnMMEvent(inventoryEvent);
-            if (inventoryEvent.InventoryEventType == MMInventoryEventType.InventoryOpens) HidePreview();
         }
 
         protected override IEnumerator FillDetailFieldsWithDefaults(float initialDelay)

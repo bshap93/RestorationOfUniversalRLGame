@@ -28,6 +28,12 @@ namespace Project.UI.HUD
                 Debug.Log("Inventory Opens");
                 HidePreview();
             }
+
+            if (inventoryEvent.InventoryEventType == MMInventoryEventType.InventoryCloses)
+            {
+                Debug.Log("Inventory Closes");
+                HidePreview();
+            }
         }
 
 
