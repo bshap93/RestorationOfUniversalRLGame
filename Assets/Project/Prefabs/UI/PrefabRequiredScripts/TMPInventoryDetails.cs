@@ -85,13 +85,11 @@ namespace Project.Prefabs.UI.PrefabRequiredScripts
                 }
             }
         }
-        
-        public override void ONMMEvent(MMInventoryEvent inventoryEvent)
+
+        public override void OnMMEvent(MMInventoryEvent inventoryEvent)
         {
-            if (inventoryEvent.InventoryEventType == MMInventoryEventType.InventoryOpens)
-            {
-                HidePreview();
-            }
+            base.OnMMEvent(inventoryEvent);
+            if (inventoryEvent.InventoryEventType == MMInventoryEventType.InventoryOpens) HidePreview();
         }
 
         protected override IEnumerator FillDetailFieldsWithDefaults(float initialDelay)

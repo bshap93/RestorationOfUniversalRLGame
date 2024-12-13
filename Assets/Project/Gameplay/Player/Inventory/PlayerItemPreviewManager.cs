@@ -12,7 +12,7 @@ namespace Project.Gameplay.Player.Inventory
     {
         public GameObject PreviewPanelUI;
         readonly List<InventoryItem> _itemsInRange = new(); // List of items in range
-        readonly Dictionary<string, Transform> _itemTransforms = new(); // Dictionary of item transforms
+        readonly Dictionary<int, Transform> _itemTransforms = new(); // Dictionary of item transforms
 
         bool _isSorting;
         PreviewManager _previewManager;
@@ -48,7 +48,9 @@ namespace Project.Gameplay.Player.Inventory
             if (eventType.EventName == "ItemPickupRangeEntered")
             {
                 _itemsInRange.Add(eventType.Item);
-                _itemTransforms.Add(eventType.Item.ItemID, eventType.ItemTransform);
+
+
+                _itemTransforms.Add(eventType.Item.GetInstanceID(), eventType.ItemTransform);
 
 
                 ShowPreviewPanel(eventType.Item);
@@ -58,7 +60,8 @@ namespace Project.Gameplay.Player.Inventory
             {
                 if (_itemsInRange.Contains(eventType.Item)) _itemsInRange.Remove(eventType.Item);
 
-                if (_itemTransforms.ContainsKey(eventType.Item.ItemID)) _itemTransforms.Remove(eventType.Item.ItemID);
+                if (_itemTransforms.ContainsKey(eventType.Item.GetInstanceID()))
+                    _itemTransforms.Remove(eventType.Item.GetInstanceID());
 
                 if (_itemsInRange.Count == 0)
                     HidePreviewPanel();
@@ -83,21 +86,17 @@ namespace Project.Gameplay.Player.Inventory
 
             _isSorting = true;
 
-            var destroyedKeys = new List<string>();
+            var destroyedKeys = new List<int>();
 
             foreach (var key in _itemTransforms.Keys.ToList())
-            {
                 if (_itemTransforms[key] == null)
-                {
                     _itemTransforms.Remove(key);
-                }
-            }
 
 
             foreach (var key in destroyedKeys) _itemTransforms.Remove(key);
 
             // Remove null or destroyed items from the list
-            _itemsInRange.RemoveAll(item => item == null || !_itemTransforms.ContainsKey(item.ItemID));
+            _itemsInRange.RemoveAll(item => item == null || !_itemTransforms.ContainsKey(item.GetInstanceID()));
 
             if (_itemsInRange.Count == 0 || _previewManager == null)
             {
@@ -115,11 +114,12 @@ namespace Project.Gameplay.Player.Inventory
             _itemsInRange.Sort(
                 (a, b) =>
                 {
-                    if (!_itemTransforms.ContainsKey(a.ItemID) ||
-                        !_itemTransforms.ContainsKey(b.ItemID)) return 0; // Skip if either item transform is missing
+                    if (!_itemTransforms.ContainsKey(a.GetInstanceID()) ||
+                        !_itemTransforms.ContainsKey(b.GetInstanceID()))
+                        return 0; // Skip if either item transform is missing
 
-                    var transformA = _itemTransforms[a.ItemID];
-                    var transformB = _itemTransforms[b.ItemID];
+                    var transformA = _itemTransforms[a.GetInstanceID()];
+                    var transformB = _itemTransforms[b.GetInstanceID()];
 
                     if (transformA == null ||
                         transformB == null) return 0; // Skip if either item transform is destroyed

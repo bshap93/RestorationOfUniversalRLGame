@@ -90,7 +90,6 @@ namespace Project.Gameplay.Player.Inventory
             // Only pick up the item if it is the currently previewed item
             if (previewManager.CurrentPreviewedItem != Item)
             {
-                Debug.Log($"Item '{Item.ItemID}' is not the currently previewed item. Cannot pick up.");
                 return;
             }
 
