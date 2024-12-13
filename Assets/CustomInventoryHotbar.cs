@@ -4,10 +4,10 @@ using UnityEngine;
 
 namespace Project.Gameplay.ItemManagement
 {
-	/// <summary>
-	///     Custom implementation of the InventoryHotbar that allows item switching using the mouse wheel and number keys.
-	/// </summary>
-	public class CustomInventoryHotbar : InventoryDisplay
+    /// <summary>
+    ///     Custom implementation of the InventoryHotbar that allows item switching using the mouse wheel and number keys.
+    /// </summary>
+    public class CustomInventoryHotbar : InventoryDisplay
     {
         [Header("Hotbar")]
         [MMInformation(
@@ -26,11 +26,16 @@ namespace Project.Gameplay.ItemManagement
         /// the alt key associated to the hotbar
         public string[] HotbarAltKeys = { "h", "j", "k", "l" };
 #endif
+        public InventoryInputManager InventoryInputManager;
+        public InventorySlot[] InventorySlots = new InventorySlot[4];
+        void Start()
+        {
+        }
 
-	    /// <summary>
-	    ///     Executed when the key or alt key gets pressed, triggers the specified action
-	    /// </summary>
-	    public virtual void Action(int index)
+        /// <summary>
+        ///     Executed when the key or alt key gets pressed, triggers the specified action
+        /// </summary>
+        public virtual void Action(int index)
         {
             if (!InventoryItem.IsNull(TargetInventory.Content[index]))
             {
@@ -38,22 +43,24 @@ namespace Project.Gameplay.ItemManagement
                 Debug.Log($"Item in slot {index} is {item.ItemID}");
                 if (item.Equippable)
                 {
-                    item.Equip(PlayerID);
+                    // item.Equip(PlayerID);
+                    InventorySlots[index].Equip();
                     Debug.Log($"Equipped {item.ItemID}");
                 }
 
                 if (item.Usable)
                 {
-                    item.Use(PlayerID);
+                    // item.Use(PlayerID);
+                    InventorySlots[index].Use();
                     Debug.Log($"Used {item.ItemID}");
                 }
             }
         }
 
-	    /// <summary>
-	    ///     On Enable, we start listening for MMInventoryEvents
-	    /// </summary>
-	    protected override void OnEnable()
+        /// <summary>
+        ///     On Enable, we start listening for MMInventoryEvents
+        /// </summary>
+        protected override void OnEnable()
         {
             base.OnEnable();
 #if ENABLE_INPUT_SYSTEM && !ENABLE_LEGACY_INPUT_MANAGER
@@ -61,10 +68,10 @@ namespace Project.Gameplay.ItemManagement
 #endif
         }
 
-	    /// <summary>
-	    ///     On Disable, we stop listening for MMInventoryEvents
-	    /// </summary>
-	    protected override void OnDisable()
+        /// <summary>
+        ///     On Disable, we stop listening for MMInventoryEvents
+        /// </summary>
+        protected override void OnDisable()
         {
             base.OnDisable();
 #if ENABLE_INPUT_SYSTEM && !ENABLE_LEGACY_INPUT_MANAGER
