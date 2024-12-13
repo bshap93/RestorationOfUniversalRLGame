@@ -14,11 +14,13 @@ namespace Project.UI.HUD
         void OnEnable()
         {
             this.MMEventStartListening();
+            Debug.Log("PreviewManager enabled");
         }
 
         void OnDisable()
         {
             this.MMEventStopListening();
+            Debug.Log("PreviewManager disabled");
         }
 
         public void OnMMEvent(MMInventoryEvent inventoryEvent)
