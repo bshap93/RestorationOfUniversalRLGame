@@ -32,7 +32,17 @@ namespace Project.Gameplay.Player.Inventory
             // Locate PortableSystems and retrieve the appropriate inventory
             var portableSystems = GameObject.Find("PortableSystems");
             if (portableSystems != null)
-                _targetInventory = portableSystems.GetComponentInChildren<HotbarInventory>();
+            {
+                if (Item.TargetInventoryName == "MainPlayerInventory")
+                    _targetInventory = GameObject.FindWithTag("MainPlayerInventory")
+                        ?.GetComponent<MoreMountains.InventoryEngine.Inventory>();
+                else if (Item.TargetInventoryName == "HotbarInventory")
+                    _targetInventory = GameObject.FindWithTag("HotbarInventory")
+                        ?.GetComponent<HotbarInventory>();
+                else
+                    _targetInventory = GameObject.FindWithTag("MainPlayerInventory")
+                        ?.GetComponent<MoreMountains.InventoryEngine.Inventory>();
+            }
 
             if (_targetInventory == null) Debug.LogWarning("Target inventory not found in PortableSystems.");
 
