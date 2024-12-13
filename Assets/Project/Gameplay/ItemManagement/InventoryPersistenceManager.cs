@@ -71,9 +71,10 @@ namespace Project.Gameplay.ItemManagement
             if (_leftHandInventorySavedState != null)
                 RevertInventoryState(leftHandInventory, _leftHandInventorySavedState);
 
-            ReEquipItemsInEquipmentInventory();
 
             if (_hotbarInventorySavedState != null) RevertInventoryState(hotbarInventory, _hotbarInventorySavedState);
+
+            ReEquipItemsInEquipmentInventory();
         }
 
         InventoryItem[] SaveInventoryState(Inventory inventory)
@@ -83,6 +84,22 @@ namespace Project.Gameplay.ItemManagement
                 if (!InventoryItem.IsNull(inventory.Content[i]))
                     savedState[i] = inventory.Content[i].Copy();
 
+
+            return savedState;
+        }
+
+        InventoryItem[] SaveInventoryState(HotbarInventory inventory)
+        {
+            if (inventory == null || inventory.Content == null)
+            {
+                Debug.LogWarning("HotbarInventory is null or its Content is null");
+                return new InventoryItem[0];
+            }
+
+            var savedState = new InventoryItem[inventory.Content.Length];
+            for (var i = 0; i < inventory.Content.Length; i++)
+                if (!InventoryItem.IsNull(inventory.Content[i]))
+                    savedState[i] = inventory.Content[i].Copy();
 
             return savedState;
         }
@@ -127,6 +144,23 @@ namespace Project.Gameplay.ItemManagement
             for (var i = 0; i < savedState.Length; i++)
                 if (!InventoryItem.IsNull(savedState[i]))
                     inventory.AddItem(savedState[i].Copy(), savedState[i].Quantity);
+        }
+
+        void RevertInventoryState(HotbarInventory inventory, InventoryItem[] savedState)
+        {
+            if (inventory == null || savedState == null)
+            {
+                Debug.LogWarning("HotbarInventory or savedState is null");
+                return;
+            }
+
+            inventory.EmptyInventory();
+            for (var i = 0; i < savedState.Length; i++)
+                if (!InventoryItem.IsNull(savedState[i]))
+                {
+                    var success = inventory.AddItem(savedState[i].Copy(), savedState[i].Quantity);
+                    if (!success) Debug.LogWarning($"Failed to add item {savedState[i].ItemID} at index {i}");
+                }
         }
     }
 }

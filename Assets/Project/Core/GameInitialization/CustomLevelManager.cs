@@ -39,11 +39,11 @@ namespace Project.Core.GameInitialization
 
         protected override void Start()
         {
-            if (InitialSpawnPoint != null)
-            {
-                base.Start();
-                return;
-            }
+            // if (InitialSpawnPoint != null)
+            // {
+            //     base.Start();
+            //     return;
+            // }
 
             Debug.Log("Custom Level Manager Start");
         }

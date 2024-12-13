@@ -17,7 +17,7 @@ namespace Project.Gameplay.ItemManagement
             }
 
             var list = InventoryContains(itemToAdd.ItemID);
-            ;
+
             quantity = CapMaxQuantity(itemToAdd, quantity);
 
             // if there's at least one item like this already in the inventory and it's stackable
@@ -36,11 +36,13 @@ namespace Project.Gameplay.ItemManagement
                             var restToAddQuantity = Content[list[i]].Quantity - Content[list[i]].MaximumStack;
                             // we clamp the quantity and add the rest as a new item
                             Content[list[i]].Quantity = Content[list[i]].MaximumStack;
-                            AddItem(restToAdd, restToAddQuantity);
+                            var success = AddItem(itemToAdd, restToAddQuantity);
+                            if (!success)
+                                Debug.LogWarning(
+                                    $"Failed to add remainder of item {itemToAdd.ItemID} quantity {restToAddQuantity}");
                         }
 
                         MMInventoryEvent.Trigger(MMInventoryEventType.ContentChanged, null, name, null, 0, 0, PlayerID);
-                        return true;
                     }
 
             // if we've reached the max size of our inventory, we try to add the item to the main inventory
