@@ -48,7 +48,6 @@ namespace Project.Gameplay.ItemManagement
             {
                 if (MainInventory != null)
                 {
-                    Debug.Log("Adding to main inventory");
                     var res = MainInventory.AddItem(itemToAdd, quantity);
                     return res;
                 }
