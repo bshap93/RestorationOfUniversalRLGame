@@ -225,7 +225,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2318645811992787946}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: 
         m_MethodName: EquipOrUse
         m_Mode: 1
@@ -361,7 +361,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   MovedSprite: {fileID: 21300000, guid: e181d8e14b5f884438dbb393e0d9e7d1, type: 3}
-  ParentInventoryDisplay: {fileID: 1714735386436918796}
+  ParentInventoryDisplay: {fileID: 0}
   Index: 3
   SlotEnabled: 1
   TargetImage: {fileID: 7785435048469256102}
@@ -1865,7 +1865,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2318645811992787946}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: 
         m_MethodName: Drop
         m_Mode: 1
@@ -4694,7 +4694,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2318645811992787946}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: 
         m_MethodName: UnEquip
         m_Mode: 1
@@ -5023,7 +5023,7 @@ GameObject:
   - component: {fileID: 3324888290454557571}
   - component: {fileID: 151665114808902570}
   - component: {fileID: 4624049351505565103}
-  - component: {fileID: 1714735386436918796}
+  - component: {fileID: 5849093393750605058}
   m_Layer: 0
   m_Name: HotbarInventoryDisplay
   m_TagString: Untagged
@@ -5090,7 +5090,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &1714735386436918796
+--- !u!114 &5849093393750605058
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -5099,7 +5099,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4265170562037443715}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 40509d8bfe7a94f45a82eaafacbe99a1, type: 3}
+  m_Script: {fileID: 11500000, guid: 930e4f60ff3b4d71bbdb790d9f72209a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   TargetInventoryName: HotbarInventory
@@ -5135,16 +5135,23 @@ MonoBehaviour:
   TitleColor: {r: 0, g: 0, b: 0, a: 1}
   TitleOffset: {x: 0, y: 0, z: 0}
   TitleAlignment: 8
-  QtyFont: {fileID: 12800000, guid: a6fbc6a5528d83146a62e255c9cfac00, type: 3}
+  QtyFont: {fileID: 0}
   QtyFontSize: 12
   QtyColor: {r: 0, g: 0, b: 0, a: 1}
   QtyPadding: 10
   QtyAlignment: 8
   PreviousInventory: {fileID: 0}
-  NextInventory: {fileID: 5547646159563622458}
-  HotbarKey: h
-  HotbarAltKey: j
-  ActionOnKey: 1
+  NextInventory: {fileID: 0}
+  HotbarKeys:
+  - 1
+  - 2
+  - 3
+  - 4
+  HotbarAltKeys:
+  - h
+  - j
+  - k
+  - l
 --- !u!1 &4509909968441001925
 GameObject:
   m_ObjectHideFlags: 0
@@ -5942,7 +5949,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   MovedSprite: {fileID: 21300000, guid: e181d8e14b5f884438dbb393e0d9e7d1, type: 3}
-  ParentInventoryDisplay: {fileID: 1714735386436918796}
+  ParentInventoryDisplay: {fileID: 0}
   Index: 2
   SlotEnabled: 1
   TargetImage: {fileID: 8820495768571654658}
@@ -5975,8 +5982,8 @@ GameObject:
   - component: {fileID: 236993012116336855}
   - component: {fileID: 8673942752490121084}
   - component: {fileID: 6378641849022842936}
-  - component: {fileID: 2318645811992787946}
   - component: {fileID: 4384047672674756811}
+  - component: {fileID: 6834005827480320338}
   m_Layer: 5
   m_Name: InventoryCanvas
   m_TagString: Untagged
@@ -6071,7 +6078,19 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 0
---- !u!114 &2318645811992787946
+--- !u!225 &4384047672674756811
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5114026408359465388}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
+--- !u!114 &6834005827480320338
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -6080,7 +6099,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5114026408359465388}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9f6f9f11547ebfa4b9f0a1da3402f764, type: 3}
+  m_Script: {fileID: 11500000, guid: be722c47945a485cab4884ee8b83765d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   TargetInventoryContainer: {fileID: 1608191637053175758}
@@ -6106,9 +6125,9 @@ MonoBehaviour:
   EquipOrUseAltKey: joystick button 0
   DropKey: delete
   DropAltKey: joystick button 1
-  NextInvKey: page up
+  NextInvKey: page down
   NextInvAltKey: joystick button 4
-  PrevInvKey: page down
+  PrevInvKey: page up
   PrevInvAltKey: joystick button 5
   CloseList: []
   ManageButtons: 0
@@ -6120,18 +6139,6 @@ MonoBehaviour:
   UseButton: {fileID: 0}
   UnEquipButton: {fileID: 0}
   InventoryIsOpen: 0
---- !u!225 &4384047672674756811
-CanvasGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5114026408359465388}
-  m_Enabled: 1
-  m_Alpha: 1
-  m_Interactable: 1
-  m_BlocksRaycasts: 0
-  m_IgnoreParentGroups: 0
 --- !u!1 &5122293058261379661
 GameObject:
   m_ObjectHideFlags: 0
@@ -8541,7 +8548,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   MovedSprite: {fileID: 21300000, guid: e181d8e14b5f884438dbb393e0d9e7d1, type: 3}
-  ParentInventoryDisplay: {fileID: 1714735386436918796}
+  ParentInventoryDisplay: {fileID: 0}
   Index: 0
   SlotEnabled: 1
   TargetImage: {fileID: 6155263899582550523}
@@ -9122,7 +9129,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2318645811992787946}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: 
         m_MethodName: Use
         m_Mode: 1
@@ -9334,7 +9341,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   MovedSprite: {fileID: 21300000, guid: e181d8e14b5f884438dbb393e0d9e7d1, type: 3}
-  ParentInventoryDisplay: {fileID: 1714735386436918796}
+  ParentInventoryDisplay: {fileID: 0}
   Index: 1
   SlotEnabled: 1
   TargetImage: {fileID: 2031605440890995940}
@@ -10889,7 +10896,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2318645811992787946}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: 
         m_MethodName: Move
         m_Mode: 1
@@ -11885,7 +11892,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2318645811992787946}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: 
         m_MethodName: Equip
         m_Mode: 1
