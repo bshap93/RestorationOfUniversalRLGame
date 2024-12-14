@@ -136,9 +136,11 @@ namespace Project.UI.CharacterCreation.Scripts
                     break;
                 case CreationStep.Attributes:
 
+
                     _currentStep = CreationStep.Confirmation;
-                    traitsPanelScript.Initialize(
-                        RunManager.Instance.GetAvailableTraits(), _selectedClass.ClassType);
+                    ShowCharacterSummary();
+                    // traitsPanelScript.Initialize(
+                    //     RunManager.Instance.GetAvailableTraits(), _selectedClass.ClassType);
 
                     break;
                 case CreationStep.Traits:
@@ -162,7 +164,8 @@ namespace Project.UI.CharacterCreation.Scripts
         {
             _currentConfig.selectedClassName = _selectedClass.className;
             _currentConfig.attributes = GatherAttributeData();
-            _currentConfig.selectedTraitNames = traitsPanelScript.GetSelectedTraits().ConvertAll(t => t.traitName);
+            // _currentConfig.selectedTraitNames = traitsPanelScript.GetSelectedTraits().ConvertAll(t => t.traitName);
+            _currentConfig.selectedTraitNames = new List<string> { "None" };
 
 
             confirmationPanel.DisplayCharacterSummary(_currentConfig);

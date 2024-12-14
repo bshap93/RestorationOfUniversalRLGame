@@ -5,6 +5,7 @@ using Project.Gameplay.Combat.Shields;
 using Project.Gameplay.Combat.Tools;
 using Project.Gameplay.Combat.Weapons;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Project.Gameplay.ItemManagement
 {
@@ -16,8 +17,8 @@ namespace Project.Gameplay.ItemManagement
         [SerializeField] Inventory leftHandInventory; // Assign your Left Hand Inventory here
         [SerializeField] HotbarInventory hotbarInventory; // Assign your Hotbar Inventory here
 
-
-        [SerializeField] AltCharacterHandleWeapon _altCharacterHandleWeapon;
+        [FormerlySerializedAs("customInventoryHotbar")] [Header("Inventory Displays")] [SerializeField]
+        AltCharacterHandleWeapon _altCharacterHandleWeapon;
         [SerializeField] CharacterHandleShield _characterHandleShield;
         [SerializeField] CharacterHandleTorch _characterHandleTorch;
         InventoryItem[] _hotbarInventorySavedState;
@@ -100,6 +101,8 @@ namespace Project.Gameplay.ItemManagement
             for (var i = 0; i < inventory.Content.Length; i++)
                 if (!InventoryItem.IsNull(inventory.Content[i]))
                     savedState[i] = inventory.Content[i].Copy();
+
+            // Save the hotbar display slots
 
             return savedState;
         }

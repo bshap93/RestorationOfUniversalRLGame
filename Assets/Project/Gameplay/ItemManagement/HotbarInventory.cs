@@ -69,6 +69,7 @@ namespace Project.Gameplay.ItemManagement
                     quantity = 0;
                 }
 
+
             // if we're still here, we add the item in the first available slot
             MMInventoryEvent.Trigger(MMInventoryEventType.ContentChanged, null, name, null, 0, 0, PlayerID);
             return true;
