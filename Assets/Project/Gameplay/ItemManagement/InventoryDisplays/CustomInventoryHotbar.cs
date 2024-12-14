@@ -2,7 +2,7 @@ using MoreMountains.InventoryEngine;
 using MoreMountains.Tools;
 using UnityEngine;
 
-namespace Project.Gameplay.ItemManagement
+namespace Project.Gameplay.ItemManagement.InventoryDisplays
 {
     /// <summary>
     ///     Custom implementation of the InventoryHotbar that allows item switching using the mouse wheel and number keys.
@@ -28,9 +28,39 @@ namespace Project.Gameplay.ItemManagement
 #endif
         public InventoryInputManager InventoryInputManager;
         public InventorySlot[] InventorySlots = new InventorySlot[4];
-        void Start()
+
+        protected override void OnEnable()
         {
+            base.OnEnable();
+#if ENABLE_INPUT_SYSTEM && !ENABLE_LEGACY_INPUT_MANAGER
+    HotbarInputAction.action.Enable();
+#endif
+
+            // Ensure InventorySlots is populated after a scene change
+            InitializeHotbarSlots();
         }
+
+        /// <summary>
+        ///     Populates the InventorySlots array from the InventoryDisplay's SlotContainer
+        /// </summary>
+        protected virtual void InitializeHotbarSlots()
+        {
+            if (SlotContainer == null || SlotContainer.Count == 0)
+            {
+                Debug.LogWarning("CustomInventoryHotbar: SlotContainer is empty or not initialized.");
+                return;
+            }
+
+            // Ensure InventorySlots array is the correct size
+            InventorySlots = new InventorySlot[SlotContainer.Count];
+
+            for (var i = 0; i < SlotContainer.Count; i++)
+            {
+                InventorySlots[i] = SlotContainer[i];
+                if (InventorySlots[i] == null) Debug.LogError($"CustomInventoryHotbar: Slot at index {i} is null.");
+            }
+        }
+
 
         /// <summary>
         ///     Executed when the key or alt key gets pressed, triggers the specified action
@@ -57,16 +87,6 @@ namespace Project.Gameplay.ItemManagement
             }
         }
 
-        /// <summary>
-        ///     On Enable, we start listening for MMInventoryEvents
-        /// </summary>
-        protected override void OnEnable()
-        {
-            base.OnEnable();
-#if ENABLE_INPUT_SYSTEM && !ENABLE_LEGACY_INPUT_MANAGER
-			HotbarInputAction.action.Enable();
-#endif
-        }
 
         /// <summary>
         ///     On Disable, we stop listening for MMInventoryEvents

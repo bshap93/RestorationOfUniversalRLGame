@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using Project.Gameplay.ItemManagement;
+using Project.Gameplay.ItemManagement.InventoryDisplays;
 using UnityEngine;
 
 public class InventoryHotbarHotkeyManager : MonoBehaviour

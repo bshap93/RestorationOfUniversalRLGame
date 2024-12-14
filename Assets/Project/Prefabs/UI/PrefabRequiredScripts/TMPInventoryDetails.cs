@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using MoreMountains.InventoryEngine;
 using MoreMountains.Tools;
 using TMPro;
@@ -13,6 +14,8 @@ namespace Project.Prefabs.UI.PrefabRequiredScripts
             Inventory,
             Preview
         }
+
+        public List<string> TargetInventoryNames = new();
 
         public DisplayMode CurrentMode = DisplayMode.Inventory;
 
@@ -86,9 +89,41 @@ namespace Project.Prefabs.UI.PrefabRequiredScripts
             }
         }
 
+        /// <summary>
+        ///     Catches MMInventoryEvents and displays details if needed
+        /// </summary>
         public override void OnMMEvent(MMInventoryEvent inventoryEvent)
         {
-            base.OnMMEvent(inventoryEvent);
+            // If Global is enabled, listen to all events regardless of inventory name
+            if (Global)
+            {
+                base.OnMMEvent(inventoryEvent);
+                return;
+            }
+
+            // Check if the event's TargetInventoryName is in our list of target inventory names
+            if (!TargetInventoryNames.Contains(inventoryEvent.TargetInventoryName)) return;
+
+            if (inventoryEvent.PlayerID != PlayerID) return;
+
+            switch (inventoryEvent.InventoryEventType)
+            {
+                case MMInventoryEventType.Select:
+                    DisplayDetails(inventoryEvent.EventItem);
+                    break;
+                case MMInventoryEventType.UseRequest:
+                    DisplayDetails(inventoryEvent.EventItem);
+                    break;
+                case MMInventoryEventType.InventoryOpens:
+                    DisplayDetails(inventoryEvent.EventItem);
+                    break;
+                case MMInventoryEventType.Drop:
+                    DisplayDetails(null);
+                    break;
+                case MMInventoryEventType.EquipRequest:
+                    DisplayDetails(null);
+                    break;
+            }
         }
 
         protected override IEnumerator FillDetailFieldsWithDefaults(float initialDelay)
