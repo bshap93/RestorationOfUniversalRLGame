@@ -8,12 +8,16 @@ namespace Project.Gameplay.ItemManagement
     {
         public InventoryItem Item; // Assign the InventoryItem to display
 
+        PlayerItemPreviewManager _previewManager;
+
         void OnTriggerEnter(Collider other)
         {
             if (other.CompareTag("Player"))
             {
-                var previewManager = other.GetComponent<PlayerItemPreviewManager>();
-                previewManager.RegisterItem(Item);
+                if (_previewManager == null)
+                    _previewManager = other.GetComponent<PlayerItemPreviewManager>();
+
+                _previewManager.RegisterItem(Item);
             }
         }
 
@@ -21,9 +25,32 @@ namespace Project.Gameplay.ItemManagement
         {
             if (other.CompareTag("Player"))
             {
-                var previewManager = other.GetComponent<PlayerItemPreviewManager>();
-                previewManager.UnregisterItem(Item);
+                if (_previewManager == null)
+                    _previewManager = other.GetComponent<PlayerItemPreviewManager>();
+
+                _previewManager.UnregisterItem(Item);
             }
+        }
+
+        public void OnSelectedItem()
+        {
+            if (_previewManager == null)
+            {
+                _previewManager = FindObjectOfType<PlayerItemPreviewManager>();
+                Debug.LogWarning("PreviewManager not found in the scene.");
+            }
+
+            _previewManager.RegisterItem(Item);
+            _previewManager.ShowSelectedItemPreviewPanel(Item);
+        }
+
+        public void OnUnSelectedItem()
+        {
+            if (_previewManager == null)
+                _previewManager = FindObjectOfType<PlayerItemPreviewManager>();
+
+            _previewManager.UnregisterItem(Item);
+            _previewManager.HideSelectedItemPreviewPanel();
         }
     }
 }

@@ -637,9 +637,9 @@ GameObject:
   m_Component:
   - component: {fileID: 8104762911209195253}
   - component: {fileID: 8104762911214639047}
-  - component: {fileID: 9118356576179929939}
-  - component: {fileID: 574446674989347245}
-  m_Layer: 0
+  - component: {fileID: 3198205125017948581}
+  - component: {fileID: 2891525673369273502}
+  m_Layer: 1
   m_Name: crossbow_01_LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -720,8 +720,8 @@ SkinnedMeshRenderer:
     m_Center: {x: -0.105206326, y: -0.39592206, z: -0.041112833}
     m_Extent: {x: 0.5164241, y: 0.59588945, z: 0.061347164}
   m_DirtyAABB: 0
---- !u!64 &9118356576179929939
-MeshCollider:
+--- !u!65 &3198205125017948581
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -738,34 +738,19 @@ MeshCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 0}
---- !u!54 &574446674989347245
-Rigidbody:
+  serializedVersion: 3
+  m_Size: {x: 1.312715, y: 1.4236296, z: 0.12269453}
+  m_Center: {x: 0.003929793, y: -0.0497061, z: -0.04111291}
+--- !u!114 &2891525673369273502
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8104762911209364181}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a236fc544b3644c4abc8f755cc586a73, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PreviewTrigger: {fileID: 8394872953706560366}

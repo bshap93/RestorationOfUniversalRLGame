@@ -80,6 +80,15 @@ namespace Project.Gameplay.Player.Inventory
             if (PreviewPanelUI != null) PreviewPanelUI.SetActive(true);
         }
 
+        public void ShowSelectedItemPreviewPanel(InventoryItem item)
+        {
+            if (PreviewPanelUI != null) PreviewPanelUI.SetActive(true);
+
+            Debug.Log("Item: " + item.name + " selected!");
+
+            _previewManager.ShowPreview(item);
+        }
+
         void DisplayNearestItem()
         {
             if (_isSorting) return;
@@ -143,6 +152,7 @@ namespace Project.Gameplay.Player.Inventory
         public void RegisterItem(InventoryItem item)
         {
             if (!_itemsInRange.Contains(item)) _itemsInRange.Add(item);
+            Debug.Log("Item registered");
         }
 
         public void UnregisterItem(InventoryItem item)
@@ -158,6 +168,12 @@ namespace Project.Gameplay.Player.Inventory
                     CurrentPreviewedItem = null;
                 }
             }
+        }
+        public void HideSelectedItemPreviewPanel()
+        {
+            if (PreviewPanelUI != null) PreviewPanelUI.SetActive(false);
+            _previewManager.HidePreview();
+            Debug.Log("Item unselected!");
         }
     }
 }

@@ -27,9 +27,9 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4399090484759417829}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.8333332, y: 0.8333332, z: 0.833333}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8079431613391885251}
@@ -392,7 +392,9 @@ GameObject:
   - component: {fileID: 1335124160149112109}
   - component: {fileID: 1664882321558066911}
   - component: {fileID: 2406710247033106587}
-  m_Layer: 0
+  - component: {fileID: 7152210191019500237}
+  - component: {fileID: 5787489390794094401}
+  m_Layer: 1
   m_Name: quiver_01_LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -464,3 +466,37 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &7152210191019500237
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8623831667210523336}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.52777696, y: 0.14638211, z: 0.62151265}
+  m_Center: {x: -0.0027501138, y: -0.0005072055, z: 0.0038236843}
+--- !u!114 &5787489390794094401
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8623831667210523336}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a236fc544b3644c4abc8f755cc586a73, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PreviewTrigger: {fileID: 1586496070618180700}
