@@ -12,9 +12,9 @@ namespace Project.Gameplay.Player.Inventory
     public class PlayerItemPreviewManager : MonoBehaviour, MMEventListener<ItemEvent>
     {
         public GameObject PreviewPanelUI;
-        public HighlightManager HighlightManager;
         readonly List<InventoryItem> _itemsInRange = new(); // List of items in range
         readonly Dictionary<int, Transform> _itemTransforms = new(); // Dictionary of item transforms
+        HighlightManager _highlightManager;
 
         bool _isSorting;
         PreviewManager _previewManager;
@@ -24,7 +24,10 @@ namespace Project.Gameplay.Player.Inventory
         void Start()
         {
             _previewManager = FindObjectOfType<PreviewManager>();
+            _highlightManager = FindObjectOfType<HighlightManager>();
+
             if (_previewManager == null) Debug.LogWarning("PreviewManager not found in the scene.");
+            if (_highlightManager == null) Debug.LogWarning("HighlightManager not found in the scene.");
         }
 
         void Update()
@@ -56,6 +59,8 @@ namespace Project.Gameplay.Player.Inventory
 
 
                 ShowPreviewPanel(eventType.Item);
+
+                _highlightManager.SelectObject(eventType.ItemTransform);
             }
 
             if (eventType.EventName == "ItemPickupRangeExited" || eventType.EventName == "ItemPickedUp")
@@ -69,6 +74,8 @@ namespace Project.Gameplay.Player.Inventory
                     HidePreviewPanel();
                 else
                     ShowPreviewPanel(_itemsInRange[0]);
+
+                _highlightManager.UnselectObject(eventType.ItemTransform);
             }
         }
 

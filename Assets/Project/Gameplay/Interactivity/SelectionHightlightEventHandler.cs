@@ -18,6 +18,8 @@ namespace Project.Gameplay.Interactivity
             Debug.Log(go.name + " selected!");
             _itemPreviewTrigger = go.GetComponentInParent<ItemPreviewTrigger>();
 
+            if (_itemPreviewTrigger == null) return false;
+
             Debug.Log("ItemPreviewTrigger found: " + _itemPreviewTrigger.Item.ItemName);
 
             if (_itemPreviewTrigger != null) _itemPreviewTrigger.OnSelectedItem();
