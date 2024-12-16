@@ -17,22 +17,22 @@ public class LootChest : MonoBehaviour
     public List<Transform> itemSlots;
 
     public GameObject chestLid;
-    
-    private bool isOpen = false;
+
+    [SerializeField] MMFeedbacks openChestFeedbacks;
 
     bool _isInRange;
-    
-    [SerializeField] MMFeedbacks openChestFeedbacks;
 
 
     List<GameObject> _itemInstances;
 
     PromptManager _promptManager;
+
+    bool isOpen;
     // Start is called before the first frame update
     void Start()
     {
         _promptManager = FindObjectOfType<PromptManager>();
-        
+
         for (var i = 0; i < items.Count; i++)
         {
             if (i >= maxItems) break;
@@ -52,28 +52,25 @@ public class LootChest : MonoBehaviour
         }
     }
 
+    void Update()
+    {
+        if (_isInRange && Input.GetKeyDown(KeyCode.F)) OpenChest();
+    }
+
     void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") && !isOpen)
         {
             _isInRange = true;
             _promptManager?.ShowInteractPrompt("Press F to Open Chest");
         }
     }
-     
-    void Update()
-    {
-        if (_isInRange && UnityEngine.Input.GetKeyDown(KeyCode.F)) OpenChest();
-    }
-    
+
     void OpenChest()
     {
         if (isOpen) return;
         chestLid.SetActive(false);
-        foreach (var itemSlot in itemSlots)
-        {
-            itemSlot.gameObject.SetActive(true);
-        }
+        foreach (var itemSlot in itemSlots) itemSlot.gameObject.SetActive(true);
         openChestFeedbacks?.PlayFeedbacks();
         _promptManager?.HideInteractPrompt();
         isOpen = true;
