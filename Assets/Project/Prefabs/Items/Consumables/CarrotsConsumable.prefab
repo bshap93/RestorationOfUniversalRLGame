@@ -783,9 +783,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1493371307694988600}
   - component: {fileID: -2077793672948821921}
-  - component: {fileID: -7197480484131021224}
-  - component: {fileID: 8376948438576032036}
-  - component: {fileID: 8167664126218235294}
+  - component: {fileID: 7263707167970780681}
+  - component: {fileID: 8120540865213184145}
+  - component: {fileID: 7263493861405458301}
   m_Layer: 0
   m_Name: CarrotsConsumable
   m_TagString: Untagged
@@ -823,7 +823,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   consumableName: Carrots
---- !u!114 &-7197480484131021224
+--- !u!114 &7263707167970780681
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -832,40 +832,27 @@ MonoBehaviour:
   m_GameObject: {fileID: 9022520988057576563}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1feff4042ae759c49a290443b9bfdd71, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  PickedMMFeedbacks: {fileID: 3593039771793928080}
-  DisableColliderOnPick: 0
-  DisableObjectOnPick: 1
-  DisableDelay: 0
-  DisableModelOnPick: 0
-  DisableTargetObjectOnPick: 0
-  TargetObjectToDisable: {fileID: 0}
-  TargetObjectDisableDelay: 1
-  Model: {fileID: 0}
-  RequireCharacterComponent: 1
-  RequirePlayerType: 1
---- !u!114 &8376948438576032036
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9022520988057576563}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 86fd837a0abc28d4d91c55590bd2c090, type: 3}
+  m_Script: {fileID: 11500000, guid: 3beb49fcc5880ec40a513dd74067c683, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Item: {fileID: 11400000, guid: 3baec3fcf183dd748953a1a40c8ded98, type: 2}
   Quantity: 1
-  RemainingQuantity: 1
-  PickableIfInventoryIsFull: 0
-  DisableObjectWhenDepleted: 0
-  RequirePlayerTag: 1
---- !u!65 &8167664126218235294
-BoxCollider:
+  pickedMmFeedbacks: {fileID: 3593039771793928080}
+--- !u!114 &8120540865213184145
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9022520988057576563}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de64c03c619e45b99b277c47f83a3686, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Item: {fileID: 11400000, guid: 3baec3fcf183dd748953a1a40c8ded98, type: 2}
+--- !u!135 &7263493861405458301
+SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -883,7 +870,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Radius: 1.4
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &9136576461466892814
 GameObject:
