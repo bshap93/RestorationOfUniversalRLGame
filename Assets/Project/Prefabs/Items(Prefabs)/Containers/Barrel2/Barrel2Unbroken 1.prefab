@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &1000014209433754
+--- !u!1 &6683207169273762494
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,50 +8,50 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4000013919614706}
-  - component: {fileID: 33000012345901756}
-  - component: {fileID: 23000010843415950}
-  - component: {fileID: 5299772214504202186}
-  - component: {fileID: 4816851959681272817}
-  - component: {fileID: 6795263728451811208}
-  - component: {fileID: 8652796539231298500}
+  - component: {fileID: 2567709147800802566}
+  - component: {fileID: 4144156318826661979}
+  - component: {fileID: 3235619250482090543}
+  - component: {fileID: 1460782616618005647}
+  - component: {fileID: 5202332771913331412}
+  - component: {fileID: 8126745727482372660}
+  - component: {fileID: 5862402131916711296}
   m_Layer: 25
-  m_Name: Barrel2Unbroken
+  m_Name: Barrel2Unbroken 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
   m_IsActive: 1
---- !u!4 &4000013919614706
+--- !u!4 &2567709147800802566
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1000014209433754}
+  m_GameObject: {fileID: 6683207169273762494}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -25.75, y: 0.26, z: 63.251038}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -12.507872, y: 0.4499997, z: 12.076542}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &33000012345901756
+--- !u!33 &4144156318826661979
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1000014209433754}
-  m_Mesh: {fileID: 4300000, guid: 8060caa128d3db54fa08f4de77374968, type: 3}
---- !u!23 &23000010843415950
+  m_GameObject: {fileID: 6683207169273762494}
+  m_Mesh: {fileID: 4300000, guid: c06aee5ba8a69884392df7a598fd3e6a, type: 3}
+--- !u!23 &3235619250482090543
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1000014209433754}
+  m_GameObject: {fileID: 6683207169273762494}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -62,10 +62,10 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
-  m_RenderingLayerMask: 1
+  m_RenderingLayerMask: 4294967295
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: fa80b9b81fb84aa459ebd7e93d267929, type: 2}
+  - {fileID: 2100000, guid: 3ecb4550581babb4d8fa8dc6d7adf6ab, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -77,7 +77,7 @@ MeshRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
+  m_StitchLightmapSeams: 0
   m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
@@ -87,19 +87,19 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &5299772214504202186
+--- !u!114 &1460782616618005647
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1000014209433754}
+  m_GameObject: {fileID: 6683207169273762494}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 01754710d9f92ec4d9a21b81f5682667, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Model: {fileID: 1000014209433754}
+  Model: {fileID: 0}
   CurrentHealth: 0
   Invulnerable: 0
   InitialHealth: 10
@@ -132,13 +132,13 @@ MonoBehaviour:
   TargetDamageResistanceProcessor: {fileID: 0}
   TargetAnimator: {fileID: 0}
   DisableAnimatorLogs: 1
---- !u!65 &4816851959681272817
+--- !u!65 &5202332771913331412
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1000014209433754}
+  m_GameObject: {fileID: 6683207169273762494}
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -151,15 +151,15 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.1440787, y: 1.4435958, z: 1.1440789}
-  m_Center: {x: 0.00000008940697, y: 0.71457285, z: 0.00000017881393}
---- !u!114 &6795263728451811208
+  m_Size: {x: 0.95339894, y: 1.2029965, z: 0.953399}
+  m_Center: {x: 0.000000059604645, y: 0.59547734, z: 0.00000014901161}
+--- !u!114 &8126745727482372660
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1000014209433754}
+  m_GameObject: {fileID: 6683207169273762494}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e4f97ef7c4c0b304c982e72946dfa121, type: 3}
@@ -167,16 +167,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   brokenBarrelPrefab: {fileID: 1000012835710212, guid: 2707028155cbb6240b90e0dd6e16f731,
     type: 3}
-  deathFeedbackPrefab: {fileID: 5504299898568741411, guid: 67875adba08ae8145a52565af416f53d,
+  deathFeedbackPrefab: {fileID: 5504299898568741411, guid: 61c8f99085b31574a964712a9f187251,
     type: 3}
   transitionDuration: 0.5
---- !u!114 &8652796539231298500
+--- !u!114 &5862402131916711296
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1000014209433754}
+  m_GameObject: {fileID: 6683207169273762494}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8d9bf1ac07f3659498e89157301c9746, type: 3}
@@ -199,14 +199,14 @@ MonoBehaviour:
   Quantity: {x: 1, y: 1}
   SpawnProperties:
     Shape: 0
-    MinimumSphereRadius: 2
-    MaximumSphereRadius: 3
+    MinimumSphereRadius: 1
+    MaximumSphereRadius: 2
     MinimumCubeBaseSize: {x: 1, y: 1, z: 1}
     MaximumCubeBaseSize: {x: 2, y: 2, z: 2}
     ForcePlane: 1
     NormalToSpawnPlane: {x: 0, y: 1, z: 0}
-    MinimumNormalAxisOffset: 2
-    MaximumNormalAxisOffset: 3
+    MinimumNormalAxisOffset: 0
+    MaximumNormalAxisOffset: 0
     UseNormalAxisOffsetCurve: 0
     NormalOffsetCurve:
       serializedVersion: 2
@@ -242,11 +242,11 @@ MonoBehaviour:
   LimitedLootQuantity: 1
   MaximumQuantity: 1
   RemainingQuantity: 100
-  AvoidObstacles: 1
-  DimensionMode: 1
+  AvoidObstacles: 0
+  DimensionMode: 0
   AvoidObstaclesLayerMask:
     serializedVersion: 2
-    m_Bits: 33554688
+    m_Bits: 256
   AvoidRadius: 0.25
   MaxAvoidAttempts: 5
   LootFeedback: {fileID: 0}
