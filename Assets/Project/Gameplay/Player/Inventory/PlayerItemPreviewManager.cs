@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using HighlightPlus;
 using MoreMountains.InventoryEngine;
 using MoreMountains.Tools;
 using Project.Gameplay.Events;
@@ -11,6 +12,7 @@ namespace Project.Gameplay.Player.Inventory
     public class PlayerItemPreviewManager : MonoBehaviour, MMEventListener<ItemEvent>
     {
         public GameObject PreviewPanelUI;
+        public HighlightManager HighlightManager;
         readonly List<InventoryItem> _itemsInRange = new(); // List of items in range
         readonly Dictionary<int, Transform> _itemTransforms = new(); // Dictionary of item transforms
 
