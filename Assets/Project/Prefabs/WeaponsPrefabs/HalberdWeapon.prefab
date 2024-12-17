@@ -60,15 +60,15 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3434931553415193931}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.4311837, y: 0.18236001, z: -0.5431146, w: 0.6970309}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0.32890573, y: -0.56851566, z: -0.61050296, w: 0.44260275}
+  m_LocalPosition: {x: 0.06223488, y: -0.03664875, z: -0.13770533}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1748867019044934889}
   - {fileID: 7647912525055353050}
   m_Father: {fileID: 1254597426023303800}
-  m_LocalEulerAnglesHint: {x: 53.052, y: -20.871, z: -86.355}
+  m_LocalEulerAnglesHint: {x: -80.167, y: -36.532, z: -77.069}
 --- !u!33 &1220545534130892122
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -167,7 +167,7 @@ Transform:
   m_GameObject: {fileID: 3563743776740221616}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0, y: 0.569, z: -0}
+  m_LocalPosition: {x: -0, y: 0.773, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -451,6 +451,7 @@ GameObject:
   - component: {fileID: 1254597426023303800}
   - component: {fileID: 6991466636093384665}
   - component: {fileID: 8076103415809413455}
+  - component: {fileID: 5792031415894365032}
   m_Layer: 0
   m_Name: HalberdWeapon
   m_TagString: Untagged
@@ -526,7 +527,7 @@ MonoBehaviour:
   MirrorCharacterAnimatorParameters: 0
   WeaponAnimationID: 0
   IdleAnimationParameter: 
-  StartAnimationParameter: BasicSwing
+  StartAnimationParameter: Attack1
   DelayBeforeUseAnimationParameter: 
   SingleUseAnimationParameter: 
   UseAnimationParameter: 
@@ -547,7 +548,7 @@ MonoBehaviour:
   WeaponReloadNeededMMFeedback: {fileID: 0}
   WeaponReloadImpossibleMMFeedback: {fileID: 0}
   InitializeOnStart: 0
-  Interruptable: 0
+  Interruptable: 1
   Flipped: 0
   MeleeDamageAreaMode: 0
   DamageAreaShape: 3
@@ -558,10 +559,10 @@ MonoBehaviour:
   HitNonDamageableFeedback: {fileID: 0}
   ExistingDamageArea: {fileID: 0}
   InitialDelay: 0
-  ActiveDuration: 1
+  ActiveDuration: 0.5
   TargetLayerMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 33554696
   MinDamageCaused: 10
   MaxDamageCaused: 10
   Knockback: 0
@@ -608,8 +609,8 @@ MonoBehaviour:
   LeftFacingFlipValue: {x: -1, y: 1, z: 1}
   WeaponUseTransform: {fileID: 0}
   WeaponShouldFlip: 1
-  LeftHandHandle: {fileID: 0}
-  RightHandHandle: {fileID: 0}
+  LeftHandHandle: {fileID: 1748867019044934889}
+  RightHandHandle: {fileID: 7647912525055353050}
   ModifyMovementWhileAttacking: 0
   MovementMultiplier: 0
   PreventAllMovementWhileInUse: 0
@@ -620,7 +621,7 @@ MonoBehaviour:
   MirrorCharacterAnimatorParameters: 0
   WeaponAnimationID: 0
   IdleAnimationParameter: 
-  StartAnimationParameter: 
+  StartAnimationParameter: RMBAction
   DelayBeforeUseAnimationParameter: 
   SingleUseAnimationParameter: 
   UseAnimationParameter: 
@@ -634,35 +635,48 @@ MonoBehaviour:
   EquippedAnimationParameter: 
   InterruptedAnimationParameter: 
   WeaponStartMMFeedback: {fileID: 0}
-  WeaponUsedMMFeedback: {fileID: 0}
+  WeaponUsedMMFeedback: {fileID: 1057360108824531098}
   WeaponUsedMMFeedbackAlt: {fileID: 0}
   WeaponStopMMFeedback: {fileID: 0}
   WeaponReloadMMFeedback: {fileID: 0}
   WeaponReloadNeededMMFeedback: {fileID: 0}
   WeaponReloadImpossibleMMFeedback: {fileID: 0}
   InitializeOnStart: 0
-  Interruptable: 0
+  Interruptable: 1
   Flipped: 0
   MeleeDamageAreaMode: 0
   DamageAreaShape: 3
-  AreaOffset: {x: 2.39, y: 0, z: 1.11}
+  AreaOffset: {x: 2.39, y: 0, z: 0.89}
   AreaSize: {x: 1, y: 1, z: 0}
   TriggerFilter: 195
   HitDamageableFeedback: {fileID: 0}
   HitNonDamageableFeedback: {fileID: 0}
   ExistingDamageArea: {fileID: 0}
   InitialDelay: 0
-  ActiveDuration: 1
+  ActiveDuration: 0.3
   TargetLayerMask:
     serializedVersion: 2
-    m_Bits: 0
-  MinDamageCaused: 10
-  MaxDamageCaused: 10
-  Knockback: 0
+    m_Bits: 33554696
+  MinDamageCaused: 20
+  MaxDamageCaused: 30
+  Knockback: 1
   KnockbackForce: {x: 10, y: 2, z: 0}
   KnockbackDirection: 0
   InvincibilityDuration: 0.5
   CanDamageOwner: 0
+--- !u!114 &5792031415894365032
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6170450613198790948}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33a15ecb0d3688341a67ec700365a95e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inventoryItem: {fileID: 11400000, guid: 4fdbcda4e5884024fa4441938facae11, type: 2}
 --- !u!1 &7382856993561497586
 GameObject:
   m_ObjectHideFlags: 0
@@ -955,7 +969,7 @@ Transform:
   m_GameObject: {fileID: 7821923090576971979}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0, y: -0.2179, z: 0}
+  m_LocalPosition: {x: -0, y: 0.007, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
