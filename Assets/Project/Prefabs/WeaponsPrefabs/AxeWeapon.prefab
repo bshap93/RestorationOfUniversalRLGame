@@ -1,0 +1,391 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1203237508470568154
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8778780873803882298}
+  - component: {fileID: 6684664747269219400}
+  m_Layer: 0
+  m_Name: Axe_GEO
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8778780873803882298
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1203237508470568154}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0, y: 0, z: 0}
+  m_LocalScale: {x: 0.39370102, y: 0.39370102, z: 0.39370102}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6954839365797172093}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!137 &6684664747269219400
+SkinnedMeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1203237508470568154}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 3
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 2a24d6777ce18d94b9c188b07e34e0c7, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  serializedVersion: 2
+  m_Quality: 0
+  m_UpdateWhenOffscreen: 0
+  m_SkinnedMotionVectors: 1
+  m_Mesh: {fileID: -3291738411805237651, guid: d5a98eaf5e17d9e44863c9c081a952d5, type: 3}
+  m_Bones:
+  - {fileID: 8006857999910647158}
+  - {fileID: 4158000952958152462}
+  m_BlendShapeWeights: []
+  m_RootBone: {fileID: 4158000952958152462}
+  m_AABB:
+    m_Center: {x: -0.00033408403, y: 1.424008, z: -0.00033400953}
+    m_Extent: {x: 0.55701065, y: 1.4242696, z: 0.06807581}
+  m_DirtyAABB: 0
+--- !u!1 &1693098424859455000
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8436795506105613402}
+  - component: {fileID: 2173319509403266805}
+  - component: {fileID: 1331834091798160281}
+  m_Layer: 0
+  m_Name: AxeWeapon
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8436795506105613402
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1693098424859455000}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 6954839365797172093}
+  - {fileID: 3906733529689139677}
+  - {fileID: 5702247180678028208}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2173319509403266805
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1693098424859455000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a557e2b93323f4831a62221b200348c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  WeaponName: Axe1
+  WeaponCurrentlyActive: 1
+  InputAuthorized: 1
+  TriggerMode: 1
+  DelayBeforeUse: 0
+  DelayBeforeUseReleaseInterruption: 1
+  TimeBetweenUses: 1
+  TimeBetweenUsesReleaseInterruption: 1
+  UseBurstMode: 0
+  BurstLength: 3
+  BurstTimeBetweenShots: 0.1
+  MagazineBased: 0
+  MagazineSize: 30
+  AutoReload: 0
+  NoInputReload: 0
+  ReloadTime: 2
+  AmmoConsumedPerShot: 1
+  AutoDestroyWhenEmpty: 0
+  AutoDestroyWhenEmptyDelay: 1
+  PreventReloadIfAmmoEmpty: 0
+  CurrentAmmoLoaded: 0
+  WeaponAttachmentOffset: {x: 0, y: 0, z: 0}
+  FlipWeaponOnCharacterFlip: 1
+  RightFacingFlipValue: {x: 1, y: 1, z: 1}
+  LeftFacingFlipValue: {x: -1, y: 1, z: 1}
+  WeaponUseTransform: {fileID: 0}
+  WeaponShouldFlip: 1
+  LeftHandHandle: {fileID: 5702247180678028208}
+  RightHandHandle: {fileID: 3906733529689139677}
+  ModifyMovementWhileAttacking: 0
+  MovementMultiplier: 0
+  PreventAllMovementWhileInUse: 0
+  PreventAllAimWhileInUse: 0
+  RecoilForce: 0
+  Animators: []
+  PerformAnimatorSanityChecks: 0
+  MirrorCharacterAnimatorParameters: 0
+  WeaponAnimationID: 0
+  IdleAnimationParameter: 
+  StartAnimationParameter: 
+  DelayBeforeUseAnimationParameter: 
+  SingleUseAnimationParameter: 
+  UseAnimationParameter: 
+  DelayBetweenUsesAnimationParameter: 
+  StopAnimationParameter: 
+  ReloadStartAnimationParameter: 
+  ReloadAnimationParameter: 
+  ReloadStopAnimationParameter: 
+  WeaponAngleAnimationParameter: 
+  WeaponAngleRelativeAnimationParameter: 
+  EquippedAnimationParameter: 
+  InterruptedAnimationParameter: 
+  WeaponStartMMFeedback: {fileID: 0}
+  WeaponUsedMMFeedback: {fileID: 0}
+  WeaponUsedMMFeedbackAlt: {fileID: 0}
+  WeaponStopMMFeedback: {fileID: 0}
+  WeaponReloadMMFeedback: {fileID: 0}
+  WeaponReloadNeededMMFeedback: {fileID: 0}
+  WeaponReloadImpossibleMMFeedback: {fileID: 0}
+  InitializeOnStart: 0
+  Interruptable: 0
+  Flipped: 0
+  MeleeDamageAreaMode: 0
+  DamageAreaShape: 0
+  AreaOffset: {x: 1, y: 0, z: 0}
+  AreaSize: {x: 1, y: 1, z: 0}
+  TriggerFilter: 195
+  HitDamageableFeedback: {fileID: 0}
+  HitNonDamageableFeedback: {fileID: 0}
+  ExistingDamageArea: {fileID: 0}
+  InitialDelay: 0
+  ActiveDuration: 1
+  TargetLayerMask:
+    serializedVersion: 2
+    m_Bits: 0
+  MinDamageCaused: 10
+  MaxDamageCaused: 10
+  Knockback: 0
+  KnockbackForce: {x: 10, y: 2, z: 0}
+  KnockbackDirection: 0
+  InvincibilityDuration: 0.5
+  CanDamageOwner: 0
+--- !u!114 &1331834091798160281
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1693098424859455000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5b6e47ae7a546d69f90113810d02f2d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AttachmentType: 1
+  UseWeaponIK: 0
+--- !u!1 &2715016705974029033
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5702247180678028208}
+  m_Layer: 0
+  m_Name: LeftHandTarget
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5702247180678028208
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2715016705974029033}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.074, y: 0.026, z: -0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8436795506105613402}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &3293152243283053087
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8006857999910647158}
+  m_Layer: 0
+  m_Name: Axe_02
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8006857999910647158
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3293152243283053087}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0, y: 2.1067975, z: 1.15505826e-14}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4158000952958152462}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &3799775088605183248
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4158000952958152462}
+  m_Layer: 0
+  m_Name: Axe_01
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4158000952958152462
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3799775088605183248}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0, y: 0, z: 0}
+  m_LocalScale: {x: 0.39370102, y: 0.39370102, z: 0.39370102}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 8006857999910647158}
+  m_Father: {fileID: 6954839365797172093}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &7768530285373557191
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6954839365797172093}
+  m_Layer: 0
+  m_Name: Mesh_Axe (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6954839365797172093
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7768530285373557191}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.6410223, y: 0.25414166, z: -0.36291915, w: -0.6267313}
+  m_LocalPosition: {x: -0.020399883, y: 0.061399907, z: 0.41280013}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 4158000952958152462}
+  - {fileID: 8778780873803882298}
+  m_Father: {fileID: 8436795506105613402}
+  m_LocalEulerAnglesHint: {x: -141.755, y: 93.577, z: -83.76898}
+--- !u!1 &8734457455467804427
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3906733529689139677}
+  m_Layer: 0
+  m_Name: RightHandTarget
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3906733529689139677
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8734457455467804427}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.111, y: 0, z: -0.275}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8436795506105613402}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
