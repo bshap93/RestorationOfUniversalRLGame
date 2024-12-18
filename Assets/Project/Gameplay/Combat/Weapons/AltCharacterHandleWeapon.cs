@@ -15,6 +15,7 @@ namespace Project.Gameplay.Combat.Weapons
         TwoHandedBow,
         RightHandRanged,
         TwoHandedRanged,
+        TwoHandedSpearlike,
         Other
     }
 
