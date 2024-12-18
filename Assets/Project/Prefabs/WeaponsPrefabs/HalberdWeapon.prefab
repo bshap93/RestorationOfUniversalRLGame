@@ -152,7 +152,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7647912525055353050}
   m_Layer: 1
-  m_Name: RightHand
+  m_Name: LeftHand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -452,6 +452,10 @@ GameObject:
   - component: {fileID: 6991466636093384665}
   - component: {fileID: 8076103415809413455}
   - component: {fileID: 5792031415894365032}
+  - component: {fileID: 5667514235289634792}
+  - component: {fileID: -7516572960393631249}
+  - component: {fileID: 5480076692284520689}
+  - component: {fileID: 4454803380084899485}
   m_Layer: 0
   m_Name: HalberdWeapon
   m_TagString: Untagged
@@ -468,7 +472,7 @@ Transform:
   m_GameObject: {fileID: 6170450613198790948}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -16.552, y: 1.554, z: 7.879}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -677,6 +681,62 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inventoryItem: {fileID: 11400000, guid: 4fdbcda4e5884024fa4441938facae11, type: 2}
+--- !u!114 &5667514235289634792
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6170450613198790948}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5b6e47ae7a546d69f90113810d02f2d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AttachmentType: 1
+  UseWeaponIK: 0
+--- !u!114 &-7516572960393631249
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6170450613198790948}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9caefbb3279435643ac0ad66b108b30a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &5480076692284520689
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6170450613198790948}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0845018860ef451bb48e2ed9323ec66e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AttackParticlesPrefabs: []
+  HitParticlesPrefabs: []
+  _playerEffectsRoot: {fileID: 0}
+  MWWeaponType: 1
+  AttackAnimations: []
+  UseRandomAnimation: 1
+--- !u!114 &4454803380084899485
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6170450613198790948}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9ea57a1a0882c347b8b66166604fb49, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7382856993561497586
 GameObject:
   m_ObjectHideFlags: 0
@@ -954,7 +1014,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1748867019044934889}
   m_Layer: 1
-  m_Name: LeftHand
+  m_Name: RightHand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
