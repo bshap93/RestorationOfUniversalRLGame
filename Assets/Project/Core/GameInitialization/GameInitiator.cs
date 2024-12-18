@@ -6,6 +6,7 @@ using MoreMountains.Tools;
 using MoreMountains.TopDownEngine;
 using Project.Core.SaveSystem;
 using Project.Gameplay.DungeonGeneration;
+using Project.Gameplay.Enemy;
 using Project.Gameplay.Player;
 using TopDownEngine.Common.Scripts.Spawn;
 using UnityEngine;
@@ -15,6 +16,8 @@ namespace Project.Core.GameInitialization
     public class GameInitiator : MonoBehaviour, MMEventListener<MMCameraEvent>
     {
         static GameInitiator _instance;
+
+        public float enemySpawnRate;
         RuntimeDungeon _runtimeDungeon;
         NewSaveManager _saveManager;
         NewDungeonManager dungeonManager;
@@ -64,6 +67,8 @@ namespace Project.Core.GameInitialization
             {
                 MMGameEvent.Trigger("SaveInventory");
                 ApplyCharacterCreationDataToPlayer(eventType.TargetCharacter.gameObject);
+
+                SpawnEnemiesIfPossible(eventType.TargetCharacter.gameObject);
             }
         }
         public void OnMMEvent(TopDownEngineEvent engineEvent)
@@ -122,6 +127,46 @@ namespace Project.Core.GameInitialization
             else
             {
                 Debug.LogError("Player GameObject not found.");
+            }
+        }
+
+        void SpawnEnemiesIfPossible(GameObject playerGameObject)
+        {
+            if (playerGameObject != null)
+            {
+                var enemySpawners = FindObjectsOfType<EnemySpawnPoint>();
+                var randomPathGenerator = gameObject.AddComponent<RandomPathGenerator>();
+
+                Debug.Log("Spawning enemies...");
+
+                foreach (var spawner in enemySpawners)
+                {
+                    // Return early at the rate of the  EnemySpawnRate randomly
+                    if (Random.Range(0f, 1f) > enemySpawnRate) continue;
+
+
+                    var enemyClass = spawner.GetComponent<EnemySpawnPoint>().EnemyClass;
+                    var enemyPrefab = enemyClass.GetRandomEnemyPrefab();
+
+                    // Spawn the enemy
+                    var enemy = Instantiate(enemyPrefab, spawner.transform.position, Quaternion.identity);
+
+                    // Get the MMPath component of the enemy
+                    var path = enemy.GetComponent<MMPath>();
+
+                    if (path != null)
+                    {
+                        // Generate the path, but don't apply it directly
+                        var generatedPath = randomPathGenerator.GenerateRandomPath(spawner.transform.position);
+
+                        if (generatedPath != null && generatedPath.Count > 0)
+                        {
+                            // Assign the path to the enemy's MMPath
+                            path.PathElements = generatedPath;
+                            path.Initialization(); // Force initialization of the path
+                        }
+                    }
+                }
             }
         }
     }
