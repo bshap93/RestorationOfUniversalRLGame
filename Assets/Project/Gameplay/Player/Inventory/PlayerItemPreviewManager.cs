@@ -15,6 +15,7 @@ namespace Project.Gameplay.Player.Inventory
         public GameObject PreviewPanelUI;
 
         public MMFeedbacks SelectionFeedbacks;
+        public MMFeedbacks DeselectionFeedbacks;
         readonly List<InventoryItem> _itemsInRange = new(); // List of items in range
         readonly Dictionary<int, Transform> _itemTransforms = new(); // Dictionary of item transforms
         HighlightManager _highlightManager;
