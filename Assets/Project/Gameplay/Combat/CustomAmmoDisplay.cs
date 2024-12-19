@@ -1,7 +1,5 @@
 ﻿using MoreMountains.InventoryEngine;
 using MoreMountains.Tools;
-using MoreMountains.TopDownEngine;
-using TMPro;
 using TopDownEngine.Common.Scripts.GUI;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -56,6 +54,7 @@ namespace Project.Gameplay.Combat
 
         protected virtual void RefreshCurrentAmmoAvailable()
         {
+            if (ammoInventory == null) return;
             currentAmmoAvailable = ammoInventory.GetQuantity(ammoID);
             totalAmmoTextDisplay.text = currentAmmoAvailable.ToString();
             Debug.Log("Current Ammo: " + currentAmmoAvailable);

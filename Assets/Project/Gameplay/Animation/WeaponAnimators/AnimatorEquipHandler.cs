@@ -6,10 +6,10 @@ using UnityEngine;
 
 namespace Project.Gameplay.Animation.WeaponAnimators
 {
-    public class AnimatorEquipHandler : MonoBehaviour, MMEventListener<MMInventoryEvent>
+    public class AnimatorEquipHandler : MonoBehaviour, MMEventListener<MMInventoryEvent>, MMEventListener<MMGameEvent>
     {
-        [Header("Weapon Data")]
-        public CustomInventoryWeapon[]
+        static readonly int ShieldUp = Animator.StringToHash("ShieldUp");
+        [Header("Weapon Data")] public CustomInventoryWeapon[]
             weaponDataArray; // Array of ScriptableObjects holding each weapon's override controller
         CustomInventoryWeapon _customInventoryWeapon; // Store current weapon's data
         AnimatorOverrideController _defaultOverrideController; // Store current override
@@ -32,19 +32,29 @@ namespace Project.Gameplay.Animation.WeaponAnimators
 
         public void OnEnable()
         {
-            this.MMEventStartListening();
+            this.MMEventStartListening<MMInventoryEvent>();
+            this.MMEventStartListening<MMGameEvent>();
         }
 
         public void OnDisable()
         {
-            this.MMEventStopListening();
+            this.MMEventStopListening<MMInventoryEvent>();
+            this.MMEventStopListening<MMGameEvent>();
+        }
+        public void OnMMEvent(MMGameEvent eventType)
+        {
+            if (eventType.EventName == "ShieldUpEvent") _playerAnimator.SetBool(ShieldUp, true);
+
+            if (eventType.EventName == "ShieldDownEvent") _playerAnimator.SetBool(ShieldUp, false);
         }
 
         public void OnMMEvent(MMInventoryEvent eventType)
         {
             if (eventType.InventoryEventType == MMInventoryEventType.ItemEquipped)
                 EquipWeapon(eventType.EventItem);
-            else if (eventType.InventoryEventType == MMInventoryEventType.ItemUnEquipped) ResetToDefaultAnimator();
+            else
+                // print the event type
+                Debug.Log(eventType.InventoryEventType);
         }
 
         void EquipWeapon(InventoryItem item)

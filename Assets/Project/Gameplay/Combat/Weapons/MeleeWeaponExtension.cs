@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using MoreMountains.InventoryEngine;
 using MoreMountains.Tools;
 using Project.Core.Graphical.Effects;
 using UnityEngine;
@@ -9,13 +10,11 @@ namespace Project.Gameplay.Combat.Weapons
     {
         [MMInspectorGroup("Particle Effects", true)]
         public List<GameObject> AttackParticlesPrefabs; // List of attack particles 
-        public List<GameObject> HitParticlesPrefabs; // List of hit particles
         [SerializeField] EffectRoots _playerEffectsRoot; // Cache for player's effects root
         public MeleeWeaponType MWWeaponType; // Weapon type
 
-        [MMInspectorGroup("Attack Variations", true)]
-        public List<string> AttackAnimations; // Animation triggers in the Animator
-        public bool UseRandomAnimation = true; // Toggle for random animations
+        public InventoryItem WeaponItem; // Weapon item
+
         int _currentAnimationIndex = 0;
 
         protected void Start()
