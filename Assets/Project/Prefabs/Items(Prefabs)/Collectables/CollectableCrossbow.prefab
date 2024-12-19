@@ -29,7 +29,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.8333332, y: 0.8333332, z: 0.833333}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8104762911209195247}
@@ -48,7 +48,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3beb49fcc5880ec40a513dd74067c683, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Item: {fileID: 11400000, guid: 7c43192dd24c84a448e6c6545a7c4480, type: 2}
+  Item: {fileID: 11400000, guid: a38a2844695c33c40be0a9c4d6a6558d, type: 2}
   Quantity: 1
   pickedMmFeedbacks: {fileID: 3487592352255149239}
 --- !u!114 &8394872953706560366
@@ -63,7 +63,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de64c03c619e45b99b277c47f83a3686, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Item: {fileID: 11400000, guid: 7c43192dd24c84a448e6c6545a7c4480, type: 2}
+  Item: {fileID: 11400000, guid: a38a2844695c33c40be0a9c4d6a6558d, type: 2}
 --- !u!135 &3456209646507795162
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -638,7 +638,6 @@ GameObject:
   - component: {fileID: 8104762911209195253}
   - component: {fileID: 8104762911214639047}
   - component: {fileID: 3198205125017948581}
-  - component: {fileID: 2891525673369273502}
   m_Layer: 1
   m_Name: crossbow_01_LOD0
   m_TagString: Untagged
@@ -741,16 +740,3 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.312715, y: 1.4236296, z: 0.12269453}
   m_Center: {x: 0.003929793, y: -0.0497061, z: -0.04111291}
---- !u!114 &2891525673369273502
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8104762911209364181}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a236fc544b3644c4abc8f755cc586a73, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  PreviewTrigger: {fileID: 8394872953706560366}

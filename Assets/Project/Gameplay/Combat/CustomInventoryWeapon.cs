@@ -26,6 +26,18 @@ namespace Project.Gameplay.Combat
         /// </summary>
         public override bool Equip(string playerID)
         {
+            // If a left-hand item is already equipped, unequip it
+            if (!string.IsNullOrEmpty(secondaryTargetEquipmentInventoryName))
+            {
+                var secondaryEquipmentInventory = Inventory.FindInventory(
+                    secondaryTargetEquipmentInventoryName, playerID);
+
+                if (secondaryEquipmentInventory != null)
+                    // Check if there are any items equipped in the left hand and unequip them
+                    if (secondaryEquipmentInventory.InventoryContains(ItemID + "_Secondary").Count > 0)
+                        secondaryEquipmentInventory.RemoveItemByID(ItemID + "_Secondary", 1);
+            }
+
             EquipWeapon(EquippableWeapon, playerID);
 
             if (isTwoHanded && !string.IsNullOrEmpty(secondaryTargetEquipmentInventoryName))
