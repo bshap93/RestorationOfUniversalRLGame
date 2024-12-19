@@ -78,7 +78,6 @@ namespace Project.Gameplay.Combat.Shields
             }
         }
 
-        public event Action<bool> OnShieldRaised;
 
         public virtual void SetOwner(Character owner, CharacterHandleShield handler)
         {
@@ -113,7 +112,6 @@ namespace Project.Gameplay.Combat.Shields
             CurrentState = ShieldStates.Starting;
             UpdateAnimator();
             ShieldRaiseFeedback?.PlayFeedbacks();
-            OnShieldRaised?.Invoke(true); // Raise event for animation feedback
 
             _characterMovement.SetMovement(Vector2.zero);
             _characterMovement.MovementForbidden = true;
@@ -129,7 +127,6 @@ namespace Project.Gameplay.Combat.Shields
             CurrentState = ShieldStates.Inactive;
             UpdateAnimator();
             ShieldLowerFeedback?.PlayFeedbacks();
-            OnShieldRaised?.Invoke(false); // Raise event for animation feedback
 
             _characterMovement.MovementForbidden = false;
 

@@ -49,13 +49,8 @@ namespace Project.Gameplay.Combat.Shields
             base.Initialization();
             AssignRequiredComponents();
             SetupShield();
-            if (_currentShield != null) _currentShield.OnShieldRaised += HandleShieldFeedback;
         }
 
-        void HandleShieldFeedback(bool isRaised)
-        {
-            if (CharacterAnimator != null) CharacterAnimator.SetBool("ShieldUp", isRaised);
-        }
 
         protected virtual void AssignRequiredComponents()
         {
