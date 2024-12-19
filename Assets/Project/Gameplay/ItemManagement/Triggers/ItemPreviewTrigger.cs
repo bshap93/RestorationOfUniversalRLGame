@@ -1,14 +1,23 @@
-﻿using MoreMountains.InventoryEngine;
+﻿using MoreMountains.Feedbacks;
+using MoreMountains.InventoryEngine;
 using Project.Gameplay.Player.Inventory;
 using UnityEngine;
 
-namespace Project.Gameplay.ItemManagement
+namespace Project.Gameplay.ItemManagement.Triggers
 {
     public class ItemPreviewTrigger : MonoBehaviour
     {
         public InventoryItem Item; // Assign the InventoryItem to display
 
+        [SerializeField] MMFeedbacks _selectionFeedbacks;
+
         PlayerItemPreviewManager _previewManager;
+
+        void Start()
+        {
+            if (_selectionFeedbacks == null)
+                _selectionFeedbacks = _previewManager.SelectionFeedbacks;
+        }
 
         void OnTriggerEnter(Collider other)
         {
@@ -39,6 +48,7 @@ namespace Project.Gameplay.ItemManagement
                 _previewManager = FindObjectOfType<PlayerItemPreviewManager>();
                 Debug.LogWarning("PreviewManager not found in the scene.");
             }
+
 
             _previewManager.RegisterItem(Item);
             _previewManager.ShowSelectedItemPreviewPanel(Item);

@@ -1,5 +1,6 @@
 ﻿using HighlightPlus;
 using Project.Gameplay.ItemManagement;
+using Project.Gameplay.ItemManagement.Triggers;
 using UnityEngine;
 
 namespace Project.Gameplay.Interactivity
