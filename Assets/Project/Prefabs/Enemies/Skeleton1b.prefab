@@ -18572,7 +18572,6 @@ GameObject:
   - component: {fileID: 846782495798838712}
   - component: {fileID: 4465640160700182719}
   - component: {fileID: 8721650923252333522}
-  - component: {fileID: 4822260521804366692}
   - component: {fileID: 6576596358431855892}
   - component: {fileID: 1592970657915755346}
   - component: {fileID: 1906030084815719412}
@@ -18610,6 +18609,8 @@ GameObject:
   - component: {fileID: 3599802579912288438}
   - component: {fileID: 2836072597082869222}
   - component: {fileID: 3935258345484010880}
+  - component: {fileID: 887010281624211035}
+  - component: {fileID: 5114759654679792115}
   m_Layer: 3
   m_Name: Skeleton1b
   m_TagString: Enemy
@@ -18716,40 +18717,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &4822260521804366692
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8630113383585973405}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 443ebf149b5f47147a1076bea95f5134, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  AbilityStartSfx: {fileID: 0}
-  AbilityInProgressSfx: {fileID: 0}
-  AbilityStopSfx: {fileID: 0}
-  AbilityStartFeedbacks: {fileID: 0}
-  AbilityStopFeedbacks: {fileID: 0}
-  AbilityPermitted: 1
-  BlockingMovementStates: 
-  BlockingConditionStates: 
-  BlockingWeaponStates: 
-  Target: {fileID: 0}
-  AreaMask: -1
-  DistanceToWaypointThreshold: 1
-  ClosestPointThreshold: 3
-  MinimumDelayBeforePollingNavmesh: 0.1
-  PathRefreshMode: 0
-  RefreshSpeedThreshold: 1
-  RefreshInterval: 2
-  DebugDrawPath: 0
-  Waypoints: []
-  NextWaypointIndex: 0
-  NextWaypointDirection: {x: 0, y: 0, z: 0}
-  DistanceToNextWaypoint: 0
 --- !u!114 &6576596358431855892
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18767,7 +18734,7 @@ MonoBehaviour:
   - StateName: Detecting
     Actions:
       array:
-      - {fileID: -3210329729932564686}
+      - {fileID: 5114759654679792115}
     Transitions:
       array:
       - Decision: {fileID: 1845119300140328944}
@@ -18781,9 +18748,6 @@ MonoBehaviour:
         FalseState: 
       - Decision: {fileID: 177020591618680840}
         TrueState: Moving
-        FalseState: 
-      - Decision: {fileID: 3599802579912288438}
-        TrueState: BackToPatrol
         FalseState: 
   - StateName: Moving
     Actions:
@@ -19958,6 +19922,61 @@ MonoBehaviour:
   GizmosColor: {r: 0.827451, g: 0.827451, b: 0.827451, a: 1}
   GimosSize: 1
   SpawnLootButton: 0
+--- !u!114 &887010281624211035
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8630113383585973405}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34326ad273ac434ba70b2b6bcbe4d83b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AbilityStartSfx: {fileID: 0}
+  AbilityInProgressSfx: {fileID: 0}
+  AbilityStopSfx: {fileID: 0}
+  AbilityStartFeedbacks: {fileID: 0}
+  AbilityStopFeedbacks: {fileID: 0}
+  AbilityPermitted: 1
+  BlockingMovementStates: 
+  BlockingConditionStates: 
+  BlockingWeaponStates: 
+  Target: {fileID: 0}
+  AreaMask: -1
+  DistanceToWaypointThreshold: 1
+  ClosestPointThreshold: 3
+  MinimumDelayBeforePollingNavmesh: 0.1
+  PathRefreshMode: 0
+  RefreshSpeedThreshold: 1
+  RefreshInterval: 2
+  DebugDrawPath: 0
+  Waypoints: []
+  NextWaypointIndex: 0
+  NextWaypointDirection: {x: 0, y: 0, z: 0}
+  DistanceToNextWaypoint: 0
+--- !u!114 &5114759654679792115
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8630113383585973405}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e125e573ff3e4c758af8d99de8cd0769, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  InitializationMode: 0
+  Label: 
+  ChangeDirectionOnObstacle: 1
+  ObstacleDetectionDistance: 1
+  ObstaclesCheckFrequency: 1
+  ObstacleLayerMask:
+    serializedVersion: 2
+    m_Bits: 256
+  CurrentPathIndex: 0
 --- !u!1 &8698070050492997390
 GameObject:
   m_ObjectHideFlags: 0
