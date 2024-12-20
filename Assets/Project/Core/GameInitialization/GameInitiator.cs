@@ -149,23 +149,9 @@ namespace Project.Core.GameInitialization
                     var enemyPrefab = enemyClass.GetRandomEnemyPrefab();
 
                     // Spawn the enemy
-                    var enemy = Instantiate(enemyPrefab, spawner.transform.position, Quaternion.identity);
+                    Instantiate(enemyPrefab, spawner.transform.position, Quaternion.identity);
 
-                    // Get the MMPath component of the enemy
-                    var path = enemy.GetComponent<MMPath>();
-
-                    if (path != null)
-                    {
-                        // Generate the path, but don't apply it directly
-                        var generatedPath = randomPathGenerator.GenerateRandomPath(spawner.transform.position);
-
-                        if (generatedPath != null && generatedPath.Count > 0)
-                        {
-                            // Assign the path to the enemy's MMPath
-                            path.PathElements = generatedPath;
-                            path.Initialization(); // Force initialization of the path
-                        }
-                    }
+                    Debug.Log("Enemy spawned.");
                 }
             }
         }
