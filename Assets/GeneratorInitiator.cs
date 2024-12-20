@@ -1,15 +1,16 @@
 using DunGen;
 using MoreMountains.Tools;
 using MoreMountains.TopDownEngine;
+using Project.Gameplay.Navigation;
 using UnityEngine;
 
 public class GeneratorInitiator : MonoBehaviour, MMEventListener<MMCameraEvent>
 {
-    AdjacentRoomCulling _adjacentRoomCulling;
+    StaticMapRoomCulling _adjacentRoomCulling;
 
     void Start()
     {
-        _adjacentRoomCulling = GetComponent<AdjacentRoomCulling>();
+        _adjacentRoomCulling = GetComponent<StaticMapRoomCulling>();
     }
     void OnEnable()
     {
@@ -28,7 +29,7 @@ public class GeneratorInitiator : MonoBehaviour, MMEventListener<MMCameraEvent>
         if (eventType.EventType == MMCameraEventTypes.SetTargetCharacter)
         {
             if (_adjacentRoomCulling == null)
-                _adjacentRoomCulling = FindObjectOfType<AdjacentRoomCulling>();
+                _adjacentRoomCulling = FindObjectOfType<StaticMapRoomCulling>();
 
             if (_adjacentRoomCulling != null) _adjacentRoomCulling.TargetOverride = eventType.TargetCharacter.transform;
         }
