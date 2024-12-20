@@ -84,7 +84,10 @@ namespace Project.Core.GameInitialization
         async Task InitializeCore()
         {
             var hasSave = await LoadLastGame(); // Attempt to load the last save
-            SaveStateManager.Instance.IsSaveLoaded = hasSave;
+            if (SaveStateManager.Instance == null)
+                Debug.LogWarning("SaveStateManager not found in the scene.");
+            else
+                SaveStateManager.Instance.IsSaveLoaded = hasSave;
 
             if (!hasSave)
             {
