@@ -1,4 +1,5 @@
 ﻿using MoreMountains.TopDownEngine;
+using TopDownEngine.Common.Scripts.Characters.CharacterAbilities;
 
 namespace Project.Gameplay.AI
 {
@@ -19,15 +20,13 @@ namespace Project.Gameplay.AI
         {
             if (_characterRun != null)
             {
-                _characterRun.enabled = true;      // Enable running
-                _characterRun.RunStart();         // Start running
+                _characterRun.enabled = true; // Enable running
+                _characterRun.RunStart(); // Start running
             }
-            if (_characterMovement != null)
-            {
-                _characterMovement.enabled = false;  // Disable walking
-            }
-        
-            base.Move();  // Call the original move logic
+
+            if (_characterMovement != null) _characterMovement.enabled = false; // Disable walking
+
+            base.Move(); // Call the original move logic
         }
     }
 }
