@@ -19,25 +19,35 @@ public class EnemyNavMeshController : MonoBehaviour
 
     void Update()
     {
-        // Sync NavMeshAgent movement with CharacterMovement
-        if (_agent.enabled && _agent.hasPath)
+        // If the NavMeshAgent is not enabled or has no path, stop the character
+        if (!_agent.enabled || !_agent.hasPath)
         {
-            var moveDirection = _agent.desiredVelocity.normalized;
+            StopCharacterMovement();
+            return;
+        }
 
-            // Send movement data to CharacterMovement
-            _characterMovement.SetHorizontalMovement(moveDirection.x);
-            _characterMovement.SetVerticalMovement(moveDirection.z);
+        // Check if the agent is close enough to the destination
+        if (!_agent.pathPending && _agent.remainingDistance <= _agent.stoppingDistance)
+        {
+            StopCharacterMovement();
         }
         else
         {
-            // Stop character when NavMeshAgent has no path
-            _characterMovement.SetHorizontalMovement(0);
-            _characterMovement.SetVerticalMovement(0);
+            // Move the character based on NavMeshAgent's desired velocity
+            var moveDirection = _agent.desiredVelocity.normalized;
+            _characterMovement.SetHorizontalMovement(moveDirection.x);
+            _characterMovement.SetVerticalMovement(moveDirection.z);
         }
     }
 
     public void SetDestination(Vector3 destination)
     {
         if (_agent.enabled) _agent.SetDestination(destination);
+    }
+
+    void StopCharacterMovement()
+    {
+        _characterMovement.SetHorizontalMovement(0);
+        _characterMovement.SetVerticalMovement(0);
     }
 }
