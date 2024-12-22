@@ -7,6 +7,7 @@ using MoreMountains.TopDownEngine;
 using Project.Core.CharacterCreation;
 using Project.Gameplay.Player.Health;
 using Project.Gameplay.Player.Stats;
+using TopDownEngine.Common.Scripts.Characters.CharacterAbilities;
 using UnityEngine;
 using UnityEngine.Serialization;
 

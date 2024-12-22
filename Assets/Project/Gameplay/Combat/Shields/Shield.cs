@@ -1,6 +1,7 @@
 ﻿using System;
 using MoreMountains.Feedbacks;
 using MoreMountains.TopDownEngine;
+using TopDownEngine.Common.Scripts.Characters.CharacterAbilities;
 using UnityEngine;
 
 namespace Project.Gameplay.Combat.Shields
