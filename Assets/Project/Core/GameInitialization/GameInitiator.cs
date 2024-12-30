@@ -15,28 +15,21 @@ namespace Project.Core.GameInitialization
 {
     public class GameInitiator : MonoBehaviour, MMEventListener<MMCameraEvent>
     {
-        static GameInitiator _instance;
 
         public float enemySpawnRate;
         RuntimeDungeon _runtimeDungeon;
         NewSaveManager _saveManager;
-        NewDungeonManager dungeonManager;
+        NewDungeonManager _dungeonManager;
 
         void Awake()
         {
-            if (_instance != null)
-            {
-                Destroy(gameObject);
-                return;
-            }
 
-            _instance = this;
 
             // Find references in our prefab structure
-            dungeonManager = GetComponentInChildren<NewDungeonManager>();
+            _dungeonManager = GetComponentInChildren<NewDungeonManager>();
             _runtimeDungeon = GetComponentInChildren<RuntimeDungeon>();
 
-            if (dungeonManager == null || _runtimeDungeon == null)
+            if (_dungeonManager == null || _runtimeDungeon == null)
                 Debug.Log("No dungeon was generated for this scene");
 
             // Check if NewSaveManager is already in the scene
@@ -84,10 +77,16 @@ namespace Project.Core.GameInitialization
         async Task InitializeCore()
         {
             var hasSave = await LoadLastGame(); // Attempt to load the last save
-            if (SaveStateManager.Instance == null)
+            var saveManager = FindObjectOfType<SaveStateManager>();
+
+            if (saveManager == null)
                 Debug.LogWarning("SaveStateManager not found in the scene.");
             else
-                SaveStateManager.Instance.IsSaveLoaded = hasSave;
+                saveManager.IsSaveLoaded = hasSave;
+            // if (SaveStateManager.Instance == null)
+            //     Debug.LogWarning("SaveStateManager not found in the scene.");
+            // else
+            //     SaveStateManager.Instance.IsSaveLoaded = hasSave;
 
             if (!hasSave)
             {
@@ -110,7 +109,7 @@ namespace Project.Core.GameInitialization
         async Task StartNewGame()
         {
             var seed = Random.Range(0, int.MaxValue);
-            await dungeonManager.GenerateNewDungeon(seed);
+            await _dungeonManager.GenerateNewDungeon(seed);
 
             // Spawn the player
             var initialSpawnPoint = FindObjectOfType<CheckPoint>();

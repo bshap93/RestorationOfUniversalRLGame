@@ -116,7 +116,7 @@ namespace Project.Gameplay.Player
         void LoadStartingClass(string className)
         {
             startingClass = Resources.Load<StartingClass>($"Classes/{className}");
-            if (startingClass == null) Debug.LogError($"Class {className} not found in Resources.");
+            if (startingClass == null) Debug.LogWarning($"Class {className} not found in Resources.");
         }
 
         void LoadTraits(List<string> traitNames)
