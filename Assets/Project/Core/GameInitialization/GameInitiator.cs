@@ -15,16 +15,13 @@ namespace Project.Core.GameInitialization
 {
     public class GameInitiator : MonoBehaviour, MMEventListener<MMCameraEvent>
     {
-
         public float enemySpawnRate;
+        NewDungeonManager _dungeonManager;
         RuntimeDungeon _runtimeDungeon;
         NewSaveManager _saveManager;
-        NewDungeonManager _dungeonManager;
 
         void Awake()
         {
-
-
             // Find references in our prefab structure
             _dungeonManager = GetComponentInChildren<NewDungeonManager>();
             _runtimeDungeon = GetComponentInChildren<RuntimeDungeon>();
@@ -109,11 +106,11 @@ namespace Project.Core.GameInitialization
         async Task StartNewGame()
         {
             var seed = Random.Range(0, int.MaxValue);
-            await _dungeonManager.GenerateNewDungeon(seed);
+            if (_dungeonManager != null) await _dungeonManager.GenerateNewDungeon(seed);
 
             // Spawn the player
             var initialSpawnPoint = FindObjectOfType<CheckPoint>();
-            if (initialSpawnPoint == null) Debug.LogError("No CheckPoint found for initial spawn!");
+            if (initialSpawnPoint == null) Debug.LogWarning("No CheckPoint found for initial spawn!");
         }
 
         void ApplyCharacterCreationDataToPlayer(GameObject playerGameObject)
