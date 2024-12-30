@@ -37,7 +37,7 @@ namespace Project.Core.GameInitialization
             _runtimeDungeon = GetComponentInChildren<RuntimeDungeon>();
 
             if (dungeonManager == null || _runtimeDungeon == null)
-                Debug.LogError("Missing required components in PortableSystems prefab!");
+                Debug.Log("No dungeon was generated for this scene");
 
             // Check if NewSaveManager is already in the scene
             _saveManager = NewSaveManager.Instance;

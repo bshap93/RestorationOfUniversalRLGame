@@ -1423,6 +1423,35 @@ MonoBehaviour:
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
   m_SoftShadowQuality: 0
+--- !u!1 &175594593 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3914956169767675649, guid: c424584bdb79ead448c8957522cc7bb2,
+    type: 3}
+  m_PrefabInstance: {fileID: 1347649668}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &175594595
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 175594593}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Version: 3
+  m_UsePipelineSettings: 1
+  m_AdditionalLightsShadowResolutionTier: 2
+  m_LightLayerMask: 1
+  m_RenderingLayers: 1
+  m_CustomShadowLayers: 0
+  m_ShadowLayerMask: 1
+  m_ShadowRenderingLayers: 1
+  m_LightCookieSize: {x: 1, y: 1}
+  m_LightCookieOffset: {x: 0, y: 0}
+  m_SoftShadowQuality: 0
 --- !u!4 &186771333 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7991875764090415190, guid: ea83f8633d9aa9441b4088f1f70a2629,
@@ -5329,7 +5358,11 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3914956169767675649, guid: c424584bdb79ead448c8957522cc7bb2,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 175594595}
   m_SourcePrefab: {fileID: 100100000, guid: c424584bdb79ead448c8957522cc7bb2, type: 3}
 --- !u!4 &1360358022 stripped
 Transform:
@@ -7993,7 +8026,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AutoAttributePlayerIDs: 1
   PlayerPrefabs:
-  - {fileID: 2310818216372968271, guid: 2342a508de06c0f44b998e53560bdeea, type: 3}
+  - {fileID: 2310818216372968271, guid: 7febc7d991488554f88c16e05c8b7e2f, type: 3}
   SceneCharacters: []
   InitialSpawnPoint: {fileID: 7264307440630076983}
   CurrentCheckpoint: {fileID: 0}
