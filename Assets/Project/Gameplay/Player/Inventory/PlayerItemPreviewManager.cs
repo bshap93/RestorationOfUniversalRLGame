@@ -73,17 +73,10 @@ namespace Project.Gameplay.Player.Inventory
 
             if (eventType.EventName == "ItemPickupRangeExited" || eventType.EventName == "ItemPickedUp")
             {
-                if (_itemsInRange.Contains(eventType.Item))
-                {
-                    _itemsInRange.Remove(eventType.Item);
-                    Debug.Log($"Item with ID {eventType.Item.GetInstanceID()} removed from _itemsInRange.");
-                }
+                if (_itemsInRange.Contains(eventType.Item)) _itemsInRange.Remove(eventType.Item);
 
                 if (_itemTransforms.ContainsKey(eventType.Item.GetInstanceID()))
-                {
                     _itemTransforms.Remove(eventType.Item.GetInstanceID());
-                    Debug.Log($"Item with ID {eventType.Item.GetInstanceID()} removed from _itemTransforms.");
-                }
 
                 if (_itemsInRange.Count == 0)
                     HidePreviewPanel();
@@ -197,7 +190,6 @@ namespace Project.Gameplay.Player.Inventory
         {
             if (PreviewPanelUI != null) PreviewPanelUI.SetActive(false);
             _previewManager.HidePreview();
-            Debug.Log("Item unselected!");
         }
     }
 }

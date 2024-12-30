@@ -18581,6 +18581,7 @@ GameObject:
   - component: {fileID: 3877565331006360447}
   - component: {fileID: 3517973521661375730}
   - component: {fileID: 3267051535859730985}
+  - component: {fileID: 1725775798106370327}
   - component: {fileID: 6048956856900056094}
   - component: {fileID: 8632275863586381051}
   - component: {fileID: 5061845647452652817}
@@ -18609,8 +18610,8 @@ GameObject:
   - component: {fileID: 3599802579912288438}
   - component: {fileID: 2836072597082869222}
   - component: {fileID: 3935258345484010880}
-  - component: {fileID: 887010281624211035}
-  - component: {fileID: 5114759654679792115}
+  - component: {fileID: 6180012560589513248}
+  - component: {fileID: 5467864566502543800}
   m_Layer: 3
   m_Name: Skeleton1b
   m_TagString: Enemy
@@ -18734,7 +18735,7 @@ MonoBehaviour:
   - StateName: Detecting
     Actions:
       array:
-      - {fileID: 5114759654679792115}
+      - {fileID: 6180012560589513248}
     Transitions:
       array:
       - Decision: {fileID: 1845119300140328944}
@@ -19116,6 +19117,40 @@ MonoBehaviour:
     CanInterruptRefill: 1
     CooldownState: 0
     CurrentDurationLeft: 0
+--- !u!114 &1725775798106370327
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8630113383585973405}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 443ebf149b5f47147a1076bea95f5134, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AbilityStartSfx: {fileID: 0}
+  AbilityInProgressSfx: {fileID: 0}
+  AbilityStopSfx: {fileID: 0}
+  AbilityStartFeedbacks: {fileID: 0}
+  AbilityStopFeedbacks: {fileID: 0}
+  AbilityPermitted: 1
+  BlockingMovementStates: 
+  BlockingConditionStates: 
+  BlockingWeaponStates: 
+  Target: {fileID: 0}
+  AreaMask: -1
+  DistanceToWaypointThreshold: 1
+  ClosestPointThreshold: 3
+  MinimumDelayBeforePollingNavmesh: 0.1
+  PathRefreshMode: 0
+  RefreshSpeedThreshold: 1
+  RefreshInterval: 2
+  DebugDrawPath: 0
+  Waypoints: []
+  NextWaypointIndex: 0
+  NextWaypointDirection: {x: 0, y: 0, z: 0}
+  DistanceToNextWaypoint: 0
 --- !u!114 &6048956856900056094
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19922,7 +19957,7 @@ MonoBehaviour:
   GizmosColor: {r: 0.827451, g: 0.827451, b: 0.827451, a: 1}
   GimosSize: 1
   SpawnLootButton: 0
---- !u!114 &887010281624211035
+--- !u!114 &6180012560589513248
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -19931,7 +19966,28 @@ MonoBehaviour:
   m_GameObject: {fileID: 8630113383585973405}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 34326ad273ac434ba70b2b6bcbe4d83b, type: 3}
+  m_Script: {fileID: 11500000, guid: ab38fb8d19ed4db48b4e6216a171c08f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  InitializationMode: 0
+  Label: 
+  ChangeDirectionOnObstacle: 1
+  ObstacleDetectionDistance: 1
+  ObstaclesCheckFrequency: 1
+  ObstacleLayerMask:
+    serializedVersion: 2
+    m_Bits: 256
+  CurrentPathIndex: 0
+--- !u!114 &5467864566502543800
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8630113383585973405}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 443ebf149b5f47147a1076bea95f5134, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   AbilityStartSfx: {fileID: 0}
@@ -19956,27 +20012,6 @@ MonoBehaviour:
   NextWaypointIndex: 0
   NextWaypointDirection: {x: 0, y: 0, z: 0}
   DistanceToNextWaypoint: 0
---- !u!114 &5114759654679792115
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8630113383585973405}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e125e573ff3e4c758af8d99de8cd0769, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  InitializationMode: 0
-  Label: 
-  ChangeDirectionOnObstacle: 1
-  ObstacleDetectionDistance: 1
-  ObstaclesCheckFrequency: 1
-  ObstacleLayerMask:
-    serializedVersion: 2
-    m_Bits: 256
-  CurrentPathIndex: 0
 --- !u!1 &8698070050492997390
 GameObject:
   m_ObjectHideFlags: 0
