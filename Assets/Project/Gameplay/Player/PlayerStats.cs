@@ -28,6 +28,10 @@ namespace Project.Gameplay.Player
         float damageMult;
         [SerializeField] bool overrideAutoHealth;
 
+        [SerializeField] float baseMoveSpeed = 5f;
+        [SerializeField] float baseRunSpeed = 7f;
+        [SerializeField] float baseMaxStamina = 100f;
+
         // Character creation data for reference
         [SerializeField] string playerClass; // Stores the class name
         [SerializeField] List<string> chosenTraits; // Stores the trait names
@@ -183,8 +187,10 @@ namespace Project.Gameplay.Player
             if (damageResistance != null) damageResistance.DamageMultiplier = damageMult;
 
             var characterMovement = gameObject.GetComponent<CharacterMovement>();
+            var characterRun = gameObject.GetComponent<CharacterRun>();
             // 6 is the base movement speed for the character, multiplied by the moveSpeedMult
-            if (characterMovement != null) characterMovement.WalkSpeed = moveSpeedMult * 6;
+            if (characterMovement != null) characterMovement.WalkSpeed = moveSpeedMult * baseMoveSpeed;
+            if (characterRun != null) characterRun.RunSpeed = moveSpeedMult * baseRunSpeed;
 
             // Debug.Log(
             //     $"Attributes applied to base stats: MaxHealth={maxHealth}, MoveSpeed={moveSpeedMult}, AttackPower={attackPower}, Defense={damageMult}");

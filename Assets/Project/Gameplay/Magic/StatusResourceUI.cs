@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Project.Gameplay.Magic
 {
-    public class MagicResourceUI : MonoBehaviour
+    public class StatusResourceUI : MonoBehaviour
     {
         public MMProgressBar HealthBar;
         public MMProgressBar PrimaryBar;
