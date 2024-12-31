@@ -121,16 +121,24 @@ namespace Project.Gameplay.Player.Inventory
 
             try
             {
-                // Remove from tracking before actual pickup
                 if (_itemPickersInRange.ContainsKey(itemPicker.UniqueID))
                 {
                     _itemPickersInRange.Remove(itemPicker.UniqueID);
 
-                    // Important: Clear the current preview since this item is being picked up
-                    if (CurrentPreviewedItemPicker?.UniqueID == itemPicker.UniqueID)
+                    // If this was the last item, clear everything
+                    if (_itemPickersInRange.Count == 0)
                     {
                         CurrentPreviewedItemPicker = null;
                         CurrentPreviewedItem = null;
+                        _previewManager.HidePreview();
+                        HidePreviewPanel();
+                    }
+                    else
+                    {
+                        // Clear current preview and let UpdateNearestItem handle the next item
+                        CurrentPreviewedItemPicker = null;
+                        CurrentPreviewedItem = null;
+                        UpdateNearestItem();
                     }
 
                     return true;
@@ -141,7 +149,6 @@ namespace Project.Gameplay.Player.Inventory
             finally
             {
                 _isPickingUp = false;
-                UpdateNearestItem(); // Update to next closest item
             }
         }
 
@@ -197,27 +204,27 @@ namespace Project.Gameplay.Player.Inventory
 
             try
             {
-                // Remove any null entries or destroyed objects
                 var invalidKeys = _itemPickersInRange
                     .Where(kvp => kvp.Value == null || kvp.Value.gameObject == null)
                     .Select(kvp => kvp.Key)
                     .ToList();
 
-                foreach (var key in invalidKeys) _itemPickersInRange.Remove(key);
+                foreach (var key in invalidKeys)
+                    _itemPickersInRange.Remove(key);
 
                 if (_itemPickersInRange.Count == 0)
                 {
                     if (CurrentPreviewedItemPicker != null)
                     {
-                        _previewManager.HidePreview();
-                        CurrentPreviewedItem = null;
                         CurrentPreviewedItemPicker = null;
+                        CurrentPreviewedItem = null;
+                        _previewManager.HidePreview();
+                        HidePreviewPanel();
                     }
 
                     return;
                 }
 
-                // Find the closest valid item picker
                 var closestPicker = _itemPickersInRange.Values
                     .Where(picker => picker != null && picker.gameObject != null)
                     .OrderBy(picker => Vector3.Distance(transform.position, picker.transform.position))
