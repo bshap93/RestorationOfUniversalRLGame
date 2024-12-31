@@ -102,10 +102,7 @@ namespace Project.Gameplay.Player.Inventory
 
         public bool IsPreviewedItem(ManualItemPicker itemPicker)
         {
-            if (_isPickupLocked)
-            {
-                return false;
-            }
+            if (_isPickupLocked) return false;
 
             var isPreviewed = CurrentPreviewedItemPicker != null &&
                               CurrentPreviewedItemPicker.UniqueID == itemPicker.UniqueID;
@@ -115,17 +112,9 @@ namespace Project.Gameplay.Player.Inventory
 
         public bool TryPickupItem(ManualItemPicker itemPicker)
         {
-            if (_isPickingUp || Time.time - _lastPickupTime < _pickupCooldown)
-            {
+            if (_isPickingUp || Time.time - _lastPickupTime < _pickupCooldown) return false;
 
-                return false;
-            }
-
-            if (CurrentPreviewedItemPicker?.UniqueID != itemPicker.UniqueID)
-            {
-
-                return false;
-            }
+            if (CurrentPreviewedItemPicker?.UniqueID != itemPicker.UniqueID) return false;
 
             _isPickingUp = true;
             _lastPickupTime = Time.time;
@@ -176,20 +165,23 @@ namespace Project.Gameplay.Player.Inventory
         {
             if (_itemPickersInRange.ContainsKey(itemPicker.UniqueID))
             {
+                var wasCurrentlyPreviewed = CurrentPreviewedItemPicker?.UniqueID == itemPicker.UniqueID;
                 _itemPickersInRange.Remove(itemPicker.UniqueID);
                 _highlightManager.UnselectObject(itemTransform);
 
-                // Clear current preview if it was this item
-                if (CurrentPreviewedItemPicker?.UniqueID == itemPicker.UniqueID)
+                // Only if this was the last item AND it was being previewed, reset everything
+                if (_itemPickersInRange.Count == 0 && wasCurrentlyPreviewed)
                 {
                     CurrentPreviewedItemPicker = null;
                     CurrentPreviewedItem = null;
-                }
-
-                if (_itemPickersInRange.Count == 0)
                     HidePreviewPanel();
-                else
+                    _previewManager.HidePreview();
+                }
+                // If items remain and we removed the previewed item, update to show the next one
+                else if (wasCurrentlyPreviewed)
+                {
                     UpdateNearestItem();
+                }
             }
         }
 
