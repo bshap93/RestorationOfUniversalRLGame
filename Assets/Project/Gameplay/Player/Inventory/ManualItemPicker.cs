@@ -1,3 +1,4 @@
+using System;
 using MoreMountains.Feedbacks;
 using MoreMountains.InventoryEngine;
 using Project.Gameplay.Events;
@@ -6,6 +7,7 @@ using Project.Gameplay.ItemManagement.InventoryItemTypes;
 using Project.UI.HUD;
 using UnityEngine;
 using UnityEngine.Serialization;
+using Random = UnityEngine.Random;
 
 namespace Project.Gameplay.Player.Inventory
 {
@@ -22,6 +24,12 @@ namespace Project.Gameplay.Player.Inventory
         bool _isInRange;
         PromptManager _promptManager;
         MoreMountains.InventoryEngine.Inventory _targetInventory;
+        public string UniqueID { get; set; }
+
+        void Awake()
+        {
+            UniqueID = Guid.NewGuid().ToString(); // Generate a unique ID
+        }
 
         void Start()
         {
@@ -87,8 +95,8 @@ namespace Project.Gameplay.Player.Inventory
             var previewManager = player.GetComponent<PlayerItemPreviewManager>();
             if (previewManager == null) return;
 
-            // Only pick up the item if it is the currently previewed item
-            if (previewManager.CurrentPreviewedItem != Item)
+            // Ensure the item being picked is the currently previewed one
+            if (!previewManager.IsPreviewedItem(this))
             {
                 return;
             }

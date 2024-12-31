@@ -23,8 +23,8 @@ namespace Project.Gameplay.Player.Inventory
 
         bool _isSorting;
         PreviewManager _previewManager;
+        public ManualItemPicker CurrentPreviewedItemPicker { get; private set; }
         public InventoryItem CurrentPreviewedItem { get; private set; }
-
 
         void Start()
         {
@@ -57,6 +57,9 @@ namespace Project.Gameplay.Player.Inventory
         {
             if (eventType.EventName == "ItemPickupRangeEntered")
             {
+                var itemPicker = eventType.ItemTransform.GetComponent<ManualItemPicker>();
+                if (itemPicker == null) return;
+                
                 _itemsInRange.Add(eventType.Item);
 
 
@@ -66,7 +69,8 @@ namespace Project.Gameplay.Player.Inventory
                     Debug.LogWarning($"Item with ID {eventType.Item.GetInstanceID()} is already in _itemTransforms.");
 
 
-                ShowPreviewPanel(eventType.Item);
+                SetPreviewedItem(itemPicker);
+                ShowPreviewPanel(itemPicker.Item);
 
                 _highlightManager.SelectObject(eventType.ItemTransform);
             }
@@ -85,6 +89,19 @@ namespace Project.Gameplay.Player.Inventory
 
                 _highlightManager.UnselectObject(eventType.ItemTransform);
             }
+        }
+
+
+        public void SetPreviewedItem(ManualItemPicker itemPicker)
+        {
+            CurrentPreviewedItem = itemPicker.Item;
+            CurrentPreviewedItemPicker = itemPicker;
+        }
+
+        public bool IsPreviewedItem(ManualItemPicker itemPicker)
+        {
+            return CurrentPreviewedItemPicker != null
+                   && CurrentPreviewedItemPicker.UniqueID == itemPicker.UniqueID;
         }
 
         public void HidePreviewPanel()
@@ -113,6 +130,7 @@ namespace Project.Gameplay.Player.Inventory
             _isSorting = true;
 
             var destroyedKeys = new List<int>();
+            
 
             foreach (var key in _itemTransforms.Keys.ToList())
                 if (_itemTransforms[key] == null)
@@ -129,6 +147,7 @@ namespace Project.Gameplay.Player.Inventory
                 if (CurrentPreviewedItem != null)
                 {
                     _previewManager.HidePreview();
+                    
                     CurrentPreviewedItem = null;
                 }
 

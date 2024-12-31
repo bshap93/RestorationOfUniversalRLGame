@@ -1,6 +1,6 @@
 using MoreMountains.InventoryEngine;
 using MoreMountains.Tools;
-using Project.Prefabs.UI.PrefabRequiredScripts;
+using Prefabs.UI.PrefabRequiredScripts;
 using UnityEngine;
 
 namespace Project.UI.HUD

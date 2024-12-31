@@ -5,7 +5,7 @@ using MoreMountains.Tools;
 using TMPro;
 using UnityEngine;
 
-namespace Project.Prefabs.UI.PrefabRequiredScripts
+namespace Prefabs.UI.PrefabRequiredScripts
 {
     public class TMPInventoryDetails : InventoryDetails
     {
