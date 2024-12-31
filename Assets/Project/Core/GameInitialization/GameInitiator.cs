@@ -26,11 +26,10 @@ namespace Project.Core.GameInitialization
             _dungeonManager = GetComponentInChildren<NewDungeonManager>();
             _runtimeDungeon = GetComponentInChildren<RuntimeDungeon>();
 
-            if (_dungeonManager == null || _runtimeDungeon == null)
-                Debug.Log("No dungeon was generated for this scene");
 
             // Check if NewSaveManager is already in the scene
             _saveManager = NewSaveManager.Instance;
+
             if (_saveManager == null) _saveManager = gameObject.AddComponent<NewSaveManager>();
         }
 
@@ -86,14 +85,9 @@ namespace Project.Core.GameInitialization
             //     SaveStateManager.Instance.IsSaveLoaded = hasSave;
 
             if (!hasSave)
-            {
-                Debug.Log("No valid save found. Starting a new game.");
                 await StartNewGame();
-            }
             else
-            {
                 Debug.Log("Valid save loaded.");
-            }
         }
 
         async Task<bool> LoadLastGame()
@@ -136,7 +130,6 @@ namespace Project.Core.GameInitialization
                 var enemySpawners = FindObjectsOfType<EnemySpawnPoint>();
                 var randomPathGenerator = gameObject.AddComponent<RandomPathGenerator>();
 
-                Debug.Log("Spawning enemies...");
 
                 foreach (var spawner in enemySpawners)
                 {

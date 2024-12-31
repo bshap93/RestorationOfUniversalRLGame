@@ -83,59 +83,72 @@ namespace Project.Gameplay.Player.Inventory
             }
         }
 
+        void HandleCoinPickup(GameObject player, InventoryCoinPickup coinPickup)
+        {
+            Debug.Log($"[{UniqueID}] Processing coin pickup");
+            var playerStats = player.GetComponent<PlayerStats>();
+            if (playerStats != null)
+            {
+                var coinsToAdd = Random.Range(coinPickup.MinimumCoins, coinPickup.MaximumCoins + 1);
+                playerStats.AddCoins(coinsToAdd);
+            }
 
+            ItemEvent.Trigger("ItemPickedUp", Item, transform);
+            pickedMmFeedbacks?.PlayFeedbacks();
+            Destroy(gameObject);
+        }
+
+        void HandleInventoryItemPickup()
+        {
+            if (_targetInventory.AddItem(Item, Quantity))
+            {
+                _promptManager?.HidePickupPrompt();
+                ItemEvent.Trigger("ItemPickedUp", Item, transform);
+                pickedMmFeedbacks?.PlayFeedbacks();
+                Destroy(gameObject);
+            }
+            else
+            {
+                _isInRange = true; // Reset if inventory is full
+                ShowInventoryFullMessage();
+            }
+        }
+
+        void FinishPickup()
+        {
+            _promptManager?.HidePickupPrompt();
+            pickedMmFeedbacks?.PlayFeedbacks();
+            ItemEvent.Trigger("ItemPickedUp", Item, transform);
+            Destroy(gameObject);
+        }
+
+
+// Update PickItem method:
         void PickItem()
         {
-            if (Item == null) return;
+            if (Item == null || !_isInRange) return;
 
-            // Get reference to the PlayerItemPreviewManager
             var player = GameObject.FindWithTag("Player");
             if (player == null) return;
 
             var previewManager = player.GetComponent<PlayerItemPreviewManager>();
             if (previewManager == null) return;
 
-            // Ensure the item being picked is the currently previewed one
+            // Only allow pickup if this is the currently previewed item
             if (!previewManager.IsPreviewedItem(this))
             {
+                Debug.Log(
+                    $"[{UniqueID}] Not currently previewed item. Current preview: {previewManager.CurrentPreviewedItemPicker?.UniqueID}");
+
                 return;
             }
 
-            // If the item is a coin, add coins directly to PlayerStats and skip inventory
+            // Lock pickup state
+            _isInRange = false;
+
             if (Item is InventoryCoinPickup coinPickup)
-            {
-                var playerStats = player.GetComponent<PlayerStats>();
-                if (playerStats != null)
-                {
-                    // Determine how many coins to add
-                    var coinsToAdd = Random.Range(coinPickup.MinimumCoins, coinPickup.MaximumCoins + 1);
-                    playerStats.AddCoins(coinsToAdd);
-                }
-
-                // Play feedbacks on successful pickup
-                pickedMmFeedbacks?.PlayFeedbacks();
-
-                // Destroy the item after pickup
-                Destroy(gameObject);
-            }
-            else
-            {
-                // Standard inventory handling
-                if (_targetInventory != null)
-                {
-                    if (_targetInventory.AddItem(Item, Quantity))
-                    {
-                        _promptManager?.HidePickupPrompt();
-                        ItemEvent.Trigger("ItemPickedUp", Item, transform);
-                        pickedMmFeedbacks?.PlayFeedbacks();
-                        Destroy(gameObject);
-                    }
-                    else
-                    {
-                        ShowInventoryFullMessage();
-                    }
-                }
-            }
+                HandleCoinPickup(player, coinPickup);
+            else if (_targetInventory != null) HandleInventoryItemPickup();
         }
 
 

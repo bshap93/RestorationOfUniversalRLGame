@@ -17,14 +17,22 @@ namespace Project.Gameplay.Player.Inventory
         public MMFeedbacks SelectionFeedbacks;
         public MMFeedbacks DeselectionFeedbacks;
         readonly Dictionary<string, ManualItemPicker> _itemPickersInRange = new();
+        readonly object _pickupLock = new();
+
+        // Add to PlayerItemPreviewManager.cs
+        string _currentPickupId;
 
         HighlightManager _highlightManager;
+
+        bool _isPickingUp;
+        bool _isPickupLocked;
 
 
         bool _isSorting;
         PreviewManager _previewManager;
         public ManualItemPicker CurrentPreviewedItemPicker { get; private set; }
         public InventoryItem CurrentPreviewedItem { get; private set; }
+
 
         void Start()
         {
@@ -71,6 +79,49 @@ namespace Project.Gameplay.Player.Inventory
             }
         }
 
+        public void LockPickup(string pickupId)
+        {
+            Debug.Log($"Locking pickup for item {pickupId}");
+            _currentPickupId = pickupId;
+            _isPickupLocked = true;
+        }
+
+        public void UnlockPickup()
+        {
+            Debug.Log($"Unlocking pickup (was locked for {_currentPickupId})");
+            _currentPickupId = null;
+            _isPickupLocked = false;
+        }
+
+        public bool IsPreviewedItem(ManualItemPicker itemPicker)
+        {
+            if (_isPickupLocked)
+            {
+                Debug.Log($"Pickup check while locked - Current: {_currentPickupId}, Checking: {itemPicker.UniqueID}");
+                return false;
+            }
+
+            var isPreviewed = CurrentPreviewedItemPicker != null &&
+                              CurrentPreviewedItemPicker.UniqueID == itemPicker.UniqueID;
+
+            Debug.Log($"Preview check for {itemPicker.UniqueID}: {isPreviewed}");
+            return isPreviewed;
+        }
+
+        public bool TryPickupItem(ManualItemPicker itemPicker)
+        {
+            lock (_pickupLock)
+            {
+                if (_isPickingUp || CurrentPreviewedItemPicker != itemPicker) return false;
+
+                _isPickingUp = true;
+                _itemPickersInRange.Remove(itemPicker.UniqueID);
+                UpdateNearestItem();
+                _isPickingUp = false;
+                return true;
+            }
+        }
+
         void HandleItemEntered(ManualItemPicker itemPicker, Transform itemTransform)
         {
             if (!_itemPickersInRange.ContainsKey(itemPicker.UniqueID))
@@ -93,60 +144,58 @@ namespace Project.Gameplay.Player.Inventory
                 _itemPickersInRange.Remove(itemPicker.UniqueID);
                 _highlightManager.UnselectObject(itemTransform);
 
-                if (_itemPickersInRange.Count == 0)
+                // Clear current preview if it was this item
+                if (CurrentPreviewedItemPicker?.UniqueID == itemPicker.UniqueID)
                 {
-                    HidePreviewPanel();
-                    CurrentPreviewedItem = null;
                     CurrentPreviewedItemPicker = null;
+                    CurrentPreviewedItem = null;
                 }
+
+                if (_itemPickersInRange.Count == 0)
+                    HidePreviewPanel();
                 else
-                {
-                    // Force update of nearest item
                     UpdateNearestItem();
-                }
             }
         }
 
         void UpdateNearestItem()
         {
-            _isSorting = true;
-
-            try
+            if (_isPickingUp)
             {
-                // Remove any null entries
-                var invalidKeys = _itemPickersInRange.Where(kvp => kvp.Value == null || kvp.Value.gameObject == null)
-                    .Select(kvp => kvp.Key)
-                    .ToList();
-
-                foreach (var key in invalidKeys) _itemPickersInRange.Remove(key);
-
-                if (_itemPickersInRange.Count == 0)
-                {
-                    if (CurrentPreviewedItemPicker != null)
-                    {
-                        _previewManager.HidePreview();
-                        CurrentPreviewedItem = null;
-                        CurrentPreviewedItemPicker = null;
-                    }
-
-                    return;
-                }
-
-                // Find the closest item picker
-                var closestPicker = _itemPickersInRange.Values
-                    .OrderBy(picker => Vector3.Distance(transform.position, picker.transform.position))
-                    .FirstOrDefault();
-
-                if (closestPicker != null && (CurrentPreviewedItemPicker == null ||
-                                              closestPicker.UniqueID != CurrentPreviewedItemPicker.UniqueID))
-                {
-                    SetPreviewedItem(closestPicker);
-                    _previewManager.ShowPreview(CurrentPreviewedItem);
-                }
+                Debug.Log("Skipping nearest item update - pickup in progress");
+                return;
             }
-            finally
+
+            // Remove any null entries
+            var invalidKeys = _itemPickersInRange
+                .Where(kvp => kvp.Value == null || kvp.Value.gameObject == null)
+                .Select(kvp => kvp.Key)
+                .ToList();
+
+            foreach (var key in invalidKeys) _itemPickersInRange.Remove(key);
+
+            if (_itemPickersInRange.Count == 0)
             {
-                _isSorting = false;
+                if (CurrentPreviewedItemPicker != null)
+                {
+                    _previewManager.HidePreview();
+                    CurrentPreviewedItem = null;
+                    CurrentPreviewedItemPicker = null;
+                }
+
+                return;
+            }
+
+            // Find the closest item picker
+            var closestPicker = _itemPickersInRange.Values
+                .OrderBy(picker => Vector3.Distance(transform.position, picker.transform.position))
+                .FirstOrDefault();
+
+            if (closestPicker != null && (CurrentPreviewedItemPicker == null ||
+                                          closestPicker.UniqueID != CurrentPreviewedItemPicker.UniqueID))
+            {
+                SetPreviewedItem(closestPicker);
+                _previewManager.ShowPreview(CurrentPreviewedItem);
             }
         }
 
@@ -157,11 +206,6 @@ namespace Project.Gameplay.Player.Inventory
             CurrentPreviewedItemPicker = itemPicker;
         }
 
-        public bool IsPreviewedItem(ManualItemPicker itemPicker)
-        {
-            return CurrentPreviewedItemPicker != null
-                   && CurrentPreviewedItemPicker.UniqueID == itemPicker.UniqueID;
-        }
 
         public void HidePreviewPanel()
         {

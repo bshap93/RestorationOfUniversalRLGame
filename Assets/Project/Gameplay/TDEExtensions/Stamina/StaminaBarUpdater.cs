@@ -35,7 +35,6 @@ namespace Stamina
         {
             if (staminaUpdateEvent.Target != Target) return;
             _bar.UpdateBar(staminaUpdateEvent.Stamina, 0, staminaUpdateEvent.MaxStamina);
-            Debug.Log("Stamina updated");
         }
 
         public void OnMMEvent(TopDownEngineEvent topDownEngineEvent)

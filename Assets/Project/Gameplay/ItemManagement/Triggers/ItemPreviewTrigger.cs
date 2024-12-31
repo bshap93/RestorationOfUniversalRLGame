@@ -18,6 +18,7 @@ namespace Project.Gameplay.ItemManagement.Triggers
 
         PlayerItemPreviewManager _previewManager;
 
+
         void Awake()
         {
             _itemPicker = gameObject.AddComponent<ManualItemPicker>();
