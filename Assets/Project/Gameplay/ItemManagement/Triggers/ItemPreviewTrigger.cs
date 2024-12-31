@@ -21,7 +21,11 @@ namespace Project.Gameplay.ItemManagement.Triggers
 
         void Awake()
         {
-            _itemPicker = gameObject.AddComponent<ManualItemPicker>();
+            _itemPicker = GetComponent<ManualItemPicker>();
+
+            if (_itemPicker == null)
+                _itemPicker = gameObject.AddComponent<ManualItemPicker>();
+
             _itemPicker.Item = Item;
         }
 
