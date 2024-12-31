@@ -16,10 +16,13 @@ namespace Project.Gameplay.Player.Inventory
         public InventoryItem Item; // The item to be picked up
         public int Quantity = 1;
 
+
         [FormerlySerializedAs("PickedMMFeedbacks")]
         [Header("Feedbacks")]
         [Tooltip("Feedbacks to play when the item is picked up")]
         public MMFeedbacks pickedMmFeedbacks; // Feedbacks to play when the item is picked up
+
+        bool _isBeingDestroyed;
 
         bool _isInRange;
         PromptManager _promptManager;
@@ -63,6 +66,14 @@ namespace Project.Gameplay.Player.Inventory
             if (_isInRange && UnityEngine.Input.GetKeyDown(KeyCode.F)) PickItem();
         }
 
+        void OnDestroy()
+        {
+            _isBeingDestroyed = true;
+            _isInRange = false;
+            enabled = false;
+        }
+
+
         void OnTriggerEnter(Collider itemPickerCollider)
         {
             if (itemPickerCollider.CompareTag("Player"))
@@ -83,9 +94,20 @@ namespace Project.Gameplay.Player.Inventory
             }
         }
 
+        public void SetInRange(bool inRange)
+        {
+            _isInRange = inRange;
+            if (_promptManager != null)
+            {
+                if (inRange)
+                    _promptManager.ShowPickupPrompt();
+                else
+                    _promptManager.HidePickupPrompt();
+            }
+        }
+
         void HandleCoinPickup(GameObject player, InventoryCoinPickup coinPickup)
         {
-            Debug.Log($"[{UniqueID}] Processing coin pickup");
             var playerStats = player.GetComponent<PlayerStats>();
             if (playerStats != null)
             {
@@ -93,23 +115,20 @@ namespace Project.Gameplay.Player.Inventory
                 playerStats.AddCoins(coinsToAdd);
             }
 
-            ItemEvent.Trigger("ItemPickedUp", Item, transform);
-            pickedMmFeedbacks?.PlayFeedbacks();
-            Destroy(gameObject);
+            FinishPickup();
         }
 
         void HandleInventoryItemPickup()
         {
-            if (_targetInventory.AddItem(Item, Quantity))
+            if (_isBeingDestroyed && _targetInventory.AddItem(Item, Quantity))
             {
-                _promptManager?.HidePickupPrompt();
-                ItemEvent.Trigger("ItemPickedUp", Item, transform);
-                pickedMmFeedbacks?.PlayFeedbacks();
-                Destroy(gameObject);
+                FinishPickup();
             }
             else
             {
-                _isInRange = true; // Reset if inventory is full
+                _isBeingDestroyed = false;
+                _isInRange = true;
+                enabled = true;
                 ShowInventoryFullMessage();
             }
         }
@@ -117,16 +136,23 @@ namespace Project.Gameplay.Player.Inventory
         void FinishPickup()
         {
             _promptManager?.HidePickupPrompt();
-            pickedMmFeedbacks?.PlayFeedbacks();
             ItemEvent.Trigger("ItemPickedUp", Item, transform);
-            Destroy(gameObject);
+            pickedMmFeedbacks?.PlayFeedbacks();
+
+            // Use Destroy delayed to ensure all cleanup happens first
+            Destroy(gameObject, 0.1f);
         }
 
 
-// Update PickItem method:
         void PickItem()
         {
-            if (Item == null || !_isInRange) return;
+            if (Item == null || !_isInRange || _isBeingDestroyed)
+            {
+                Debug.Log(
+                    $"[{UniqueID}] Early exit - Item null: {Item == null}, Not in range: {!_isInRange}, Being destroyed: {_isBeingDestroyed}");
+
+                return;
+            }
 
             var player = GameObject.FindWithTag("Player");
             if (player == null) return;
@@ -134,17 +160,20 @@ namespace Project.Gameplay.Player.Inventory
             var previewManager = player.GetComponent<PlayerItemPreviewManager>();
             if (previewManager == null) return;
 
-            // Only allow pickup if this is the currently previewed item
             if (!previewManager.IsPreviewedItem(this))
             {
-                Debug.Log(
-                    $"[{UniqueID}] Not currently previewed item. Current preview: {previewManager.CurrentPreviewedItemPicker?.UniqueID}");
 
                 return;
             }
 
-            // Lock pickup state
+            if (!previewManager.TryPickupItem(this))
+            {
+                return;
+            }
+
+            _isBeingDestroyed = true;
             _isInRange = false;
+            enabled = false; // Disable this component
 
             if (Item is InventoryCoinPickup coinPickup)
                 HandleCoinPickup(player, coinPickup);

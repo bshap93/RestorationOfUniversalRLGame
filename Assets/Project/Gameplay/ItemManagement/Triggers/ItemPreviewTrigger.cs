@@ -42,7 +42,12 @@ namespace Project.Gameplay.ItemManagement.Triggers
                 if (_previewManager == null)
                     _previewManager = other.GetComponent<PlayerItemPreviewManager>();
 
-                ItemEvent.Trigger("ItemPickupRangeEntered", Item, transform);
+                var itemPicker = GetComponent<ManualItemPicker>();
+                if (itemPicker != null)
+                {
+                    itemPicker.SetInRange(true);
+                    ItemEvent.Trigger("ItemPickupRangeEntered", Item, transform);
+                }
             }
         }
 
@@ -53,7 +58,12 @@ namespace Project.Gameplay.ItemManagement.Triggers
                 if (_previewManager == null)
                     _previewManager = other.GetComponent<PlayerItemPreviewManager>();
 
-                ItemEvent.Trigger("ItemPickupRangeExited", Item, transform);
+                var itemPicker = GetComponent<ManualItemPicker>();
+                if (itemPicker != null)
+                {
+                    itemPicker.SetInRange(false);
+                    ItemEvent.Trigger("ItemPickupRangeExited", Item, transform);
+                }
             }
         }
 
