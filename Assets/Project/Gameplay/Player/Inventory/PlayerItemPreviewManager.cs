@@ -16,8 +16,8 @@ namespace Project.Gameplay.Player.Inventory
 
         public MMFeedbacks SelectionFeedbacks;
         public MMFeedbacks DeselectionFeedbacks;
-        readonly List<InventoryItem> _itemsInRange = new(); // List of items in range
-        readonly Dictionary<int, Transform> _itemTransforms = new(); // Dictionary of item transforms
+        readonly Dictionary<string, ManualItemPicker> _itemPickersInRange = new();
+
         HighlightManager _highlightManager;
 
 
@@ -37,7 +37,7 @@ namespace Project.Gameplay.Player.Inventory
 
         void Update()
         {
-            DisplayNearestItem();
+            if (!_isSorting) UpdateNearestItem();
         }
 
         void OnEnable()
@@ -55,37 +55,98 @@ namespace Project.Gameplay.Player.Inventory
 
         public void OnMMEvent(ItemEvent eventType)
         {
-            if (eventType.EventName == "ItemPickupRangeEntered")
+            var itemPicker = eventType.ItemTransform.GetComponent<ManualItemPicker>();
+            if (itemPicker == null) return;
+
+            switch (eventType.EventName)
             {
-                var itemPicker = eventType.ItemTransform.GetComponent<ManualItemPicker>();
-                if (itemPicker == null) return;
+                case "ItemPickupRangeEntered":
+                    HandleItemEntered(itemPicker, eventType.ItemTransform);
+                    break;
 
-                _itemsInRange.Add(itemPicker.Item);
-
-                if (!_itemTransforms.ContainsKey(eventType.Item.GetInstanceID()))
-                    _itemTransforms.Add(eventType.Item.GetInstanceID(), eventType.ItemTransform);
-                else
-                    Debug.LogWarning($"Item with ID {eventType.Item.GetInstanceID()} is already in _itemTransforms.");
-
-                SetPreviewedItem(itemPicker); // Set the currently previewed item picker
-                ShowPreviewPanel(itemPicker.Item);
-
-                _highlightManager.SelectObject(eventType.ItemTransform);
+                case "ItemPickupRangeExited":
+                case "ItemPickedUp":
+                    HandleItemExited(itemPicker, eventType.ItemTransform);
+                    break;
             }
+        }
 
-            if (eventType.EventName == "ItemPickupRangeExited" || eventType.EventName == "ItemPickedUp")
+        void HandleItemEntered(ManualItemPicker itemPicker, Transform itemTransform)
+        {
+            if (!_itemPickersInRange.ContainsKey(itemPicker.UniqueID))
             {
-                if (_itemsInRange.Contains(eventType.Item)) _itemsInRange.Remove(eventType.Item);
+                _itemPickersInRange.Add(itemPicker.UniqueID, itemPicker);
+                _highlightManager.SelectObject(itemTransform);
 
-                if (_itemTransforms.ContainsKey(eventType.Item.GetInstanceID()))
-                    _itemTransforms.Remove(eventType.Item.GetInstanceID());
+                // Only show preview panel if this is the first/only item
+                if (_itemPickersInRange.Count == 1) ShowPreviewPanel(itemPicker.Item);
 
-                if (_itemsInRange.Count == 0)
+                // Force update of nearest item
+                UpdateNearestItem();
+            }
+        }
+
+        void HandleItemExited(ManualItemPicker itemPicker, Transform itemTransform)
+        {
+            if (_itemPickersInRange.ContainsKey(itemPicker.UniqueID))
+            {
+                _itemPickersInRange.Remove(itemPicker.UniqueID);
+                _highlightManager.UnselectObject(itemTransform);
+
+                if (_itemPickersInRange.Count == 0)
+                {
                     HidePreviewPanel();
+                    CurrentPreviewedItem = null;
+                    CurrentPreviewedItemPicker = null;
+                }
                 else
-                    ShowPreviewPanel(_itemsInRange[0]);
+                {
+                    // Force update of nearest item
+                    UpdateNearestItem();
+                }
+            }
+        }
 
-                _highlightManager.UnselectObject(eventType.ItemTransform);
+        void UpdateNearestItem()
+        {
+            _isSorting = true;
+
+            try
+            {
+                // Remove any null entries
+                var invalidKeys = _itemPickersInRange.Where(kvp => kvp.Value == null || kvp.Value.gameObject == null)
+                    .Select(kvp => kvp.Key)
+                    .ToList();
+
+                foreach (var key in invalidKeys) _itemPickersInRange.Remove(key);
+
+                if (_itemPickersInRange.Count == 0)
+                {
+                    if (CurrentPreviewedItemPicker != null)
+                    {
+                        _previewManager.HidePreview();
+                        CurrentPreviewedItem = null;
+                        CurrentPreviewedItemPicker = null;
+                    }
+
+                    return;
+                }
+
+                // Find the closest item picker
+                var closestPicker = _itemPickersInRange.Values
+                    .OrderBy(picker => Vector3.Distance(transform.position, picker.transform.position))
+                    .FirstOrDefault();
+
+                if (closestPicker != null && (CurrentPreviewedItemPicker == null ||
+                                              closestPicker.UniqueID != CurrentPreviewedItemPicker.UniqueID))
+                {
+                    SetPreviewedItem(closestPicker);
+                    _previewManager.ShowPreview(CurrentPreviewedItem);
+                }
+            }
+            finally
+            {
+                _isSorting = false;
             }
         }
 
@@ -112,94 +173,93 @@ namespace Project.Gameplay.Player.Inventory
             if (PreviewPanelUI != null) PreviewPanelUI.SetActive(true);
         }
 
+
         public void ShowSelectedItemPreviewPanel(InventoryItem item)
         {
             if (PreviewPanelUI != null) PreviewPanelUI.SetActive(true);
-
-            Debug.Log("Item: " + item.name + " selected!");
-
             _previewManager.ShowPreview(item);
         }
 
-        void DisplayNearestItem()
-        {
-            if (_isSorting) return;
-
-            _isSorting = true;
-
-            var destroyedKeys = new List<int>();
-            foreach (var key in _itemTransforms.Keys.ToList())
-                if (_itemTransforms[key] == null)
-                    destroyedKeys.Add(key);
-
-            foreach (var key in destroyedKeys) _itemTransforms.Remove(key);
-
-            // Remove null or destroyed items from the list
-            _itemsInRange.RemoveAll(item => item == null || !_itemTransforms.ContainsKey(item.GetInstanceID()));
-
-            if (_itemsInRange.Count == 0 || _previewManager == null)
-            {
-                if (CurrentPreviewedItem != null)
-                {
-                    _previewManager.HidePreview();
-                    CurrentPreviewedItem = null;
-                    CurrentPreviewedItemPicker = null;
-                }
-
-                _isSorting = false;
-                return;
-            }
-
-            // Sort to get the closest item
-            _itemsInRange.Sort(
-                (a, b) =>
-                {
-                    if (!_itemTransforms.ContainsKey(a.GetInstanceID()) ||
-                        !_itemTransforms.ContainsKey(b.GetInstanceID()))
-                        return 0; // Skip if either item transform is missing
-
-                    var transformA = _itemTransforms[a.GetInstanceID()];
-                    var transformB = _itemTransforms[b.GetInstanceID()];
-
-                    return Vector3.Distance(transform.position, transformA.position)
-                        .CompareTo(Vector3.Distance(transform.position, transformB.position));
-                });
-
-            var closestItem = _itemTransforms[_itemsInRange[0].GetInstanceID()].GetComponent<ManualItemPicker>();
-            if (closestItem != null && CurrentPreviewedItemPicker != closestItem)
-            {
-                SetPreviewedItem(closestItem); // Now sets the actual `ManualItemPicker`
-                _previewManager.ShowPreview(CurrentPreviewedItem);
-            }
-
-            _isSorting = false;
-        }
-
-
-        public void RegisterItem(InventoryItem item)
-        {
-            if (!_itemsInRange.Contains(item)) _itemsInRange.Add(item);
-            Debug.Log("Item registered");
-        }
-
-        public void UnregisterItem(InventoryItem item)
-        {
-            if (_itemsInRange.Contains(item))
-            {
-                _itemsInRange.Remove(item);
-
-                // Reset current item if it was removed
-                if (CurrentPreviewedItem == item)
-                {
-                    _previewManager.HidePreview();
-                    CurrentPreviewedItem = null;
-                }
-            }
-        }
         public void HideSelectedItemPreviewPanel()
         {
             if (PreviewPanelUI != null) PreviewPanelUI.SetActive(false);
             _previewManager.HidePreview();
         }
+
+        // void DisplayNearestItem()
+        // {
+        //     if (_isSorting) return;
+        //
+        //     _isSorting = true;
+        //
+        //     var destroyedKeys = new List<int>();
+        //     foreach (var key in _itemTransforms.Keys.ToList())
+        //         if (_itemTransforms[key] == null)
+        //             destroyedKeys.Add(key);
+        //
+        //     foreach (var key in destroyedKeys) _itemTransforms.Remove(key);
+        //
+        //     // Remove null or destroyed items from the list
+        //     _itemsInRange.RemoveAll(item => item == null || !_itemTransforms.ContainsKey(item.GetInstanceID()));
+        //
+        //     if (_itemsInRange.Count == 0 || _previewManager == null)
+        //     {
+        //         if (CurrentPreviewedItem != null)
+        //         {
+        //             _previewManager.HidePreview();
+        //             CurrentPreviewedItem = null;
+        //             CurrentPreviewedItemPicker = null;
+        //         }
+        //
+        //         _isSorting = false;
+        //         return;
+        //     }
+        //
+        //     // Sort to get the closest item
+        //     _itemsInRange.Sort(
+        //         (a, b) =>
+        //         {
+        //             if (!_itemTransforms.ContainsKey(a.GetInstanceID()) ||
+        //                 !_itemTransforms.ContainsKey(b.GetInstanceID()))
+        //                 return 0; // Skip if either item transform is missing
+        //
+        //             var transformA = _itemTransforms[a.GetInstanceID()];
+        //             var transformB = _itemTransforms[b.GetInstanceID()];
+        //
+        //             return Vector3.Distance(transform.position, transformA.position)
+        //                 .CompareTo(Vector3.Distance(transform.position, transformB.position));
+        //         });
+        //
+        //     var closestItem = _itemTransforms[_itemsInRange[0].GetInstanceID()].GetComponent<ManualItemPicker>();
+        //     if (closestItem != null && CurrentPreviewedItemPicker != closestItem)
+        //     {
+        //         SetPreviewedItem(closestItem); // Now sets the actual `ManualItemPicker`
+        //         _previewManager.ShowPreview(CurrentPreviewedItem);
+        //     }
+        //
+        //     _isSorting = false;
+        // }
+        //
+        //
+        // public void RegisterItem(InventoryItem item)
+        // {
+        //     if (!_itemsInRange.Contains(item)) _itemsInRange.Add(item);
+        //     Debug.Log("Item registered");
+        // }
+
+        // public void UnregisterItem(InventoryItem item)
+        // {
+        //     if (_itemsInRange.Contains(item))
+        //     {
+        //         _itemsInRange.Remove(item);
+        //
+        //         // Reset current item if it was removed
+        //         if (CurrentPreviewedItem == item)
+        //         {
+        //             _previewManager.HidePreview();
+        //             CurrentPreviewedItem = null;
+        //         }
+        //     }
+        // }
     }
 }

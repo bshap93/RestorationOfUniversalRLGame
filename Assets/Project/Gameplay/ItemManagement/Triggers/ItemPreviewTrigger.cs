@@ -2,6 +2,7 @@
 using MoreMountains.InventoryEngine;
 using MoreMountains.Tools;
 using MoreMountains.TopDownEngine;
+using Project.Gameplay.Events;
 using Project.Gameplay.Player.Inventory;
 using UnityEngine;
 
@@ -9,25 +10,29 @@ namespace Project.Gameplay.ItemManagement.Triggers
 {
     public class ItemPreviewTrigger : MonoBehaviour, MMEventListener<MMCameraEvent>
     {
-        public InventoryItem Item; // Assign the InventoryItem to display
+        public InventoryItem Item;
 
         [SerializeField] MMFeedbacks _selectionFeedbacks;
         [SerializeField] MMFeedbacks _deselectionFeedbacks;
+        ManualItemPicker _itemPicker;
 
         PlayerItemPreviewManager _previewManager;
 
+        void Awake()
+        {
+            _itemPicker = gameObject.AddComponent<ManualItemPicker>();
+            _itemPicker.Item = Item;
+        }
+
         void OnEnable()
         {
-            // Start listening for both MMGameEvent and MMCameraEvent
             this.MMEventStartListening();
         }
 
         void OnDisable()
         {
-            // Stop listening to avoid memory leaks
             this.MMEventStopListening();
         }
-
 
         void OnTriggerEnter(Collider other)
         {
@@ -36,7 +41,7 @@ namespace Project.Gameplay.ItemManagement.Triggers
                 if (_previewManager == null)
                     _previewManager = other.GetComponent<PlayerItemPreviewManager>();
 
-                _previewManager.RegisterItem(Item);
+                ItemEvent.Trigger("ItemPickupRangeEntered", Item, transform);
             }
         }
 
@@ -47,7 +52,7 @@ namespace Project.Gameplay.ItemManagement.Triggers
                 if (_previewManager == null)
                     _previewManager = other.GetComponent<PlayerItemPreviewManager>();
 
-                _previewManager.UnregisterItem(Item);
+                ItemEvent.Trigger("ItemPickupRangeExited", Item, transform);
             }
         }
 
@@ -69,15 +74,9 @@ namespace Project.Gameplay.ItemManagement.Triggers
         public void OnSelectedItem()
         {
             if (_previewManager == null)
-            {
                 _previewManager = FindObjectOfType<PlayerItemPreviewManager>();
-                Debug.LogWarning("PreviewManager not found in the scene.");
-            }
 
             _selectionFeedbacks?.PlayFeedbacks();
-
-
-            _previewManager.RegisterItem(Item);
             _previewManager.ShowSelectedItemPreviewPanel(Item);
         }
 
@@ -87,8 +86,6 @@ namespace Project.Gameplay.ItemManagement.Triggers
                 _previewManager = FindObjectOfType<PlayerItemPreviewManager>();
 
             _deselectionFeedbacks?.PlayFeedbacks();
-
-            _previewManager.UnregisterItem(Item);
             _previewManager.HideSelectedItemPreviewPanel();
         }
     }
