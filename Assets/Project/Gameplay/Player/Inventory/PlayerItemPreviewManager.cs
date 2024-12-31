@@ -59,17 +59,15 @@ namespace Project.Gameplay.Player.Inventory
             {
                 var itemPicker = eventType.ItemTransform.GetComponent<ManualItemPicker>();
                 if (itemPicker == null) return;
-                
-                _itemsInRange.Add(eventType.Item);
 
+                _itemsInRange.Add(itemPicker.Item);
 
                 if (!_itemTransforms.ContainsKey(eventType.Item.GetInstanceID()))
                     _itemTransforms.Add(eventType.Item.GetInstanceID(), eventType.ItemTransform);
                 else
                     Debug.LogWarning($"Item with ID {eventType.Item.GetInstanceID()} is already in _itemTransforms.");
 
-
-                SetPreviewedItem(itemPicker);
+                SetPreviewedItem(itemPicker); // Set the currently previewed item picker
                 ShowPreviewPanel(itemPicker.Item);
 
                 _highlightManager.SelectObject(eventType.ItemTransform);
@@ -130,12 +128,9 @@ namespace Project.Gameplay.Player.Inventory
             _isSorting = true;
 
             var destroyedKeys = new List<int>();
-            
-
             foreach (var key in _itemTransforms.Keys.ToList())
                 if (_itemTransforms[key] == null)
-                    _itemTransforms.Remove(key);
-
+                    destroyedKeys.Add(key);
 
             foreach (var key in destroyedKeys) _itemTransforms.Remove(key);
 
@@ -147,8 +142,8 @@ namespace Project.Gameplay.Player.Inventory
                 if (CurrentPreviewedItem != null)
                 {
                     _previewManager.HidePreview();
-                    
                     CurrentPreviewedItem = null;
+                    CurrentPreviewedItemPicker = null;
                 }
 
                 _isSorting = false;
@@ -166,18 +161,14 @@ namespace Project.Gameplay.Player.Inventory
                     var transformA = _itemTransforms[a.GetInstanceID()];
                     var transformB = _itemTransforms[b.GetInstanceID()];
 
-                    if (transformA == null ||
-                        transformB == null) return 0; // Skip if either item transform is destroyed
-
                     return Vector3.Distance(transform.position, transformA.position)
                         .CompareTo(Vector3.Distance(transform.position, transformB.position));
-                }
-            );
+                });
 
-            var closestItem = _itemsInRange[0];
-            if (CurrentPreviewedItem != closestItem)
+            var closestItem = _itemTransforms[_itemsInRange[0].GetInstanceID()].GetComponent<ManualItemPicker>();
+            if (closestItem != null && CurrentPreviewedItemPicker != closestItem)
             {
-                CurrentPreviewedItem = closestItem;
+                SetPreviewedItem(closestItem); // Now sets the actual `ManualItemPicker`
                 _previewManager.ShowPreview(CurrentPreviewedItem);
             }
 
