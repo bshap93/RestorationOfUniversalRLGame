@@ -16,7 +16,8 @@ namespace Project.Gameplay.Combat
         [FormerlySerializedAs("WeaponAttachmentType")]
         public WeaponAttachmentType weaponAttachmentType;
         public bool isTwoHanded;
-        public AnimatorOverrideController overrideController;
+        [FormerlySerializedAs("overrideController")]
+        public RuntimeAnimatorController runtimeAnimatorController;
 
         [ShowIf("isTwoHanded")] public string secondaryTargetEquipmentInventoryName;
 

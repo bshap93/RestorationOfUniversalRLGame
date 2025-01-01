@@ -71,7 +71,7 @@ namespace Project.Gameplay.Animation.WeaponAnimators
             {
                 Debug.Log($"Equipping {weaponData.ItemID} and applying override controller.");
                 _customInventoryWeapon = weaponData;
-                _playerAnimator.runtimeAnimatorController = weaponData.overrideController;
+                _playerAnimator.runtimeAnimatorController = weaponData.runtimeAnimatorController;
             }
             else
             {

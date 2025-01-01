@@ -186,8 +186,8 @@ namespace Project.Gameplay.Player
             var damageResistance = gameObject.GetComponent<DamageResistanceProcessor>().DamageResistanceList[0];
             if (damageResistance != null) damageResistance.DamageMultiplier = damageMult;
 
-            var characterMovement = gameObject.GetComponent<CharacterMovement>();
-            var characterRun = gameObject.GetComponent<CharacterRun>();
+            var characterMovement = gameObject.GetComponentInChildren<CharacterMovement>();
+            var characterRun = gameObject.GetComponentInChildren<CharacterRun>();
             // 6 is the base movement speed for the character, multiplied by the moveSpeedMult
             if (characterMovement != null) characterMovement.WalkSpeed = moveSpeedMult * baseMoveSpeed;
             if (characterRun != null) characterRun.RunSpeed = moveSpeedMult * baseRunSpeed;
