@@ -38,12 +38,13 @@ namespace Project.Gameplay.Player.Inventory
         void Awake()
         {
             _highlightManager = FindObjectOfType<HighlightManager>();
+            _previewManager = FindObjectOfType<PreviewManager>();
         }
 
 
         void Start()
         {
-            _previewManager = FindObjectOfType<PreviewManager>();
+            // _previewManager = FindObjectOfType<PreviewManager>();
             // _highlightManager = FindObjectOfType<HighlightManager>();
 
             if (_previewManager == null) Debug.LogWarning("PreviewManager not found in the scene.");
