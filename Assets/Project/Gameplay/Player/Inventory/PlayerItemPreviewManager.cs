@@ -35,11 +35,16 @@ namespace Project.Gameplay.Player.Inventory
         public ManualItemPicker CurrentPreviewedItemPicker { get; private set; }
         public InventoryItem CurrentPreviewedItem { get; private set; }
 
+        void Awake()
+        {
+            _highlightManager = FindObjectOfType<HighlightManager>();
+        }
+
 
         void Start()
         {
             _previewManager = FindObjectOfType<PreviewManager>();
-            _highlightManager = FindObjectOfType<HighlightManager>();
+            // _highlightManager = FindObjectOfType<HighlightManager>();
 
             if (_previewManager == null) Debug.LogWarning("PreviewManager not found in the scene.");
             if (_highlightManager == null) Debug.LogWarning("HighlightManager not found in the scene.");
