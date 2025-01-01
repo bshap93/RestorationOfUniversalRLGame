@@ -1,18 +1,39 @@
-using System.Collections;
-using System.Collections.Generic;
+// WeaponAnimationManager.cs
+
 using UnityEngine;
 
-public class WeaponAnimationManager : MonoBehaviour
+namespace Project.Animation_Effects.CharacterAnimation
 {
-    // Start is called before the first frame update
-    void Start()
+    public class WeaponAnimationManager : MonoBehaviour
     {
-        
-    }
+        RuntimeAnimatorController _currentAnimatorController;
+        string _currentWeaponID;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        public void StoreCurrentWeapon(string weaponID, RuntimeAnimatorController controller)
+        {
+            _currentWeaponID = weaponID;
+            _currentAnimatorController = controller;
+        }
+
+        public bool HasStoredWeapon()
+        {
+            return !string.IsNullOrEmpty(_currentWeaponID) && _currentAnimatorController != null;
+        }
+
+        public string GetCurrentWeaponID()
+        {
+            return _currentWeaponID;
+        }
+
+        public RuntimeAnimatorController GetCurrentAnimatorController()
+        {
+            return _currentAnimatorController;
+        }
+
+        public void ClearStoredWeapon()
+        {
+            _currentWeaponID = null;
+            _currentAnimatorController = null;
+        }
     }
 }

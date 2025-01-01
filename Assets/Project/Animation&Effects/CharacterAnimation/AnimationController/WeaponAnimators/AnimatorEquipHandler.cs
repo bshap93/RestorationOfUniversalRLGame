@@ -1,12 +1,14 @@
 using System;
 using MoreMountains.InventoryEngine;
 using MoreMountains.Tools;
+using MoreMountains.TopDownEngine;
 using Project.Gameplay.Combat;
 using UnityEngine;
 
 namespace Project.Animation_Effects.CharacterAnimation.AnimationController.WeaponAnimators
 {
-    public class AnimatorEquipHandler : MonoBehaviour, MMEventListener<MMInventoryEvent>, MMEventListener<MMGameEvent>
+    public class AnimatorEquipHandler : MonoBehaviour, MMEventListener<MMInventoryEvent>, MMEventListener<MMGameEvent>,
+        MMEventListener<MMCameraEvent>
     {
         static readonly int ShieldUp = Animator.StringToHash("ShieldUp");
         [Header("Weapon Data")] public CustomInventoryWeapon[]
@@ -15,31 +17,61 @@ namespace Project.Animation_Effects.CharacterAnimation.AnimationController.Weapo
         AnimatorOverrideController _defaultOverrideController; // Store current override
 
         Animator _playerAnimator;
+        WeaponAnimationManager _weaponAnimationManager; // Reference to the WeaponAnimationManager
 
-        void Start()
+        public void Awake()
         {
             _playerAnimator = GetComponent<Animator>();
-
-            if (_playerAnimator == null)
-            {
-                Debug.LogError("No Animator component found on this object.");
-                return;
-            }
-
-            // Store the default override controller (this may be null initially)
-            _defaultOverrideController = new AnimatorOverrideController(_playerAnimator.runtimeAnimatorController);
         }
 
         public void OnEnable()
         {
             this.MMEventStartListening<MMInventoryEvent>();
             this.MMEventStartListening<MMGameEvent>();
+            this.MMEventStartListening<MMCameraEvent>();
         }
 
         public void OnDisable()
         {
             this.MMEventStopListening<MMInventoryEvent>();
             this.MMEventStopListening<MMGameEvent>();
+        }
+
+        public void OnMMEvent(MMCameraEvent eventType)
+        {
+            if (eventType.EventType == MMCameraEventTypes.SetTargetCharacter)
+            {
+                if (_playerAnimator == null)
+                {
+                    _playerAnimator = eventType.TargetCharacter.GetComponentInChildren<Animator>();
+
+                    if (_playerAnimator == null)
+                    {
+                        Debug.LogError("No Animator found in target character.");
+                        return;
+                    }
+                }
+
+                _defaultOverrideController = new AnimatorOverrideController(_playerAnimator.runtimeAnimatorController);
+
+                _weaponAnimationManager = FindObjectOfType<WeaponAnimationManager>();
+
+                if (_weaponAnimationManager == null)
+                {
+                    Debug.LogError("No WeaponAnimationManager found in scene.");
+                    return;
+                }
+
+
+                var storedWeaponID = _weaponAnimationManager.GetCurrentWeaponID();
+                var weaponData = Array.Find(weaponDataArray, weapon => weapon.ItemID == storedWeaponID);
+
+                if (weaponData != null)
+                {
+                    _playerAnimator.runtimeAnimatorController = _weaponAnimationManager.GetCurrentAnimatorController();
+                    Debug.Log($"Restored weapon animator for: {storedWeaponID}");
+                }
+            }
         }
         public void OnMMEvent(MMGameEvent eventType)
         {
@@ -65,13 +97,24 @@ namespace Project.Animation_Effects.CharacterAnimation.AnimationController.Weapo
                 return;
             }
 
-            // Look for matching weapon data
             var weaponData = Array.Find(weaponDataArray, weapon => weapon.ItemID == item.ItemID);
             if (weaponData != null)
             {
                 Debug.Log($"Equipping {weaponData.ItemID} and applying override controller.");
                 _customInventoryWeapon = weaponData;
                 _playerAnimator.runtimeAnimatorController = weaponData.runtimeAnimatorController;
+
+                if (_weaponAnimationManager == null)
+                {
+                    Debug.LogError("No WeaponAnimationManager found in scene.");
+                    return;
+                }
+
+                // Store the weapon data in our persistence manager
+                _weaponAnimationManager.StoreCurrentWeapon(
+                    weaponData.ItemID,
+                    weaponData.runtimeAnimatorController
+                );
             }
             else
             {
@@ -86,6 +129,15 @@ namespace Project.Animation_Effects.CharacterAnimation.AnimationController.Weapo
                 Debug.Log("Resetting to default animator.");
                 _playerAnimator.runtimeAnimatorController = _defaultOverrideController;
                 _customInventoryWeapon = null;
+
+                if (_weaponAnimationManager == null)
+                {
+                    Debug.LogError("No WeaponAnimationManager found in scene.");
+                    return;
+                }
+
+                // Clear the stored weapon data
+                _weaponAnimationManager.ClearStoredWeapon();
             }
             else
             {
