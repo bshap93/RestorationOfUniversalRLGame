@@ -15,8 +15,8 @@ GameObject:
   - component: {fileID: 8159000169692753781}
   - component: {fileID: 1831488948309725400}
   - component: {fileID: 440286729994389184}
-  - component: {fileID: 4179246508374869324}
   - component: {fileID: 3441666427917529930}
+  - component: {fileID: 4179246508374869324}
   - component: {fileID: 7569399075030827703}
   m_Layer: 6
   m_Name: Sword1MeleeWeapon
@@ -100,7 +100,7 @@ MonoBehaviour:
   TriggerMode: 0
   DelayBeforeUse: 0
   DelayBeforeUseReleaseInterruption: 0
-  TimeBetweenUses: 1
+  TimeBetweenUses: 1.5
   TimeBetweenUsesReleaseInterruption: 0
   UseBurstMode: 0
   BurstLength: 3
@@ -133,7 +133,7 @@ MonoBehaviour:
   MirrorCharacterAnimatorParameters: 0
   WeaponAnimationID: 0
   IdleAnimationParameter: 
-  StartAnimationParameter: Attack1
+  StartAnimationParameter: Attack2
   DelayBeforeUseAnimationParameter: 
   SingleUseAnimationParameter: 
   UseAnimationParameter: 
@@ -194,7 +194,7 @@ MonoBehaviour:
   TriggerMode: 0
   DelayBeforeUse: 0
   DelayBeforeUseReleaseInterruption: 0
-  TimeBetweenUses: 1.02
+  TimeBetweenUses: 1.5
   TimeBetweenUsesReleaseInterruption: 0
   UseBurstMode: 0
   BurstLength: 3
@@ -227,7 +227,7 @@ MonoBehaviour:
   MirrorCharacterAnimatorParameters: 0
   WeaponAnimationID: 0
   IdleAnimationParameter: 
-  StartAnimationParameter: Attack2
+  StartAnimationParameter: Attack1
   DelayBeforeUseAnimationParameter: 
   SingleUseAnimationParameter: 
   UseAnimationParameter: 
@@ -248,7 +248,7 @@ MonoBehaviour:
   WeaponReloadNeededMMFeedback: {fileID: 0}
   WeaponReloadImpossibleMMFeedback: {fileID: 0}
   InitializeOnStart: 0
-  Interruptable: 0
+  Interruptable: 1
   Flipped: 0
   MeleeDamageAreaMode: 0
   DamageAreaShape: 3
@@ -288,7 +288,7 @@ MonoBehaviour:
   TriggerMode: 0
   DelayBeforeUse: 0
   DelayBeforeUseReleaseInterruption: 0
-  TimeBetweenUses: 1.84
+  TimeBetweenUses: 1.85
   TimeBetweenUsesReleaseInterruption: 0
   UseBurstMode: 0
   BurstLength: 3
@@ -342,7 +342,7 @@ MonoBehaviour:
   WeaponReloadNeededMMFeedback: {fileID: 0}
   WeaponReloadImpossibleMMFeedback: {fileID: 0}
   InitializeOnStart: 0
-  Interruptable: 0
+  Interruptable: 1
   Flipped: 0
   MeleeDamageAreaMode: 0
   DamageAreaShape: 3
@@ -364,23 +364,6 @@ MonoBehaviour:
   KnockbackDirection: 0
   InvincibilityDuration: 0.4
   CanDamageOwner: 0
---- !u!114 &4179246508374869324
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 347692590179713027}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0845018860ef451bb48e2ed9323ec66e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  AttackParticlesPrefabs:
-  - {fileID: 1872147318604286, guid: 5bea49531fc500c408823a2e2863106f, type: 3}
-  _playerEffectsRoot: {fileID: 0}
-  MWWeaponType: 0
-  WeaponItem: {fileID: 11400000, guid: 5ed20433d8fdf7b4ea9d2d926cd066e8, type: 2}
 --- !u!114 &3441666427917529930
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -400,6 +383,23 @@ MonoBehaviour:
   Weapons: []
   OwnerCharacterHandleWeapon: {fileID: 0}
   TimeSinceLastWeaponStopped: 0
+--- !u!114 &4179246508374869324
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 347692590179713027}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0845018860ef451bb48e2ed9323ec66e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AttackParticlesPrefabs:
+  - {fileID: 1872147318604286, guid: 5bea49531fc500c408823a2e2863106f, type: 3}
+  _playerEffectsRoot: {fileID: 0}
+  MWWeaponType: 0
+  WeaponItem: {fileID: 11400000, guid: 5ed20433d8fdf7b4ea9d2d926cd066e8, type: 2}
 --- !u!114 &7569399075030827703
 MonoBehaviour:
   m_ObjectHideFlags: 0

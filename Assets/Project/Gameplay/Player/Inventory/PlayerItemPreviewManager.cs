@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using HighlightPlus;
 using MoreMountains.Feedbacks;
 using MoreMountains.InventoryEngine;
@@ -16,12 +15,17 @@ namespace Project.Gameplay.Player.Inventory
 
         public MMFeedbacks SelectionFeedbacks;
         public MMFeedbacks DeselectionFeedbacks;
+<<<<<<< Updated upstream
         readonly Dictionary<string, ManualItemPicker> _itemPickersInRange = new();
         readonly float _pickupCooldown = 0.5f; // Add cooldown to prevent rapid pickups
         readonly object _pickupLock = new();
 
         // Add to PlayerItemPreviewManager.cs
         string _currentPickupId;
+=======
+        readonly List<ManualItemPicker> _itemsInRange = new(); // List of item pickers in range
+        readonly Dictionary<int, Transform> _itemTransforms = new(); // Dictionary of item transforms
+>>>>>>> Stashed changes
 
         HighlightManager _highlightManager;
         bool _isPickingUp;
@@ -79,6 +83,7 @@ namespace Project.Gameplay.Player.Inventory
 
             switch (eventType.EventName)
             {
+<<<<<<< Updated upstream
                 case "ItemPickupRangeEntered":
                     if (!_itemPickersInRange.ContainsKey(itemPicker.UniqueID))
                         HandleItemEntered(itemPicker, eventType.ItemTransform);
@@ -157,8 +162,16 @@ namespace Project.Gameplay.Player.Inventory
                 _isPickingUp = false;
             }
         }
+=======
+                var itemPicker = eventType.ItemTransform.GetComponent<ManualItemPicker>();
+                if (itemPicker == null) return;
+>>>>>>> Stashed changes
 
+                if (!_itemsInRange.Contains(itemPicker))
+                {
+                    _itemsInRange.Add(itemPicker);
 
+<<<<<<< Updated upstream
         void HandleItemEntered(ManualItemPicker itemPicker, Transform itemTransform)
         {
             if (!_itemPickersInRange.ContainsKey(itemPicker.UniqueID))
@@ -204,12 +217,22 @@ namespace Project.Gameplay.Player.Inventory
             {
                 Debug.Log("Skipping nearest item update - pickup in progress");
                 return;
+=======
+                    if (!_itemTransforms.ContainsKey(itemPicker.GetInstanceID()))
+                        _itemTransforms.Add(itemPicker.GetInstanceID(), eventType.ItemTransform);
+                }
+
+                SetPreviewedItem(itemPicker);
+                ShowPreviewPanel(itemPicker.Item);
+                _highlightManager.SelectObject(eventType.ItemTransform);
+>>>>>>> Stashed changes
             }
 
             _isSorting = true;
 
             try
             {
+<<<<<<< Updated upstream
                 var invalidKeys = _itemPickersInRange
                     .Where(kvp => kvp.Value == null || kvp.Value.gameObject == null)
                     .Select(kvp => kvp.Key)
@@ -227,6 +250,20 @@ namespace Project.Gameplay.Player.Inventory
                         _previewManager.HidePreview();
                         HidePreviewPanel();
                     }
+=======
+                var itemPicker = eventType.ItemTransform.GetComponent<ManualItemPicker>();
+                if (itemPicker == null) return;
+
+                _itemsInRange.Remove(itemPicker);
+
+                if (_itemTransforms.ContainsKey(itemPicker.GetInstanceID()))
+                    _itemTransforms.Remove(itemPicker.GetInstanceID());
+
+                if (_itemsInRange.Count == 0)
+                    HidePreviewPanel();
+                else
+                    SetPreviewedItem(_itemsInRange[0]);
+>>>>>>> Stashed changes
 
                     return;
                 }
@@ -274,6 +311,72 @@ namespace Project.Gameplay.Player.Inventory
             _previewManager.ShowPreview(item);
         }
 
+<<<<<<< Updated upstream
+=======
+        void DisplayNearestItem()
+        {
+            if (_isSorting) return;
+
+            _isSorting = true;
+
+            // Remove destroyed or null item pickers
+            _itemsInRange.RemoveAll(item => item == null || !_itemTransforms.ContainsKey(item.GetInstanceID()));
+
+            if (_itemsInRange.Count == 0 || _previewManager == null)
+            {
+                if (CurrentPreviewedItemPicker != null)
+                {
+                    _previewManager.HidePreview();
+                    CurrentPreviewedItemPicker = null;
+                    CurrentPreviewedItem = null;
+                }
+
+                _isSorting = false;
+                return;
+            }
+
+            // Sort by distance to player
+            _itemsInRange.Sort(
+                (a, b) =>
+                {
+                    var transformA = _itemTransforms[a.GetInstanceID()];
+                    var transformB = _itemTransforms[b.GetInstanceID()];
+                    return Vector3.Distance(transform.position, transformA.position)
+                        .CompareTo(Vector3.Distance(transform.position, transformB.position));
+                });
+
+            var closestItem = _itemsInRange[0];
+            if (CurrentPreviewedItemPicker != closestItem)
+            {
+                SetPreviewedItem(closestItem);
+                _previewManager.ShowPreview(closestItem.Item);
+            }
+
+            _isSorting = false;
+        }
+
+
+        public void RegisterItem(ManualItemPicker itemPicker)
+        {
+            if (!_itemsInRange.Contains(itemPicker)) _itemsInRange.Add(itemPicker);
+            Debug.Log("Item registered");
+        }
+
+        public void UnregisterItem(ManualItemPicker itemPicker)
+        {
+            if (_itemsInRange.Contains(itemPicker))
+            {
+                _itemsInRange.Remove(itemPicker);
+
+                // Reset current item if it was removed
+                if (CurrentPreviewedItemPicker == itemPicker)
+                {
+                    _previewManager.HidePreview();
+                    CurrentPreviewedItem = null;
+                }
+            }
+        }
+>>>>>>> Stashed changes
         public void HideSelectedItemPreviewPanel()
         {
             if (PreviewPanelUI != null) PreviewPanelUI.SetActive(false);
