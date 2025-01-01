@@ -4,7 +4,7 @@ using MoreMountains.Tools;
 using Project.Gameplay.Combat;
 using UnityEngine;
 
-namespace Project.Gameplay.Animation.WeaponAnimators
+namespace Project.Animation_Effects.CharacterAnimation.AnimationController.WeaponAnimators
 {
     public class AnimatorEquipHandler : MonoBehaviour, MMEventListener<MMInventoryEvent>, MMEventListener<MMGameEvent>
     {
