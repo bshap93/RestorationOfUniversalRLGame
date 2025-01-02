@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using MoreMountains.Feedbacks;
 using MoreMountains.InventoryEngine;
+using Project.Gameplay.Interactivity.Items;
 using Project.Gameplay.ItemManagement;
 using Project.Gameplay.ItemManagement.Triggers;
 using Project.Gameplay.Player.Inventory;

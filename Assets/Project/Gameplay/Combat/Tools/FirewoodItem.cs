@@ -1,5 +1,6 @@
 ﻿using System;
 using MoreMountains.InventoryEngine;
+using Project.Gameplay.Interactivity.Items;
 using UnityEngine;
 
 namespace Project.Gameplay.Combat.Tools

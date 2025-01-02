@@ -1,5 +1,6 @@
 ﻿using MoreMountains.InventoryEngine;
 using MoreMountains.Tools;
+using Project.Gameplay.Interactivity.Items;
 using UnityEngine;
 
 namespace Project.Gameplay.Events

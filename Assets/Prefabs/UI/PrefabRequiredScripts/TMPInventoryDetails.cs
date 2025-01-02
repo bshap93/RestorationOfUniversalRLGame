@@ -2,19 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using MoreMountains.InventoryEngine;
 using MoreMountains.Tools;
+using Project.Gameplay.Interactivity.InteractiveEntities;
+using Project.Gameplay.Interactivity.Items;
 using TMPro;
 using UnityEngine;
 
 namespace Prefabs.UI.PrefabRequiredScripts
 {
-    public class TMPInventoryDetails : InventoryDetails
+    public class TMPInventoryDetails : InventoryDetails, IDetailsDisplay
     {
+        
         public enum DisplayMode
         {
             Inventory,
             Preview
         }
-
+        
+        
         public List<string> TargetInventoryNames = new();
 
         public DisplayMode CurrentMode = DisplayMode.Inventory;
@@ -25,6 +29,48 @@ namespace Prefabs.UI.PrefabRequiredScripts
         public TMP_Text TMPQuantity;
         public TMP_Text TMPWeight;
         public string DefaultWeight = "0.0";
+        
+        // Implement IDetailsDisplay.CanvasGroup
+        public CanvasGroup CanvasGroup => _canvasGroup;
+
+        // Implement IDetailsDisplay.DisplayDetails
+        public void DisplayDetails(IPreviewable previewable)
+        {
+            if (previewable is InventoryItem item)
+            {
+                DisplayPreview(item);
+            }
+            else
+            {
+                Debug.LogWarning($"TMPInventoryDetails received invalid previewable type: {previewable?.GetType().Name}");
+                Hide();
+            }
+        }
+        
+        // Modify existing HidePreview
+        public void HidePreview()
+        {
+            if (_canvasGroup != null)
+            {
+                _canvasGroup.alpha = 0;
+                _canvasGroup.interactable = false;
+                _canvasGroup.blocksRaycasts = false;
+            }
+            CurrentMode = DisplayMode.Inventory;
+        }
+        
+        // // IDetailsDisplay Implementation
+        // public void HidePreview()
+        // {
+        //     if (_canvasGroup != null) _canvasGroup.alpha = 0;
+        //     CurrentMode = DisplayMode.Inventory;
+        // }
+
+        public void Hide()
+        {
+            throw new System.NotImplementedException();
+        }
+
 
 
         protected virtual void OnValidate()
@@ -137,26 +183,50 @@ namespace Prefabs.UI.PrefabRequiredScripts
             if (TMPWeight != null) TMPWeight.text = DefaultWeight;
             if (Icon != null) Icon.sprite = DefaultIcon;
         }
-
+        
         public void DisplayPreview(InventoryItem item)
         {
             CurrentMode = DisplayMode.Preview;
-            if (item == null) return;
+            if (item == null)
+            {
+                Hide();
+                return;
+            }
 
             if (TMPTitle != null) TMPTitle.text = item.ItemName;
             if (TMPShortDescription != null) TMPShortDescription.text = item.ShortDescription;
             if (TMPDescription != null) TMPDescription.text = item.Description;
             if (TMPQuantity != null) TMPQuantity.text = item.Quantity.ToString();
             if (Icon != null) Icon.sprite = item.Icon;
+            if (TMPWeight != null)
+            {
+                var itemWeight = GetItemWeight(item);
+                TMPWeight.text = (itemWeight * item.Quantity).ToString("F1");
+            }
 
-
-            if (_canvasGroup != null) _canvasGroup.alpha = 1;
+            if (_canvasGroup != null)
+            {
+                _canvasGroup.alpha = 1;
+                _canvasGroup.interactable = true;
+                _canvasGroup.blocksRaycasts = true;
+            }
         }
 
-        public void HidePreview()
-        {
-            if (_canvasGroup != null) _canvasGroup.alpha = 0;
-            CurrentMode = DisplayMode.Inventory;
-        }
+        // public void DisplayPreview(InventoryItem item)
+        // {
+        //     CurrentMode = DisplayMode.Preview;
+        //     if (item == null) return;
+        //
+        //     if (TMPTitle != null) TMPTitle.text = item.ItemName;
+        //     if (TMPShortDescription != null) TMPShortDescription.text = item.ShortDescription;
+        //     if (TMPDescription != null) TMPDescription.text = item.Description;
+        //     if (TMPQuantity != null) TMPQuantity.text = item.Quantity.ToString();
+        //     if (Icon != null) Icon.sprite = item.Icon;
+        //
+        //
+        //     if (_canvasGroup != null) _canvasGroup.alpha = 1;
+        // }
+        //
+
     }
 }

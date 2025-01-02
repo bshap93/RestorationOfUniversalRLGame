@@ -3,6 +3,7 @@ using MoreMountains.InventoryEngine;
 using MoreMountains.Tools;
 using MoreMountains.TopDownEngine;
 using Project.Gameplay.Events;
+using Project.Gameplay.Interactivity.Items;
 using Project.Gameplay.Player.Inventory;
 using UnityEngine;
 

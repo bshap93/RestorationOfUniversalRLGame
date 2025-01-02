@@ -2,6 +2,7 @@ using System;
 using MoreMountains.Feedbacks;
 using MoreMountains.InventoryEngine;
 using Project.Gameplay.Events;
+using Project.Gameplay.Interactivity.Items;
 using Project.Gameplay.ItemManagement;
 using Project.Gameplay.ItemManagement.InventoryItemTypes;
 using Project.UI.HUD;

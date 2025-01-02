@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using JetBrains.Annotations;
 using MoreMountains.Feedbacks;
 using MoreMountains.InventoryEngine;
+using Project.Gameplay.Interactivity.Items;
 using Project.Gameplay.ItemManagement.InventoryItemTypes;
 using UnityEngine;
 
