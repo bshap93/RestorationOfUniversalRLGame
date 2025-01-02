@@ -5,19 +5,32 @@ using Project.Gameplay.Interactivity.CraftingStation;
 using Project.Gameplay.Interactivity.InteractiveEntities;
 using Project.Gameplay.Interactivity.Items;
 using UnityEngine;
+using CraftingStationDetails = Project.Gameplay.Interactivity.InteractivityUI.CraftingStationDetails;
 
 namespace Project.UI.HUD
 {
+    // New event type for preview system
+    public enum PreviewEventType
+    {
+        ShowPreview,
+        HidePreview
+    }
+
+    public struct PreviewEvent
+    {
+        public PreviewEventType EventType;
+        public IPreviewable Previewable;
+    }
+
     public class PreviewManager : MonoBehaviour, MMEventListener<MMInventoryEvent>
     {
-        
-        [Header("UI References")]
-        [SerializeField] private TMPInventoryDetails itemDetails; // For backward compatibility
-        [SerializeField] private CraftingStationDetails craftingStationDetails;
+        [Header("UI References")] [SerializeField]
+        TMPInventoryDetails itemDetails; // For backward compatibility
+        [SerializeField] CraftingStationDetails craftingStationDetails;
+        IDetailsDisplay currentDisplay;
 
-        
-        private IPreviewable currentPreviewable;
-        private IDetailsDisplay currentDisplay;
+
+        IPreviewable currentPreviewable;
 
         public InventoryItem CurrentPreviewedItem { get; set; }
         void OnEnable()
@@ -48,33 +61,24 @@ namespace Project.UI.HUD
 
         public void ShowPreview(IPreviewable previewable)
         {
-            
-            if (previewable == null)
-            {
-                return;
-            }
+            if (previewable == null) return;
 
             // Hide current preview if different
-            if (currentPreviewable != previewable)
-            {
-                HidePreview();
-            }
+            if (currentPreviewable != previewable) HidePreview();
 
             // Get appropriate display for the previewable type
-            IDetailsDisplay display = GetDisplayForPreviewable(previewable);
+            var display = GetDisplayForPreviewable(previewable);
             if (display == null) return;
-            
+
             // Show the new preview
             display.DisplayDetails(previewable);
             ShowCanvasGroup(display.CanvasGroup);
-            
-                        
+
+
             currentPreviewable = previewable;
             currentDisplay = display;
-            
-            
-            
-            
+
+
             // if (InventoryDetails != null)
             // {
             //     InventoryDetails.DisplayPreview(item);
@@ -100,28 +104,22 @@ namespace Project.UI.HUD
                 currentDisplay.Hide();
                 HideCanvasGroup(currentDisplay.CanvasGroup);
             }
-            
+
             currentPreviewable = null;
             currentDisplay = null;
         }
-        
-        private IDetailsDisplay GetDisplayForPreviewable(IPreviewable previewable)
+
+        IDetailsDisplay GetDisplayForPreviewable(IPreviewable previewable)
         {
             // For backward compatibility with existing InventoryItem system
-            if (previewable is InventoryItem)
-            {
-                return itemDetails;
-            }
-            
-            if (previewable is CraftingStationBehaviour)
-            {
-                return craftingStationDetails;
-            }
+            if (previewable is InventoryItem) return itemDetails;
+
+            if (previewable is CraftingStationBehaviour) return craftingStationDetails;
 
             return null;
         }
-        
-        private void ShowCanvasGroup(CanvasGroup canvasGroup)
+
+        void ShowCanvasGroup(CanvasGroup canvasGroup)
         {
             if (canvasGroup != null)
             {
@@ -131,7 +129,7 @@ namespace Project.UI.HUD
             }
         }
 
-        private void HideCanvasGroup(CanvasGroup canvasGroup)
+        void HideCanvasGroup(CanvasGroup canvasGroup)
         {
             if (canvasGroup != null)
             {
@@ -140,6 +138,5 @@ namespace Project.UI.HUD
                 canvasGroup.blocksRaycasts = false;
             }
         }
-
     }
 }

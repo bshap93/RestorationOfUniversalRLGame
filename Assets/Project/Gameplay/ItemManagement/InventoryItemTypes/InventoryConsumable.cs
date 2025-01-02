@@ -1,5 +1,4 @@
 ﻿using System;
-using MoreMountains.InventoryEngine;
 using MoreMountains.TopDownEngine;
 using Project.Gameplay.Interactivity.Items;
 using UnityEngine;
@@ -9,7 +8,7 @@ namespace Project.Gameplay.ItemManagement.InventoryItemTypes
     [CreateAssetMenu(
         fileName = "InventoryConsumable", menuName = "Roguelike/Items/InventoryConsumable", order = 2)]
     [Serializable]
-    public class InventoryConsumable : InventoryItem
+    public class InventoryConsumable : PreviewableInventoryItem
     {
         public float HealthToGive = 4; // Amount of health to recover
 

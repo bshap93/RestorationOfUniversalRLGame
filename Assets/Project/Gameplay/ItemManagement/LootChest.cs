@@ -1,8 +1,6 @@
 using System.Collections.Generic;
 using MoreMountains.Feedbacks;
-using MoreMountains.InventoryEngine;
 using Project.Gameplay.Interactivity.Items;
-using Project.Gameplay.ItemManagement;
 using Project.Gameplay.ItemManagement.Triggers;
 using Project.Gameplay.Player.Inventory;
 using Project.UI.HUD;
@@ -12,7 +10,7 @@ public class LootChest : MonoBehaviour
 {
     public GameObject itemPrefab;
 
-    public List<InventoryItem> items;
+    public List<PreviewableInventoryItem> items;
 
     public int maxItems;
 

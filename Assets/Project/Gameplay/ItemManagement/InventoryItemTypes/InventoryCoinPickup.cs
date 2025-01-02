@@ -1,5 +1,4 @@
-﻿using MoreMountains.InventoryEngine;
-using Project.Gameplay.Interactivity.Items;
+﻿using Project.Gameplay.Interactivity.Items;
 using Project.Gameplay.Player;
 using UnityEngine;
 
@@ -7,7 +6,7 @@ namespace Project.Gameplay.ItemManagement.InventoryItemTypes
 {
     [CreateAssetMenu(
         fileName = "InventoryCoinPickup", menuName = "Roguelike/Items/InventoryCoinPickup", order = 1)]
-    public class InventoryCoinPickup : InventoryItem
+    public class InventoryCoinPickup : PreviewableInventoryItem
     {
         public int MaximumCoins = 10; // Maximum number of coins that can be picked up
         public int MinimumCoins = 1; // Minimum number of coins that can be picked up

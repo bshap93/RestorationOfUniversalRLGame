@@ -2,7 +2,6 @@
 using System.Linq;
 using HighlightPlus;
 using MoreMountains.Feedbacks;
-using MoreMountains.InventoryEngine;
 using MoreMountains.Tools;
 using Project.Gameplay.Events;
 using Project.Gameplay.Interactivity.Items;
@@ -34,7 +33,7 @@ namespace Project.Gameplay.Player.Inventory
         float _lastPickupTime;
         PreviewManager _previewManager;
         public ManualItemPicker CurrentPreviewedItemPicker { get; private set; }
-        public InventoryItem CurrentPreviewedItem { get; private set; }
+        public PreviewableInventoryItem CurrentPreviewedItem { get; private set; }
 
 
         void Start()
@@ -263,7 +262,7 @@ namespace Project.Gameplay.Player.Inventory
         }
 
 
-        public void ShowSelectedItemPreviewPanel(InventoryItem item)
+        public void ShowSelectedItemPreviewPanel(PreviewableInventoryItem item)
         {
             if (PreviewPanelUI != null) PreviewPanelUI.SetActive(true);
             _previewManager.ShowPreview(item);

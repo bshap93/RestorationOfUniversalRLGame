@@ -1,5 +1,4 @@
 ﻿using MoreMountains.Feedbacks;
-using MoreMountains.InventoryEngine;
 using MoreMountains.Tools;
 using MoreMountains.TopDownEngine;
 using Project.Gameplay.Events;
@@ -11,7 +10,7 @@ namespace Project.Gameplay.ItemManagement.Triggers
 {
     public class ItemPreviewTrigger : MonoBehaviour, MMEventListener<MMCameraEvent>
     {
-        public InventoryItem Item;
+        public PreviewableInventoryItem Item;
 
         [SerializeField] MMFeedbacks _selectionFeedbacks;
         [SerializeField] MMFeedbacks _deselectionFeedbacks;

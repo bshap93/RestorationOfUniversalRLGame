@@ -21,6 +21,7 @@ namespace Project.Gameplay.Interactivity.CraftingStation
     /// Objects that can be interacted with by the player
     /// 
     /// </summary>
+    [CreateAssetMenu(fileName = "CraftingStation", menuName = "Interactables/CraftingStations/Cookstation", order = 2)]
     public class CraftingStation : ScriptableObject
     {
         [Tooltip("The ID of the crafting station")]
@@ -131,7 +132,5 @@ namespace Project.Gameplay.Interactivity.CraftingStation
             clone.name = name;
             return clone;
         }
-        
-        
     }
 }

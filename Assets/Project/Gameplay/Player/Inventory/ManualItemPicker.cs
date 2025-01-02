@@ -1,6 +1,5 @@
 using System;
 using MoreMountains.Feedbacks;
-using MoreMountains.InventoryEngine;
 using Project.Gameplay.Events;
 using Project.Gameplay.Interactivity.Items;
 using Project.Gameplay.ItemManagement;
@@ -14,7 +13,7 @@ namespace Project.Gameplay.Player.Inventory
 {
     public class ManualItemPicker : MonoBehaviour
     {
-        public InventoryItem Item; // The item to be picked up
+        public PreviewableInventoryItem Item; // The item to be picked up
         public int Quantity = 1;
 
 
@@ -161,16 +160,9 @@ namespace Project.Gameplay.Player.Inventory
             var previewManager = player.GetComponent<PlayerItemPreviewManager>();
             if (previewManager == null) return;
 
-            if (!previewManager.IsPreviewedItem(this))
-            {
+            if (!previewManager.IsPreviewedItem(this)) return;
 
-                return;
-            }
-
-            if (!previewManager.TryPickupItem(this))
-            {
-                return;
-            }
+            if (!previewManager.TryPickupItem(this)) return;
 
             _isBeingDestroyed = true;
             _isInRange = false;
