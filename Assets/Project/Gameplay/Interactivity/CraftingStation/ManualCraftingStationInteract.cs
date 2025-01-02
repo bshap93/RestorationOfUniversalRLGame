@@ -20,6 +20,10 @@ namespace Project.Gameplay.Interactivity.CraftingStation
         [Header("Feedbacks")]
         [Tooltip("Feedbacks to play when the item is picked up")]
         public MMFeedbacks initialInteractionFeedbacks; // Feedbacks to play when the item is picked up
+        public MMFeedbacks
+            playerActivatesCraftingStationFeedbacks; // Feedbacks to play when the player activates the crafting station
+        public MMFeedbacks
+            playerLacksInitialResourcesFeedbacks; // Feedbacks to play when the player lacks the initial resources
 
 
         bool _isInRange;
@@ -124,17 +128,56 @@ namespace Project.Gameplay.Interactivity.CraftingStation
 
         void HandleCraftingStationInitialAction()
         {
+            // Check if crafting station is properly set up
+            if (craftingStation == null)
+            {
+                Debug.LogError($"[{UniqueID}] CraftingStation is null");
+                return;
+            }
+
+            // Check if initial activation resources are set up
+            if (craftingStation.InitialActivationResources == null)
+            {
+                Debug.LogError($"[{UniqueID}] InitialActivationResources is null");
+                return;
+            }
+
+            // Check if activation item is set up
+            if (craftingStation.InitialActivationResources.ActivationItem == null)
+            {
+                Debug.LogError($"[{UniqueID}] ActivationItem is null");
+                return;
+            }
+
+            // Check if source inventory is set up
+            if (_sourceInventory == null)
+            {
+                Debug.LogError($"[{UniqueID}] Source inventory is null");
+                return;
+            }
+
+            Debug.Log(
+                $"[{UniqueID}] Checking for activation item: {craftingStation.InitialActivationResources.ActivationItem.ItemID}");
+
             var initialActionItem = craftingStation.InitialActivationResources;
             var indices = IndicesWithSpecifiedItem(_sourceInventory, initialActionItem.ActivationItem);
 
-            for (var i = 0; i < indices.Count; i++)
-                if (_sourceInventory.RemoveItem(i, 1))
+            if (indices == null || indices.Count == 0)
+            {
+                Debug.Log($"[{UniqueID}] Player lacks the initial action item");
+                playerLacksInitialResourcesFeedbacks?.PlayFeedbacks();
+                return;
+            }
+
+            foreach (var index in indices)
+                if (_sourceInventory.RemoveItem(index, 1))
                 {
-                    Debug.Log("Initial action item removed");
+                    Debug.Log($"[{UniqueID}] Initial action item removed from index {index}");
                 }
                 else
                 {
-                    Debug.Log("Player lacks the initial action item");
+                    Debug.Log($"[{UniqueID}] Failed to remove item at index {index}");
+                    playerLacksInitialResourcesFeedbacks?.PlayFeedbacks();
                     return;
                 }
 
@@ -144,10 +187,39 @@ namespace Project.Gameplay.Interactivity.CraftingStation
         List<int> IndicesWithSpecifiedItem(Inventory inventory, InventoryItem item)
         {
             var indices = new List<int>();
-            for (var i = 0; i < inventory.Content.Length; i++)
-                if (inventory.Content[i].ItemID == item.ItemID)
-                    indices.Add(i);
 
+            // Check if inventory is null
+            if (inventory == null)
+            {
+                Debug.LogError($"[{UniqueID}] Inventory is null");
+                return indices;
+            }
+
+            // Check if item is null
+            if (item == null)
+            {
+                Debug.LogError($"[{UniqueID}] Item to check for is null");
+                return indices;
+            }
+
+            // Check if inventory content is null
+            if (inventory.Content == null)
+            {
+                Debug.LogError($"[{UniqueID}] Inventory content is null");
+                return indices;
+            }
+
+            Debug.Log($"[{UniqueID}] Checking inventory {inventory.name} for item {item.ItemID}");
+            Debug.Log($"[{UniqueID}] Inventory content length: {inventory.Content.Length}");
+
+            for (var i = 0; i < inventory.Content.Length; i++)
+                if (inventory.Content[i] != null && inventory.Content[i].ItemID == item.ItemID)
+                {
+                    indices.Add(i);
+                    Debug.Log($"[{UniqueID}] Found matching item at index {i}");
+                }
+
+            Debug.Log($"[{UniqueID}] Found {indices.Count} matching items");
             return indices;
         }
 
@@ -183,6 +255,8 @@ namespace Project.Gameplay.Interactivity.CraftingStation
                 return;
             }
 
+            initialInteractionFeedbacks?.PlayFeedbacks();
+
             HandleCraftingStationInitialAction();
         }
 
@@ -191,7 +265,7 @@ namespace Project.Gameplay.Interactivity.CraftingStation
             craftingStation.Interact();
             _promptManager?.HidePickupPrompt();
             MMGameEvent.Trigger("CraftingStationActivated", stringParameter: craftingStation.CraftingStationId);
-            initialInteractionFeedbacks?.PlayFeedbacks();
+            playerActivatesCraftingStationFeedbacks?.PlayFeedbacks();
         }
     }
 }
