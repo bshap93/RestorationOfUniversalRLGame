@@ -1,7 +1,7 @@
 using System;
 using MoreMountains.Feedbacks;
-using MoreMountains.InventoryEngine;
 using Project.Gameplay.Events;
+using Project.Gameplay.Interactivity.Items;
 using Project.Gameplay.ItemManagement;
 using Project.Gameplay.ItemManagement.InventoryItemTypes;
 using Project.UI.HUD;
@@ -160,16 +160,9 @@ namespace Project.Gameplay.Player.Inventory
             var previewManager = player.GetComponent<PlayerItemPreviewManager>();
             if (previewManager == null) return;
 
-            if (!previewManager.IsPreviewedItem(this))
-            {
+            if (!previewManager.IsPreviewedItem(this)) return;
 
-                return;
-            }
-
-            if (!previewManager.TryPickupItem(this))
-            {
-                return;
-            }
+            if (!previewManager.TryPickupItem(this)) return;
 
             _isBeingDestroyed = true;
             _isInRange = false;

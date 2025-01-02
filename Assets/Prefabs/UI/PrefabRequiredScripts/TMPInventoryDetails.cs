@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using MoreMountains.InventoryEngine;
 using MoreMountains.Tools;
+using Project.Gameplay.Interactivity.Items;
 using TMPro;
 using UnityEngine;
 

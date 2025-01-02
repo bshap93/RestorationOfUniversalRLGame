@@ -1,6 +1,7 @@
 using MoreMountains.InventoryEngine;
 using MoreMountains.Tools;
 using Prefabs.UI.PrefabRequiredScripts;
+using Project.Gameplay.Interactivity.Items;
 using UnityEngine;
 
 namespace Project.UI.HUD

@@ -1,8 +1,8 @@
 ﻿using MoreMountains.Feedbacks;
-using MoreMountains.InventoryEngine;
 using MoreMountains.Tools;
 using MoreMountains.TopDownEngine;
 using Project.Gameplay.Events;
+using Project.Gameplay.Interactivity.Items;
 using Project.Gameplay.Player.Inventory;
 using UnityEngine;
 
@@ -16,7 +16,7 @@ namespace Project.Gameplay.ItemManagement.Triggers
         [SerializeField] MMFeedbacks _deselectionFeedbacks;
         ManualItemPicker _itemPicker;
 
-        PlayerItemPreviewManager _previewManager;
+        PlayerItemPreviewManager _playerPreviewManager;
 
 
         void Awake()
@@ -43,8 +43,8 @@ namespace Project.Gameplay.ItemManagement.Triggers
         {
             if (other.CompareTag("Player"))
             {
-                if (_previewManager == null)
-                    _previewManager = other.GetComponent<PlayerItemPreviewManager>();
+                if (_playerPreviewManager == null)
+                    _playerPreviewManager = other.GetComponent<PlayerItemPreviewManager>();
 
                 var itemPicker = GetComponent<ManualItemPicker>();
                 if (itemPicker != null)
@@ -59,8 +59,8 @@ namespace Project.Gameplay.ItemManagement.Triggers
         {
             if (other.CompareTag("Player"))
             {
-                if (_previewManager == null)
-                    _previewManager = other.GetComponent<PlayerItemPreviewManager>();
+                if (_playerPreviewManager == null)
+                    _playerPreviewManager = other.GetComponent<PlayerItemPreviewManager>();
 
                 var itemPicker = GetComponent<ManualItemPicker>();
                 if (itemPicker != null)
@@ -75,33 +75,33 @@ namespace Project.Gameplay.ItemManagement.Triggers
         {
             if (eventType.EventType == MMCameraEventTypes.SetTargetCharacter)
             {
-                if (_previewManager == null)
-                    _previewManager = FindObjectOfType<PlayerItemPreviewManager>();
+                if (_playerPreviewManager == null)
+                    _playerPreviewManager = FindObjectOfType<PlayerItemPreviewManager>();
 
                 if (_selectionFeedbacks == null)
-                    _selectionFeedbacks = _previewManager.SelectionFeedbacks;
+                    _selectionFeedbacks = _playerPreviewManager.SelectionFeedbacks;
 
                 if (_deselectionFeedbacks == null)
-                    _deselectionFeedbacks = _previewManager.DeselectionFeedbacks;
+                    _deselectionFeedbacks = _playerPreviewManager.DeselectionFeedbacks;
             }
         }
 
         public void OnSelectedItem()
         {
-            if (_previewManager == null)
-                _previewManager = FindObjectOfType<PlayerItemPreviewManager>();
+            if (_playerPreviewManager == null)
+                _playerPreviewManager = FindObjectOfType<PlayerItemPreviewManager>();
 
             _selectionFeedbacks?.PlayFeedbacks();
-            _previewManager.ShowSelectedItemPreviewPanel(Item);
+            _playerPreviewManager.ShowSelectedItemPreviewPanel(Item);
         }
 
         public void OnUnSelectedItem()
         {
-            if (_previewManager == null)
-                _previewManager = FindObjectOfType<PlayerItemPreviewManager>();
+            if (_playerPreviewManager == null)
+                _playerPreviewManager = FindObjectOfType<PlayerItemPreviewManager>();
 
             _deselectionFeedbacks?.PlayFeedbacks();
-            _previewManager.HideSelectedItemPreviewPanel();
+            _playerPreviewManager.HideSelectedItemPreviewPanel();
         }
     }
 }

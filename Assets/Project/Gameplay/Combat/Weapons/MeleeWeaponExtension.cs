@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using MoreMountains.InventoryEngine;
 using MoreMountains.Tools;
 using Project.Core.Graphical.Effects;
+using Project.Gameplay.Interactivity.Items;
 using UnityEngine;
 
 namespace Project.Gameplay.Combat.Weapons

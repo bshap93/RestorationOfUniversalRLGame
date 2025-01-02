@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using MoreMountains.InventoryEngine;
+using Project.Gameplay.Interactivity.Items;
 
 namespace Project.Gameplay.Player.Inventory.Models
 {

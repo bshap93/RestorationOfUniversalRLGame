@@ -3,6 +3,7 @@ using MoreMountains.InventoryEngine;
 using MoreMountains.Tools;
 using MoreMountains.TopDownEngine;
 using Project.Gameplay.Combat;
+using Project.Gameplay.Interactivity.Items;
 using UnityEngine;
 
 namespace Project.Animation_Effects.CharacterAnimation.AnimationController.WeaponAnimators

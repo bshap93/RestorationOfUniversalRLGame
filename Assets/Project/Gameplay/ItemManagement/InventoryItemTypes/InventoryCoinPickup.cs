@@ -1,4 +1,4 @@
-﻿using MoreMountains.InventoryEngine;
+﻿using Project.Gameplay.Interactivity.Items;
 using Project.Gameplay.Player;
 using UnityEngine;
 

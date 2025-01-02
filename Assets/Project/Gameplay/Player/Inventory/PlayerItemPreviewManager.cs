@@ -2,9 +2,9 @@
 using System.Linq;
 using HighlightPlus;
 using MoreMountains.Feedbacks;
-using MoreMountains.InventoryEngine;
 using MoreMountains.Tools;
 using Project.Gameplay.Events;
+using Project.Gameplay.Interactivity.Items;
 using Project.UI.HUD;
 using UnityEngine;
 
