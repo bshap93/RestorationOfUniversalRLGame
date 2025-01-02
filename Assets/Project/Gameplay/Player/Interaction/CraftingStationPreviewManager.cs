@@ -16,6 +16,8 @@ namespace Project.Gameplay.Player.Interaction
 
         public MMFeedbacks SelectionFeedbacks;
         public MMFeedbacks DeselectionFeedbacks;
+
+        public ManualCraftingStationInteract CurrentPreviewedStationInteract;
         readonly Dictionary<string, ManualCraftingStationInteract> _craftingStationsInRange = new();
         readonly float _interactCooldown = 0.5f; // Add cooldown to prevent rapid interactions
         readonly object _interactLock = new();
@@ -30,8 +32,6 @@ namespace Project.Gameplay.Player.Interaction
         bool _isSorting;
         float _lastInteractTime;
         PreviewManager _previewManager;
-
-        public ManualCraftingStationInteract CurrentPreviewedStationInteract { get; }
         public Interactable currentInteractable { get; }
 
         void Start()
@@ -39,14 +39,19 @@ namespace Project.Gameplay.Player.Interaction
             _previewManager = FindObjectOfType<PreviewManager>();
             _highlightManager = FindObjectOfType<HighlightManager>();
 
+
             if (_previewManager == null) Debug.LogWarning("PreviewManager not found in the scene.");
             if (_highlightManager == null) Debug.LogWarning("HighlightManager not found in the scene.");
         }
 
         void Update()
         {
-            if (!_isSorting) UpdateNearestCraftingStation();
+            // Skip updates if no crafting stations are in range or if sorting is in progress
+            if (_isSorting || _craftingStationsInRange.Count == 0) return;
+
+            UpdateNearestCraftingStation();
         }
+
 
         void OnEnable()
         {
@@ -65,28 +70,24 @@ namespace Project.Gameplay.Player.Interaction
         {
             if (eventType.EventName == "CraftingStationRangeEntered")
             {
-                string craftingStationId = eventType.StringParameter;
-                Vector3 position = eventType.Vector3Parameter;
+                var craftingStationId = eventType.StringParameter;
+                var position = eventType.Vector3Parameter;
 
                 // Retrieve the CraftingStation instance (You need a mapping mechanism)
-                var craftingStationInteract = FindCraftingStationById(craftingStationId);
-                if (craftingStationInteract != null)
-                {
-                    HandleCraftingStationEntered(craftingStationInteract, position);
-                }
+                CurrentPreviewedStationInteract = FindCraftingStationById(craftingStationId);
+                if (CurrentPreviewedStationInteract != null)
+                    HandleCraftingStationEntered(CurrentPreviewedStationInteract, position);
             }
             else if (eventType.EventName == "CraftingStationRangeExited")
             {
-                string craftingStationId = eventType.StringParameter;
+                var craftingStationId = eventType.StringParameter;
 
-                var craftingStationInteract = FindCraftingStationById(craftingStationId);
-                if (craftingStationInteract != null)
-                {
-                    HandleCraftingStationExited(craftingStationInteract);
-                }
+                CurrentPreviewedStationInteract = FindCraftingStationById(craftingStationId);
+                if (CurrentPreviewedStationInteract != null)
+                    HandleCraftingStationExited(CurrentPreviewedStationInteract);
             }
         }
-        
+
         void HandleCraftingStationEntered(ManualCraftingStationInteract craftingStationInteract, Vector3 position)
         {
             if (!_craftingStationsInRange.ContainsKey(craftingStationInteract.UniqueID))
@@ -94,9 +95,10 @@ namespace Project.Gameplay.Player.Interaction
                 _craftingStationsInRange.Add(craftingStationInteract.UniqueID, craftingStationInteract);
                 _highlightManager.SelectObject(craftingStationInteract.transform);
 
-                // Show preview for the first/only station
+                // If this is the first station, set it as the previewed one
                 if (_craftingStationsInRange.Count == 1)
                 {
+                    CurrentPreviewedStationInteract = craftingStationInteract;
                     ShowPreviewPanel(craftingStationInteract.craftingStation);
                 }
 
@@ -104,12 +106,16 @@ namespace Project.Gameplay.Player.Interaction
             }
         }
 
+
         void HandleCraftingStationExited(ManualCraftingStationInteract craftingStationInteract)
         {
             if (_craftingStationsInRange.ContainsKey(craftingStationInteract.UniqueID))
             {
+                var wasCurrent = craftingStationInteract == CurrentPreviewedStationInteract;
                 _craftingStationsInRange.Remove(craftingStationInteract.UniqueID);
                 _highlightManager.UnselectObject(craftingStationInteract.transform);
+
+                if (wasCurrent) CurrentPreviewedStationInteract = null; // Clear the previewed station
 
                 // If no stations remain, clear the preview
                 if (_craftingStationsInRange.Count == 0)
@@ -123,18 +129,16 @@ namespace Project.Gameplay.Player.Interaction
                 }
             }
         }
+
         ManualCraftingStationInteract FindCraftingStationById(string id)
         {
             foreach (var station in _craftingStationsInRange.Values)
-            {
                 if (station.craftingStation.CraftingStationId == id)
-                {
                     return station;
-                }
-            }
+
             return null;
         }
-        
+
         public void ShowPreviewPanel(CraftingStation craftingStation)
         {
             if (PreviewPanelUI != null)
@@ -156,21 +160,44 @@ namespace Project.Gameplay.Player.Interaction
 
         void UpdateNearestCraftingStation()
         {
-            if (_craftingStationsInRange.Count == 0)
+            _isSorting = true;
+
+            try
             {
-                HidePreviewPanel();
-                return;
+                Debug.Log($"Updating nearest station. Stations in range: {_craftingStationsInRange.Count}");
+
+                if (_craftingStationsInRange.Count == 0)
+                {
+                    if (CurrentPreviewedStationInteract != null)
+                    {
+                        Debug.Log("No stations in range. Clearing CurrentPreviewedStationInteract.");
+                        CurrentPreviewedStationInteract = null;
+                        HidePreviewPanel();
+                    }
+
+                    return;
+                }
+
+                var nearestStation = _craftingStationsInRange.Values
+                    .OrderBy(station => Vector3.Distance(transform.position, station.transform.position))
+                    .FirstOrDefault();
+
+                if (nearestStation != CurrentPreviewedStationInteract)
+                {
+                    CurrentPreviewedStationInteract = nearestStation;
+                    if (nearestStation != null)
+                    {
+                        Debug.Log($"Nearest station set to: {nearestStation.UniqueID}");
+                        ShowPreviewPanel(nearestStation.craftingStation);
+                    }
+                }
             }
-
-            var nearestStation = _craftingStationsInRange.Values
-                .OrderBy(station => Vector3.Distance(transform.position, station.transform.position))
-                .FirstOrDefault();
-
-            if (nearestStation != null)
+            finally
             {
-                ShowPreviewPanel(nearestStation.craftingStation);
+                _isSorting = false;
             }
         }
+
 
         public void ShowSelectedCraftingStationPreviewPanel(CraftingStation craftingStation)
         {
@@ -185,8 +212,12 @@ namespace Project.Gameplay.Player.Interaction
         public bool IsPreviewedCraftingStation(ManualCraftingStationInteract manualCraftingStationInteract)
         {
             if (_isInteractLocked) return false;
+            Debug.Log("CurrentPreviewedStationInteract: " + CurrentPreviewedStationInteract);
+
             var isPreviewed = CurrentPreviewedStationInteract != null &&
                               CurrentPreviewedStationInteract.UniqueID == manualCraftingStationInteract.UniqueID;
+
+            Debug.Log("IsPreviewedCraftingStation: " + isPreviewed);
 
             return isPreviewed;
         }

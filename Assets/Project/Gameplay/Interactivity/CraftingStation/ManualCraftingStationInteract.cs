@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using MoreMountains.Feedbacks;
 using MoreMountains.InventoryEngine;
@@ -21,14 +20,13 @@ namespace Project.Gameplay.Interactivity.CraftingStation
         [Header("Feedbacks")]
         [Tooltip("Feedbacks to play when the item is picked up")]
         public MMFeedbacks initialInteractionFeedbacks; // Feedbacks to play when the item is picked up
-        
+
 
         bool _isInRange;
         PromptManager _promptManager;
 
         Inventory _sourceInventory;
         Inventory _targetInventory;
-
 
 
         void Start()
@@ -177,11 +175,7 @@ namespace Project.Gameplay.Interactivity.CraftingStation
                 return;
             }
 
-            if (!craftingStationPreviewManager.IsPreviewedCraftingStation(this))
-            {
-                Debug.Log("Failed to interact with crafting station");
-                return;
-            }
+            if (!craftingStationPreviewManager.IsPreviewedCraftingStation(this)) return;
 
             if (!craftingStationPreviewManager.TryBeginInteraction(this))
             {
