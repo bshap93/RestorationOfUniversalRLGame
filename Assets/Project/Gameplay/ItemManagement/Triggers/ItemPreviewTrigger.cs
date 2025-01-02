@@ -46,18 +46,12 @@ namespace Project.Gameplay.ItemManagement.Triggers
                 if (_previewManager == null)
                     _previewManager = other.GetComponent<PlayerItemPreviewManager>();
 
-<<<<<<< Updated upstream
                 var itemPicker = GetComponent<ManualItemPicker>();
                 if (itemPicker != null)
                 {
                     itemPicker.SetInRange(true);
                     ItemEvent.Trigger("ItemPickupRangeEntered", Item, transform);
                 }
-=======
-                var itemPicker = gameObject.GetComponent<ManualItemPicker>();
-
-                _previewManager.RegisterItem(itemPicker);
->>>>>>> Stashed changes
             }
         }
 
@@ -68,18 +62,12 @@ namespace Project.Gameplay.ItemManagement.Triggers
                 if (_previewManager == null)
                     _previewManager = other.GetComponent<PlayerItemPreviewManager>();
 
-<<<<<<< Updated upstream
                 var itemPicker = GetComponent<ManualItemPicker>();
                 if (itemPicker != null)
                 {
                     itemPicker.SetInRange(false);
                     ItemEvent.Trigger("ItemPickupRangeExited", Item, transform);
                 }
-=======
-                var itemPicker = gameObject.GetComponent<ManualItemPicker>();
-
-                _previewManager.UnregisterItem(itemPicker);
->>>>>>> Stashed changes
             }
         }
 
@@ -104,14 +92,6 @@ namespace Project.Gameplay.ItemManagement.Triggers
                 _previewManager = FindObjectOfType<PlayerItemPreviewManager>();
 
             _selectionFeedbacks?.PlayFeedbacks();
-<<<<<<< Updated upstream
-=======
-
-            var itemPicker = gameObject.GetComponent<ManualItemPicker>();
-
-
-            _previewManager.RegisterItem(itemPicker);
->>>>>>> Stashed changes
             _previewManager.ShowSelectedItemPreviewPanel(Item);
         }
 
@@ -121,13 +101,6 @@ namespace Project.Gameplay.ItemManagement.Triggers
                 _previewManager = FindObjectOfType<PlayerItemPreviewManager>();
 
             _deselectionFeedbacks?.PlayFeedbacks();
-<<<<<<< Updated upstream
-=======
-            
-            var itemPicker = gameObject.GetComponent<ManualItemPicker>();
-
-            _previewManager.UnregisterItem(itemPicker);
->>>>>>> Stashed changes
             _previewManager.HideSelectedItemPreviewPanel();
         }
     }
