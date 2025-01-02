@@ -86,20 +86,6 @@ namespace Project.Gameplay.Player.Inventory
             }
         }
 
-        public void LockPickup(string pickupId)
-        {
-            Debug.Log($"Locking pickup for item {pickupId}");
-            _currentPickupId = pickupId;
-            _isPickupLocked = true;
-        }
-
-        public void UnlockPickup()
-        {
-            Debug.Log($"Unlocking pickup (was locked for {_currentPickupId})");
-            _currentPickupId = null;
-            _isPickupLocked = false;
-        }
-
         public bool IsPreviewedItem(ManualItemPicker itemPicker)
         {
             if (_isPickupLocked) return false;
@@ -130,7 +116,7 @@ namespace Project.Gameplay.Player.Inventory
                     {
                         CurrentPreviewedItemPicker = null;
                         CurrentPreviewedItem = null;
-                        _previewManager.HidePreview();
+                        _previewManager.HideInventoryPreview();
                         HidePreviewPanel();
                     }
                     else
@@ -182,7 +168,7 @@ namespace Project.Gameplay.Player.Inventory
                     CurrentPreviewedItemPicker = null;
                     CurrentPreviewedItem = null;
                     HidePreviewPanel();
-                    _previewManager.HidePreview();
+                    _previewManager.HideInventoryPreview();
                 }
                 // If items remain and we removed the previewed item, update to show the next one
                 else if (wasCurrentlyPreviewed)
@@ -218,7 +204,7 @@ namespace Project.Gameplay.Player.Inventory
                     {
                         CurrentPreviewedItemPicker = null;
                         CurrentPreviewedItem = null;
-                        _previewManager.HidePreview();
+                        _previewManager.HideInventoryPreview();
                         HidePreviewPanel();
                     }
 
@@ -234,7 +220,7 @@ namespace Project.Gameplay.Player.Inventory
                                               closestPicker.UniqueID != CurrentPreviewedItemPicker.UniqueID))
                 {
                     SetPreviewedItem(closestPicker);
-                    _previewManager.ShowPreview(CurrentPreviewedItem);
+                    _previewManager.ShowInventoryPreview(CurrentPreviewedItem);
                 }
             }
             finally
@@ -265,13 +251,13 @@ namespace Project.Gameplay.Player.Inventory
         public void ShowSelectedItemPreviewPanel(InventoryItem item)
         {
             if (PreviewPanelUI != null) PreviewPanelUI.SetActive(true);
-            _previewManager.ShowPreview(item);
+            _previewManager.ShowInventoryPreview(item);
         }
 
         public void HideSelectedItemPreviewPanel()
         {
             if (PreviewPanelUI != null) PreviewPanelUI.SetActive(false);
-            _previewManager.HidePreview();
+            _previewManager.HideInventoryPreview();
         }
     }
 }

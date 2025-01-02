@@ -4,7 +4,9 @@ using JetBrains.Annotations;
 using MoreMountains.Feedbacks;
 using MoreMountains.InventoryEngine;
 using MoreMountains.Tools;
+using Project.Gameplay.Interactivity.Items;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Project.Gameplay.Interactivity.CraftingStation
 {
@@ -17,11 +19,20 @@ namespace Project.Gameplay.Interactivity.CraftingStation
     }
 
     [Serializable]
+    public class ActivationResource
+    {
+        public InventoryItem ActivationItem;
+        public int ActivationQuantity;
+    }
+
+    [Serializable]
     /// <summary>
     /// Objects that can be interacted with by the player
     /// 
     /// </summary>
-    public class CraftingStation : ScriptableObject
+    [CreateAssetMenu(
+        fileName = "Crafting", menuName = "Crafting/CraftingStation", order = 1)]
+    public class CraftingStation : Interactable
     {
         [Tooltip("The ID of the crafting station")]
         public string CraftingStationId;
@@ -37,6 +48,16 @@ namespace Project.Gameplay.Interactivity.CraftingStation
 
         [Tooltip("The name of the inventory finished items")]
         public string DepositInventoryName;
+
+        [Tooltip("Is the crafting station active. Or does it need action")]
+        public bool IsCraftingStationActive;
+
+        [FormerlySerializedAs("InitialActivationItem")]
+        [Tooltip(
+            "If a resource is an activation requirement, " +
+            "this is the item that will be consumed when the station is activated" +
+            "if present in source inventory")]
+        public ActivationResource InitialActivationResources;
 
         [Tooltip("The recipes that can be crafted at this station")]
         public List<CraftingRecipe> CraftingRecipes = new();
@@ -131,7 +152,5 @@ namespace Project.Gameplay.Interactivity.CraftingStation
             clone.name = name;
             return clone;
         }
-        
-        
     }
 }

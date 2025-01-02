@@ -1,19 +1,27 @@
 using System;
+using System.Collections.Generic;
 using MoreMountains.Feedbacks;
 using MoreMountains.InventoryEngine;
 using MoreMountains.Tools;
+using Project.Gameplay.Interactivity.Items;
 using Project.Gameplay.ItemManagement;
+using Project.Gameplay.Player.Interaction;
 using Project.UI.HUD;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Project.Gameplay.Interactivity.CraftingStation
 {
-    public class ManualCraftingStationInteract : MonoBehaviour
+    public class ManualCraftingStationInteract : ManualInteractablePicker
     {
-        public CraftingStation CraftingStation;
+        [FormerlySerializedAs("CraftingStation")]
+        public CraftingStation craftingStation;
 
-        [Header("Feedbacks")] [Tooltip("Feedbacks to play when the item is picked up")]
-        public MMFeedbacks pickedMmFeedbacks; // Feedbacks to play when the item is picked up
+        [FormerlySerializedAs("pickedMmFeedbacks")]
+        [Header("Feedbacks")]
+        [Tooltip("Feedbacks to play when the item is picked up")]
+        public MMFeedbacks initialInteractionFeedbacks; // Feedbacks to play when the item is picked up
+        
 
         bool _isInRange;
         PromptManager _promptManager;
@@ -21,12 +29,7 @@ namespace Project.Gameplay.Interactivity.CraftingStation
         Inventory _sourceInventory;
         Inventory _targetInventory;
 
-        public string UniqueID { get; set; }
 
-        void Awake()
-        {
-            UniqueID = Guid.NewGuid().ToString(); // Generate a unique ID
-        }
 
         void Start()
         {
@@ -39,10 +42,10 @@ namespace Project.Gameplay.Interactivity.CraftingStation
             var portableSystems = GameObject.Find("PortableSystems");
             if (portableSystems != null)
             {
-                if (CraftingStation.TargetInventoryName == "MainPlayerInventory")
+                if (craftingStation.TargetInventoryName == "MainPlayerInventory")
                     _targetInventory = GameObject.FindWithTag("MainPlayerInventory")
                         ?.GetComponent<Inventory>();
-                else if (CraftingStation.TargetInventoryName == "HotbarInventory")
+                else if (craftingStation.TargetInventoryName == "HotbarInventory")
                     _targetInventory = GameObject.FindWithTag("HotbarInventory")
                         ?.GetComponent<HotbarInventory>();
                 else
@@ -50,16 +53,16 @@ namespace Project.Gameplay.Interactivity.CraftingStation
                         ?.GetComponent<Inventory>();
 
 
-                if (CraftingStation.SourceInventoryName == CraftingStation.TargetInventoryName)
+                if (craftingStation.SourceInventoryName == craftingStation.TargetInventoryName)
                 {
                     _sourceInventory = _targetInventory;
                 }
                 else
                 {
-                    if (CraftingStation.SourceInventoryName == "MainPlayerInventory")
+                    if (craftingStation.SourceInventoryName == "MainPlayerInventory")
                         _sourceInventory = GameObject.FindWithTag("MainPlayerInventory")
                             ?.GetComponent<Inventory>();
-                    else if (CraftingStation.SourceInventoryName == "HotbarInventory")
+                    else if (craftingStation.SourceInventoryName == "HotbarInventory")
                         _sourceInventory = GameObject.FindWithTag("HotbarInventory")
                             ?.GetComponent<HotbarInventory>();
                     else
@@ -71,12 +74,12 @@ namespace Project.Gameplay.Interactivity.CraftingStation
                 if (_sourceInventory == null) Debug.LogWarning("Source inventory not found in PortableSystems.");
 
                 // Initialize feedbacks
-                if (pickedMmFeedbacks != null) pickedMmFeedbacks.Initialization(gameObject);
+                if (initialInteractionFeedbacks != null) initialInteractionFeedbacks.Initialization(gameObject);
             }
         }
         void Update()
         {
-            if (_isInRange && UnityEngine.Input.GetKeyDown(KeyCode.F)) Interact();
+            if (_isInRange && UnityEngine.Input.GetKeyDown(KeyCode.F)) StartInteractionWithCraftingStation();
         }
 
         void OnDestroy()
@@ -85,33 +88,28 @@ namespace Project.Gameplay.Interactivity.CraftingStation
             enabled = false;
         }
 
-        void OnTriggerEnter(Collider itemPickerCollider)
+        void OnTriggerEnter(Collider collider0)
         {
-            if (itemPickerCollider.CompareTag("Player"))
+            if (collider0.CompareTag("Player"))
             {
                 _isInRange = true;
                 _promptManager?.ShowInteractPrompt("Press F to interact");
                 MMGameEvent.Trigger(
                     "CraftingStationRangeEntered",
-                    stringParameter: CraftingStation.CraftingStationId, vector3Parameter: transform.position);
+                    stringParameter: craftingStation.CraftingStationId, vector3Parameter: transform.position);
             }
         }
 
-        void OnTriggerExit(Collider collider)
+        void OnTriggerExit(Collider collider0)
         {
-            if (collider.CompareTag("Player"))
+            if (collider0.CompareTag("Player"))
             {
                 _isInRange = false;
                 _promptManager?.HideInteractPrompt();
                 MMGameEvent.Trigger(
                     "CraftingStationRangeExited",
-                    stringParameter: CraftingStation.CraftingStationId, vector3Parameter: transform.position);
+                    stringParameter: craftingStation.CraftingStationId, vector3Parameter: transform.position);
             }
-        }
-
-        void Interact()
-        {
-            CraftingStation.Interact();
         }
 
         public void SetInRange(bool inRange)
@@ -120,10 +118,86 @@ namespace Project.Gameplay.Interactivity.CraftingStation
             if (_promptManager != null)
             {
                 if (inRange)
-                    _promptManager.ShowPickupPrompt();
+                    _promptManager.ShowInteractPrompt("Press F to interact");
                 else
-                    _promptManager.HidePickupPrompt();
+                    _promptManager.HideInteractPrompt();
             }
+        }
+
+        void HandleCraftingStationInitialAction()
+        {
+            var initialActionItem = craftingStation.InitialActivationResources;
+            var indices = IndicesWithSpecifiedItem(_sourceInventory, initialActionItem.ActivationItem);
+
+            for (var i = 0; i < indices.Count; i++)
+                if (_sourceInventory.RemoveItem(i, 1))
+                {
+                    Debug.Log("Initial action item removed");
+                }
+                else
+                {
+                    Debug.Log("Player lacks the initial action item");
+                    return;
+                }
+
+            FinishInitialInteraction();
+        }
+
+        List<int> IndicesWithSpecifiedItem(Inventory inventory, InventoryItem item)
+        {
+            var indices = new List<int>();
+            for (var i = 0; i < inventory.Content.Length; i++)
+                if (inventory.Content[i].ItemID == item.ItemID)
+                    indices.Add(i);
+
+            return indices;
+        }
+
+        void StartInteractionWithCraftingStation()
+        {
+            if (craftingStation == null || !_isInRange)
+            {
+                Debug.Log(
+                    $"[{UniqueID}] Early exit - CraftingStation null: {craftingStation == null}, Not in range: {!_isInRange}");
+
+                return;
+            }
+
+            var player = GameObject.FindWithTag("Player");
+            if (player == null)
+            {
+                Debug.Log("Player not found");
+                return;
+            }
+
+            var craftingStationPreviewManager = player.GetComponent<CraftingStationPreviewManager>();
+            if (craftingStationPreviewManager == null)
+            {
+                Debug.Log("Preview manager not found");
+                return;
+            }
+
+            if (!craftingStationPreviewManager.IsPreviewedCraftingStation(this))
+            {
+                Debug.Log("Failed to interact with crafting station");
+                return;
+            }
+
+            if (!craftingStationPreviewManager.TryBeginInteraction(this))
+            {
+                Debug.Log("Failed to interact with crafting station");
+                return;
+            }
+
+            HandleCraftingStationInitialAction();
+        }
+
+        void FinishInitialInteraction()
+        {
+            craftingStation.Interact();
+            _promptManager?.HidePickupPrompt();
+            MMGameEvent.Trigger("CraftingStationActivated", stringParameter: craftingStation.CraftingStationId);
+            initialInteractionFeedbacks?.PlayFeedbacks();
         }
     }
 }

@@ -14,7 +14,7 @@ namespace Project.Gameplay.Interactivity.CraftingStation
         [SerializeField] MMFeedbacks _deselectionFeedbacks;
         ManualCraftingStationInteract _craftingStationInteract;
 
-        PlayerInteractionPreviewManager _playerPreviewManager;
+        CraftingStationPreviewManager _playerPreviewManager;
 
         void Awake()
         {
@@ -23,7 +23,7 @@ namespace Project.Gameplay.Interactivity.CraftingStation
             if (_craftingStationInteract == null)
                 _craftingStationInteract = gameObject.AddComponent<ManualCraftingStationInteract>();
 
-            _craftingStationInteract.CraftingStation = CraftingStation;
+            _craftingStationInteract.craftingStation = CraftingStation;
         }
 
         void OnEnable()
@@ -41,7 +41,7 @@ namespace Project.Gameplay.Interactivity.CraftingStation
             if (other.CompareTag("Player"))
             {
                 if (_playerPreviewManager == null)
-                    _playerPreviewManager = other.GetComponent<PlayerInteractionPreviewManager>();
+                    _playerPreviewManager = other.GetComponent<CraftingStationPreviewManager>();
 
                 var itemPicker = GetComponent<ManualCraftingStationInteract>();
                 if (itemPicker != null)
@@ -73,7 +73,7 @@ namespace Project.Gameplay.Interactivity.CraftingStation
             if (eventType.EventType == MMCameraEventTypes.SetTargetCharacter)
             {
                 if (_playerPreviewManager == null)
-                    _playerPreviewManager = FindObjectOfType<PlayerInteractionPreviewManager>();
+                    _playerPreviewManager = FindObjectOfType<CraftingStationPreviewManager>();
 
                 if (_selectionFeedbacks == null)
                     _selectionFeedbacks = _playerPreviewManager.SelectionFeedbacks;
@@ -86,19 +86,19 @@ namespace Project.Gameplay.Interactivity.CraftingStation
         public void OnSelectedItem()
         {
             if (_playerPreviewManager == null)
-                _playerPreviewManager = FindObjectOfType<PlayerInteractionPreviewManager>();
+                _playerPreviewManager = FindObjectOfType<CraftingStationPreviewManager>();
 
             _selectionFeedbacks?.PlayFeedbacks();
-            _playerPreviewManager.ShowSelectedInteractablePreviewPanel(CraftingStation);
+            _playerPreviewManager.ShowSelectedCraftingStationPreviewPanel(CraftingStation);
         }
 
         public void OnDeselectedItem()
         {
             if (_playerPreviewManager == null)
-                _playerPreviewManager = FindObjectOfType<PlayerInteractionPreviewManager>();
+                _playerPreviewManager = FindObjectOfType<CraftingStationPreviewManager>();
 
             _deselectionFeedbacks?.PlayFeedbacks();
-            _playerPreviewManager.HideSelectedInteractablePreviewPanel();
+            _playerPreviewManager.HideSelectedCraftingStationPreviewPanel();
         }
     }
 }
