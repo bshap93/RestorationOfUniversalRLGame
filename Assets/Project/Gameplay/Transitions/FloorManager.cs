@@ -1,81 +1,45 @@
 ﻿using System.Collections.Generic;
+using Project.Core.SaveSystem;
 using UnityEngine;
 
 namespace Project.Gameplay.Transitions
 {
     public class FloorManager : MonoBehaviour
     {
-        [Header("Visibility Settings")] [Range(0f, 1f)]
-        public float upperFloorAlpha = 0.3f;
-        [Range(0f, 1f)] public float lowerFloorAlpha = 1f;
+        [Header("Floor Setup")] public List<GameObject> floors; // List of all floors
 
-        [Header("Dynamic Visibility")] public bool useDynamicVisibility = true;
-        public float visibilityRadius = 5f;
-        public float fadeSpeed = 5f;
+        public List<Collider> floorColliders; // List of all floor colliders
+        public SpawnPoint initialSpawnPoint;
+        public Dictionary<string, Collider> FloorColliderDictionary = new();
+        public Dictionary<string, GameObject> FloorDictionary = new();
 
-        readonly List<Floor> floors = new();
-        Transform player;
-        public static FloorManager Instance { get; private set; }
-
-        void Awake()
+        void Start()
         {
-            if (Instance == null)
-            {
-                Instance = this;
-            }
-            else
-            {
-                Destroy(gameObject);
-                return;
-            }
-
-            // Find all floors in the scene
-            var foundFloors = FindObjectsOfType<Floor>();
-            floors.AddRange(foundFloors);
-
-            // Find player
-            player = FindObjectOfType<FloorTriggerDetector>().transform;
-        }
-
-        void Update()
-        {
-            if (useDynamicVisibility) UpdateDynamicVisibility();
-        }
-
-        public void UpdateFloorVisibility(Floor currentFloor)
-        {
+            // Initialize the floor dictionary
             foreach (var floor in floors)
-                if (floor.floorLevel > currentFloor.floorLevel)
-                    floor.SetTransparency(upperFloorAlpha);
-                else
-                    floor.SetTransparency(lowerFloorAlpha);
-        }
-
-        void UpdateDynamicVisibility()
-        {
-            foreach (var floor in floors)
-                if (floor.floorLevel > player.GetComponent<FloorTriggerDetector>().CurrentFloor.floorLevel)
+            {
+                var floorComponent = floor.GetComponent<FloorLevel>();
+                if (floorComponent != null)
                 {
-                    // Calculate distance-based alpha
-                    var distanceToPlayer = Vector3.Distance(
-                        new Vector3(player.position.x, 0, player.position.z),
-                        new Vector3(floor.transform.position.x, 0, floor.transform.position.z)
-                    );
-
-                    var targetAlpha = Mathf.Lerp(
-                        0.1f, upperFloorAlpha,
-                        Mathf.Clamp01(distanceToPlayer / visibilityRadius));
-
-                    floor.SetTransparency(targetAlpha);
+                    FloorDictionary[floorComponent.floorName] = floor;
+                    FloorColliderDictionary[floorComponent.floorName] = floorColliders[floors.IndexOf(floor)];
                 }
-        }
+                else
+                {
+                    Debug.LogWarning($"Floor {floor.name} is missing a FloorID component.");
+                }
+            }
 
-        // Optional: Manual floor toggling
-        public void ToggleFloorVisibility(int floorLevel, bool visible)
+            // Set the initial floor
+            if (initialSpawnPoint != null)
+                SetFloorVisibility(initialSpawnPoint.FloorLevel.floorName);
+        }
+        public void SetFloorVisibility(string floorName)
         {
-            foreach (var floor in floors)
-                if (floor.floorLevel == floorLevel)
-                    floor.SetTransparency(visible ? lowerFloorAlpha : upperFloorAlpha);
+            Debug.Log("Setting floor visibility to " + floorName);
+            foreach (var kvp in
+                     FloorDictionary)
+                kvp.Value.SetActive(kvp.Key == floorName); // Enable the matching floor, disable others
         }
     }
 }

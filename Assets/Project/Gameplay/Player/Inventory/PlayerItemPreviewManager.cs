@@ -36,7 +36,7 @@ namespace Project.Gameplay.Player.Inventory
         public InventoryItem CurrentPreviewedItem { get; private set; }
 
 
-        void Start()
+        void Awake()
         {
             _previewManager = FindObjectOfType<PreviewManager>();
             _highlightManager = FindObjectOfType<HighlightManager>();

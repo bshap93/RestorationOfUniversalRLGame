@@ -67,7 +67,7 @@ namespace Project.Core.GameInitialization
                     return;
                 }
 
-                var initialSpawnPoints = generatedDungeon.GetComponentsInChildren<InitialSpawnPoint>();
+                var initialSpawnPoints = generatedDungeon.GetComponentsInChildren<SpawnPoint>();
 
                 PointsOfEntry = new Transform[initialSpawnPoints.Length];
 

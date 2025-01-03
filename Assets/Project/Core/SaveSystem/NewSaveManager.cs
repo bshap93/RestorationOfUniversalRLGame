@@ -26,7 +26,6 @@ namespace Project.Core.SaveSystem
         void Awake()
         {
             spawnPointManager = FindObjectOfType<SpawnPointManager>();
-            if (spawnPointManager == null) Debug.LogWarning("No SpawnPointManager found in scene!");
 
             if (Instance == null)
             {
@@ -41,7 +40,7 @@ namespace Project.Core.SaveSystem
         }
 
 
-        SpawnPoint FindSpawnPoint(string spawnPointId)
+        Gameplay.DungeonGeneration.Spawning.SpawnPoint FindSpawnPoint(string spawnPointId)
         {
             return spawnPointManager.GetSpawnPointById(spawnPointId);
         }

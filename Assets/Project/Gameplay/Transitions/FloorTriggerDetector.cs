@@ -1,20 +1,24 @@
 using UnityEngine;
 
-// Attach this to the player
 namespace Project.Gameplay.Transitions
 {
     public class FloorTriggerDetector : MonoBehaviour
     {
-        public Floor CurrentFloor { get; private set; }
+        FloorManager _floorManager;
+
+        void Start()
+        {
+            _floorManager = FindObjectOfType<FloorManager>();
+
+            if (_floorManager == null) Debug.LogError("FloorManager not found in the scene");
+        }
 
         void OnTriggerEnter(Collider other)
         {
-            var floor = other.GetComponent<Floor>();
-            if (floor != null)
-            {
-                CurrentFloor = floor;
-                FloorManager.Instance.UpdateFloorVisibility(CurrentFloor);
-            }
+            if (_floorManager == null) return;
+            var floorCollider = other.GetComponent<FloorCollider>();
+            if (floorCollider != null) 
+                _floorManager.SetFloorVisibility(floorCollider.FloorLevel.floorName);
         }
     }
 }
