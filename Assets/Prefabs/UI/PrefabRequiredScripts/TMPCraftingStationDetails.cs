@@ -1,16 +1,15 @@
-﻿using System.Collections;
-using MoreMountains.Tools;
+﻿using MoreMountains.Tools;
 using Project.Gameplay.Interactivity.CraftingStation;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace Prefabs.UI.PrefabRequiredScripts
 {
-    public class TMPCraftingStationDetails : MonoBehaviour
+    public class TMPCraftingStationDetails : MonoBehaviour, MMEventListener<MMGameEvent>
     {
-        [Header("Crafting Station Details")]
-        public TMP_Text TMPTitle;
+        [Header("Crafting Station Details")] public TMP_Text TMPTitle;
         public TMP_Text TMPShortDescription;
         public TMP_Text TMPDescription;
         public TMP_Text TMPEfficiency;
@@ -18,8 +17,7 @@ namespace Prefabs.UI.PrefabRequiredScripts
         public TMP_Text TMPIsActive;
         public Image Icon;
 
-        [Header("Defaults")]
-        public string DefaultTitle = "No Station Selected";
+        [Header("Defaults")] public string DefaultTitle = "No Station Selected";
         public string DefaultShortDescription = "Select a crafting station";
         public string DefaultDescription = "";
         public string DefaultEfficiency = "0.0";
@@ -27,19 +25,48 @@ namespace Prefabs.UI.PrefabRequiredScripts
         public string DefaultIsActive = "Inactive";
         public Sprite DefaultIcon;
 
-        private CanvasGroup _canvasGroup;
+        [FormerlySerializedAs("PreviewEventNamae")]
+        [FormerlySerializedAs("PreviewCraftingStation")]
+        [FormerlySerializedAs("CraftingStationSelectedEvent")]
+        public string PreviewEventName = "PreviewCraftingStation";
+        public CraftingStationType CraftingStationType;
 
-        private void Start()
+        CanvasGroup _canvasGroup;
+
+        void Start()
         {
             _canvasGroup = GetComponent<CanvasGroup>();
-            if (_canvasGroup != null)
+            if (_canvasGroup != null) _canvasGroup.alpha = 0; // Initially hide the details
+        }
+
+        void OnEnable()
+        {
+            this.MMEventStartListening();
+        }
+
+        void OnDisable()
+        {
+            this.MMEventStopListening();
+        }
+
+        public void OnMMEvent(MMGameEvent eventType)
+        {
+            if (eventType.EventName == PreviewEventName)
             {
-                _canvasGroup.alpha = 0; // Initially hide the details
+                switch (CraftingStationType)
+                {
+                    case CraftingStationType.CookingStation:
+                        Debug.Log("Cooking Station Previewed");
+                        break;
+                }
+
+                _canvasGroup.alpha = 1;
+                gameObject.SetActive(true);
             }
         }
 
         /// <summary>
-        /// Display the details of a given crafting station.
+        ///     Display the details of a given crafting station.
         /// </summary>
         public void DisplayPreview(CraftingStation craftingStation)
         {
@@ -54,17 +81,20 @@ namespace Prefabs.UI.PrefabRequiredScripts
             if (TMPDescription != null) TMPDescription.text = craftingStation.Description;
             if (TMPEfficiency != null)
                 TMPEfficiency.text = craftingStation.CraftingStationEfficiency.ToString("P0");
+
             if (TMPConcurrentCraftingLimit != null)
                 TMPConcurrentCraftingLimit.text = craftingStation.ConcurrentCraftingLimit.ToString();
+
             if (TMPIsActive != null)
                 TMPIsActive.text = craftingStation.IsCraftingStationActive ? "Active" : "Inactive";
+
             if (Icon != null) Icon.sprite = craftingStation.Icon;
 
             Show();
         }
 
         /// <summary>
-        /// Fills the fields with default values.
+        ///     Fills the fields with default values.
         /// </summary>
         public void FillWithDefaults()
         {
@@ -80,7 +110,7 @@ namespace Prefabs.UI.PrefabRequiredScripts
         }
 
         /// <summary>
-        /// Hides the details panel.
+        ///     Hides the details panel.
         /// </summary>
         public void Hide()
         {
@@ -93,7 +123,7 @@ namespace Prefabs.UI.PrefabRequiredScripts
         }
 
         /// <summary>
-        /// Shows the details panel.
+        ///     Shows the details panel.
         /// </summary>
         public void Show()
         {

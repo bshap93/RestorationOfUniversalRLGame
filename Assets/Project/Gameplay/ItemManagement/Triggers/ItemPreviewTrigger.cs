@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace Project.Gameplay.ItemManagement.Triggers
 {
-    public class ItemPreviewTrigger : MonoBehaviour, MMEventListener<MMCameraEvent>
+    public class ItemPreviewTrigger : MonoBehaviour, MMEventListener<MMCameraEvent>, IPreviewTrigger
     {
         public InventoryItem Item;
 
@@ -71,21 +71,6 @@ namespace Project.Gameplay.ItemManagement.Triggers
             }
         }
 
-        public void OnMMEvent(MMCameraEvent eventType)
-        {
-            if (eventType.EventType == MMCameraEventTypes.SetTargetCharacter)
-            {
-                if (_playerPreviewManager == null)
-                    _playerPreviewManager = FindObjectOfType<PlayerItemPreviewManager>();
-
-                if (_selectionFeedbacks == null)
-                    _selectionFeedbacks = _playerPreviewManager.SelectionFeedbacks;
-
-                if (_deselectionFeedbacks == null)
-                    _deselectionFeedbacks = _playerPreviewManager.DeselectionFeedbacks;
-            }
-        }
-
         public void OnSelectedItem()
         {
             if (_playerPreviewManager == null)
@@ -102,6 +87,21 @@ namespace Project.Gameplay.ItemManagement.Triggers
 
             _deselectionFeedbacks?.PlayFeedbacks();
             _playerPreviewManager.HideSelectedItemPreviewPanel();
+        }
+
+        public void OnMMEvent(MMCameraEvent eventType)
+        {
+            if (eventType.EventType == MMCameraEventTypes.SetTargetCharacter)
+            {
+                if (_playerPreviewManager == null)
+                    _playerPreviewManager = FindObjectOfType<PlayerItemPreviewManager>();
+
+                if (_selectionFeedbacks == null)
+                    _selectionFeedbacks = _playerPreviewManager.SelectionFeedbacks;
+
+                if (_deselectionFeedbacks == null)
+                    _deselectionFeedbacks = _playerPreviewManager.DeselectionFeedbacks;
+            }
         }
     }
 }
