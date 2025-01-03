@@ -1392,13 +1392,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25386fff487a13042a836206a4b037fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _position: {x: -17.5, y: 7.799999, z: 12.999975}
+  _position: {x: 0, y: 0, z: 0}
   _rotation: {x: -0, y: 0, z: 0}
   _scale: {x: 1, y: 1, z: 1}
-  _enabled: 0
+  _enabled: 1
   _transformPivot: 1
   _transformSpace: 1
-  _pivotObject: {fileID: 1250440350}
+  _pivotObject: {fileID: 718564411}
 --- !u!114 &414262159
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1752,6 +1752,12 @@ MonoBehaviour:
 --- !u!4 &682122045 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3421783665844719643, guid: f07dc1858a031b04e944a983ec74c62d,
+    type: 3}
+  m_PrefabInstance: {fileID: 2474666099303281080}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &718564411 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3393924794413741525, guid: f07dc1858a031b04e944a983ec74c62d,
     type: 3}
   m_PrefabInstance: {fileID: 2474666099303281080}
   m_PrefabAsset: {fileID: 0}
@@ -2453,7 +2459,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4000010972256780, guid: 73629585737e6c249825f9f2be9ebc82, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 12.749997
+      value: 12.957184
       objectReference: {fileID: 0}
     - target: {fileID: 4000010972256780, guid: 73629585737e6c249825f9f2be9ebc82, type: 3}
       propertyPath: m_LocalRotation.w
@@ -2488,6 +2494,12 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 73629585737e6c249825f9f2be9ebc82, type: 3}
+--- !u!1 &1085057836 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1000013907576366, guid: 73629585737e6c249825f9f2be9ebc82,
+    type: 3}
+  m_PrefabInstance: {fileID: 1085057835}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1087809601
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2514,13 +2526,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6454454b8e7bffc4d892da50cd0e4a4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _position: {x: -22.484154, y: 10.050001, z: 5.2946587}
-  _rotation: {x: 0.000002504478, y: 0, z: 0}
+  _position: {x: -17.25, y: 5.3, z: 7.7499976}
+  _rotation: {x: 1.0177775e-13, y: 270, z: -0.000002504478}
   _scale: {x: 1, y: 1, z: 1}
-  _enabled: 1
+  _enabled: 0
   _transformPivot: 1
   _transformSpace: 1
-  _pivotObject: {fileID: 1324598452}
+  _pivotObject: {fileID: 1085057836}
 --- !u!114 &1093283645
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2892,12 +2904,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2231c751edaabd044aeb476ea4ff3d62, type: 3}
---- !u!1 &1250440350 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1000011735570208, guid: 2231c751edaabd044aeb476ea4ff3d62,
-    type: 3}
-  m_PrefabInstance: {fileID: 1250440349}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1250440351 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4000013563460930, guid: 2231c751edaabd044aeb476ea4ff3d62,
@@ -3058,12 +3064,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c6073f6aadeb5d048a571c9f6ea8f35c, type: 3}
---- !u!1 &1324598452 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1000011341575300, guid: c6073f6aadeb5d048a571c9f6ea8f35c,
-    type: 3}
-  m_PrefabInstance: {fileID: 1324598451}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1337161166
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3175,7 +3175,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ace7d2110d53054789ee471eb4ec241, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _position: {x: -17.5, y: 7.799999, z: 12.999975}
+  _position: {x: -17.25, y: 5.3, z: 7.7499976}
   _rotation: {x: -0, y: 0, z: 0}
   _scale: {x: 1, y: 1, z: 1}
   _enabled: 0
@@ -4028,7 +4028,7 @@ MonoBehaviour:
   - {fileID: 1892800512}
   - {fileID: 207099547}
   - {fileID: 1755296900}
-  _pivotObject: {fileID: 1324598452}
+  _pivotObject: {fileID: 718564411}
   _transformPivot: 1
   _transformSpace: 1
 --- !u!114 &2065002149
@@ -4072,8 +4072,8 @@ MonoBehaviour:
   _gizmos: {fileID: 2062115865}
   _selectionShapeType: 0
   _selectedObjects:
-  - {fileID: 1324598452}
-  _gizmosPivotObject: {fileID: 1324598452}
+  - {fileID: 718564411}
+  _gizmosPivotObject: {fileID: 718564411}
 --- !u!28 &2090504028
 Texture2D:
   m_ObjectHideFlags: 0
