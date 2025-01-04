@@ -8,7 +8,6 @@ using Project.Core.SaveSystem;
 using Project.Gameplay.DungeonGeneration;
 using Project.Gameplay.Enemy;
 using Project.Gameplay.Player;
-using TopDownEngine.Common.Scripts.Spawn;
 using UnityEngine;
 
 namespace Project.Core.GameInitialization
@@ -103,8 +102,8 @@ namespace Project.Core.GameInitialization
             if (_dungeonManager != null) await _dungeonManager.GenerateNewDungeon(seed);
 
             // Spawn the player
-            var initialSpawnPoint = FindObjectOfType<CheckPoint>();
-            if (initialSpawnPoint == null) Debug.LogWarning("No CheckPoint found for initial spawn!");
+            var initialSpawnPoint = FindObjectOfType<SpawnPoint>();
+            if (initialSpawnPoint == null) Debug.LogError("No CheckPoint found for initial spawn!");
         }
 
         void ApplyCharacterCreationDataToPlayer(GameObject playerGameObject)

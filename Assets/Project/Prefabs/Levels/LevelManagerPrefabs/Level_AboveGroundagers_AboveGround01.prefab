@@ -75,7 +75,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1848509825903517207}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -7.5, y: 1.5, z: 9.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -135,7 +135,7 @@ MonoBehaviour:
   PlayerPrefabs:
   - {fileID: 2310818216372968271, guid: 7febc7d991488554f88c16e05c8b7e2f, type: 3}
   SceneCharacters: []
-  InitialSpawnPoint: {fileID: 2715419063356324504}
+  InitialSpawnPoint: {fileID: 0}
   CurrentCheckpoint: {fileID: 0}
   PointsOfEntry: []
   IntroFadeDuration: 0.1
@@ -242,7 +242,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1135974198695155624}
   - component: {fileID: 2715419063356324504}
-  - component: {fileID: 6821605695585533142}
+  - component: {fileID: 6442855165594807788}
   m_Layer: 0
   m_Name: InitialSpawnPoint
   m_TagString: Untagged
@@ -259,7 +259,7 @@ Transform:
   m_GameObject: {fileID: 4866048905936575984}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -7.1, y: -1.418, z: -1.99}
+  m_LocalPosition: {x: -11.08, y: 4.84, z: -1.99}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -280,7 +280,7 @@ MonoBehaviour:
   FacingDirection: 3
   ForceAssignation: 1
   CheckPointOrder: 0
---- !u!114 &6821605695585533142
+--- !u!114 &6442855165594807788
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -289,10 +289,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 4866048905936575984}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4805999c34b24f40be6be5fde5e6c44, type: 3}
+  m_Script: {fileID: 11500000, guid: 10599d7b4456a3648ab201c62871fd48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SpawnPointID: 
+  SpawnPointID: StagingAreaSP01
+  FloorLevel: {fileID: 0}
 --- !u!1 &5939777746170754219
 GameObject:
   m_ObjectHideFlags: 0
