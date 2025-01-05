@@ -61,8 +61,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1022568561645634871}
   - component: {fileID: 6582122439802742969}
-  - component: {fileID: 5588283240670532100}
   - component: {fileID: 4612952587289465705}
+  - component: {fileID: 8582573612533724610}
   m_Layer: 0
   m_Name: DungeonEntry
   m_TagString: Untagged
@@ -100,19 +100,6 @@ MonoBehaviour:
   FacingDirection: 2
   ForceAssignation: 0
   CheckPointOrder: 0
---- !u!114 &5588283240670532100
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4949317667616305262}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4805999c34b24f40be6be5fde5e6c44, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  SpawnPointID: DungeonEntry
 --- !u!135 &4612952587289465705
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -134,6 +121,20 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 1.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &8582573612533724610
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4949317667616305262}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10599d7b4456a3648ab201c62871fd48, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SpawnPointID: FirstLevelSpawnPoint01
+  FloorLevel: {fileID: 0}
 --- !u!1 &4996005151333199962
 GameObject:
   m_ObjectHideFlags: 0
@@ -383,7 +384,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8538523244363305254}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -7.5, y: 1.5, z: 9.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
