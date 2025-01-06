@@ -85,9 +85,6 @@ namespace Project.Animation_Effects.CharacterAnimation.AnimationController.Weapo
         {
             if (eventType.InventoryEventType == MMInventoryEventType.ItemEquipped)
                 EquipWeapon(eventType.EventItem);
-            else
-                // print the event type
-                Debug.Log(eventType.InventoryEventType);
         }
 
         void EquipWeapon(InventoryItem item)

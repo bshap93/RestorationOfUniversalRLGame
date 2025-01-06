@@ -5086,9 +5086,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8123608009838677362}
-  - component: {fileID: 6579209387403672509}
+  - component: {fileID: 6370259513037424556}
   m_Layer: 0
-  m_Name: FuelInventory
+  m_Name: CookingStation01FuelInventory
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5109,7 +5109,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2649716491489293896}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6579209387403672509
+--- !u!114 &6370259513037424556
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -5118,7 +5118,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1125205498014765634}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 286d1c3722a3a0749afb21ea8728d132, type: 3}
+  m_Script: {fileID: 11500000, guid: 3e4632466e0742f086cb9c633ced3973, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   PlayerID: Player1
@@ -5128,7 +5128,13 @@ MonoBehaviour:
   TargetTransform: {fileID: 0}
   Persistent: 1
   ResetThisInventorySaveOnStart: 0
-  DrawContentInInspector: 1
+  DrawContentInInspector: 0
+  primaryPlayerInventory: {fileID: 0}
+  fuelItemAllowed: {fileID: 11400000, guid: 686e83163144d5040a850536167aff7c, type: 2}
+  fuelStartsFeedback: {fileID: 6824818595004192808}
+  fuelEndsFeedback: {fileID: 0}
+  fuelBurntProgressBar: {fileID: 0}
+  fuelItems: []
 --- !u!1 &1448733978007694372
 GameObject:
   m_ObjectHideFlags: 0
@@ -5708,6 +5714,7 @@ Transform:
   m_Children:
   - {fileID: 3375800866406524861}
   - {fileID: 1611260931851227350}
+  - {fileID: 3794396318937477195}
   - {fileID: 2813060181877020229}
   - {fileID: 8959620642021563491}
   - {fileID: 924090438773793488}
@@ -11214,6 +11221,223 @@ MonoBehaviour:
         Vector3Parameter: {x: 0, y: 0, z: 0}
         BoolParameter: 1
         StringParameter: CookStation01
+--- !u!1 &7630593028259928055
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3794396318937477195}
+  - component: {fileID: 8397193984380210425}
+  m_Layer: 0
+  m_Name: KillFuelFeedback
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3794396318937477195
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7630593028259928055}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5417169732897977149}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8397193984380210425
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7630593028259928055}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6da43522623d4704e979466dc7650b65, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Feedbacks: []
+  InitializationMode: 2
+  AutoInitialization: 1
+  SafeMode: 3
+  Direction: 0
+  AutoChangeDirectionOnEnd: 0
+  AutoPlayOnStart: 0
+  AutoPlayOnEnable: 0
+  ForceTimescaleMode: 0
+  ForcedTimescaleMode: 1
+  DurationMultiplier: 1
+  TimescaleMultiplier: 1
+  RandomizeDuration: 0
+  RandomDurationMultiplier: {x: 0.5, y: 1.5}
+  DisplayFullDurationDetails: 0
+  PlayerTimescaleMode: 1
+  OnlyPlayIfWithinRange: 0
+  RangeCenter: {fileID: 0}
+  RangeDistance: 5
+  UseRangeFalloff: 0
+  RangeFalloff:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  RemapRangeFalloff: {x: 0, y: 1}
+  IgnoreRangeEvents: 0
+  CooldownDuration: 0
+  InitialDelay: 0
+  CanPlay: 1
+  CanPlayWhileAlreadyPlaying: 1
+  ChanceToPlay: 100
+  FeedbacksIntensity: 1
+  Events:
+    TriggerMMFeedbacksEvents: 0
+    TriggerUnityEvents: 1
+    OnPlay:
+      m_PersistentCalls:
+        m_Calls: []
+    OnPause:
+      m_PersistentCalls:
+        m_Calls: []
+    OnResume:
+      m_PersistentCalls:
+        m_Calls: []
+    OnRevert:
+      m_PersistentCalls:
+        m_Calls: []
+    OnComplete:
+      m_PersistentCalls:
+        m_Calls: []
+    OnRestoreInitialValues:
+      m_PersistentCalls:
+        m_Calls: []
+    OnSkipToTheEnd:
+      m_PersistentCalls:
+        m_Calls: []
+    OnInitializationComplete:
+      m_PersistentCalls:
+        m_Calls: []
+    OnEnable:
+      m_PersistentCalls:
+        m_Calls: []
+    OnDisable:
+      m_PersistentCalls:
+        m_Calls: []
+  DebugActive: 0
+  FeedbacksList:
+  - rid: 961850726944079874
+  KeepPlayModeChanges: 0
+  PerformanceMode: 0
+  StopFeedbacksOnDisable: 0
+  PlayCount: 0
+  references:
+    version: 2
+    RefIds:
+    - rid: 961850726944079874
+      type: {class: MMF_PlayerControl, ns: MoreMountains.Feedbacks, asm: MoreMountains.Tools}
+      data:
+        Active: 1
+        UniqueID: -575794940
+        Label: MMF Player Control
+        ChannelMode: 0
+        Channel: 0
+        MMChannelDefinition: {fileID: 0}
+        Chance: 100
+        DisplayColor: {r: 0, g: 0, b: 0, a: 1}
+        Timing:
+          TimescaleMode: 0
+          ExcludeFromHoldingPauses: 0
+          ContributeToTotalDuration: 1
+          InitialDelay: 0
+          CooldownDuration: 0
+          InterruptsOnStop: 1
+          NumberOfRepeats: 0
+          RepeatForever: 0
+          DelayBetweenRepeats: 1
+          PlayCount: 0
+          LimitPlayCount: 0
+          MaxPlayCount: 3
+          SetPlayCountToZeroOnReset: 0
+          MMFeedbacksDirectionCondition: 0
+          PlayDirection: 0
+          ConstantIntensity: 0
+          UseIntensityInterval: 0
+          IntensityIntervalMin: 0
+          IntensityIntervalMax: 0
+          Sequence: {fileID: 0}
+          TrackID: 0
+          Quantized: 0
+          TargetBPM: 120
+        AutomatedTargetAcquisition:
+          Mode: 0
+          ChildIndex: 0
+        RandomizeOutput: 0
+        RandomMultiplier: {x: 0.8, y: 1}
+        RandomizeDuration: 0
+        RandomDurationMultiplier: {x: 0.5, y: 2}
+        UseRange: 0
+        RangeDistance: 5
+        UseRangeFalloff: 0
+        RangeFalloff:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: 0
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 0
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        RemapRangeFalloff: {x: 0, y: 1}
+        AutomaticShakerSetupButton:
+          ButtonText: 
+        Owner: {fileID: 8397193984380210425}
+        DebugActive: 0
+        TargetPlayers:
+        - {fileID: 6824818595004192808}
+        WaitForTargetPlayersToFinish: 0
+        Mode: 1
 --- !u!1 &7794453306669811525
 GameObject:
   m_ObjectHideFlags: 0
@@ -11287,19 +11511,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentRecipe: {fileID: 11400000, guid: 7983288e51d7e754393ee3e181487f2c, type: 2}
-  queueInventory: {fileID: 4743599468201597693}
-  depositInventory: {fileID: 7626486064572589624}
-  fuelInventory:
-    FuelItemAllowed: {fileID: 11400000, guid: 686e83163144d5040a850536167aff7c, type: 2}
-    quantityAllowed: 1
-    fuelInventory: {fileID: 6579209387403672509}
+  queueInventory: {fileID: 3278511413677120066}
+  depositInventory: {fileID: 3190454911739358043}
+  fuelInventory: {fileID: 6370259513037424556}
   playerInventory: {fileID: 0}
+  CookingStationInventoryPanel: {fileID: 0}
+  fuelBurnRate: 1
+  craftingProgress: 0
+  remainingCraftingTime: 0
   previewPanel: {fileID: 0}
   previewText: {fileID: 0}
   interactFeedbacks: {fileID: 4628391826667800565}
   craftingFeedbacks: {fileID: 0}
   completionFeedbacks: {fileID: 4934270127396280176}
-  addedFuelFeedbacks: {fileID: 6824818595004192808}
 --- !u!1 &8070970834206717742
 GameObject:
   m_ObjectHideFlags: 0
@@ -11309,9 +11533,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4525560008156384008}
-  - component: {fileID: 7626486064572589624}
+  - component: {fileID: 3190454911739358043}
   m_Layer: 0
-  m_Name: Deposit
+  m_Name: CookingStation01Deposit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11332,7 +11556,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2649716491489293896}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7626486064572589624
+--- !u!114 &3190454911739358043
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -11341,7 +11565,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8070970834206717742}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 286d1c3722a3a0749afb21ea8728d132, type: 3}
+  m_Script: {fileID: 11500000, guid: bd0b512cad604395af8d5549471f70f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   PlayerID: Player1
@@ -11351,7 +11575,7 @@ MonoBehaviour:
   TargetTransform: {fileID: 0}
   Persistent: 1
   ResetThisInventorySaveOnStart: 0
-  DrawContentInInspector: 1
+  DrawContentInInspector: 0
 --- !u!1 &8209663064752202880
 GameObject:
   m_ObjectHideFlags: 0
@@ -11363,7 +11587,7 @@ GameObject:
   - component: {fileID: 1611260931851227350}
   - component: {fileID: 6824818595004192808}
   m_Layer: 0
-  m_Name: InitialFDBK (1)
+  m_Name: AddedFuelFeedback
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11840,9 +12064,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4474000407177959286}
-  - component: {fileID: 4743599468201597693}
+  - component: {fileID: 3278511413677120066}
   m_Layer: 0
-  m_Name: Queue
+  m_Name: CookingStation01Queue
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11863,7 +12087,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2649716491489293896}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4743599468201597693
+--- !u!114 &3278511413677120066
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -11872,7 +12096,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8500198259247626426}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 286d1c3722a3a0749afb21ea8728d132, type: 3}
+  m_Script: {fileID: 11500000, guid: 8092b891d82240b7911baa3b1b795609, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   PlayerID: Player1
@@ -11882,7 +12106,7 @@ MonoBehaviour:
   TargetTransform: {fileID: 0}
   Persistent: 1
   ResetThisInventorySaveOnStart: 0
-  DrawContentInInspector: 1
+  DrawContentInInspector: 0
 --- !u!1001 &5222178533787389207
 PrefabInstance:
   m_ObjectHideFlags: 0

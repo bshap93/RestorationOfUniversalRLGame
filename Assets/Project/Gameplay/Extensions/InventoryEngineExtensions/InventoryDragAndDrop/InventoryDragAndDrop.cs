@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-namespace InventoryDragAndDrop
+namespace Project.Gameplay.Extensions.InventoryEngineExtensions.InventoryDragAndDrop
 {
     public class InventoryDragAndDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
     {
@@ -42,7 +42,7 @@ namespace InventoryDragAndDrop
         public void OnDrag(PointerEventData eventData)
         {
             if (_slot == null) return;
-            var screenPoint = Input.mousePosition;
+            var screenPoint = UnityEngine.Input.mousePosition;
             _slot.IconImage.transform.SetParent(transform, false);
             if (_canvas.worldCamera != null)
             {

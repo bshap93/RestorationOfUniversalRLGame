@@ -32,17 +32,9 @@ namespace Project.UI.HUD
 
         public void OnMMEvent(MMInventoryEvent inventoryEvent)
         {
-            if (inventoryEvent.InventoryEventType == MMInventoryEventType.InventoryOpens)
-            {
-                Debug.Log("Inventory Opens");
-                HideInventoryPreview();
-            }
+            if (inventoryEvent.InventoryEventType == MMInventoryEventType.InventoryOpens) HideInventoryPreview();
 
-            if (inventoryEvent.InventoryEventType == MMInventoryEventType.InventoryCloses)
-            {
-                Debug.Log("Inventory Closes");
-                HideInventoryPreview();
-            }
+            if (inventoryEvent.InventoryEventType == MMInventoryEventType.InventoryCloses) HideInventoryPreview();
         }
 
 

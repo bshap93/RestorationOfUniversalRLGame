@@ -5,10 +5,11 @@ using MoreMountains.InventoryEngine;
 using MoreMountains.Tools;
 using Project.Gameplay.Interactivity.CraftingStation;
 using Project.Gameplay.Interactivity.Items;
+using Project.Gameplay.ItemManagement.InventoryTypes;
+using Project.Gameplay.ItemManagement.InventoryTypes.Fuel;
 using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 [Serializable]
 public class CraftingMaterial
@@ -24,26 +25,12 @@ public class CraftingMaterial
     }
 }
 
-[Serializable]
-public class FuelInventory
-{
-    public InventoryItem FuelItemAllowed; // The base inventory item
-    [FormerlySerializedAs("QuantityAllowed")]
-    public int quantityAllowed;
-    public Inventory fuelInventory;
-
-    public FuelInventory(InventoryItem fuelItemAllowed, int quantityAllowed)
-    {
-        FuelItemAllowed = fuelItemAllowed;
-        this.quantityAllowed = quantityAllowed;
-    }
-}
 
 public class CookingStationController : MonoBehaviour
 {
     [Header("Station Setup")] public CraftingRecipe currentRecipe; // The recipe to craft
-    public Inventory queueInventory; // Uncooked items
-    public Inventory depositInventory; // Cooked items
+    public CraftingQueueInventory queueInventory; // Uncooked items
+    public CraftingDepositInventory depositInventory; // Cooked items
     public FuelInventory fuelInventory; // Firewood
     public Inventory playerInventory; // Reference to the player's inventory
 
@@ -60,7 +47,6 @@ public class CookingStationController : MonoBehaviour
     public MMFeedbacks interactFeedbacks;
     public MMFeedbacks craftingFeedbacks;
     public MMFeedbacks completionFeedbacks;
-    public MMFeedbacks addedFuelFeedbacks;
 
     Coroutine craftingCoroutine;
     bool isCrafting;
@@ -79,7 +65,7 @@ public class CookingStationController : MonoBehaviour
         {
             if (!ValidateFuel())
             {
-                TransferFuelFromPlayer(fuelInventory.FuelItemAllowed, 1);
+                TransferFuelFromPlayer(fuelInventory.fuelItemAllowed, 1);
 
                 return;
             }
@@ -165,9 +151,9 @@ public class CookingStationController : MonoBehaviour
 
     public void DepositFuel(InventoryItem fuelItem, int quantity)
     {
-        if (fuelItem == fuelInventory.FuelItemAllowed)
+        if (fuelItem == fuelInventory.fuelItemAllowed)
         {
-            if (fuelInventory.fuelInventory.AddItem(fuelItem, quantity))
+            if (fuelInventory.AddItem(fuelItem, quantity))
             {
                 Debug.Log($"Deposited {quantity} of {fuelItem.ItemName} into the fuel inventory.");
                 ShowPreview($"Added {quantity} fuel to the station.");
@@ -231,20 +217,7 @@ public class CookingStationController : MonoBehaviour
 
     bool ValidateFuel()
     {
-        return fuelInventory.fuelInventory.GetQuantity(fuelInventory.FuelItemAllowed.ItemID) > 0;
-    }
-
-    public void AddFuel(InventoryItem fuelItem, int quantity)
-    {
-        if (fuelItem == fuelInventory.FuelItemAllowed)
-        {
-            fuelInventory.fuelInventory.AddItem(fuelItem, quantity);
-            Debug.Log($"Added {quantity} of {fuelItem.ItemName} to fuel inventory.");
-        }
-        else
-        {
-            Debug.Log("This item cannot be used as fuel.");
-        }
+        return fuelInventory.GetQuantity(fuelInventory.fuelItemAllowed.ItemID) > 0;
     }
 
 
@@ -298,12 +271,11 @@ public class CookingStationController : MonoBehaviour
     {
         if (playerInventory.GetQuantity(fuelItem.ItemID) >= quantity)
         {
-            if (fuelInventory.fuelInventory.AddItem(fuelItem, quantity))
+            if (fuelInventory.AddItem(fuelItem, quantity))
             {
                 playerInventory.RemoveItemByID(fuelItem.ItemID, quantity);
                 Debug.Log($"Transferred {quantity} of {fuelItem.ItemName} to the station.");
                 ShowPreview($"Added {quantity} fuel to the station.");
-                addedFuelFeedbacks?.PlayFeedbacks();
             }
             else
             {
