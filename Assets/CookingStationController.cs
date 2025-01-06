@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using MoreMountains.Feedbacks;
 using MoreMountains.InventoryEngine;
+using MoreMountains.Tools;
 using Project.Gameplay.Interactivity.CraftingStation;
 using Project.Gameplay.Interactivity.Items;
 using Sirenix.OdinInspector;
@@ -46,6 +47,13 @@ public class CookingStationController : MonoBehaviour
     public FuelInventory fuelInventory; // Firewood
     public Inventory playerInventory; // Reference to the player's inventory
 
+    public GameObject CookingStationInventoryPanel; // Parent for the station inventories UI.
+
+
+    [Header("Fuel & Progress Tracking")] public float fuelBurnRate = 1f; // Time in seconds to burn one unit of fuel
+    public float craftingProgress; // 0.0 to 1.0
+    public float remainingCraftingTime;
+
 
     [Header("UI & Feedbacks")] public GameObject previewPanel; // UI panel for the station preview
     public TextMeshProUGUI previewText;
@@ -53,6 +61,8 @@ public class CookingStationController : MonoBehaviour
     public MMFeedbacks craftingFeedbacks;
     public MMFeedbacks completionFeedbacks;
     public MMFeedbacks addedFuelFeedbacks;
+
+    Coroutine craftingCoroutine;
     bool isCrafting;
 
     bool isInPlayerRange;
@@ -74,10 +84,12 @@ public class CookingStationController : MonoBehaviour
                 return;
             }
 
-            if (isCrafting)
-                StopCrafting();
-            else
-                StartCrafting();
+            OpenInventoryDisplays();
+
+            // if (isCrafting)
+            //     StopCrafting();
+            // else
+            //     StartCrafting();
         }
     }
 
@@ -87,6 +99,8 @@ public class CookingStationController : MonoBehaviour
         {
             isInPlayerRange = true;
             Debug.Log("Player entered cooking station range");
+
+            // Display the inventories when interacting.
 
             if (!ValidateFuel())
             {
@@ -107,6 +121,25 @@ public class CookingStationController : MonoBehaviour
             isInPlayerRange = false;
             HidePreview();
         }
+    }
+
+    public Inventory GetQueueInventory()
+    {
+        return queueInventory;
+    }
+    public Inventory GetDepositInventory()
+    {
+        return depositInventory;
+    }
+    public FuelInventory GetFuelInventory()
+    {
+        return fuelInventory;
+    }
+
+    void OpenInventoryDisplays()
+    {
+        Debug.Log("Open the player's inventory and the station's inventory");
+        MMGameEvent.Trigger("OpenCraftingStationInventoryParts", stringParameter: "CookingStation01");
     }
 
     public void PromptFuelDeposit()
