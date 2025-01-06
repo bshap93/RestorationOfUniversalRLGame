@@ -1,28 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using JetBrains.Annotations;
 using MoreMountains.Feedbacks;
-using Project.Gameplay.Interactivity.Items;
 using Project.Gameplay.ItemManagement.InventoryItemTypes;
 using UnityEngine;
 
 namespace Project.Gameplay.Interactivity.CraftingStation
 {
-    [Serializable]
-    public class CraftingMaterial
-    {
-        public InventoryItem material; // Optional: You can replace this with an enum or another identifier.
-        public int requiredQuantity;
-    }
-
-    [Serializable]
-    public class CraftingResult
-    {
-        public InventoryItem item;
-        public int quantity;
-        public GameObject prefabDrop;
-    }
-
+    [CreateAssetMenu(
+        fileName = "Crafting", menuName = "Crafting/CraftingRecipe", order = 1)]
     public class CraftingRecipe : ScriptableObject
     {
         [Tooltip("If false, item can be crafted without a crafting station.")]
@@ -42,7 +27,7 @@ namespace Project.Gameplay.Interactivity.CraftingStation
         public List<CraftingMaterial> RequiredMaterials = new();
 
         [Tooltip("The items that will be crafted.")]
-        public List<CraftingResult> Results = new();
+        public List<CraftingMaterial> Results = new();
 
         [Tooltip(
             "If true, the recipe only needs to be set and then after a set amount of time, the item will be crafted.")]

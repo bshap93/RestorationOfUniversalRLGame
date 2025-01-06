@@ -5077,6 +5077,58 @@ MonoBehaviour:
         Vector3Parameter: {x: 0, y: 0, z: 0}
         BoolParameter: 0
         StringParameter: CookStation01
+--- !u!1 &1125205498014765634
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8123608009838677362}
+  - component: {fileID: 6579209387403672509}
+  m_Layer: 0
+  m_Name: FuelInventory
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8123608009838677362
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1125205498014765634}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2649716491489293896}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6579209387403672509
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1125205498014765634}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 286d1c3722a3a0749afb21ea8728d132, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PlayerID: Player1
+  Content:
+  - {fileID: 0}
+  InventoryType: 0
+  TargetTransform: {fileID: 0}
+  Persistent: 1
+  ResetThisInventorySaveOnStart: 0
+  DrawContentInInspector: 1
 --- !u!1 &1448733978007694372
 GameObject:
   m_ObjectHideFlags: 0
@@ -11172,8 +11224,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2649716491489293896}
   - component: {fileID: 109671851153918189}
-  - component: {fileID: 4095861694860925222}
-  - component: {fileID: 1690571294875016001}
+  - component: {fileID: 609133390321667722}
   m_Layer: 0
   m_Name: CookingRack
   m_TagString: Untagged
@@ -11199,6 +11250,7 @@ Transform:
   - {fileID: 5417169732897977149}
   - {fileID: 4525560008156384008}
   - {fileID: 4474000407177959286}
+  - {fileID: 8123608009838677362}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!135 &109671851153918189
@@ -11222,7 +11274,7 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 3
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &4095861694860925222
+--- !u!114 &609133390321667722
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -11231,28 +11283,23 @@ MonoBehaviour:
   m_GameObject: {fileID: 7794453306669811525}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b42588faedc2cf4faf93be3d9566c30, type: 3}
+  m_Script: {fileID: 11500000, guid: b16ec4602ff6125448e68e86e04432f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  craftingStation: {fileID: 11400000, guid: 0e01db7f37b7ea8418cb2340252b991e, type: 2}
-  initialInteractionFeedbacks: {fileID: 0}
-  playerActivatesCraftingStationFeedbacks: {fileID: 6824818595004192808}
-  playerLacksInitialResourcesFeedbacks: {fileID: 4934270127396280176}
---- !u!114 &1690571294875016001
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7794453306669811525}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 474691b646699f34c93ddb798004d5bc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  CraftingStation: {fileID: 11400000, guid: 0e01db7f37b7ea8418cb2340252b991e, type: 2}
-  _selectionFeedbacks: {fileID: 7223901340412249839}
-  _deselectionFeedbacks: {fileID: 5700865168200029212}
+  currentRecipe: {fileID: 11400000, guid: 7983288e51d7e754393ee3e181487f2c, type: 2}
+  queueInventory: {fileID: 4743599468201597693}
+  depositInventory: {fileID: 7626486064572589624}
+  fuelInventory:
+    FuelItemAllowed: {fileID: 11400000, guid: 686e83163144d5040a850536167aff7c, type: 2}
+    quantityAllowed: 1
+    fuelInventory: {fileID: 6579209387403672509}
+  playerInventory: {fileID: 0}
+  previewPanel: {fileID: 0}
+  previewText: {fileID: 0}
+  interactFeedbacks: {fileID: 4628391826667800565}
+  craftingFeedbacks: {fileID: 0}
+  completionFeedbacks: {fileID: 4934270127396280176}
+  addedFuelFeedbacks: {fileID: 6824818595004192808}
 --- !u!1 &8070970834206717742
 GameObject:
   m_ObjectHideFlags: 0
@@ -11298,12 +11345,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlayerID: Player1
-  Content: []
+  Content:
+  - {fileID: 0}
   InventoryType: 0
   TargetTransform: {fileID: 0}
   Persistent: 1
   ResetThisInventorySaveOnStart: 0
-  DrawContentInInspector: 0
+  DrawContentInInspector: 1
 --- !u!1 &8209663064752202880
 GameObject:
   m_ObjectHideFlags: 0
@@ -11828,12 +11876,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlayerID: Player1
-  Content: []
+  Content:
+  - {fileID: 0}
   InventoryType: 0
   TargetTransform: {fileID: 0}
   Persistent: 1
   ResetThisInventorySaveOnStart: 0
-  DrawContentInInspector: 0
+  DrawContentInInspector: 1
 --- !u!1001 &5222178533787389207
 PrefabInstance:
   m_ObjectHideFlags: 0

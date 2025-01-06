@@ -36,7 +36,6 @@ namespace Prefabs.UI.PrefabRequiredScripts
         void Start()
         {
             _canvasGroup = GetComponent<CanvasGroup>();
-            if (_canvasGroup != null) _canvasGroup.alpha = 0; // Initially hide the details
         }
 
         void OnEnable()
@@ -60,7 +59,6 @@ namespace Prefabs.UI.PrefabRequiredScripts
                         break;
                 }
 
-                _canvasGroup.alpha = 1;
                 gameObject.SetActive(true);
             }
         }
@@ -116,7 +114,6 @@ namespace Prefabs.UI.PrefabRequiredScripts
         {
             if (_canvasGroup != null)
             {
-                _canvasGroup.alpha = 0;
                 _canvasGroup.interactable = false;
                 _canvasGroup.blocksRaycasts = false;
             }
@@ -129,7 +126,6 @@ namespace Prefabs.UI.PrefabRequiredScripts
         {
             if (_canvasGroup != null)
             {
-                _canvasGroup.alpha = 1;
                 _canvasGroup.interactable = true;
                 _canvasGroup.blocksRaycasts = true;
             }
