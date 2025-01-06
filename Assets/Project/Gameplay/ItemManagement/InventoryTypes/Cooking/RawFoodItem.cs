@@ -4,21 +4,12 @@ namespace Project.Gameplay.ItemManagement.InventoryTypes.Cooking
 {
     public class RawFoodItem
     {
-        public float cookDuration;
-        public float defaultCookDuration = 10f;
-        public InventoryItem Item; // The base inventory item
+        public readonly float defaultCookDuration = 10f;
 
 
         public RawFoodItem(InventoryItem item)
         {
-            Item = item;
-            cookDuration = GetCookDurationForItem(item);
-        }
-
-        public RawFoodItem(InventoryItem item, float cookDuration)
-        {
-            Item = item;
-            this.cookDuration = cookDuration;
+            GetCookDurationForItem(item);
         }
 
         public float GetCookDurationForItem(InventoryItem item)

@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using JetBrains.Annotations;
 using MoreMountains.Feedbacks;
 using Project.Gameplay.ItemManagement.InventoryItemTypes;
 using UnityEngine;
@@ -12,8 +11,8 @@ namespace Project.Gameplay.Interactivity.CraftingStation
     {
         [Tooltip("If false, item can be crafted without a crafting station.")]
         public bool NeedsCraftingStation;
-        [Tooltip("Optional. If the recipe requires a crafting station, specify its ID here.")] [CanBeNull]
-        public string CraftingStationId;
+
+        public CraftingStationType CraftingStationTypeNeeded;
 
         [Tooltip("If false, item can be crafted without tools.")]
         public bool RequiresTools;
@@ -23,11 +22,6 @@ namespace Project.Gameplay.Interactivity.CraftingStation
         [Tooltip("If false, item can be crafted without materials.")]
         public bool RequiresMaterials;
 
-        [Tooltip("Optional. If the recipe requires materials, specify them here.")]
-        public List<CraftingMaterial> RequiredMaterials = new();
-
-        [Tooltip("The items that will be crafted.")]
-        public List<CraftingMaterial> Results = new();
 
         [Tooltip(
             "If true, the recipe only needs to be set and then after a set amount of time, the item will be crafted.")]

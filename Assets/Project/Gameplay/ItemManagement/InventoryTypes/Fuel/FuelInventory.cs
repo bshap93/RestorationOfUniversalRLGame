@@ -19,6 +19,7 @@ namespace Project.Gameplay.ItemManagement.InventoryTypes.Fuel
         public MMProgressBar fuelBurntProgressBar;
         public bool IsBurning;
         public string cookingStationID;
+        public float updateInterval = 0.1f;
 
         public override bool AddItem(InventoryItem fuelItem, int quantity)
         {
@@ -39,31 +40,29 @@ namespace Project.Gameplay.ItemManagement.InventoryTypes.Fuel
         {
             IsBurning = true;
             float elapsedTime = 0;
+            var wait = new WaitForSeconds(updateInterval);
 
             MMGameEvent.Trigger("BurnFuel", stringParameter: cookingStationID);
-
             fuelBurntProgressBar.BarProgress = fuelItem.remainingFraction;
 
 
             while (elapsedTime < fuelItem.burnDuration)
             {
                 fuelItem.remainingFraction = 1 - elapsedTime / fuelItem.burnDuration;
-
-
                 fuelBurntProgressBar.UpdateBar(fuelItem.remainingFraction, 0, 1);
 
+                // Debug.Log only every second for less console spam
+                if (Mathf.Approximately(elapsedTime % 1f, 0))
+                    Debug.Log($"FuelInventory.BurnFuel: {fuelItem.remainingFraction:F2}");
 
-                Debug.Log("FuelInventory.BurnFuel: " + fuelItem.remainingFraction);
-
-                yield return null;
-
-                elapsedTime += Time.deltaTime;
+                yield return wait;
+                elapsedTime += updateInterval;
             }
 
             RemoveItem(0, 1);
 
             fuelEndsFeedback?.PlayFeedbacks();
-            
+
             MMGameEvent.Trigger("SpentFuel", stringParameter: cookingStationID);
             IsBurning = false;
             // fuelItems[0].burnDuration = fuelItems[0].remainingFraction * fuelItems[0].burnDuration;
@@ -90,14 +89,7 @@ namespace Project.Gameplay.ItemManagement.InventoryTypes.Fuel
 
         public override bool MoveItem(int oldIndex, int newIndex)
         {
-            Debug.Log("FuelInventory.MoveItem");
-            if (Content[newIndex].ItemID == fuelItemAllowed.ItemID)
-                return base.MoveItem(oldIndex, newIndex);
-
-            // Return item to old index if new index is not allowed
-
-
-            return false;
+            return true;
         }
     }
 }

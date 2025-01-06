@@ -1,45 +1,28 @@
-using System;
 using System.Collections;
 using MoreMountains.Feedbacks;
 using MoreMountains.InventoryEngine;
 using MoreMountains.Tools;
-using Project.Gameplay.Interactivity.CraftingStation;
 using Project.Gameplay.Interactivity.Items;
 using Project.Gameplay.ItemManagement.InventoryTypes;
+using Project.Gameplay.ItemManagement.InventoryTypes.Cooking;
 using Project.Gameplay.ItemManagement.InventoryTypes.Fuel;
-using Sirenix.OdinInspector;
 using TMPro;
 using UnityEngine;
 
-[Serializable]
-public class CraftingMaterial
-{
-    [ShowInInspector] public InventoryItem Item; // The base inventory item
-    [ShowInInspector] public int Quantity; // How many units are required
-    [ShowInInspector] public GameObject prefabDrop; // Optional: The prefab to drop if the inventory is full
-
-    public CraftingMaterial(InventoryItem item, int quantity, float craftingTime = 1f)
-    {
-        Item = item;
-        Quantity = quantity;
-    }
-}
-
-
 public class CookingStationController : MonoBehaviour
 {
-    [Header("Station Setup")] public CraftingRecipe currentRecipe; // The recipe to craft
+    [Header("Station Setup")] public CookingRecipe currentRecipe; // The recipe to craft
     public CraftingQueueInventory queueInventory; // Uncooked items
     public CraftingDepositInventory depositInventory; // Cooked items
     public FuelInventory fuelInventory; // Firewood
     public Inventory playerInventory; // Reference to the player's inventory
 
+    public CookingStation CookingStation;
+
     public GameObject CookingStationInventoryPanel; // Parent for the station inventories UI.
 
 
     [Header("Fuel & Progress Tracking")] public float fuelBurnRate = 1f; // Time in seconds to burn one unit of fuel
-    public float craftingProgress; // 0.0 to 1.0
-    public float remainingCraftingTime;
 
 
     [Header("UI & Feedbacks")] public GameObject previewPanel; // UI panel for the station preview
@@ -48,10 +31,9 @@ public class CookingStationController : MonoBehaviour
     public MMFeedbacks craftingFeedbacks;
     public MMFeedbacks completionFeedbacks;
 
-    Coroutine craftingCoroutine;
-    bool isCrafting;
+    bool _isCrafting;
 
-    bool isInPlayerRange;
+    bool _isInPlayerRange;
 
 
     void Start()
@@ -61,7 +43,7 @@ public class CookingStationController : MonoBehaviour
 
     void Update()
     {
-        if (isInPlayerRange && Input.GetKeyDown(KeyCode.F))
+        if (_isInPlayerRange && Input.GetKeyDown(KeyCode.F))
         {
             if (!ValidateFuel())
             {
@@ -83,7 +65,7 @@ public class CookingStationController : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            isInPlayerRange = true;
+            _isInPlayerRange = true;
             Debug.Log("Player entered cooking station range");
 
             // Display the inventories when interacting.
@@ -104,7 +86,7 @@ public class CookingStationController : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            isInPlayerRange = false;
+            _isInPlayerRange = false;
             HidePreview();
         }
     }
@@ -174,7 +156,7 @@ public class CookingStationController : MonoBehaviour
 
     void StartCrafting()
     {
-        if (isCrafting || currentRecipe == null) return;
+        if (_isCrafting || currentRecipe == null) return;
 
         if (!ValidateFuel())
         {
@@ -190,7 +172,7 @@ public class CookingStationController : MonoBehaviour
         }
 
 
-        isCrafting = true;
+        _isCrafting = true;
         interactFeedbacks?.PlayFeedbacks();
 
         if (currentRecipe.IsCraftingPassive)
@@ -201,15 +183,19 @@ public class CookingStationController : MonoBehaviour
 
     void StopCrafting()
     {
-        isCrafting = false;
+        _isCrafting = false;
         craftingFeedbacks?.StopFeedbacks();
         ShowPreview("Cooking stopped.");
     }
 
     bool ValidateMaterials()
     {
-        foreach (var material in currentRecipe.RequiredMaterials)
-            if (queueInventory.GetQuantity(material.Item.ItemID) < material.Quantity)
+        foreach (var material in currentRecipe.requiredMaterials)
+            if (queueInventory.GetQuantity(material.item.ItemID) < material.quantity)
+                return false;
+
+        foreach (var rawFood in currentRecipe.requiredRawFoodItems)
+            if (queueInventory.GetQuantity(rawFood.item.ItemID) < rawFood.quantity)
                 return false;
 
         return true;
@@ -231,7 +217,7 @@ public class CookingStationController : MonoBehaviour
         ConsumeMaterials();
         ProduceResults();
 
-        isCrafting = false;
+        _isCrafting = false;
         craftingFeedbacks?.StopFeedbacks();
         completionFeedbacks?.PlayFeedbacks();
         ShowPreview("Cooking complete!");
@@ -244,7 +230,7 @@ public class CookingStationController : MonoBehaviour
         ConsumeMaterials();
         ProduceResults();
 
-        isCrafting = false;
+        _isCrafting = false;
         craftingFeedbacks?.StopFeedbacks();
         completionFeedbacks?.PlayFeedbacks();
         ShowPreview("Cooking complete!");
@@ -252,19 +238,20 @@ public class CookingStationController : MonoBehaviour
 
     void ConsumeMaterials()
     {
-        foreach (var material in currentRecipe.RequiredMaterials)
-            queueInventory.RemoveItemByID(material.Item.ItemID, material.Quantity);
+        foreach (var material in currentRecipe.requiredMaterials)
+            queueInventory.RemoveItemByID(material.item.ItemID, material.quantity);
     }
 
     void ProduceResults()
     {
-        foreach (var result in currentRecipe.Results)
-            if (!depositInventory.AddItem(result.Item, result.Quantity))
-            {
-                Debug.Log("Deposit inventory is full!");
-                // Optional: Drop the result item as a prefab
-                if (result.prefabDrop != null) Instantiate(result.prefabDrop, transform.position, Quaternion.identity);
-            }
+        var result = currentRecipe.finishedFoodItem;
+        if (!depositInventory.AddItem(
+                result.FinishedFood, result.Quantity))
+        {
+            Debug.Log("Deposit inventory is full!");
+            // Optional: Drop the result item as a prefab
+            if (result.prefabDrop != null) Instantiate(result.prefabDrop, transform.position, Quaternion.identity);
+        }
     }
 
     public void TransferFuelFromPlayer(InventoryItem fuelItem, int quantity)
