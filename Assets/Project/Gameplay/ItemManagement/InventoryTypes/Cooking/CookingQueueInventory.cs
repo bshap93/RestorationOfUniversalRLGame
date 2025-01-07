@@ -32,19 +32,23 @@ namespace Project.Gameplay.ItemManagement.InventoryTypes.Cooking
         public MMFeedbacks cookingStartsFeedback;
         public MMFeedbacks cookingEndsFeedback;
 
-        public CookingRecipe currentRecipe;
-
         public FuelInventory fuelInventory;
         public CookingDepositInventory cookingDepositInventory;
         public MMProgressBar cookingProgressBar;
 
         public RecipeHeader recipeHeader;
+        CookingStationController _cookingStationController;
+
+        CookingRecipe _currentRecipe;
 
         public void Start()
         {
             if (recipeHeader == null)
 
                 recipeHeader = FindObjectOfType<RecipeHeader>();
+
+            if (_cookingStationController == null)
+                _cookingStationController = gameObject.GetComponentInParent<CookingStationController>();
         }
 
 
@@ -54,18 +58,16 @@ namespace Project.Gameplay.ItemManagement.InventoryTypes.Cooking
             {
                 addedRawFoodFeedback?.PlayFeedbacks();
 
-                if (currentRecipe == null)
-                    // CheckIfRecipesExistForItemsNowInQueue();
-                    currentRecipe = rawFood.CookedSingleRawFoodRecipe;
+                TryDetectRecipeFromIngredientsInQueue(rawFood);
 
-                recipeHeader.recipeName.text = currentRecipe.recipeName;
+                recipeHeader.recipeName.text = _currentRecipe.recipeName;
                 recipeHeader.recipeImage.sprite =
-                    currentRecipe.finishedFoodItem.FinishedFood.Icon;
+                    _currentRecipe.finishedFoodItem.FinishedFood.Icon;
 
 
                 if (fuelInventory.IsBurning)
                 {
-                    var cookingRecipeInProgress = new CookingRecipeInProgress(currentRecipe);
+                    var cookingRecipeInProgress = new CookingRecipeInProgress(_currentRecipe);
                     StartCoroutine(CookFood(cookingRecipeInProgress, quantity));
                 }
 
@@ -75,6 +77,15 @@ namespace Project.Gameplay.ItemManagement.InventoryTypes.Cooking
 
             return false;
         }
+        void TryDetectRecipeFromIngredientsInQueue(RawFood rawFood)
+        {
+            if (_currentRecipe == null)
+            {
+                // CheckIfRecipesExistForItemsNowInQueue();
+                _currentRecipe = rawFood.CookedSingleRawFoodRecipe;
+                _cookingStationController.SetCurrentRecipe(_currentRecipe);
+            }
+        }
 
         public override bool AddItemAt(InventoryItem item, int quantity, int index)
         {
@@ -82,17 +93,15 @@ namespace Project.Gameplay.ItemManagement.InventoryTypes.Cooking
             {
                 addedRawFoodFeedback?.PlayFeedbacks();
 
-                if (currentRecipe == null)
-                    // CheckIfRecipesExistForItemsNowInQueue();
-                    currentRecipe = rawFood.CookedSingleRawFoodRecipe;
+                TryDetectRecipeFromIngredientsInQueue(rawFood);
 
-                recipeHeader.recipeName.text = currentRecipe.recipeName;
+                recipeHeader.recipeName.text = _currentRecipe.recipeName;
                 recipeHeader.recipeImage.sprite =
-                    currentRecipe.finishedFoodItem.FinishedFood.Icon;
+                    _currentRecipe.finishedFoodItem.FinishedFood.Icon;
 
                 if (fuelInventory.IsBurning)
                 {
-                    var cookingRecipeInProgress = new CookingRecipeInProgress(currentRecipe);
+                    var cookingRecipeInProgress = new CookingRecipeInProgress(_currentRecipe);
                     StartCoroutine(CookFood(cookingRecipeInProgress, quantity));
                 }
 
@@ -114,12 +123,12 @@ namespace Project.Gameplay.ItemManagement.InventoryTypes.Cooking
 
             Debug.Log("CookingQueueInventory.CookFood: Cooking " + cookingRecipeInProgress.currentRecipe.recipeName);
 
-            Debug.Log("Crafting time: " + currentRecipe.CraftingTime);
+            Debug.Log("Crafting time: " + _currentRecipe.CraftingTime);
 
-            while (elapsedTime < currentRecipe.CraftingTime)
+            while (elapsedTime < _currentRecipe.CraftingTime)
             {
                 cookingProgressBar.UpdateBar(
-                    elapsedTime / currentRecipe.CraftingTime,
+                    elapsedTime / _currentRecipe.CraftingTime,
                     0, 1);
 
 

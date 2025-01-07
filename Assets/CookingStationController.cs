@@ -10,7 +10,6 @@ using UnityEngine;
 
 public class CookingStationController : MonoBehaviour
 {
-    [Header("Station Setup")] public CookingRecipe currentRecipe; // The recipe to craft
     public CraftingQueueInventory queueInventory; // Uncooked items
     public CraftingDepositInventory depositInventory; // Cooked items
     public FuelInventory fuelInventory; // Firewood
@@ -29,6 +28,7 @@ public class CookingStationController : MonoBehaviour
     public MMFeedbacks interactFeedbacks;
     public MMFeedbacks craftingFeedbacks;
     public MMFeedbacks completionFeedbacks;
+    CookingRecipe _currentRecipe; // The recipe to craft
 
     bool _isCrafting;
 
@@ -160,5 +160,9 @@ public class CookingStationController : MonoBehaviour
             Debug.Log("Not enough fuel in player inventory.");
             ShowPreview("Not enough fuel in your inventory.");
         }
+    }
+    public void SetCurrentRecipe(CookingRecipe currentRecipe)
+    {
+        _currentRecipe = currentRecipe;
     }
 }
