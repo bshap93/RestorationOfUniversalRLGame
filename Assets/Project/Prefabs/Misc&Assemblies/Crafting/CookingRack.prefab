@@ -5136,6 +5136,7 @@ MonoBehaviour:
   fuelBurntProgressBar: {fileID: 0}
   IsBurning: 0
   cookingStationID: 
+  updateInterval: 0.1
 --- !u!1 &1448733978007694372
 GameObject:
   m_ObjectHideFlags: 0
@@ -11600,12 +11601,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b16ec4602ff6125448e68e86e04432f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentRecipe: {fileID: 11400000, guid: 7983288e51d7e754393ee3e181487f2c, type: 2}
-  queueInventory: {fileID: 0}
-  depositInventory: {fileID: 0}
+  currentRecipe: {fileID: 11400000, guid: f8136dac99ea7c9439e01ba379bdf08a, type: 2}
+  queueInventory: {fileID: 1502303134845518310}
+  depositInventory: {fileID: 8745441590104952771}
   fuelInventory: {fileID: 6370259513037424556}
   playerInventory: {fileID: 0}
-  CookingStation: {fileID: 0}
+  CookingStation: {fileID: 11400000, guid: 25af976d02a13764082c305c750d4fd7, type: 2}
   CookingStationInventoryPanel: {fileID: 0}
   fuelBurnRate: 1
   previewPanel: {fileID: 0}
@@ -12197,14 +12198,15 @@ MonoBehaviour:
   TargetTransform: {fileID: 0}
   Persistent: 1
   ResetThisInventorySaveOnStart: 0
-  DrawContentInInspector: 0
+  DrawContentInInspector: 1
   addedRawFoodFeedback: {fileID: 0}
   cookingStartsFeedback: {fileID: 0}
   cookingEndsFeedback: {fileID: 0}
-  currentRecipe: {fileID: 0}
-  fuelInventory: {fileID: 0}
-  cookingDepositInventory: {fileID: 0}
+  currentRecipe: {fileID: 11400000, guid: f8136dac99ea7c9439e01ba379bdf08a, type: 2}
+  fuelInventory: {fileID: 6370259513037424556}
+  cookingDepositInventory: {fileID: 8745441590104952771}
   cookingProgressBar: {fileID: 0}
+  recipeHeader: {fileID: 0}
 --- !u!1001 &5222178533787389207
 PrefabInstance:
   m_ObjectHideFlags: 0
