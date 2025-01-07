@@ -40,23 +40,25 @@ namespace Project.Gameplay.ItemManagement.InventoryTypes.Fuel
         {
             IsBurning = true;
             float elapsedTime = 0;
-            var wait = new WaitForSeconds(updateInterval);
 
             MMGameEvent.Trigger("BurnFuel", stringParameter: cookingStationID);
+
             fuelBurntProgressBar.BarProgress = fuelItem.remainingFraction;
 
 
             while (elapsedTime < fuelItem.burnDuration)
             {
                 fuelItem.remainingFraction = 1 - elapsedTime / fuelItem.burnDuration;
+
+
                 fuelBurntProgressBar.UpdateBar(fuelItem.remainingFraction, 0, 1);
 
-                // Debug.Log only every second for less console spam
-                if (Mathf.Approximately(elapsedTime % 1f, 0))
-                    Debug.Log($"FuelInventory.BurnFuel: {fuelItem.remainingFraction:F2}");
 
-                yield return wait;
-                elapsedTime += updateInterval;
+                // Debug.Log("FuelInventory.BurnFuel: " + fuelItem.remainingFraction);
+
+                yield return null;
+
+                elapsedTime += Time.deltaTime;
             }
 
             RemoveItem(0, 1);

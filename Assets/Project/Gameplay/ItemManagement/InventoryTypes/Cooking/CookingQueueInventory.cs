@@ -112,19 +112,26 @@ namespace Project.Gameplay.ItemManagement.InventoryTypes.Cooking
             float elapsedTime = 0;
             cookingStartsFeedback?.PlayFeedbacks();
 
-            while (elapsedTime < cookingRecipeInProgress.craftingTime)
+            Debug.Log("CookingQueueInventory.CookFood: Cooking " + cookingRecipeInProgress.currentRecipe.recipeName);
+
+            while (elapsedTime < currentRecipe.CraftingTime)
             {
-                cookingRecipeInProgress.percentageCompleteFraction = elapsedTime / cookingRecipeInProgress.craftingTime;
                 cookingProgressBar.UpdateBar(
-                    cookingRecipeInProgress.percentageCompleteFraction,
+                    elapsedTime / currentRecipe.CraftingTime,
                     0, 1);
+
 
                 yield return null;
 
                 elapsedTime += Time.deltaTime;
+
+                Debug.Log("Elapsed time: " + elapsedTime);
             }
 
-            RemoveItem(0, quantity);
+
+            RemoveItemByID(
+                cookingRecipeInProgress.currentRecipe.requiredRawFoodItems[0].item.ItemID, quantity);
+
             cookingDepositInventory.AddItem(
                 cookingRecipeInProgress.currentRecipe.finishedFoodItem.FinishedFood, quantity);
 
