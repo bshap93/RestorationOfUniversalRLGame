@@ -2,6 +2,7 @@
 using MoreMountains.Tools;
 using MoreMountains.TopDownEngine;
 using Project.Gameplay.Events;
+using Project.Gameplay.Interactivity.Food;
 using Project.Gameplay.Interactivity.Items;
 using Project.Gameplay.Player.Inventory;
 using UnityEngine;
@@ -27,6 +28,17 @@ namespace Project.Gameplay.ItemManagement.Triggers
                 _itemPicker = gameObject.AddComponent<ManualItemPicker>();
 
             _itemPicker.Item = Item;
+        }
+
+        void Start()
+        {
+            if (_selectionFeedbacks == null)
+            {
+                if (Item != null && Item is RawFood)
+                    _selectionFeedbacks = GameObject.Find("FoodPicked").GetComponent<MMFeedbacks>();
+                else
+                    _selectionFeedbacks = GameObject.Find("SelectionFeedbacks").GetComponent<MMFeedbacks>();
+            }
         }
 
         void OnEnable()
