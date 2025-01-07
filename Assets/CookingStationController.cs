@@ -16,8 +16,6 @@ public class CookingStationController : MonoBehaviour
     public FuelInventory fuelInventory; // Firewood
     public Inventory playerInventory; // Reference to the player's inventory
 
-    public CookingStation CookingStation;
-
     public GameObject CookingStationInventoryPanel; // Parent for the station inventories UI.
 
 
@@ -38,6 +36,8 @@ public class CookingStationController : MonoBehaviour
     void Start()
     {
         if (previewPanel != null) previewPanel.SetActive(false);
+        if (CookingStationInventoryPanel != null)
+            CookingStationInventoryPanel.SetActive(false);
     }
 
     void Update()
@@ -122,11 +122,17 @@ public class CookingStationController : MonoBehaviour
             previewPanel.SetActive(true);
             if (previewText != null) previewText.text = message;
         }
+
+        if (CookingStationInventoryPanel != null)
+            CookingStationInventoryPanel.SetActive(true);
     }
 
     void HidePreview()
     {
         if (previewPanel != null) previewPanel.SetActive(false);
+
+        if (CookingStationInventoryPanel != null)
+            CookingStationInventoryPanel.SetActive(false);
     }
 
 
