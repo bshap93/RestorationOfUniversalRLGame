@@ -54,8 +54,6 @@ namespace Project.Gameplay.ItemManagement.InventoryTypes.Fuel
                 fuelBurntProgressBar.UpdateBar(fuelItem.remainingFraction, 0, 1);
 
 
-                Debug.Log("FuelInventory.BurnFuel: " + fuelItem.remainingFraction);
-
                 yield return null;
 
                 elapsedTime += Time.deltaTime;

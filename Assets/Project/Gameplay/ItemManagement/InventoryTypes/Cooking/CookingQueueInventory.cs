@@ -79,12 +79,12 @@ namespace Project.Gameplay.ItemManagement.InventoryTypes.Cooking
         }
         void TryDetectRecipeFromIngredientsInQueue(RawFood rawFood)
         {
-            if (_currentRecipe == null)
-            {
-                // CheckIfRecipesExistForItemsNowInQueue();
-                _currentRecipe = rawFood.CookedSingleRawFoodRecipe;
-                _cookingStationController.SetCurrentRecipe(_currentRecipe);
-            }
+            Debug.Log("Content count: " + Content.Length);
+
+            Debug.Log("CookingQueueInventory.TryDetectRecipeFromIngredientsInQueue: No items yet queue");
+            // CheckIfRecipesExistForItemsNowInQueue();
+            _currentRecipe = rawFood.CookedSingleRawFoodRecipe;
+            _cookingStationController.SetCurrentRecipe(_currentRecipe);
         }
 
         public override bool AddItemAt(InventoryItem item, int quantity, int index)
