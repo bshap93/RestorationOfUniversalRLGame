@@ -114,6 +114,8 @@ namespace Project.Gameplay.ItemManagement.InventoryTypes.Cooking
 
             Debug.Log("CookingQueueInventory.CookFood: Cooking " + cookingRecipeInProgress.currentRecipe.recipeName);
 
+            Debug.Log("Crafting time: " + currentRecipe.CraftingTime);
+
             while (elapsedTime < currentRecipe.CraftingTime)
             {
                 cookingProgressBar.UpdateBar(
@@ -123,14 +125,17 @@ namespace Project.Gameplay.ItemManagement.InventoryTypes.Cooking
 
                 yield return null;
 
-                elapsedTime += Time.deltaTime;
+                elapsedTime += 0.1f;
 
                 Debug.Log("Elapsed time: " + elapsedTime);
             }
 
+            foreach (var rawFoodItem in cookingRecipeInProgress.currentRecipe.requiredRawFoodItems)
+            {
+                RemoveItemByID(rawFoodItem.item.ItemID, quantity);
+                Debug.Log("CookingQueueInventory.CookFood: Removed " + rawFoodItem.item.ItemName);
+            }
 
-            RemoveItemByID(
-                cookingRecipeInProgress.currentRecipe.requiredRawFoodItems[0].item.ItemID, quantity);
 
             cookingDepositInventory.AddItem(
                 cookingRecipeInProgress.currentRecipe.finishedFoodItem.FinishedFood, quantity);

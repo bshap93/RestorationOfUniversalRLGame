@@ -54,7 +54,7 @@ namespace Project.Gameplay.ItemManagement.InventoryTypes.Fuel
                 fuelBurntProgressBar.UpdateBar(fuelItem.remainingFraction, 0, 1);
 
 
-                // Debug.Log("FuelInventory.BurnFuel: " + fuelItem.remainingFraction);
+                Debug.Log("FuelInventory.BurnFuel: " + fuelItem.remainingFraction);
 
                 yield return null;
 
@@ -92,6 +92,33 @@ namespace Project.Gameplay.ItemManagement.InventoryTypes.Fuel
         public override bool MoveItem(int oldIndex, int newIndex)
         {
             return true;
+        }
+
+        public override bool RemoveItem(int index, int quantity)
+        {
+            Debug.Log("FuelInventory.RemoveItem");
+            if (base.RemoveItem(index, quantity))
+            {
+                fuelEndsFeedback?.PlayFeedbacks();
+                return true;
+            }
+
+            Debug.Log("FuelInventory.RemoveItem: Item not removed");
+            return false;
+        }
+
+
+        public override bool RemoveItemByID(string itemID, int quantity)
+        {
+            Debug.Log("FuelInventory.RemoveItemByID");
+            if (base.RemoveItemByID(itemID, quantity))
+            {
+                fuelEndsFeedback?.PlayFeedbacks();
+                return true;
+            }
+
+            Debug.Log("FuelInventory.RemoveItemByID: Item not removed");
+            return false;
         }
     }
 }
