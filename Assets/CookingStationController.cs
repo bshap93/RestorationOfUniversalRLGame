@@ -122,11 +122,15 @@ public class CookingStationController : MonoBehaviour
             previewPanel.SetActive(true);
             if (previewText != null) previewText.text = message;
         }
+
+        if (CookingStationInventoryPanel != null) CookingStationInventoryPanel.SetActive(true);
     }
 
     void HidePreview()
     {
         if (previewPanel != null) previewPanel.SetActive(false);
+
+        if (CookingStationInventoryPanel != null) CookingStationInventoryPanel.SetActive(false);
     }
 
 
