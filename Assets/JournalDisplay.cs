@@ -1,21 +1,30 @@
-using MoreMountains.Tools;
 using Project.Core.Events;
+using Project.Gameplay.SaveLoad;
 using UnityEngine;
 
-public class JournalDisplay : MonoBehaviour, MMEventListener<RecipeEvent>
+public class JournalDisplay : MonoBehaviour
 {
     [SerializeField] GameObject recipeEntryPrefab;
     [SerializeField] GameObject recipeListParent;
 
+    [SerializeField] JournalPersistenceManager journalPersistenceManager;
+
     void OnEnable()
     {
-        this.MMEventStartListening();
+        Debug.Log("JournalDisplay.OnEnable");
+        foreach (var recipe in journalPersistenceManager.journalData.knownRecipes)
+        {
+            // Instantiate the prefab
+            var recipeEntry = Instantiate(recipeEntryPrefab, recipeListParent.transform);
+
+            // Get the script responsible for updating the UI
+            var recipeEntryScript = recipeEntry.GetComponent<RecipeEntry>();
+            if (recipeEntryScript != null)
+                // Pass the recipe data directly to the UI
+                recipeEntryScript.SetRecipe(recipe);
+        }
     }
 
-    void OnDisable()
-    {
-        this.MMEventStopListening();
-    }
 
     public void OnMMEvent(RecipeEvent recipeEvent)
     {

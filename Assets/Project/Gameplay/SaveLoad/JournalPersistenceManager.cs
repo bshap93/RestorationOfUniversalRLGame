@@ -12,8 +12,7 @@ namespace Project.Gameplay.SaveLoad
         const string JournalFileName = "PlayerJournal.save";
         const string SaveFolderName = "Player";
 
-        [FormerlySerializedAs("_journalData")] [SerializeField]
-        JournalData journalData = new();
+        [FormerlySerializedAs("_journalData")] public JournalData journalData = new();
 
 
         void OnEnable()
@@ -42,25 +41,26 @@ namespace Project.Gameplay.SaveLoad
 
         public void AddRecipeToJournal(CookingRecipe recipe)
         {
-            SerializableRecipe serializableRecipe = new(recipe);
-            journalData.knownRecipes.Add(serializableRecipe);
+            Debug.Log("Adding recipe to journal: " + recipe.name);
+            journalData.knownRecipes.Add(recipe);
         }
 
         public void SaveJournal()
         {
-            MMSaveLoadManager.Save(journalData, JournalFileName, SaveFolderName);
+            ES3.Save("JournalData", journalData, "PlayerJournal.save");
             Debug.Log("Journal saved.");
         }
 
         public void RevertJournalToLastSave()
         {
-            var loadedData =
-                MMSaveLoadManager.Load(typeof(JournalData), JournalFileName, SaveFolderName) as JournalData;
-
-            if (loadedData != null)
+            if (ES3.FileExists("PlayerJournal.save"))
             {
-                journalData = loadedData;
+                journalData = ES3.Load<JournalData>("JournalData", "PlayerJournal.save");
                 Debug.Log("Journal reverted to last save.");
+            }
+            else
+            {
+                Debug.LogWarning("Save file not found.");
             }
         }
 
