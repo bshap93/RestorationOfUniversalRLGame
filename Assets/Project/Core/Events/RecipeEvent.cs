@@ -21,10 +21,11 @@ namespace Project.Core.Events
         public RecipeEventType EventType;
         public CookingRecipe RecipeParameter;
 
-        public static void Trigger(string eventName, CookingRecipe recipe)
+        public static void Trigger(string eventName, RecipeEventType recipeEventType, CookingRecipe recipe)
         {
             e.EventName = eventName;
             e.RecipeParameter = recipe;
+            e.EventType = recipeEventType;
             MMEventManager.TriggerEvent(e);
         }
     }

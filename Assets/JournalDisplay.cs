@@ -1,18 +1,34 @@
-using System.Collections;
-using System.Collections.Generic;
+using MoreMountains.Tools;
+using Project.Core.Events;
 using UnityEngine;
 
-public class JournalDisplay : MonoBehaviour
+public class JournalDisplay : MonoBehaviour, MMEventListener<RecipeEvent>
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] GameObject recipeEntryPrefab;
+    [SerializeField] GameObject recipeListParent;
+
+    void OnEnable()
     {
-        
+        this.MMEventStartListening();
     }
 
-    // Update is called once per frame
-    void Update()
+    void OnDisable()
     {
-        
+        this.MMEventStopListening();
+    }
+
+    public void OnMMEvent(RecipeEvent recipeEvent)
+    {
+        if (recipeEvent.EventType == RecipeEventType.RecipeLearned)
+        {
+            // Instantiate the prefab
+            var recipeEntry = Instantiate(recipeEntryPrefab, recipeListParent.transform);
+
+            // Get the script responsible for updating the UI (assume it's named RecipeEntry)
+            var recipeEntryScript = recipeEntry.GetComponent<RecipeEntry>();
+            if (recipeEntryScript != null)
+                // Pass the recipe data to the UI
+                recipeEntryScript.SetRecipe(recipeEvent.RecipeParameter);
+        }
     }
 }
