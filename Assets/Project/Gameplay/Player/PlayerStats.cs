@@ -35,7 +35,7 @@ namespace Project.Gameplay.Player
         // Character creation data for reference
         [SerializeField] string playerClass; // Stores the class name
         [SerializeField] List<string> chosenTraits; // Stores the trait names
-        public float Health;
+        [FormerlySerializedAs("Health")] public float health;
 
 
         public int playerCurrency;
@@ -102,9 +102,9 @@ namespace Project.Gameplay.Player
             {
                 if (overrideAutoHealth)
                 {
-                    playerHealth.CurrentHealth = Health;
-                    playerHealth.MaximumHealth = Health;
-                    playerHealth.InitialHealth = Health;
+                    playerHealth.CurrentHealth = health;
+                    playerHealth.MaximumHealth = health;
+                    playerHealth.InitialHealth = health;
                 }
                 else
                 {

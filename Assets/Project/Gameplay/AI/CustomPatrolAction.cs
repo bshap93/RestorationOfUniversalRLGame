@@ -5,23 +5,23 @@ namespace Project.Gameplay.AI
 {
     public class CustomPatrolAction : AIActionMovePatrol3D
     {
-        protected CharacterMovement _characterMovement;
-        protected CharacterRun _characterRun;
+        protected CharacterMovement CharacterMovement;
+        protected CharacterRun CharacterRun;
 
         protected override void Awake()
         {
             base.Awake();
-            _characterMovement = _character?.FindAbility<CharacterMovement>();
-            _characterRun = _character?.FindAbility<CharacterRun>();
+            CharacterMovement = _character?.FindAbility<CharacterMovement>();
+            CharacterRun = _character?.FindAbility<CharacterRun>();
         }
 
         protected override void Patrol()
         {
-            if (_characterMovement != null) _characterMovement.enabled = true; // Enable walking
-            if (_characterRun != null)
+            if (CharacterMovement != null) CharacterMovement.enabled = true; // Enable walking
+            if (CharacterRun != null)
             {
-                _characterRun.RunStop(); // Ensure not running
-                _characterRun.enabled = false;
+                CharacterRun.RunStop(); // Ensure not running
+                CharacterRun.enabled = false;
             }
 
             base.Patrol(); // Call the original patrol logic

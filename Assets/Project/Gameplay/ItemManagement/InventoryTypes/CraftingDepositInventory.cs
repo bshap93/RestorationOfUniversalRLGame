@@ -1,8 +1,6 @@
-﻿using MoreMountains.InventoryEngine;
-
-namespace Project.Gameplay.ItemManagement.InventoryTypes
+﻿namespace Project.Gameplay.ItemManagement.InventoryTypes
 {
-    public class CraftingDepositInventory : Inventory
+    public class CraftingDepositInventory : BaseInventory
     {
     }
 }

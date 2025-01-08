@@ -1,11 +1,13 @@
+using System;
 using Unity.Cinemachine;
 using UnityEngine;
 
 namespace Project.Core.Cameras
 {
+    [Obsolete("Obsolete")]
     public class CameraSetup : MonoBehaviour
     {
-        CinemachineVirtualCamera virtualCamera;
+        public CinemachineVirtualCamera virtualCamera;
 
         void Awake()
         {

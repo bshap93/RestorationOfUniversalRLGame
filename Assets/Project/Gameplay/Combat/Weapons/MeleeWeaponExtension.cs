@@ -15,7 +15,6 @@ namespace Project.Gameplay.Combat.Weapons
 
         public InventoryItem WeaponItem; // Weapon item
 
-        int _currentAnimationIndex = 0;
 
         protected void Start()
         {
