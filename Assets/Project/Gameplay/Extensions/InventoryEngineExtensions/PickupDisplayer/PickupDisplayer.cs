@@ -5,8 +5,8 @@ using MoreMountains.Tools;
 using UnityEngine;
 
 /// <summary>
-/// A class used to display the picked up items on screen. 
-/// The PickupDisplayItems will be parented to it, so it's better if it has a LayoutGroup (Vertical or Horizontal) too.
+///     A class used to display the picked up items on screen.
+///     The PickupDisplayItems will be parented to it, so it's better if it has a LayoutGroup (Vertical or Horizontal) too.
 /// </summary>
 public class PickupDisplayer : MonoBehaviour, MMEventListener<MMInventoryEvent>
 {
@@ -14,17 +14,32 @@ public class PickupDisplayer : MonoBehaviour, MMEventListener<MMInventoryEvent>
     public PickupDisplayItem PickupDisplayPrefab;
     [Tooltip("the duration the pickup display item will remain on screen")]
     public float PickupDisplayDuration = 5;
-    [Tooltip("the fade in/out duration")]
-    public float PickupFadeDuration = .2f;
-    private WaitForSeconds _pickupDisplayWfs;
-    private readonly Dictionary<string, PickupDisplayItem> _displays = new Dictionary<string, PickupDisplayItem>();
-    
-    public void OnMMEvent(MMInventoryEvent inventoryEvent)
+    [Tooltip("the fade in/out duration")] public float PickupFadeDuration = .2f;
+    readonly Dictionary<string, PickupDisplayItem> _displays = new();
+    WaitForSeconds _pickupDisplayWfs;
+    void OnEnable()
     {
-        if (inventoryEvent.InventoryEventType != MMInventoryEventType.Pick) return;
-        var item = inventoryEvent.EventItem;
-        var quantity = inventoryEvent.Quantity;
-        if (_displays.TryGetValue(item.ItemID, out var display)) display.AddQuantity(quantity);
+        this.MMEventStartListening();
+        OnValidate();
+    }
+    void OnDisable()
+    {
+        this.MMEventStopListening();
+    }
+    void OnValidate()
+    {
+        _pickupDisplayWfs = new WaitForSeconds(PickupDisplayDuration);
+    }
+
+    public void OnMMEvent(MMInventoryEvent recipeEvent)
+    {
+        if (recipeEvent.InventoryEventType != MMInventoryEventType.Pick) return;
+        var item = recipeEvent.EventItem;
+        var quantity = recipeEvent.Quantity;
+        if (_displays.TryGetValue(item.ItemID, out var display))
+        {
+            display.AddQuantity(quantity);
+        }
         else
         {
             _displays[item.ItemID] = Instantiate(PickupDisplayPrefab, transform);
@@ -35,6 +50,7 @@ public class PickupDisplayer : MonoBehaviour, MMEventListener<MMInventoryEvent>
                 canvasGroup.alpha = 0;
                 StartCoroutine(MMFade.FadeCanvasGroup(canvasGroup, PickupFadeDuration, 1));
             }
+
             StartCoroutine(FadeOutAndDestroy());
 
             IEnumerator FadeOutAndDestroy()
@@ -46,11 +62,4 @@ public class PickupDisplayer : MonoBehaviour, MMEventListener<MMInventoryEvent>
             }
         }
     }
-    private void OnEnable()
-    {
-        this.MMEventStartListening();
-        OnValidate();
-    }
-    private void OnDisable() => this.MMEventStopListening();
-    private void OnValidate() => _pickupDisplayWfs = new WaitForSeconds(PickupDisplayDuration);
 }

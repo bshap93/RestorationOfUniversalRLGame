@@ -1,4 +1,5 @@
 ﻿using MoreMountains.Tools;
+using Project.Core.Events;
 using Project.Gameplay.ItemManagement.InventoryTypes.Cooking;
 using Project.Gameplay.SaveLoad.Journal;
 using UnityEngine;
@@ -6,7 +7,7 @@ using UnityEngine.Serialization;
 
 namespace Project.Gameplay.SaveLoad
 {
-    public class JournalPersistenceManager : MonoBehaviour, MMEventListener<MMGameEvent>
+    public class JournalPersistenceManager : MonoBehaviour, MMEventListener<MMGameEvent>, MMEventListener<RecipeEvent>
     {
         const string JournalFileName = "PlayerJournal.save";
         const string SaveFolderName = "Player";
@@ -24,11 +25,16 @@ namespace Project.Gameplay.SaveLoad
             this.MMEventStopListening();
         }
 
-        public void OnMMEvent(MMGameEvent eventType)
+        public void OnMMEvent(MMGameEvent recipeEvent)
         {
-            if (eventType.EventName == "SaveJournal")
+            if (recipeEvent.EventName == "SaveJournal")
                 SaveJournal();
-            else if (eventType.EventName == "RevertJournal") RevertJournalToLastSave();
+            else if (recipeEvent.EventName == "RevertJournal") RevertJournalToLastSave();
+        }
+        public void OnMMEvent(RecipeEvent recipeEvent)
+        {
+            if (recipeEvent.EventType == RecipeEventType.RecipeLearned) 
+                AddRecipeToJournal(recipeEvent.RecipeParameter);
         }
 
         public void AddRecipeToJournal(CookingRecipe recipe)

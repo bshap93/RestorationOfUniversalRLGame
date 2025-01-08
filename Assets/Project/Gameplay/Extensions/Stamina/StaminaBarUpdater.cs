@@ -31,15 +31,15 @@ namespace Stamina
             this.MMEventStopListening<StaminaUpdateEvent>();
         }
 
-        public void OnMMEvent(StaminaUpdateEvent staminaUpdateEvent)
+        public void OnMMEvent(StaminaUpdateEvent recipeEvent)
         {
-            if (staminaUpdateEvent.Target != Target) return;
-            _bar.UpdateBar(staminaUpdateEvent.Stamina, 0, staminaUpdateEvent.MaxStamina);
+            if (recipeEvent.Target != Target) return;
+            _bar.UpdateBar(recipeEvent.Stamina, 0, recipeEvent.MaxStamina);
         }
 
-        public void OnMMEvent(TopDownEngineEvent topDownEngineEvent)
+        public void OnMMEvent(TopDownEngineEvent recipeEvent)
         {
-            if (topDownEngineEvent.EventType == TopDownEngineEventTypes.SpawnCharacterStarts && !UseCustomTarget)
+            if (recipeEvent.EventType == TopDownEngineEventTypes.SpawnCharacterStarts && !UseCustomTarget)
                 Target = LevelManager.Instance.Players[0].gameObject;
         }
     }

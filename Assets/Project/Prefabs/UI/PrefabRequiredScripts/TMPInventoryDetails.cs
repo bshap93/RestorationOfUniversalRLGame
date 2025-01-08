@@ -93,30 +93,30 @@ namespace Prefabs.UI.PrefabRequiredScripts
         /// <summary>
         ///     Catches MMInventoryEvents and displays details if needed
         /// </summary>
-        public override void OnMMEvent(MMInventoryEvent inventoryEvent)
+        public override void OnMMEvent(MMInventoryEvent recipeEvent)
         {
             // If Global is enabled, listen to all events regardless of inventory name
             if (Global)
             {
-                base.OnMMEvent(inventoryEvent);
+                base.OnMMEvent(recipeEvent);
                 return;
             }
 
             // Check if the event's TargetInventoryName is in our list of target inventory names
-            if (!TargetInventoryNames.Contains(inventoryEvent.TargetInventoryName)) return;
+            if (!TargetInventoryNames.Contains(recipeEvent.TargetInventoryName)) return;
 
-            if (inventoryEvent.PlayerID != PlayerID) return;
+            if (recipeEvent.PlayerID != PlayerID) return;
 
-            switch (inventoryEvent.InventoryEventType)
+            switch (recipeEvent.InventoryEventType)
             {
                 case MMInventoryEventType.Select:
-                    DisplayDetails(inventoryEvent.EventItem);
+                    DisplayDetails(recipeEvent.EventItem);
                     break;
                 case MMInventoryEventType.UseRequest:
-                    DisplayDetails(inventoryEvent.EventItem);
+                    DisplayDetails(recipeEvent.EventItem);
                     break;
                 case MMInventoryEventType.InventoryOpens:
-                    DisplayDetails(inventoryEvent.EventItem);
+                    DisplayDetails(recipeEvent.EventItem);
                     break;
                 case MMInventoryEventType.Drop:
                     DisplayDetails(null);

@@ -5,16 +5,13 @@ using MoreMountains.Tools;
 
 public class ComposedItemInventory : Inventory
 {
-    public override void OnMMEvent(MMInventoryEvent inventoryEvent)
+    public override void OnMMEvent(MMInventoryEvent recipeEvent)
     {
-        if (inventoryEvent.TargetInventoryName != name || inventoryEvent.PlayerID != PlayerID) return;
-        if (inventoryEvent.InventoryEventType == MMInventoryEventType.Pick) (inventoryEvent.EventItem as IInitializable)?.Initialize();
-        base.OnMMEvent(inventoryEvent);
-    }
-    [Serializable]
-    private class ExtendedSerializedInventory : SerializedInventory
-    {
-        public string[] ContentSaveData;
+        if (recipeEvent.TargetInventoryName != name || recipeEvent.PlayerID != PlayerID) return;
+        if (recipeEvent.InventoryEventType == MMInventoryEventType.Pick)
+            (recipeEvent.EventItem as IInitializable)?.Initialize();
+
+        base.OnMMEvent(recipeEvent);
     }
     public override void SaveInventory()
     {
@@ -24,7 +21,9 @@ public class ComposedItemInventory : Inventory
     }
     public override void LoadSavedInventory()
     {
-        var serializedInventory = (ExtendedSerializedInventory)MMSaveLoadManager.Load(typeof(ExtendedSerializedInventory), DetermineSaveName(), _saveFolderName);
+        var serializedInventory = (ExtendedSerializedInventory)MMSaveLoadManager.Load(
+            typeof(ExtendedSerializedInventory), DetermineSaveName(), _saveFolderName);
+
         ExtractSerializedInventory(serializedInventory);
         MMInventoryEvent.Trigger(MMInventoryEventType.InventoryLoaded, null, name, null, 0, 0, PlayerID);
     }
@@ -41,5 +40,11 @@ public class ComposedItemInventory : Inventory
         var inventory = (ExtendedSerializedInventory)serializedInventory;
         foreach (var pair in Content.Zip(inventory.ContentSaveData, (item, saveData) => (item, saveData)))
             (pair.item as IJsonSerializable)?.Load(pair.saveData);
+    }
+
+    [Serializable]
+    class ExtendedSerializedInventory : SerializedInventory
+    {
+        public string[] ContentSaveData;
     }
 }

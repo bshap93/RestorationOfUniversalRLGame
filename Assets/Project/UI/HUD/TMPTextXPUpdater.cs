@@ -27,12 +27,12 @@ namespace Project.UI.HUD
         /// <summary>
         ///     Called when the MMCameraEvent is received (for SetTargetCharacter)
         /// </summary>
-        /// <param name="eventType">The event type</param>
-        public void OnMMEvent(MMCameraEvent eventType)
+        /// <param name="recipeEvent">The event type</param>
+        public void OnMMEvent(MMCameraEvent recipeEvent)
         {
-            if (eventType.EventType == MMCameraEventTypes.SetTargetCharacter)
+            if (recipeEvent.EventType == MMCameraEventTypes.SetTargetCharacter)
             {
-                var newCharacter = eventType.TargetCharacter.gameObject;
+                var newCharacter = recipeEvent.TargetCharacter.gameObject;
                 if (newCharacter != null)
                 {
                     var playerStats = newCharacter.GetComponent<PlayerStats>();
@@ -48,11 +48,11 @@ namespace Project.UI.HUD
         /// <summary>
         ///     Handles MMGameEvents for PlayerExperienceChanged and PlayerLevelChanged
         /// </summary>
-        /// <param name="eventType">The event type</param>
-        public void OnMMEvent(MMGameEvent eventType)
+        /// <param name="recipeEvent">The event type</param>
+        public void OnMMEvent(MMGameEvent recipeEvent)
         {
-            if (eventType.EventName == "PlayerExperienceChanged")
-                UpdateXPText(eventType.IntParameter); // Update using new XP
+            if (recipeEvent.EventName == "PlayerExperienceChanged")
+                UpdateXPText(recipeEvent.IntParameter); // Update using new XP
         }
 
         /// <summary>

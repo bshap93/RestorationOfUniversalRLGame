@@ -37,11 +37,11 @@ namespace Project.Gameplay.SaveLoad
             this.MMEventStopListening();
         }
 
-        public void OnMMEvent(MMGameEvent eventType)
+        public void OnMMEvent(MMGameEvent recipeEvent)
         {
-            if (eventType.EventName == "SaveResources")
+            if (recipeEvent.EventName == "SaveResources")
                 SaveResources();
-            else if (eventType.EventName == "RevertResources")
+            else if (recipeEvent.EventName == "RevertResources")
                 RevertResourcesToLastSave();
         }
 

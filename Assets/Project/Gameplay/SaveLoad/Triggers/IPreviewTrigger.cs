@@ -7,6 +7,6 @@ namespace Project.Gameplay.ItemManagement.Triggers
         void OnSelectedItem();
         void OnUnSelectedItem();
 
-        public void OnMMEvent(MMCameraEvent eventType);
+        public void OnMMEvent(MMCameraEvent recipeEvent);
     }
 }
