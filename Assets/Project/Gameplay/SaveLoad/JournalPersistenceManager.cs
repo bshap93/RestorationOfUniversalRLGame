@@ -41,7 +41,8 @@ namespace Project.Gameplay.SaveLoad
 
         public void AddRecipeToJournal(CookingRecipe recipe)
         {
-            journalData.knownRecipes.Add(recipe);
+            SerializableRecipe serializableRecipe = new(recipe);
+            journalData.knownRecipes.Add(serializableRecipe);
         }
 
         public void SaveJournal()

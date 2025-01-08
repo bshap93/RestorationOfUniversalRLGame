@@ -11,6 +11,7 @@ namespace Project.Gameplay.ItemManagement.InventoryTypes.Cooking
         fileName = "Crafting", menuName = "Crafting/CookingRecipe", order = 1)]
     public class CookingRecipe : CraftingRecipe
     {
+        public string recipeID;
         public string recipeName;
         public List<CraftingMaterial> requiredMaterials;
         public FinishedFoodItem finishedFoodItem;
