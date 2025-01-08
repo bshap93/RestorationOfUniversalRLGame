@@ -1,18 +1,48 @@
-using System.Collections;
-using System.Collections.Generic;
+using Michsky.MUIP;
+using MoreMountains.InventoryEngine;
+using MoreMountains.Tools;
 using UnityEngine;
 
-public class WindowButtonVisibilityManager : MonoBehaviour
+public class WindowButtonVisibilityManager : MonoBehaviour, MMEventListener<MMInventoryEvent>
 {
-    // Start is called before the first frame update
-    void Start()
+    public WindowManager windowManager; // Reference to the WindowManager
+
+    void OnEnable()
     {
-        
+        this.MMEventStartListening();
+
+        SetButtonVisibility(false);
     }
 
-    // Update is called once per frame
-    void Update()
+    void OnDisable()
     {
-        
+        this.MMEventStopListening();
+    }
+
+    public void OnMMEvent(MMInventoryEvent inventoryEvent)
+    {
+        if (windowManager == null)
+        {
+            Debug.LogWarning("WindowManager is not assigned!");
+            return;
+        }
+
+        switch (inventoryEvent.InventoryEventType)
+        {
+            case MMInventoryEventType.InventoryOpens:
+                SetButtonVisibility(true);
+                break;
+
+            case MMInventoryEventType.InventoryCloses:
+                SetButtonVisibility(false);
+                break;
+        }
+    }
+
+    void SetButtonVisibility(bool visible)
+    {
+        foreach (var window in windowManager.windows)
+            if (window.buttonObject != null)
+                window.buttonObject.SetActive(visible);
     }
 }
