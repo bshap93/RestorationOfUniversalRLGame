@@ -14,20 +14,29 @@ Material:
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
   - _DEPTHMASKENABLED_ON
+  - _ENABLE_FOG_ON_TRANSPARENT
   - _RAMPENABLED_ON
+  - _SURFACE_TYPE_TRANSPARENT
   - _TRISGLAREENABLED_ON
   - _VERTICALGRADIENTENABLED_ON
   - _WAVESENABLED_ON
   m_InvalidKeywords:
   - _DEPTHMASKFLIP_ON
   - _DISSOLVETEXTUREFLIP_ON
+  - _DOUBLESIDED_ON
   - _INNERRIMENABLED_ON
   m_LightmapFlags: 0
   m_EnableInstancingVariants: 1
-  m_DoubleSidedGI: 0
+  m_DoubleSidedGI: 1
   m_CustomRenderQueue: 3000
-  stringTagMap: {}
-  disabledShaderPasses: []
+  stringTagMap:
+    MotionVector: User
+    RenderType: Transparent
+  disabledShaderPasses:
+  - TransparentDepthPrepass
+  - TransparentDepthPostpass
+  - TransparentBackface
+  - MOTIONVECTORS
   m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
@@ -114,6 +123,10 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - _AddPrecomputedVelocity: 0
+    - _AlphaCutoffEnable: 0
+    - _AlphaDstBlend: 10
+    - _AlphaSrcBlend: 1
     - _AppearGradientAbsSwitch: 1
     - _AppearGradientClampSwitch: 0
     - _AppearGradientDistortionAmount: 0.125
@@ -122,6 +135,10 @@ Material:
     - _AppearGradientOffset: -1
     - _AppearGradientProgress: -0.3
     - _AppearGradientRemapMax: 0.5
+    - _BlendMode: 0
+    - _ConservativeDepthOffsetEnable: 0
+    - _CullMode: 0
+    - _CullModeForward: 0
     - _DEPTHMASKENABLED: 1
     - _DISSOLVETEXTUREFLIP: 1
     - _DepthMaskDistance: 4
@@ -129,9 +146,17 @@ Material:
     - _DepthMaskFlip: 1
     - _DepthMaskMultiply: 6
     - _DepthMaskRemapMax: 1.5
+    - _DepthOffsetEnable: 0
     - _DissolveExp: 6.47
     - _DissolveExpReversed1: 2
     - _DissolveTextureScale: 1
+    - _DoubleSidedEnable: 1
+    - _DoubleSidedGIMode: 0
+    - _DoubleSidedNormalMode: 2
+    - _DstBlend: 10
+    - _EnableBlendModePreserveSpecularLighting: 0
+    - _EnableFogOnTransparent: 1
+    - _ExcludeFromTUAndAA: 0
     - _FinalOpacityPower: 4
     - _FinalPower: 30
     - _FlipbookColums: 1
@@ -164,6 +189,7 @@ Material:
     - _OffsetToOpacityTopFixExp: 8
     - _OffsetToOpacityTopFixValue: 0.25
     - _OffsetTrisOpacityNegate: 0.25
+    - _OpaqueCullMode: 2
     - _QueueControl: 1
     - _QueueOffset: 0
     - _RAMPENABLED: 1
@@ -172,10 +198,29 @@ Material:
     - _RampOffsetExp: 4
     - _RampOffsetMultiply: 4
     - _RampOffsetMultiply1: 4
+    - _RenderQueueType: 4
+    - _SrcBlend: 1
+    - _StencilRef: 0
+    - _StencilRefDepth: 1
+    - _StencilRefDistortionVec: 4
+    - _StencilRefMV: 33
+    - _StencilWriteMask: 6
+    - _StencilWriteMaskDepth: 9
+    - _StencilWriteMaskDistortionVec: 4
+    - _StencilWriteMaskMV: 43
+    - _SurfaceType: 1
     - _TRISGLAREENABLED: 1
+    - _TransparentBackfaceEnable: 0
+    - _TransparentCullMode: 2
+    - _TransparentDepthPostpassEnable: 0
+    - _TransparentDepthPrepassEnable: 0
+    - _TransparentSortPriority: 0
+    - _TransparentWritingMotionVec: 0
+    - _TransparentZWrite: 0
     - _TrisGlareNegate: 0.25
     - _TrisGlareTextureScaleU: 3
     - _TrisGlareTextureScaleV: 4
+    - _UseShadowThreshold: 0
     - _VERTICALGRADIENTENABLED: 1
     - _VerticalGradientAbsSwitch: 1
     - _VerticalGradientClampSwitch: 0
@@ -186,13 +231,34 @@ Material:
     - _WAVESENABLED: 1
     - _WavesScale: 16
     - _WavesSpeed: 5
+    - _ZTestDepthEqualForOpaque: 4
+    - _ZTestTransparent: 4
+    - _ZWrite: 0
     - __dirty: 0
     m_Colors:
+    - _DoubleSidedConstants: {r: 1, g: 1, b: -1, a: 0}
+    - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
     - _FinalColor: {r: 0.40789053, g: 0.6792453, b: 0.34816656, a: 1}
     - _MainTexChannels: {r: 1, g: 10, b: 0, a: 0.0125}
     - _RampColorTint: {r: 1, g: 1, b: 1, a: 1}
     - _RampColorTint1: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
+--- !u!114 &3296571904606317294
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da692e001514ec24dbc4cca1949ff7e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 13
+  hdPluginSubTargetMaterialVersions:
+    m_Keys: []
+    m_Values: 
 --- !u!114 &3517270609300243444
 MonoBehaviour:
   m_ObjectHideFlags: 11

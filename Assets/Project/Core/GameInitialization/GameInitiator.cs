@@ -54,6 +54,8 @@ namespace Project.Core.GameInitialization
             if (eventType.EventType == MMCameraEventTypes.SetTargetCharacter)
             {
                 MMGameEvent.Trigger("SaveInventory");
+                MMGameEvent.Trigger("SaveResources");
+                MMGameEvent.Trigger("SaveJournal");
                 ApplyCharacterCreationDataToPlayer(eventType.TargetCharacter.gameObject);
 
                 SpawnEnemiesIfPossible(eventType.TargetCharacter.gameObject);

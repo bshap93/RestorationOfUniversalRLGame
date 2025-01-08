@@ -23,6 +23,7 @@ namespace Project.Core.SaveSystem
         {
             Debug.Log("SaveStateManager: Checkpoint reached.");
             MMGameEvent.Trigger("RevertResources");
+            MMGameEvent.Trigger("RevertJournal");
         }
     }
 }

@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using MoreMountains.Tools;
 using Project.Gameplay.DungeonGeneration.Spawning;
 using Project.Gameplay.Player;
@@ -19,13 +18,13 @@ namespace Project.Core.SaveSystem
         // Track level transitions for save/load
         readonly Dictionary<string, LevelTransitionData> levelTransitions = new();
 
-        SpawnPointManager spawnPointManager;
+        SpawnPointManager _spawnPointManager;
         public static NewSaveManager Instance { get; private set; }
         public SaveData CurrentSave { get; private set; }
 
         void Awake()
         {
-            spawnPointManager = FindObjectOfType<SpawnPointManager>();
+            _spawnPointManager = FindObjectOfType<SpawnPointManager>();
 
             if (Instance == null)
             {
@@ -42,7 +41,7 @@ namespace Project.Core.SaveSystem
 
         Gameplay.DungeonGeneration.Spawning.SpawnPoint FindSpawnPoint(string spawnPointId)
         {
-            return spawnPointManager.GetSpawnPointById(spawnPointId);
+            return _spawnPointManager.GetSpawnPointById(spawnPointId);
         }
 
         public void SetLastTransitionPoint(string levelId, string spawnPointId, SpawnDirection direction)
@@ -56,34 +55,6 @@ namespace Project.Core.SaveSystem
                 playerPosition = playerGameObject.transform.position,
                 playerRotation = playerGameObject.transform.rotation
             };
-        }
-        public LevelTransitionData GetLevelTransitionData(string levelId)
-        {
-            return levelTransitions.TryGetValue(levelId, out var data) ? data : null;
-        }
-
-        public Task HandleLevelTransition(string targetLevelId, string targetSpawnPointId, SpawnDirection direction)
-        {
-            // Save current level state
-            SaveGame();
-
-            // Load new level
-            // TODO: Implement level loading
-
-            var playerGameObject = GameObject.FindGameObjectWithTag("Player");
-
-            // Find target spawn point and position player
-            var spawnPoint = FindSpawnPoint(targetSpawnPointId);
-            if (spawnPoint != null)
-            {
-                playerGameObject.transform.position = spawnPoint.transform.position;
-                playerGameObject.transform.rotation = spawnPoint.transform.rotation;
-
-                // Notify spawn point of transition
-                spawnPoint.OnLevelTransition(direction);
-            }
-
-            return Task.CompletedTask;
         }
 
         public void SaveGame(string slot = "default")

@@ -5,10 +5,11 @@ using Project.Gameplay.Combat.Shields;
 using Project.Gameplay.Combat.Tools;
 using Project.Gameplay.Combat.Weapons;
 using Project.Gameplay.Interactivity.Items;
+using Project.Gameplay.ItemManagement;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-namespace Project.Gameplay.ItemManagement
+namespace Project.Gameplay.SaveLoad
 {
     public class InventoryPersistenceManager : MonoBehaviour, MMEventListener<MMGameEvent>
     {
@@ -45,7 +46,7 @@ namespace Project.Gameplay.ItemManagement
         {
             if (gameEvent.EventName == "SaveInventory")
                 SaveInventories();
-            else if (gameEvent.EventName == "Revert") RevertInventoriesToLastSave();
+            else if (gameEvent.EventName == "RevertInventory") RevertInventoriesToLastSave();
         }
 
         void SaveInventories()

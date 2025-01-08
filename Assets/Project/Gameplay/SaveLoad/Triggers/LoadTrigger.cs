@@ -1,7 +1,7 @@
 ﻿using MoreMountains.Tools;
 using UnityEngine;
 
-namespace Project.Gameplay.ItemManagement.Triggers
+namespace Project.Gameplay.SaveLoad.Triggers
 {
     public class LoadTrigger : MonoBehaviour
     {
@@ -9,6 +9,7 @@ namespace Project.Gameplay.ItemManagement.Triggers
         public static void Revert()
         {
             MMGameEvent.Trigger("RevertResources");
+            MMGameEvent.Trigger("RevertJournal");
         }
     }
 }

@@ -4,7 +4,7 @@ using Project.Gameplay.Player;
 using Project.Gameplay.Player.Health;
 using UnityEngine;
 
-namespace Project.Gameplay.ItemManagement
+namespace Project.Gameplay.SaveLoad
 {
     public class ResourcesPersistenceManager : MonoBehaviour, MMEventListener<MMGameEvent>
     {

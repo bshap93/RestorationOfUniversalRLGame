@@ -9,15 +9,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 89fda48f6ea17d642b732733a2b7ae80, type: 3}
-  m_Name: Carrots
+  m_Script: {fileID: 11500000, guid: 1a8e65b875014c259b118b535420a9d8, type: 3}
+  m_Name: TestCookbook
   m_EditorClassIdentifier: 
-  ItemID: Carrots01
+  ItemID: TestCookBook
   TargetInventoryName: MainPlayerInventory
   ForceSlotIndex: 0
   TargetIndex: 0
   Usable: 1
-  Consumable: 1
+  Consumable: 0
   ConsumeQuantity: 1
   Equippable: 0
   EquippableIfInventoryIsFull: 1
@@ -38,11 +38,13 @@ MonoBehaviour:
     AllowEquipShortcut: 1
     AllowUseShortcut: 1
   Quantity: 1
-  ItemName: Carrots
-  ShortDescription: A few carrots, still fresh and seemingly edible
+  ItemName: Test Cook Book
+  ShortDescription: 'Test Recipes for the Wayfaring Traverler
+
+'
   Description: 
-  Icon: {fileID: 21300000, guid: 44ceee0fc7689cf4f8d6175ba9b65eee, type: 3}
-  Prefab: {fileID: 9022520988057576563, guid: ba9f1eea489d1b449b279d2be5e1c01f, type: 3}
+  Icon: {fileID: 21300000, guid: 3c826031feda787408cbc81e112fb099, type: 3}
+  Prefab: {fileID: 4682255899042843084, guid: d64b86428b903bd418e8d0b0d8b627a6, type: 3}
   ForcePrefabDropQuantity: 0
   PrefabDropQuantity: 1
   DropProperties:
@@ -96,6 +98,11 @@ MonoBehaviour:
   MovedSound: {fileID: 0}
   DroppedSound: {fileID: 0}
   UseDefaultSoundsIfNull: 1
-  HealthToGive: 4
-  CookedSingleRawFoodRecipe: {fileID: 11400000, guid: f8136dac99ea7c9439e01ba379bdf08a,
-    type: 2}
+  BookTitle: 
+  AuthorName: Unknown
+  CookingSkillLevelNeeded: 1
+  CookingType: 0
+  CookingRecipes:
+  - {fileID: 11400000, guid: 4523815c9e6f6bd449ce76471bc132e1, type: 2}
+  - {fileID: 11400000, guid: f8136dac99ea7c9439e01ba379bdf08a, type: 2}
+  - {fileID: 11400000, guid: 655d27476af726f44a118b4e45cd2254, type: 2}

@@ -36,6 +36,7 @@ namespace Project.Gameplay.Player
         [SerializeField] string playerClass; // Stores the class name
         [SerializeField] List<string> chosenTraits; // Stores the trait names
         [FormerlySerializedAs("Health")] public float health;
+        public CharacterStats characterStats;
 
 
         public int playerCurrency;
