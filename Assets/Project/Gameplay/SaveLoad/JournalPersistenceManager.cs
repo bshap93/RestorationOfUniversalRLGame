@@ -17,12 +17,14 @@ namespace Project.Gameplay.SaveLoad
 
         void OnEnable()
         {
-            this.MMEventStartListening();
+            this.MMEventStartListening<MMGameEvent>();
+            this.MMEventStartListening<RecipeEvent>();
         }
 
         void OnDisable()
         {
-            this.MMEventStopListening();
+            this.MMEventStopListening<MMGameEvent>();
+            this.MMEventStopListening<RecipeEvent>();
         }
 
         public void OnMMEvent(MMGameEvent recipeEvent)
@@ -33,7 +35,7 @@ namespace Project.Gameplay.SaveLoad
         }
         public void OnMMEvent(RecipeEvent recipeEvent)
         {
-            if (recipeEvent.EventType == RecipeEventType.RecipeLearned) 
+            if (recipeEvent.EventType == RecipeEventType.RecipeLearned)
                 AddRecipeToJournal(recipeEvent.RecipeParameter);
         }
 
