@@ -15,6 +15,7 @@ namespace Project.Gameplay.SaveLoad
         [FormerlySerializedAs("_journalData")] [SerializeField]
         JournalData journalData = new();
 
+
         void OnEnable()
         {
             this.MMEventStartListening<MMGameEvent>();
@@ -62,6 +63,7 @@ namespace Project.Gameplay.SaveLoad
                 Debug.Log("Journal reverted to last save.");
             }
         }
+
 
         public JournalData GetJournalData()
         {
