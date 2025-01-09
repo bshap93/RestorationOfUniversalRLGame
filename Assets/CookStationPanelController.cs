@@ -12,7 +12,7 @@ public class CookStationPanelController : MonoBehaviour, MMEventListener<MMInven
     readonly Stack<CookingStationController> _cookingStationControllers = new();
     void Start()
     {
-        CookingStationPanel.SetActive(false);
+        HidePanel();
     }
 
     void OnEnable()
@@ -51,15 +51,16 @@ public class CookStationPanelController : MonoBehaviour, MMEventListener<MMInven
             _cookingStationControllers.Pop();
 
             if (_cookingStationControllers.Count == 0)
-                CookingStationPanel.SetActive(false);
+                HidePanel();
         }
 
         if (cookingStationEvent.EventType == CookingStationEventType.CookingStationSelected)
             if (cookingStationEvent.CookingStationControllerParameter.IsPlayerInRange())
-                CookingStationPanel.SetActive(true);
+                ShowPanel();
+
 
         if (cookingStationEvent.EventType == CookingStationEventType.CookingStationDeselected)
-            CookingStationPanel.SetActive(false);
+            HidePanel();
     }
 
 
@@ -71,9 +72,31 @@ public class CookStationPanelController : MonoBehaviour, MMEventListener<MMInven
 
         if (inventoryEvent.InventoryEventType == MMInventoryEventType.InventoryOpens
             && topCookingStationController.IsPlayerInRange())
-            CookingStationPanel.SetActive(true);
+            ShowPanel();
 
         if (inventoryEvent.InventoryEventType == MMInventoryEventType.InventoryCloses)
-            CookingStationPanel.SetActive(false);
+            HidePanel();
+    }
+
+    void ShowPanel()
+    {
+        var canvasGroup = CookingStationPanel.GetComponent<CanvasGroup>();
+        if (canvasGroup != null)
+        {
+            canvasGroup.alpha = 1;
+            canvasGroup.interactable = true;
+            canvasGroup.blocksRaycasts = true;
+        }
+    }
+
+    void HidePanel()
+    {
+        var canvasGroup = CookingStationPanel.GetComponent<CanvasGroup>();
+        if (canvasGroup != null)
+        {
+            canvasGroup.alpha = 0;
+            canvasGroup.interactable = false;
+            canvasGroup.blocksRaycasts = false;
+        }
     }
 }
