@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using MoreMountains.Feedbacks;
 using MoreMountains.Tools;
 using Project.Gameplay.Interactivity.Food;
 using Project.Gameplay.Interactivity.Items;
 using Project.Gameplay.ItemManagement.InventoryTypes.Fuel;
+using Project.Gameplay.SaveLoad;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -37,9 +39,13 @@ namespace Project.Gameplay.ItemManagement.InventoryTypes.Cooking
         public MMProgressBar cookingProgressBar;
 
         public RecipeHeader recipeHeader;
+
+        readonly List<CookingRecipe> cookableRecipes = new();
         CookingStationController _cookingStationController;
 
         CookingRecipe _currentRecipe;
+
+        JournalPersistenceManager _journalPersistenceManager;
 
         public void Start()
         {
@@ -49,6 +55,9 @@ namespace Project.Gameplay.ItemManagement.InventoryTypes.Cooking
 
             if (_cookingStationController == null)
                 _cookingStationController = gameObject.GetComponentInParent<CookingStationController>();
+
+            if (_journalPersistenceManager == null)
+                _journalPersistenceManager = FindObjectOfType<JournalPersistenceManager>();
         }
 
 
@@ -83,12 +92,28 @@ namespace Project.Gameplay.ItemManagement.InventoryTypes.Cooking
         }
         void TryDetectRecipeFromIngredientsInQueue(RawFood rawFood)
         {
-            Debug.Log("Content count: " + Content.Length);
+            foreach (var recipe in _journalPersistenceManager.journalData.knownRecipes)
+                if (recipe.CanBeCookedFrom(Content))
+                {
+                    cookableRecipes.Add(recipe);
+                    Debug.Log("Added recipe to cookableRecipes: " + recipe.recipeName);
+                }
 
-            Debug.Log("CookingQueueInventory.TryDetectRecipeFromIngredientsInQueue: No items yet queue");
-            // CheckIfRecipesExistForItemsNowInQueue();
-            _currentRecipe = rawFood.CookedSingleRawFoodRecipe;
-            _cookingStationController.SetCurrentRecipe(_currentRecipe);
+            if (cookableRecipes.Count == 1)
+            {
+                _currentRecipe = cookableRecipes[0];
+                _cookingStationController.SetCurrentRecipe(_currentRecipe);
+            }
+            else if (cookableRecipes.Count > 1)
+            {
+                Debug.LogWarning("More than one recipe can be cooked from the ingredients in the queue.");
+                _currentRecipe = cookableRecipes[0];
+            }
+            else
+            {
+                _currentRecipe = rawFood.CookedSingleRawFoodRecipe;
+                _cookingStationController.SetCurrentRecipe(_currentRecipe);
+            }
         }
 
         public override bool AddItemAt(InventoryItem item, int quantity, int index)
