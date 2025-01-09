@@ -32,6 +32,10 @@ namespace Project.Gameplay.ItemManagement.InventoryTypes.Fuel
                 return base.AddItem(fuelItem, quantity);
             }
 
+            // Add item to primary inventory if not allowed 
+            if (primaryPlayerInventory.AddItem(fuelItem, quantity)) return true;
+
+
             Debug.Log("FuelInventory.AddItem: Item not allowed");
             return false;
         }
@@ -71,7 +75,6 @@ namespace Project.Gameplay.ItemManagement.InventoryTypes.Fuel
 
         public override bool AddItemAt(InventoryItem fuelItem, int quantity, int index)
         {
-            Debug.Log("FuelInventory.AddItemAt");
             if (fuelItem.ItemID == fuelItemAllowed.ItemID)
             {
                 fuelStartsFeedback?.PlayFeedbacks();
@@ -89,7 +92,7 @@ namespace Project.Gameplay.ItemManagement.InventoryTypes.Fuel
 
         public override bool MoveItem(int oldIndex, int newIndex)
         {
-            return true;
+            return false;
         }
 
         public override bool RemoveItem(int index, int quantity)

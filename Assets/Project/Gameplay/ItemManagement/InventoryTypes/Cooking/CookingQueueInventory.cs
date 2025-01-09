@@ -112,7 +112,7 @@ namespace Project.Gameplay.ItemManagement.InventoryTypes.Cooking
         }
         public override bool MoveItem(int oldIndex, int newIndex)
         {
-            return true;
+            return false;
         }
 
         IEnumerator CookFood(CookingRecipeInProgress cookingRecipeInProgress, int quantity)

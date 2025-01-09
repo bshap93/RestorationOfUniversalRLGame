@@ -33,25 +33,20 @@ public class CookStationPanelController : MonoBehaviour, MMEventListener<MMInven
     {
         if (cookingStationEvent.EventType == CookingStationEventType.CookingStationInRange)
         {
-            Debug.Log("Cooking station in range");
             if (cookingStationEvent.CookingStationControllerParameter == null)
             {
                 Debug.LogError("CookingStationController is null");
                 return;
             }
 
-            Debug.Log("CSCP not null");
 
             _cookingStationControllers.Push(cookingStationEvent.CookingStationControllerParameter);
-
-            Debug.Log("Cooking station added: " + cookingStationEvent.CookingStationControllerParameter.name);
         }
 
         if (cookingStationEvent.EventType == CookingStationEventType.CookingStationOutOfRange)
         {
             if (_cookingStationControllers.Count == 0) throw new Exception("CookingStationController stack is empty");
 
-            Debug.Log("Cooking station out of range");
 
             _cookingStationControllers.Pop();
 

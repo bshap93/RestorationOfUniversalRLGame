@@ -48,7 +48,6 @@ namespace Project.Gameplay.SaveLoad
         public void SaveJournal()
         {
             ES3.Save("JournalData", journalData, "PlayerJournal.save");
-            Debug.Log("Journal saved.");
         }
 
         public void RevertJournalToLastSave()
