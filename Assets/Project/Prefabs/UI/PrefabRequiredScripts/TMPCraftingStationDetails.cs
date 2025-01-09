@@ -36,6 +36,7 @@ namespace Prefabs.UI.PrefabRequiredScripts
         void Start()
         {
             _canvasGroup = GetComponent<CanvasGroup>();
+            gameObject.SetActive(false);
         }
 
         void OnEnable()
@@ -48,14 +49,13 @@ namespace Prefabs.UI.PrefabRequiredScripts
             this.MMEventStopListening();
         }
 
-        public void OnMMEvent(MMGameEvent recipeEvent)
+        public void OnMMEvent(MMGameEvent cookingStationEvent)
         {
-            if (recipeEvent.EventName == PreviewEventName)
+            if (cookingStationEvent.EventName == PreviewEventName)
             {
                 switch (CraftingStationType)
                 {
                     case CraftingStationType.CookingStation:
-                        Debug.Log("Cooking Station Previewed");
                         break;
                 }
 

@@ -27,16 +27,16 @@ namespace Project.Gameplay.SaveLoad
             this.MMEventStopListening<RecipeEvent>();
         }
 
-        public void OnMMEvent(MMGameEvent recipeEvent)
+        public void OnMMEvent(MMGameEvent cookingStationEvent)
         {
-            if (recipeEvent.EventName == "SaveJournal")
+            if (cookingStationEvent.EventName == "SaveJournal")
                 SaveJournal();
-            else if (recipeEvent.EventName == "RevertJournal") RevertJournalToLastSave();
+            else if (cookingStationEvent.EventName == "RevertJournal") RevertJournalToLastSave();
         }
-        public void OnMMEvent(RecipeEvent recipeEvent)
+        public void OnMMEvent(RecipeEvent cookingStationEvent)
         {
-            if (recipeEvent.EventType == RecipeEventType.RecipeLearned)
-                AddRecipeToJournal(recipeEvent.RecipeParameter);
+            if (cookingStationEvent.EventType == RecipeEventType.RecipeLearned)
+                AddRecipeToJournal(cookingStationEvent.RecipeParameter);
         }
 
         public void AddRecipeToJournal(CookingRecipe recipe)

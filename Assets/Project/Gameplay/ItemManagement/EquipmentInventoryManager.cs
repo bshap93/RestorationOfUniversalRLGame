@@ -16,12 +16,12 @@ public class EquipmentInventoryManager : MonoBehaviour, MMEventListener<MMInvent
     [FormerlySerializedAs("_isTwoHandedWeaponEquipped")] [SerializeField]
     bool isTwoHandedWeaponEquipped;
 
-    public void OnMMEvent(MMInventoryEvent recipeEvent)
+    public void OnMMEvent(MMInventoryEvent cookingStationEvent)
     {
-        switch (recipeEvent.InventoryEventType)
+        switch (cookingStationEvent.InventoryEventType)
         {
             case MMInventoryEventType.EquipRequest:
-                var item = recipeEvent.EventItem;
+                var item = cookingStationEvent.EventItem;
                 Debug.Log("Item requested equipment: " + item.ItemID);
                 if (TwoHandedItems.Contains(item))
                 {

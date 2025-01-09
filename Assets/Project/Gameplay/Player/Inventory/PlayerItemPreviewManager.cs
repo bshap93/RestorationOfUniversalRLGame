@@ -63,25 +63,25 @@ namespace Project.Gameplay.Player.Inventory
         }
 
 
-        public void OnMMEvent(ItemEvent recipeEvent)
+        public void OnMMEvent(ItemEvent cookingStationEvent)
         {
             // Skip if we're in the middle of a pickup
             if (_isPickingUp) return;
 
-            var itemPicker = recipeEvent.ItemTransform.GetComponent<ManualItemPicker>();
+            var itemPicker = cookingStationEvent.ItemTransform.GetComponent<ManualItemPicker>();
             if (itemPicker == null) return;
 
-            switch (recipeEvent.EventName)
+            switch (cookingStationEvent.EventName)
             {
                 case "ItemPickupRangeEntered":
                     if (!_itemPickersInRange.ContainsKey(itemPicker.UniqueID))
-                        HandleItemEntered(itemPicker, recipeEvent.ItemTransform);
+                        HandleItemEntered(itemPicker, cookingStationEvent.ItemTransform);
 
                     break;
 
                 case "ItemPickupRangeExited":
                 case "ItemPickedUp":
-                    HandleItemExited(itemPicker, recipeEvent.ItemTransform);
+                    HandleItemExited(itemPicker, cookingStationEvent.ItemTransform);
                     break;
             }
         }
@@ -180,11 +180,7 @@ namespace Project.Gameplay.Player.Inventory
 
         void UpdateNearestItem()
         {
-            if (_isPickingUp)
-            {
-                Debug.Log("Skipping nearest item update - pickup in progress");
-                return;
-            }
+            if (_isPickingUp) return;
 
             _isSorting = true;
 

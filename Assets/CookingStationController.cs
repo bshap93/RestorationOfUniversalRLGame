@@ -1,6 +1,7 @@
 using MoreMountains.Feedbacks;
 using MoreMountains.InventoryEngine;
 using MoreMountains.Tools;
+using Project.Core.Events;
 using Project.Gameplay.Interactivity.Items;
 using Project.Gameplay.ItemManagement.InventoryTypes;
 using Project.Gameplay.ItemManagement.InventoryTypes.Cooking;
@@ -65,7 +66,8 @@ public class CookingStationController : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             _isInPlayerRange = true;
-            Debug.Log("Player entered cooking station range");
+
+            CookingStationEvent.Trigger("CookingStationInRange", CookingStationEventType.CookingStationInRange, this);
 
             // Display the inventories when interacting.
 
@@ -86,8 +88,18 @@ public class CookingStationController : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             _isInPlayerRange = false;
+            CookingStationEvent.Trigger(
+                "CookingStationOutOfRange",
+                CookingStationEventType.CookingStationOutOfRange,
+                this);
+
             HidePreview();
         }
+    }
+
+    public bool IsPlayerInRange()
+    {
+        return _isInPlayerRange;
     }
 
     public Inventory GetQueueInventory()
@@ -112,7 +124,6 @@ public class CookingStationController : MonoBehaviour
     public void PromptFuelDeposit()
     {
         // Example: Show UI to deposit fuel
-        Debug.Log("Open fuel deposit UI and the player's inventory");
     }
 
     void ShowPreview(string message)
@@ -122,15 +133,11 @@ public class CookingStationController : MonoBehaviour
             previewPanel.SetActive(true);
             if (previewText != null) previewText.text = message;
         }
-
-        if (CookingStationInventoryPanel != null) CookingStationInventoryPanel.SetActive(true);
     }
 
     void HidePreview()
     {
         if (previewPanel != null) previewPanel.SetActive(false);
-
-        if (CookingStationInventoryPanel != null) CookingStationInventoryPanel.SetActive(false);
     }
 
 

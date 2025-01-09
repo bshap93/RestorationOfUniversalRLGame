@@ -42,11 +42,11 @@ namespace Project.Gameplay.SaveLoad
             this.MMEventStopListening();
         }
 
-        public void OnMMEvent(MMGameEvent recipeEvent)
+        public void OnMMEvent(MMGameEvent cookingStationEvent)
         {
-            if (recipeEvent.EventName == "SaveInventory")
+            if (cookingStationEvent.EventName == "SaveInventory")
                 SaveInventories();
-            else if (recipeEvent.EventName == "RevertInventory") RevertInventoriesToLastSave();
+            else if (cookingStationEvent.EventName == "RevertInventory") RevertInventoriesToLastSave();
         }
 
         void SaveInventories()

@@ -19,7 +19,7 @@ public class WindowButtonVisibilityManager : MonoBehaviour, MMEventListener<MMIn
         this.MMEventStopListening();
     }
 
-    public void OnMMEvent(MMInventoryEvent inventoryEvent)
+    public void OnMMEvent(MMInventoryEvent cookingStationEvent)
     {
         if (windowManager == null)
         {
@@ -27,7 +27,7 @@ public class WindowButtonVisibilityManager : MonoBehaviour, MMEventListener<MMIn
             return;
         }
 
-        switch (inventoryEvent.InventoryEventType)
+        switch (cookingStationEvent.InventoryEventType)
         {
             case MMInventoryEventType.InventoryOpens:
                 SetButtonVisibility(true);

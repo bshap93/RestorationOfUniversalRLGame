@@ -36,9 +36,9 @@ namespace Project.Gameplay.Combat
             this.MMEventStopListening();
         }
 
-        public virtual void OnMMEvent(MMGameEvent recipeEvent)
+        public virtual void OnMMEvent(MMGameEvent cookingStationEvent)
         {
-            if (recipeEvent.EventName == "PlayerSpawn") StartCoroutine(InitializeEquipment());
+            if (cookingStationEvent.EventName == "PlayerSpawn") StartCoroutine(InitializeEquipment());
         }
 
         protected virtual void FindInventories()

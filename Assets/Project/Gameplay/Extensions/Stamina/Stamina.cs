@@ -106,13 +106,13 @@ namespace Project.Gameplay.TDEExtensions.Stamina
             this.MMEventStopListening();
         }
 
-        public void OnMMEvent(MMStateChangeEvent<CharacterStates.MovementStates> recipeEvent)
+        public void OnMMEvent(MMStateChangeEvent<CharacterStates.MovementStates> cookingStationEvent)
         {
-            if (recipeEvent.Target != gameObject)
+            if (cookingStationEvent.Target != gameObject)
                 return;
 
-            if (recipeEvent.NewState != CharacterStates.MovementStates.Running) _running = false;
-            switch (recipeEvent.NewState)
+            if (cookingStationEvent.NewState != CharacterStates.MovementStates.Running) _running = false;
+            switch (cookingStationEvent.NewState)
             {
                 case CharacterStates.MovementStates.Running:
                     StartCoroutine(ConsumeRunningStamina());

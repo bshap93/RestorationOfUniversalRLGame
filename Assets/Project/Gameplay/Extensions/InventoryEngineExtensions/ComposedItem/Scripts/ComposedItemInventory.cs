@@ -5,13 +5,13 @@ using MoreMountains.Tools;
 
 public class ComposedItemInventory : Inventory
 {
-    public override void OnMMEvent(MMInventoryEvent recipeEvent)
+    public override void OnMMEvent(MMInventoryEvent cookingStationEvent)
     {
-        if (recipeEvent.TargetInventoryName != name || recipeEvent.PlayerID != PlayerID) return;
-        if (recipeEvent.InventoryEventType == MMInventoryEventType.Pick)
-            (recipeEvent.EventItem as IInitializable)?.Initialize();
+        if (cookingStationEvent.TargetInventoryName != name || cookingStationEvent.PlayerID != PlayerID) return;
+        if (cookingStationEvent.InventoryEventType == MMInventoryEventType.Pick)
+            (cookingStationEvent.EventItem as IInitializable)?.Initialize();
 
-        base.OnMMEvent(recipeEvent);
+        base.OnMMEvent(cookingStationEvent);
     }
     public override void SaveInventory()
     {

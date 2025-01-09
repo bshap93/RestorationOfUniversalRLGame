@@ -19,7 +19,7 @@ namespace Project.Core.SaveSystem
             this.MMEventStopListening();
         }
 
-        public void OnMMEvent(CheckPointEvent recipeEvent)
+        public void OnMMEvent(CheckPointEvent cookingStationEvent)
         {
             Debug.Log("SaveStateManager: Checkpoint reached.");
             MMGameEvent.Trigger("RevertResources");

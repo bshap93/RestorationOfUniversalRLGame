@@ -36,14 +36,14 @@ namespace Project.Gameplay.Combat
             this.MMEventStopListening<MMGameEvent>();
             this.MMEventStopListening<MMInventoryEvent>();
         }
-        public void OnMMEvent(MMGameEvent recipeEvent)
+        public void OnMMEvent(MMGameEvent cookingStationEvent)
         {
-            if (recipeEvent.EventName == "FiredProjectile") RefreshCurrentAmmoAvailable();
+            if (cookingStationEvent.EventName == "FiredProjectile") RefreshCurrentAmmoAvailable();
         }
 
-        public void OnMMEvent(MMInventoryEvent recipeEvent)
+        public void OnMMEvent(MMInventoryEvent cookingStationEvent)
         {
-            if (recipeEvent.InventoryEventType is MMInventoryEventType.ItemEquipped)
+            if (cookingStationEvent.InventoryEventType is MMInventoryEventType.ItemEquipped)
             {
                 gameObject.SetActive(true);
                 RefreshCurrentAmmoAvailable();

@@ -35,14 +35,14 @@ namespace Project.UI.HUD
         /// <summary>
         ///     Called when the MMCameraEvent is received (for SetTargetCharacter)
         /// </summary>
-        /// <param name="recipeEvent"></param>
-        public void OnMMEvent(MMCameraEvent recipeEvent)
+        /// <param name="cookingStationEvent"></param>
+        public void OnMMEvent(MMCameraEvent cookingStationEvent)
         {
-            if (recipeEvent.EventType == MMCameraEventTypes.SetTargetCharacter)
+            if (cookingStationEvent.EventType == MMCameraEventTypes.SetTargetCharacter)
             {
                 if (playerStats != null) playerStats.OnCurrencyChanged -= UpdateCurrencyText;
 
-                var newCharacter = recipeEvent.TargetCharacter.gameObject;
+                var newCharacter = cookingStationEvent.TargetCharacter.gameObject;
                 if (newCharacter != null)
                 {
                     playerStats = newCharacter.GetComponent<PlayerStats>();

@@ -31,11 +31,11 @@ public class PickupDisplayer : MonoBehaviour, MMEventListener<MMInventoryEvent>
         _pickupDisplayWfs = new WaitForSeconds(PickupDisplayDuration);
     }
 
-    public void OnMMEvent(MMInventoryEvent recipeEvent)
+    public void OnMMEvent(MMInventoryEvent cookingStationEvent)
     {
-        if (recipeEvent.InventoryEventType != MMInventoryEventType.Pick) return;
-        var item = recipeEvent.EventItem;
-        var quantity = recipeEvent.Quantity;
+        if (cookingStationEvent.InventoryEventType != MMInventoryEventType.Pick) return;
+        var item = cookingStationEvent.EventItem;
+        var quantity = cookingStationEvent.Quantity;
         if (_displays.TryGetValue(item.ItemID, out var display))
         {
             display.AddQuantity(quantity);

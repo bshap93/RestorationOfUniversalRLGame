@@ -38,13 +38,13 @@ namespace Project.Animation_Effects.CharacterAnimation.AnimationController.Weapo
             this.MMEventStopListening<MMGameEvent>();
         }
 
-        public void OnMMEvent(MMCameraEvent recipeEvent)
+        public void OnMMEvent(MMCameraEvent cookingStationEvent)
         {
-            if (recipeEvent.EventType == MMCameraEventTypes.SetTargetCharacter)
+            if (cookingStationEvent.EventType == MMCameraEventTypes.SetTargetCharacter)
             {
                 if (_playerAnimator == null)
                 {
-                    _playerAnimator = recipeEvent.TargetCharacter.GetComponentInChildren<Animator>();
+                    _playerAnimator = cookingStationEvent.TargetCharacter.GetComponentInChildren<Animator>();
 
                     if (_playerAnimator == null)
                     {
@@ -74,17 +74,17 @@ namespace Project.Animation_Effects.CharacterAnimation.AnimationController.Weapo
                 }
             }
         }
-        public void OnMMEvent(MMGameEvent recipeEvent)
+        public void OnMMEvent(MMGameEvent cookingStationEvent)
         {
-            if (recipeEvent.EventName == "ShieldUpEvent") _playerAnimator.SetBool(ShieldUp, true);
+            if (cookingStationEvent.EventName == "ShieldUpEvent") _playerAnimator.SetBool(ShieldUp, true);
 
-            if (recipeEvent.EventName == "ShieldDownEvent") _playerAnimator.SetBool(ShieldUp, false);
+            if (cookingStationEvent.EventName == "ShieldDownEvent") _playerAnimator.SetBool(ShieldUp, false);
         }
 
-        public void OnMMEvent(MMInventoryEvent recipeEvent)
+        public void OnMMEvent(MMInventoryEvent cookingStationEvent)
         {
-            if (recipeEvent.InventoryEventType == MMInventoryEventType.ItemEquipped)
-                EquipWeapon(recipeEvent.EventItem);
+            if (cookingStationEvent.InventoryEventType == MMInventoryEventType.ItemEquipped)
+                EquipWeapon(cookingStationEvent.EventItem);
         }
 
         void EquipWeapon(InventoryItem item)
