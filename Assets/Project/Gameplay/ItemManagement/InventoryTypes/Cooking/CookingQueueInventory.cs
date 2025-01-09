@@ -60,6 +60,10 @@ namespace Project.Gameplay.ItemManagement.InventoryTypes.Cooking
 
                 TryDetectRecipeFromIngredientsInQueue(rawFood);
 
+                // If no recipe is inferred, still add item as it is a raw food item
+                // that could yet be part of a recipe
+                if (_currentRecipe == null) return base.AddItem(item, quantity);
+
                 recipeHeader.recipeName.text = _currentRecipe.recipeName;
                 recipeHeader.recipeImage.sprite =
                     _currentRecipe.finishedFoodItem.FinishedFood.Icon;
@@ -94,6 +98,8 @@ namespace Project.Gameplay.ItemManagement.InventoryTypes.Cooking
                 addedRawFoodFeedback?.PlayFeedbacks();
 
                 TryDetectRecipeFromIngredientsInQueue(rawFood);
+
+                if (_currentRecipe == null) return base.AddItemAt(item, quantity, index);
 
                 recipeHeader.recipeName.text = _currentRecipe.recipeName;
                 recipeHeader.recipeImage.sprite =
