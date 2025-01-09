@@ -16,6 +16,8 @@ namespace Project.Gameplay.ItemManagement.InventoryItemTypes.Consumables
         {
             base.Use(playerID);
 
+            Debug.Log("Using Health Potion");
+
             // Get Player1 character
             var character = TargetInventory(playerID)?.Owner?.GetComponent<Character>();
 
