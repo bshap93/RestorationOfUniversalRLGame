@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using MoreMountains.Feedbacks;
 using MoreMountains.Tools;
 using Project.Gameplay.Interactivity.Food;
@@ -95,36 +96,7 @@ namespace Project.Gameplay.ItemManagement.InventoryTypes.Cooking
 
             return false;
         }
-        void TryDetectRecipeFromIngredientsInQueue(RawFood rawFood)
-        {
-            foreach (var recipe in _journalPersistenceManager.journalData.knownRecipes)
-                if (recipe.CanBeCookedFrom(Content))
-                {
-                    cookableRecipes.Add(recipe);
-                    Debug.Log("Added recipe to cookableRecipes: " + recipe.recipeName);
-                }
-                else
-                {
-                    Debug.Log("Recipe: " + recipe.recipeName + " cannot be cooked from the ingredients in the queue.");
-                }
-
-            if (cookableRecipes.Count == 1)
-            {
-                _currentRecipe = cookableRecipes[0];
-                _cookingStationController.SetCurrentRecipe(_currentRecipe);
-            }
-            else if (cookableRecipes.Count > 1)
-            {
-                Debug.LogWarning("More than one recipe can be cooked from the ingredients in the queue.");
-                _currentRecipe = cookableRecipes[0];
-            }
-            else
-            {
-                _currentRecipe = rawFood.CookedSingleRawFoodRecipe;
-                _cookingStationController.SetCurrentRecipe(_currentRecipe);
-            }
-        }
-
+        
         public override bool AddItemAt(InventoryItem item, int quantity, int index)
         {
             var result = false;
@@ -146,17 +118,48 @@ namespace Project.Gameplay.ItemManagement.InventoryTypes.Cooking
                 }
 
 
-                if (fuelInventory.IsBurning && _currentRecipe != null)
-                {
-                    var cookingRecipeInProgress = new CookingRecipeInProgress(_currentRecipe);
-                    StartCoroutine(CookFood(cookingRecipeInProgress, quantity));
-                }
+                // if (fuelInventory.IsBurning && _currentRecipe != null)
+                // {
+                //     var cookingRecipeInProgress = new CookingRecipeInProgress(_currentRecipe);
+                //     StartCoroutine(CookFood(cookingRecipeInProgress, quantity));
+                // }
 
                 return result;
             }
 
             return false;
         }
+        void TryDetectRecipeFromIngredientsInQueue(RawFood rawFood)
+        {
+            foreach (var recipe in _journalPersistenceManager.journalData.knownRecipes)
+                if (recipe.CanBeCookedFrom(Content))
+                {
+                    cookableRecipes.Add(recipe);
+                    Debug.Log("Added recipe to cookableRecipes: " + recipe.recipeName);
+                }
+                else
+                {
+                    Debug.Log("Recipe: " + recipe.recipeName + " cannot be cooked from the ingredients in the queue.");
+                }
+
+            if (cookableRecipes.Count == 1)
+            {
+                _currentRecipe = cookableRecipes[0];
+                _cookingStationController.SetCurrentRecipe(_currentRecipe);
+            }
+            else if (cookableRecipes.Count > 1)
+            {
+                Debug.LogWarning("More than one recipe can be cooked from the ingredients in the queue.");
+                _currentRecipe = cookableRecipes.LastOrDefault();
+            }
+            else
+            {
+                _currentRecipe = rawFood.CookedSingleRawFoodRecipe;
+                _cookingStationController.SetCurrentRecipe(_currentRecipe);
+            }
+        }
+
+
         public override bool MoveItem(int oldIndex, int newIndex)
         {
             return false;

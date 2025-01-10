@@ -21,7 +21,8 @@ namespace Project.Gameplay.ItemManagement.InventoryTypes.Cooking
         public bool CanBeCookedFrom(InventoryItem[] content)
         {
             foreach (var requiredRawFoodItem in requiredRawFoodItems)
-                if (!content.Contains(requiredRawFoodItem.item))
+                // Check if an item with the same ItemID exists in the content
+                if (!content.Any(item => item != null && item.ItemID == requiredRawFoodItem.item.ItemID))
                     return false;
 
             return true;
