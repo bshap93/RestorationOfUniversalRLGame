@@ -25,9 +25,26 @@ public class CookableItemsDropDown : MonoBehaviour, MMEventListener<RecipeEvent>
     {
         if (recipeEvent.EventType == RecipeEventType.RecipeCookableWithCurrentIngredients)
         {
+            var recipe = recipeEvent.RecipeParameter;
+            var index = _dropdown.items.Count; // The new item's index in the dropdown list
+
+            // Create a new dropdown item and add it to the list
+            var newItem = new CustomDropdown.Item
+            {
+                itemName = recipe.recipeName,
+                itemIcon = recipe.finishedFoodItem.FinishedFood.Icon
+            };
+
+            // Add the RecipeEvent.Trigger as a listener to OnItemSelection
+            newItem.OnItemSelection.AddListener(
+                () => { RecipeEvent.Trigger("ChooseRecipe", RecipeEventType.ChooseRecipeFromCookable, recipe); });
+
+            _dropdown.items.Add(newItem);
+
+            // Add the item to the dropdown UI
             _dropdown.CreateNewItem(
-                recipeEvent.RecipeParameter.recipeName,
-                recipeEvent.RecipeParameter.finishedFoodItem.FinishedFood.Icon, true);
+                recipe.recipeName,
+                recipe.finishedFoodItem.FinishedFood.Icon, true);
 
             _dropdown.SetupDropdown();
         }

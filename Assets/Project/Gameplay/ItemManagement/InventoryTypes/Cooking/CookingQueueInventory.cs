@@ -30,7 +30,7 @@ namespace Project.Gameplay.ItemManagement.InventoryTypes.Cooking
         }
     }
 
-    public class CookingQueueInventory : CraftingQueueInventory
+    public class CookingQueueInventory : CraftingQueueInventory, MMEventListener<RecipeEvent>
     {
         public MMFeedbacks addedRawFoodFeedback;
         public MMFeedbacks cookingStartsFeedback;
@@ -42,12 +42,13 @@ namespace Project.Gameplay.ItemManagement.InventoryTypes.Cooking
 
         public RecipeHeader recipeHeader;
 
-        readonly List<CookingRecipe> _cookableRecipes = new();
+        [SerializeField] List<CookingRecipe> _cookableRecipes = new();
         CookingStationController _cookingStationController;
 
         CookingRecipe _currentRecipe;
 
         JournalPersistenceManager _journalPersistenceManager;
+
 
         public void Start()
         {
@@ -60,6 +61,23 @@ namespace Project.Gameplay.ItemManagement.InventoryTypes.Cooking
 
             if (_journalPersistenceManager == null)
                 _journalPersistenceManager = FindObjectOfType<JournalPersistenceManager>();
+        }
+
+        protected override void OnEnable()
+        {
+            base.OnEnable();
+            this.MMEventStartListening<RecipeEvent>();
+        }
+
+        protected override void OnDisable()
+        {
+            base.OnDisable();
+            this.MMEventStopListening<RecipeEvent>();
+        }
+        public void OnMMEvent(RecipeEvent cookingStationEvent)
+        {
+            if (cookingStationEvent.EventType == RecipeEventType.ChooseRecipeFromCookable)
+                ChooseRecipeFromCookableRecipes(_cookableRecipes.IndexOf(cookingStationEvent.RecipeParameter));
         }
 
 

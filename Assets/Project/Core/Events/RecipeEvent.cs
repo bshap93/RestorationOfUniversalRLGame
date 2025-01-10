@@ -8,7 +8,8 @@ namespace Project.Core.Events
     public enum RecipeEventType
     {
         RecipeLearned,
-        RecipeCookableWithCurrentIngredients
+        RecipeCookableWithCurrentIngredients,
+        ChooseRecipeFromCookable
     }
 
     /// <summary>
