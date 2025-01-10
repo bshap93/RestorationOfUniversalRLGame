@@ -63,19 +63,24 @@ namespace Project.Gameplay.ItemManagement.InventoryTypes.Cooking
 
         public override bool AddItem(InventoryItem item, int quantity)
         {
+            var result = false;
             if (item is RawFood rawFood)
             {
                 addedRawFoodFeedback?.PlayFeedbacks();
 
-                TryDetectRecipeFromIngredientsInQueue(rawFood);
 
                 // If no recipe is inferred, still add item as it is a raw food item
                 // that could yet be part of a recipe
-                if (_currentRecipe == null) return base.AddItem(item, quantity);
+                result = base.AddItem(item, quantity);
 
-                recipeHeader.recipeName.text = _currentRecipe.recipeName;
-                recipeHeader.recipeImage.sprite =
-                    _currentRecipe.finishedFoodItem.FinishedFood.Icon;
+                TryDetectRecipeFromIngredientsInQueue(rawFood);
+
+                if (_currentRecipe != null)
+                {
+                    recipeHeader.recipeName.text = _currentRecipe.recipeName;
+                    recipeHeader.recipeImage.sprite =
+                        _currentRecipe.finishedFoodItem.FinishedFood.Icon;
+                }
 
 
                 if (fuelInventory.IsBurning)
@@ -84,7 +89,7 @@ namespace Project.Gameplay.ItemManagement.InventoryTypes.Cooking
                     StartCoroutine(CookFood(cookingRecipeInProgress, quantity));
                 }
 
-                return base.AddItem(item, quantity);
+                return result;
             }
 
 
@@ -97,6 +102,10 @@ namespace Project.Gameplay.ItemManagement.InventoryTypes.Cooking
                 {
                     cookableRecipes.Add(recipe);
                     Debug.Log("Added recipe to cookableRecipes: " + recipe.recipeName);
+                }
+                else
+                {
+                    Debug.Log("Recipe: " + recipe.recipeName + " cannot be cooked from the ingredients in the queue.");
                 }
 
             if (cookableRecipes.Count == 1)
@@ -118,25 +127,32 @@ namespace Project.Gameplay.ItemManagement.InventoryTypes.Cooking
 
         public override bool AddItemAt(InventoryItem item, int quantity, int index)
         {
+            var result = false;
             if (item is RawFood rawFood)
             {
                 addedRawFoodFeedback?.PlayFeedbacks();
 
+
+                result = base.AddItemAt(item, quantity, index);
+
                 TryDetectRecipeFromIngredientsInQueue(rawFood);
 
-                if (_currentRecipe == null) return base.AddItemAt(item, quantity, index);
 
-                recipeHeader.recipeName.text = _currentRecipe.recipeName;
-                recipeHeader.recipeImage.sprite =
-                    _currentRecipe.finishedFoodItem.FinishedFood.Icon;
+                if (_currentRecipe != null)
+                {
+                    recipeHeader.recipeName.text = _currentRecipe.recipeName;
+                    recipeHeader.recipeImage.sprite =
+                        _currentRecipe.finishedFoodItem.FinishedFood.Icon;
+                }
 
-                if (fuelInventory.IsBurning)
+
+                if (fuelInventory.IsBurning && _currentRecipe != null)
                 {
                     var cookingRecipeInProgress = new CookingRecipeInProgress(_currentRecipe);
                     StartCoroutine(CookFood(cookingRecipeInProgress, quantity));
                 }
 
-                return base.AddItemAt(item, quantity, index);
+                return result;
             }
 
             return false;
@@ -166,15 +182,10 @@ namespace Project.Gameplay.ItemManagement.InventoryTypes.Cooking
                 yield return null;
 
                 elapsedTime += 0.1f;
-
-                Debug.Log("Elapsed time: " + elapsedTime);
             }
 
             foreach (var rawFoodItem in cookingRecipeInProgress.currentRecipe.requiredRawFoodItems)
-            {
                 RemoveItemByID(rawFoodItem.item.ItemID, quantity);
-                Debug.Log("CookingQueueInventory.CookFood: Removed " + rawFoodItem.item.ItemName);
-            }
 
 
             cookingDepositInventory.AddItem(

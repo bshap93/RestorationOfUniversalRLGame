@@ -7,9 +7,8 @@ using UnityEngine;
 
 namespace Project.Gameplay.ItemManagement.InventoryTypes.Cooking
 {
+    [CreateAssetMenu(fileName = "Crafting", menuName = "Crafting/CookingRecipe", order = 1)]
     [Serializable]
-    [CreateAssetMenu(
-        fileName = "Crafting", menuName = "Crafting/CookingRecipe", order = 1)]
     public class CookingRecipe : CraftingRecipe
     {
         public string recipeID;
@@ -17,11 +16,15 @@ namespace Project.Gameplay.ItemManagement.InventoryTypes.Cooking
         public List<CraftingMaterial> requiredMaterials;
         public FinishedFoodItem finishedFoodItem;
         public List<RawFoodMaterial> requiredRawFoodItems;
+
         public bool CanBeCookedFrom(InventoryItem[] content)
         {
-            foreach (var rawFoodItem in requiredRawFoodItems)
+            foreach (var requiredRawFoodItem in requiredRawFoodItems)
+            {
+                var rawFoodItem = requiredRawFoodItem;
                 if (!Array.Exists(content, item => item.ItemID == rawFoodItem.item.ItemID))
                     return false;
+            }
 
             return true;
         }
