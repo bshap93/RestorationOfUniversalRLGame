@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Project.Core.Events;
 using Project.Gameplay.SaveLoad;
 using UnityEngine;
@@ -8,14 +9,21 @@ public class JournalDisplay : MonoBehaviour
     [SerializeField] GameObject recipeListParent;
 
     [SerializeField] JournalPersistenceManager journalPersistenceManager;
+    readonly List<string> CookingRepiceIds = new();
 
     void OnEnable()
     {
         Debug.Log("JournalDisplay.OnEnable");
         foreach (var recipe in journalPersistenceManager.journalData.knownRecipes)
         {
-            // Instantiate the prefab
+            // Instantiate the prefab only if it's not already in the list
+            if (CookingRepiceIds.Contains(recipe.recipeID))
+                continue;
+
+
             var recipeEntry = Instantiate(recipeEntryPrefab, recipeListParent.transform);
+
+            CookingRepiceIds.Add(recipe.recipeID);
 
             // Get the script responsible for updating the UI
             var recipeEntryScript = recipeEntry.GetComponent<RecipeEntry>();

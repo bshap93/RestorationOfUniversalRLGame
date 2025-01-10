@@ -49,6 +49,8 @@ namespace Project.Gameplay.ItemManagement.InventoryTypes.Cooking
 
         JournalPersistenceManager _journalPersistenceManager;
 
+        readonly List<string> CookableRecipeIDs = new();
+
 
         public void Start()
         {
@@ -137,10 +139,15 @@ namespace Project.Gameplay.ItemManagement.InventoryTypes.Cooking
             foreach (var recipe in _journalPersistenceManager.journalData.knownRecipes)
                 if (recipe.CanBeCookedFrom(Content))
                 {
+                    if (CookableRecipeIDs.Contains(recipe.recipeID))
+                        continue;
+
                     _cookableRecipes.Add(recipe);
                     RecipeEvent.Trigger(
                         "RecipeCookableWithCurrentIngredients", RecipeEventType.RecipeCookableWithCurrentIngredients,
                         recipe);
+
+                    CookableRecipeIDs.Add(recipe.recipeID);
 
                     Debug.Log("Added recipe to cookableRecipes: " + recipe.recipeName);
                 }

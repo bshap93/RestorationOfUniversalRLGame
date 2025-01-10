@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Michsky.MUIP;
 using MoreMountains.Tools;
 using Project.Core.Events;
@@ -6,6 +7,7 @@ using UnityEngine;
 public class CookableItemsDropDown : MonoBehaviour, MMEventListener<RecipeEvent>
 {
     CustomDropdown _dropdown;
+    readonly List<string> CookingRepiceIds = new();
 
     void Start()
     {
@@ -26,7 +28,11 @@ public class CookableItemsDropDown : MonoBehaviour, MMEventListener<RecipeEvent>
         if (recipeEvent.EventType == RecipeEventType.RecipeCookableWithCurrentIngredients)
         {
             var recipe = recipeEvent.RecipeParameter;
-            var index = _dropdown.items.Count; // The new item's index in the dropdown list
+
+            // Instantiate the prefab only if it's not already in the list
+            if (CookingRepiceIds.Contains(recipe.recipeID))
+                return;
+
 
             // Create a new dropdown item and add it to the list
             var newItem = new CustomDropdown.Item
@@ -41,12 +47,15 @@ public class CookableItemsDropDown : MonoBehaviour, MMEventListener<RecipeEvent>
 
             _dropdown.items.Add(newItem);
 
+
             // Add the item to the dropdown UI
             _dropdown.CreateNewItem(
                 recipe.recipeName,
                 recipe.finishedFoodItem.FinishedFood.Icon, true);
 
             _dropdown.SetupDropdown();
+
+            CookingRepiceIds.Add(recipe.recipeID);
         }
     }
 }
