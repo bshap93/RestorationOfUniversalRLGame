@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using MoreMountains.Feedbacks;
 using MoreMountains.Tools;
+using Project.Core.Events;
 using Project.Gameplay.Interactivity.Food;
 using Project.Gameplay.Interactivity.Items;
 using Project.Gameplay.ItemManagement.InventoryTypes.Fuel;
@@ -41,7 +42,7 @@ namespace Project.Gameplay.ItemManagement.InventoryTypes.Cooking
 
         public RecipeHeader recipeHeader;
 
-        readonly List<CookingRecipe> cookableRecipes = new();
+        readonly List<CookingRecipe> _cookableRecipes = new();
         CookingStationController _cookingStationController;
 
         CookingRecipe _currentRecipe;
@@ -64,39 +65,9 @@ namespace Project.Gameplay.ItemManagement.InventoryTypes.Cooking
 
         public override bool AddItem(InventoryItem item, int quantity)
         {
-            var result = false;
-            if (item is RawFood rawFood)
-            {
-                addedRawFoodFeedback?.PlayFeedbacks();
-
-
-                // If no recipe is inferred, still add item as it is a raw food item
-                // that could yet be part of a recipe
-                result = base.AddItem(item, quantity);
-
-                TryDetectRecipeFromIngredientsInQueue(rawFood);
-
-                if (_currentRecipe != null)
-                {
-                    recipeHeader.recipeName.text = _currentRecipe.recipeName;
-                    recipeHeader.recipeImage.sprite =
-                        _currentRecipe.finishedFoodItem.FinishedFood.Icon;
-                }
-
-
-                if (fuelInventory.IsBurning)
-                {
-                    var cookingRecipeInProgress = new CookingRecipeInProgress(_currentRecipe);
-                    StartCoroutine(CookFood(cookingRecipeInProgress, quantity));
-                }
-
-                return result;
-            }
-
-
-            return false;
+            return AddItemAt(item, quantity, -1);
         }
-        
+
         public override bool AddItemAt(InventoryItem item, int quantity, int index)
         {
             var result = false;
@@ -118,23 +89,41 @@ namespace Project.Gameplay.ItemManagement.InventoryTypes.Cooking
                 }
 
 
-                // if (fuelInventory.IsBurning && _currentRecipe != null)
-                // {
-                //     var cookingRecipeInProgress = new CookingRecipeInProgress(_currentRecipe);
-                //     StartCoroutine(CookFood(cookingRecipeInProgress, quantity));
-                // }
-
                 return result;
             }
 
             return false;
         }
+
+        public void ChooseRecipeFromCookableRecipes(int index)
+        {
+            if (index < _cookableRecipes.Count)
+            {
+                _currentRecipe = _cookableRecipes[index];
+                _cookingStationController.SetCurrentRecipe(_currentRecipe);
+            }
+        }
+
+        public void StartCookingCurrentRecipe()
+        {
+            if (fuelInventory.IsBurning && _currentRecipe != null)
+            {
+                var cookingRecipeInProgress = new CookingRecipeInProgress(_currentRecipe);
+                StartCoroutine(CookFood(cookingRecipeInProgress, 1));
+            }
+        }
+
+
         void TryDetectRecipeFromIngredientsInQueue(RawFood rawFood)
         {
             foreach (var recipe in _journalPersistenceManager.journalData.knownRecipes)
                 if (recipe.CanBeCookedFrom(Content))
                 {
-                    cookableRecipes.Add(recipe);
+                    _cookableRecipes.Add(recipe);
+                    RecipeEvent.Trigger(
+                        "RecipeCookableWithCurrentIngredients", RecipeEventType.RecipeCookableWithCurrentIngredients,
+                        recipe);
+
                     Debug.Log("Added recipe to cookableRecipes: " + recipe.recipeName);
                 }
                 else
@@ -142,15 +131,15 @@ namespace Project.Gameplay.ItemManagement.InventoryTypes.Cooking
                     Debug.Log("Recipe: " + recipe.recipeName + " cannot be cooked from the ingredients in the queue.");
                 }
 
-            if (cookableRecipes.Count == 1)
+            if (_cookableRecipes.Count == 1)
             {
-                _currentRecipe = cookableRecipes[0];
+                _currentRecipe = _cookableRecipes[0];
                 _cookingStationController.SetCurrentRecipe(_currentRecipe);
             }
-            else if (cookableRecipes.Count > 1)
+            else if (_cookableRecipes.Count > 1)
             {
                 Debug.LogWarning("More than one recipe can be cooked from the ingredients in the queue.");
-                _currentRecipe = cookableRecipes.LastOrDefault();
+                _currentRecipe = _cookableRecipes.LastOrDefault();
             }
             else
             {

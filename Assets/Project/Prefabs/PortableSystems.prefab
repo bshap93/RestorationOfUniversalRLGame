@@ -4572,6 +4572,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7981598515768883560}
+  - component: {fileID: 3161402610119712847}
   m_Layer: 0
   m_Name: InventorySystem
   m_TagString: Untagged
@@ -4602,6 +4603,26 @@ Transform:
   - {fileID: 3392982250428591795}
   m_Father: {fileID: 1812955167626419140}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3161402610119712847
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4607865416058550935}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d88298e59b9f4e247b70593b08e0f660, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  starterItemsForInventories:
+  - inventory: {fileID: 5267942088755413456}
+    starterItems:
+    - {fileID: 11400000, guid: 7b3b7cca7c4d743409b27edfc2b93411, type: 2}
+    - {fileID: 11400000, guid: 686e83163144d5040a850536167aff7c, type: 2}
+    - {fileID: 11400000, guid: 79c6842e9d918ac4c960776db0881526, type: 2}
+  - inventory: {fileID: 0}
+    starterItems: []
 --- !u!1 &4643822104094070946
 GameObject:
   m_ObjectHideFlags: 0
@@ -9255,7 +9276,7 @@ PrefabInstance:
     - target: {fileID: 1298553657557136860, guid: 5eb5db3643342184185eb720982716b7,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.000045776367
+      value: 0.000030517578
       objectReference: {fileID: 0}
     - target: {fileID: 1313743082278153236, guid: 5eb5db3643342184185eb720982716b7,
         type: 3}
@@ -9956,6 +9977,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -25
+      objectReference: {fileID: 0}
+    - target: {fileID: 6154101221786383332, guid: 5eb5db3643342184185eb720982716b7,
+        type: 3}
+      propertyPath: m_Size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6154101221786383332, guid: 5eb5db3643342184185eb720982716b7,
+        type: 3}
+      propertyPath: m_Value
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6775466015802239055, guid: 5eb5db3643342184185eb720982716b7,
         type: 3}
