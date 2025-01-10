@@ -6,7 +6,6 @@ using UnityEngine;
 
 public class CookableItemsDropDown : MonoBehaviour, MMEventListener<RecipeEvent>
 {
-    readonly List<string> CookingRepiceIds = new();
     CustomDropdown _dropdown;
 
     void Start()
@@ -25,21 +24,22 @@ public class CookableItemsDropDown : MonoBehaviour, MMEventListener<RecipeEvent>
 
     public void OnMMEvent(RecipeEvent recipeEvent)
     {
-        if (recipeEvent.EventType == RecipeEventType.ClearCookableRecipes)
+        if (recipeEvent.EventType == RecipeEventType.ClearCookableRecipes ||
+            recipeEvent.EventType == RecipeEventType.FinishedCookingRecipe)
         {
-            CookingRepiceIds.Clear();
-            _dropdown.items.Clear();
+            var itemsToRemove = new List<CustomDropdown.Item>(_dropdown.items);
+
+            foreach (var item in itemsToRemove)
+            {
+                _dropdown.RemoveItem(item.itemName);
+                _dropdown.Animate();
+            }
         }
 
 
         if (recipeEvent.EventType == RecipeEventType.RecipeCookableWithCurrentIngredients)
         {
             var recipe = recipeEvent.RecipeParameter;
-
-            // Instantiate the prefab only if it's not already in the list
-            if (CookingRepiceIds.Contains(recipe.recipeID))
-                return;
-
 
             // Create a new dropdown item and add it to the list
             var newItem = new CustomDropdown.Item
@@ -57,7 +57,7 @@ public class CookableItemsDropDown : MonoBehaviour, MMEventListener<RecipeEvent>
 
             _dropdown.SetupDropdown();
 
-            CookingRepiceIds.Add(recipe.recipeID);
+            // CookingRepiceIds.Add(recipe.recipeID);
         }
     }
 }

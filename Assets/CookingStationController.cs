@@ -169,6 +169,7 @@ public class CookingStationController : MonoBehaviour
     public void SetCurrentRecipe(CookingRecipe currentRecipe)
     {
         _currentRecipe = currentRecipe;
-        Debug.Log("Current recipe set to: " + currentRecipe.recipeName);
+        if (_currentRecipe != null)
+            Debug.Log("Current recipe set to: " + currentRecipe.recipeName);
     }
 }

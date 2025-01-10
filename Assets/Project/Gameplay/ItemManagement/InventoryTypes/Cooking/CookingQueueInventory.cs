@@ -46,6 +46,8 @@ namespace Project.Gameplay.ItemManagement.InventoryTypes.Cooking
         [FormerlySerializedAs("_cookableRecipes")] [SerializeField]
         List<CookingRecipe> cookableRecipes = new();
 
+        public MMFeedbacks CannotCookFeedback;
+
         CookingStationController _cookingStationController;
 
         CookingRecipe _currentRecipe;
@@ -79,7 +81,7 @@ namespace Project.Gameplay.ItemManagement.InventoryTypes.Cooking
         public void OnMMEvent(RecipeEvent cookingStationEvent)
         {
             if (cookingStationEvent.EventType == RecipeEventType.ChooseRecipeFromCookable)
-                ChooseRecipeFromCookableRecipes(cookableRecipes.IndexOf(cookingStationEvent.RecipeParameter));
+                ChooseRecipeFromCookableRecipes(cookingStationEvent.RecipeParameter);
         }
 
         public bool CookableRecipesContains(CookingRecipe recipe)
@@ -124,20 +126,44 @@ namespace Project.Gameplay.ItemManagement.InventoryTypes.Cooking
             return false;
         }
 
-        public void ChooseRecipeFromCookableRecipes(int index)
+        public override bool RemoveItem(int index, int quantity)
         {
-            if (index < cookableRecipes.Count)
+            var result = base.RemoveItem(index, quantity);
+
+
+            TryDetectRecipeFromIngredientsInQueue(Content[index] as RawFood);
+
+
+            if (_currentRecipe != null)
             {
-                _currentRecipe = cookableRecipes[index];
+                recipeHeader.recipeName.text = _currentRecipe.recipeName;
+                recipeHeader.recipeImage.sprite =
+                    _currentRecipe.finishedFoodItem.FinishedFood.Icon;
+            }
+
+            return result;
+        }
+
+        public void ChooseRecipeFromCookableRecipes(CookingRecipe recipe)
+        {
+            if (cookableRecipes.Contains(recipe))
+            {
+                _currentRecipe = recipe;
                 _cookingStationController.SetCurrentRecipe(_currentRecipe);
             }
+            else
+            {
+                Debug.LogWarning("The selected recipe is not in the list of cookable recipes.");
+            }
         }
+
 
         public void StartCookingCurrentRecipe()
         {
             if (!CookableRecipesContains(_currentRecipe))
             {
-                Debug.LogError("Tried to cook a recipe that is not cookable with the current ingredients.");
+                Debug.Log("Tried to cook a recipe that is not cookable with the current ingredients.");
+                CannotCookFeedback?.PlayFeedbacks();
                 return;
             }
 
@@ -190,24 +216,6 @@ namespace Project.Gameplay.ItemManagement.InventoryTypes.Cooking
             }
         }
 
-        public override bool RemoveItem(int index, int quantity)
-        {
-            var result = base.RemoveItem(index, quantity);
-
-
-            TryDetectRecipeFromIngredientsInQueue(Content[index] as RawFood);
-
-
-            if (_currentRecipe != null)
-            {
-                recipeHeader.recipeName.text = _currentRecipe.recipeName;
-                recipeHeader.recipeImage.sprite =
-                    _currentRecipe.finishedFoodItem.FinishedFood.Icon;
-            }
-
-            return result;
-        }
-
 
         public override bool MoveItem(int oldIndex, int newIndex)
         {
@@ -217,7 +225,7 @@ namespace Project.Gameplay.ItemManagement.InventoryTypes.Cooking
 
         IEnumerator CookFood(CookingRecipeInProgress cookingRecipeInProgress, int quantity)
         {
-            if (CookableRecipesContains(cookingRecipeInProgress.currentRecipe))
+            if (!CookableRecipesContains(cookingRecipeInProgress.currentRecipe))
             {
                 Debug.LogError(
                     "Tried to cook a recipe: " + cookingRecipeInProgress.currentRecipe.recipeName +
@@ -252,6 +260,9 @@ namespace Project.Gameplay.ItemManagement.InventoryTypes.Cooking
 
             cookingDepositInventory.AddItem(
                 cookingRecipeInProgress.currentRecipe.finishedFoodItem.FinishedFood, quantity);
+
+            _currentRecipe = null;
+            RecipeEvent.Trigger("FinishedCookingRecipe", RecipeEventType.FinishedCookingRecipe, null);
 
             cookingEndsFeedback?.PlayFeedbacks();
         }
