@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Project.Gameplay.Interactivity.CraftingStation;
 using Project.Gameplay.Interactivity.Items;
 using Project.Gameplay.ItemManagement.InventoryTypes.Materials;
@@ -20,11 +21,8 @@ namespace Project.Gameplay.ItemManagement.InventoryTypes.Cooking
         public bool CanBeCookedFrom(InventoryItem[] content)
         {
             foreach (var requiredRawFoodItem in requiredRawFoodItems)
-            {
-                var rawFoodItem = requiredRawFoodItem;
-                if (!Array.Exists(content, item => item.ItemID == rawFoodItem.item.ItemID))
+                if (!content.Contains(requiredRawFoodItem.item))
                     return false;
-            }
 
             return true;
         }
