@@ -16,7 +16,7 @@ namespace Project.Gameplay.ItemManagement.InventoryTypes.Cooking
         public string recipeName;
         public List<CraftingMaterial> requiredMaterials;
         public FinishedFoodItem finishedFoodItem;
-        public List<RawFoodMaterial> requiredRawFoodItems;
+        public List<CraftingMaterial> requiredRawFoodItems;
 
         public bool CanBeCookedFrom(InventoryItem[] content)
         {
