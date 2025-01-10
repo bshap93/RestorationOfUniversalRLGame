@@ -3,7 +3,6 @@ using MoreMountains.InventoryEngine;
 using MoreMountains.Tools;
 using Project.Core.Events;
 using Project.Gameplay.Interactivity.Items;
-using Project.Gameplay.ItemManagement.InventoryTypes;
 using Project.Gameplay.ItemManagement.InventoryTypes.Cooking;
 using Project.Gameplay.ItemManagement.InventoryTypes.Fuel;
 using TMPro;
@@ -11,8 +10,8 @@ using UnityEngine;
 
 public class CookingStationController : MonoBehaviour
 {
-    public CraftingQueueInventory queueInventory; // Uncooked items
-    public CraftingDepositInventory depositInventory; // Cooked items
+    public CookingQueueInventory queueInventory; // Uncooked items
+    public CookingDepositInventory depositInventory; // Cooked items
     public FuelInventory fuelInventory; // Firewood
     public Inventory playerInventory; // Reference to the player's inventory
 
@@ -102,11 +101,11 @@ public class CookingStationController : MonoBehaviour
         return _isInPlayerRange;
     }
 
-    public Inventory GetQueueInventory()
+    public CookingQueueInventory GetQueueInventory()
     {
         return queueInventory;
     }
-    public Inventory GetDepositInventory()
+    public CookingDepositInventory GetDepositInventory()
     {
         return depositInventory;
     }
@@ -117,7 +116,6 @@ public class CookingStationController : MonoBehaviour
 
     void OpenInventoryDisplays()
     {
-        Debug.Log("Open the player's inventory and the station's inventory");
         MMGameEvent.Trigger("OpenCraftingStationInventoryParts", stringParameter: "CookingStation01");
     }
 
@@ -171,5 +169,6 @@ public class CookingStationController : MonoBehaviour
     public void SetCurrentRecipe(CookingRecipe currentRecipe)
     {
         _currentRecipe = currentRecipe;
+        Debug.Log("Current recipe set to: " + currentRecipe.recipeName);
     }
 }

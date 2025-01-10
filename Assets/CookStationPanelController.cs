@@ -78,6 +78,13 @@ public class CookStationPanelController : MonoBehaviour, MMEventListener<MMInven
             HidePanel();
     }
 
+    public void StartCooking()
+    {
+        var topCookingStationController = _cookingStationControllers.Peek();
+        var queueInventory = topCookingStationController.GetQueueInventory();
+        queueInventory.StartCookingCurrentRecipe();
+    }
+
     void ShowPanel()
     {
         var canvasGroup = CookingStationPanel.GetComponent<CanvasGroup>();

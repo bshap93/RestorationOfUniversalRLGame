@@ -41,7 +41,6 @@ namespace Project.Gameplay.SaveLoad
 
         public void AddRecipeToJournal(CookingRecipe recipe)
         {
-            Debug.Log("Adding recipe to journal: " + recipe.name);
             journalData.knownRecipes.Add(recipe);
         }
 

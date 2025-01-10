@@ -23,7 +23,6 @@ namespace Project.Gameplay.ItemManagement.InventoryTypes.Fuel
 
         public override bool AddItem(InventoryItem fuelItem, int quantity)
         {
-            Debug.Log("FuelInventory.AddItem");
             if (fuelItem.ItemID == fuelItemAllowed.ItemID)
             {
                 fuelStartsFeedback?.PlayFeedbacks();

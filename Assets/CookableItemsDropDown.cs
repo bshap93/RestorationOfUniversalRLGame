@@ -6,8 +6,8 @@ using UnityEngine;
 
 public class CookableItemsDropDown : MonoBehaviour, MMEventListener<RecipeEvent>
 {
-    CustomDropdown _dropdown;
     readonly List<string> CookingRepiceIds = new();
+    CustomDropdown _dropdown;
 
     void Start()
     {
@@ -25,6 +25,13 @@ public class CookableItemsDropDown : MonoBehaviour, MMEventListener<RecipeEvent>
 
     public void OnMMEvent(RecipeEvent recipeEvent)
     {
+        if (recipeEvent.EventType == RecipeEventType.ClearCookableRecipes)
+        {
+            CookingRepiceIds.Clear();
+            _dropdown.items.Clear();
+        }
+
+
         if (recipeEvent.EventType == RecipeEventType.RecipeCookableWithCurrentIngredients)
         {
             var recipe = recipeEvent.RecipeParameter;
@@ -47,11 +54,6 @@ public class CookableItemsDropDown : MonoBehaviour, MMEventListener<RecipeEvent>
 
             _dropdown.items.Add(newItem);
 
-
-            // Add the item to the dropdown UI
-            _dropdown.CreateNewItem(
-                recipe.recipeName,
-                recipe.finishedFoodItem.FinishedFood.Icon, true);
 
             _dropdown.SetupDropdown();
 

@@ -9,7 +9,8 @@ namespace Project.Core.Events
     {
         RecipeLearned,
         RecipeCookableWithCurrentIngredients,
-        ChooseRecipeFromCookable
+        ChooseRecipeFromCookable,
+        ClearCookableRecipes
     }
 
     /// <summary>
