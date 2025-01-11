@@ -1,17 +1,20 @@
-using System.Collections.Generic;
 using Michsky.MUIP;
 using MoreMountains.Tools;
 using Project.Core.Events;
+using Project.Gameplay.ItemManagement.InventoryTypes.Cooking;
 using UnityEngine;
 
 public class CookableItemsDropDown : MonoBehaviour, MMEventListener<RecipeEvent>
 {
     CustomDropdown _dropdown;
+    bool isInitialized;
 
     void Start()
     {
         _dropdown = GetComponent<CustomDropdown>();
+        InitializeDropdown();
     }
+
     void OnEnable()
     {
         this.MMEventStartListening();
@@ -22,47 +25,95 @@ public class CookableItemsDropDown : MonoBehaviour, MMEventListener<RecipeEvent>
         this.MMEventStopListening();
     }
 
+    void OnDestroy()
+    {
+        ClearDropdownItems();
+    }
+
     public void OnMMEvent(RecipeEvent recipeEvent)
     {
+        if (_dropdown == null) return;
+
         if (recipeEvent.EventType == RecipeEventType.ClearCookableRecipes ||
             recipeEvent.EventType == RecipeEventType.FinishedCookingRecipe)
-        {
-            var itemsToRemove = new List<CustomDropdown.Item>(_dropdown.items);
-
-            foreach (var item in itemsToRemove)
-            {
-                _dropdown.RemoveItem(item.itemName);
-                _dropdown.Animate();
-            }
-        }
-
+            ClearDropdownItems();
 
         if (recipeEvent.EventType == RecipeEventType.RecipeCookableWithCurrentIngredients)
+            AddRecipeToDropdown(recipeEvent.RecipeParameter);
+    }
+
+    void InitializeDropdown()
+    {
+        if (_dropdown != null && !isInitialized)
         {
-            var recipe = recipeEvent.RecipeParameter;
+            // Only clear the items list, don't call SetupDropdown yet
+            _dropdown.items?.Clear();
 
-            // Instantiate the prefab only if it's not already in the list
-            // if (_dropdown.items.Contains(recipe.recipeID))
-            //     return;
+            // Reset visual elements
+            if (_dropdown.selectedText != null) _dropdown.selectedText.text = "";
 
+            if (_dropdown.selectedImage != null) _dropdown.selectedImage.gameObject.SetActive(false);
 
-            // Create a new dropdown item and add it to the list
-            var newItem = new CustomDropdown.Item
-            {
-                itemName = recipe.recipeName,
-                itemIcon = recipe.finishedFoodItem.FinishedFood.Icon
-            };
+            // Reset state
+            _dropdown.selectedItemIndex = 0;
+            _dropdown.isOn = false;
 
-            // Add the RecipeEvent.Trigger as a listener to OnItemSelection
-            newItem.OnItemSelection.AddListener(
-                () => { RecipeEvent.Trigger("ChooseRecipe", RecipeEventType.ChooseRecipeFromCookable, recipe); });
-
-            _dropdown.items.Add(newItem);
-
-
-            _dropdown.SetupDropdown();
-
-            // CookingRepiceIds.Add(recipe.recipeID);
+            isInitialized = true;
         }
+    }
+
+    void ClearDropdownItems()
+    {
+        if (_dropdown == null) return;
+
+        // Clear child objects
+        if (_dropdown.itemParent != null)
+            foreach (Transform child in _dropdown.itemParent)
+                Destroy(child.gameObject);
+
+        // Clear items list
+        _dropdown.items?.Clear();
+
+        // Reset visual elements
+        if (_dropdown.selectedText != null) _dropdown.selectedText.text = "";
+
+        if (_dropdown.selectedImage != null) _dropdown.selectedImage.gameObject.SetActive(false);
+
+        // Reset state
+        _dropdown.selectedItemIndex = 0;
+        _dropdown.isOn = false;
+
+        // Force the dropdown to close if it's open
+        if (_dropdown.isOn) _dropdown.Animate();
+    }
+
+    void AddRecipeToDropdown(CookingRecipe recipe)
+    {
+        if (recipe == null || _dropdown == null) return;
+
+        // Check if recipe already exists
+        var recipeExists = _dropdown.items.Exists(item => item.itemName == recipe.recipeName);
+        if (recipeExists) return;
+
+        // Create a new dropdown item
+        var newItem = new CustomDropdown.Item
+        {
+            itemName = recipe.recipeName,
+            itemIcon = recipe.finishedFoodItem.FinishedFood.Icon
+        };
+
+        // Add the RecipeEvent.Trigger as a listener to OnItemSelection
+        newItem.OnItemSelection.AddListener(
+            () =>
+            {
+                if (_dropdown.items.Contains(newItem))
+                    RecipeEvent.Trigger("ChooseRecipe", RecipeEventType.ChooseRecipeFromCookable, recipe);
+            });
+
+        // Add item and setup the dropdown
+        _dropdown.items.Add(newItem);
+
+        // Only call SetupDropdown when we actually have items
+        if (_dropdown.items.Count > 0) _dropdown.SetupDropdown();
     }
 }
