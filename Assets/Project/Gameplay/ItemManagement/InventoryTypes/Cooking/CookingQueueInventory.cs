@@ -198,21 +198,28 @@ namespace Project.Gameplay.ItemManagement.InventoryTypes.Cooking
 
             if (cookableRecipes.Count == 1)
             {
-                _currentRecipe = cookableRecipes[0];
-                _cookingStationController.SetCurrentRecipe(_currentRecipe);
+                TrySetCurrentRecipe(cookableRecipes[0]);
             }
             else if (cookableRecipes.Count > 1)
             {
                 Debug.LogWarning("More than one recipe can be cooked from the ingredients in the queue.");
-                _currentRecipe = cookableRecipes.LastOrDefault();
+                TrySetCurrentRecipe(cookableRecipes.LastOrDefault());
             }
             else
             {
-                if (rawFood != null)
-                {
-                    _currentRecipe = rawFood.CookedSingleRawFoodRecipe;
-                    _cookingStationController.SetCurrentRecipe(_currentRecipe);
-                }
+                if (rawFood != null) TrySetCurrentRecipe(rawFood.CookedSingleRawFoodRecipe);
+            }
+        }
+        void TrySetCurrentRecipe(CookingRecipe recipe)
+        {
+            if (cookableRecipes.Contains(recipe))
+            {
+                _currentRecipe = recipe;
+                _cookingStationController.SetCurrentRecipe(recipe);
+            }
+            else
+            {
+                Debug.LogWarning("The selected recipe is not in the list of cookable recipes.");
             }
         }
 

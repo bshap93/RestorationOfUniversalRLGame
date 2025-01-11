@@ -28,6 +28,7 @@ public class CookingStationController : MonoBehaviour
     public MMFeedbacks interactFeedbacks;
     public MMFeedbacks craftingFeedbacks;
     public MMFeedbacks completionFeedbacks;
+    public MMFeedbacks newRecipeSetFeedbacks;
     CookingRecipe _currentRecipe; // The recipe to craft
 
     bool _isCrafting;
@@ -169,6 +170,7 @@ public class CookingStationController : MonoBehaviour
     public void SetCurrentRecipe(CookingRecipe currentRecipe)
     {
         _currentRecipe = currentRecipe;
+        newRecipeSetFeedbacks?.PlayFeedbacks();
         if (_currentRecipe != null)
             Debug.Log("Current recipe set to: " + currentRecipe.recipeName);
     }

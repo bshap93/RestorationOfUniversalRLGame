@@ -41,6 +41,11 @@ public class CookableItemsDropDown : MonoBehaviour, MMEventListener<RecipeEvent>
         {
             var recipe = recipeEvent.RecipeParameter;
 
+            // Instantiate the prefab only if it's not already in the list
+            // if (_dropdown.items.Contains(recipe.recipeID))
+            //     return;
+
+
             // Create a new dropdown item and add it to the list
             var newItem = new CustomDropdown.Item
             {
