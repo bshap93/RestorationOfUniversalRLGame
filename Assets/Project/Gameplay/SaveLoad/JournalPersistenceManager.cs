@@ -14,6 +14,12 @@ namespace Project.Gameplay.SaveLoad
 
         [FormerlySerializedAs("_journalData")] public JournalData journalData = new();
 
+        // void Start()
+        // {
+        //     foreach (var recipe in journalData.knownRecipes)
+        //         RecipeEvent.Trigger("RecipeLearned", RecipeEventType.RecipeLearned, recipe);
+        // }
+
 
         void OnEnable()
         {
