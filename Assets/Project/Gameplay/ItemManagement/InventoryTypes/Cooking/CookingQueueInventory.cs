@@ -112,12 +112,14 @@ namespace Project.Gameplay.ItemManagement.InventoryTypes.Cooking
                 TryDetectRecipeFromIngredientsInQueue(rawFood);
 
 
-                if (_currentRecipe != null)
-                {
-                    recipeHeader.recipeName.text = _currentRecipe.recipeName;
-                    recipeHeader.recipeImage.sprite =
-                        _currentRecipe.finishedFoodItem.FinishedFood.Icon;
-                }
+                // if (_currentRecipe != null)
+                // {
+                //     Debug.Log("CurrentRecipe: " + _currentRecipe);
+                //     Debug.Log("Recipename: " + _currentRecipe.recipeName);
+                //     recipeHeader.recipeName.text = _currentRecipe.recipeName;
+                //     recipeHeader.recipeImage.sprite =
+                //         _currentRecipe.finishedFoodItem.FinishedFood.Icon;
+                // }
 
 
                 return result;
@@ -134,12 +136,6 @@ namespace Project.Gameplay.ItemManagement.InventoryTypes.Cooking
             TryDetectRecipeFromIngredientsInQueue(Content[index] as RawFood);
 
 
-            if (_currentRecipe != null)
-            {
-                recipeHeader.recipeName.text = _currentRecipe.recipeName;
-                recipeHeader.recipeImage.sprite =
-                    _currentRecipe.finishedFoodItem.FinishedFood.Icon;
-            }
 
             return result;
         }
