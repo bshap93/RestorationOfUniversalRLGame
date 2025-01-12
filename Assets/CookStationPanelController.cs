@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using HighlightPlus;
 using MoreMountains.InventoryEngine;
 using MoreMountains.Tools;
 using Project.Core.Events;
@@ -56,7 +57,10 @@ public class CookStationPanelController : MonoBehaviour, MMEventListener<MMInven
 
         if (cookingStationEvent.EventType == CookingStationEventType.CookingStationSelected)
             if (cookingStationEvent.CookingStationControllerParameter.IsPlayerInRange())
+            {
+                Debug.Log("About to call ShowPanel");
                 ShowPanel();
+            }
 
 
         if (cookingStationEvent.EventType == CookingStationEventType.CookingStationDeselected)
@@ -75,7 +79,11 @@ public class CookStationPanelController : MonoBehaviour, MMEventListener<MMInven
             ShowPanel();
 
         if (inventoryEvent.InventoryEventType == MMInventoryEventType.InventoryCloses)
+        {
             HidePanel();
+            Debug.Log("Now calling UnselectObject on: " + _cookingStationControllers.Peek().gameObject.name);
+            HighlightManager.instance.UnselectObject(_cookingStationControllers.Peek().gameObject.transform);
+        }
     }
 
     public void StartCooking()
@@ -90,6 +98,7 @@ public class CookStationPanelController : MonoBehaviour, MMEventListener<MMInven
         var canvasGroup = CookingStationPanel.GetComponent<CanvasGroup>();
         if (canvasGroup != null)
         {
+            Debug.Log("ShowPanel called, setting canvasGroup.alpha to 1");
             canvasGroup.alpha = 1;
             canvasGroup.interactable = true;
             canvasGroup.blocksRaycasts = true;

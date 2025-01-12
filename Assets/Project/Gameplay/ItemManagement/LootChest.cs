@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using MoreMountains.Feedbacks;
 using Project.Gameplay.Interactivity.Items;
-using Project.Gameplay.ItemManagement.Triggers;
 using Project.Gameplay.Player.Inventory;
+using Project.Gameplay.SaveLoad.Triggers;
 using Project.UI.HUD;
 using UnityEngine;
 
@@ -45,7 +45,7 @@ public class LootChest : MonoBehaviour
             itemPicker.Item = item;
             itemPicker.pickedMmFeedbacks = itemInstance.GetComponentInChildren<MMF_Player>();
 
-            var itemPreviewTrigger = itemInstance.GetComponent<ItemPreviewTrigger>();
+            var itemPreviewTrigger = itemInstance.GetComponent<ItemSelectableTrigger>();
             itemPreviewTrigger.Item = item;
 
             itemSlot.gameObject.SetActive(false);

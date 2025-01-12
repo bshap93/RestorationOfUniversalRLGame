@@ -1,3 +1,4 @@
+using Michsky.MUIP;
 using Project.Gameplay.ItemManagement.InventoryTypes.Cooking;
 using TMPro;
 using UnityEngine;
@@ -7,10 +8,22 @@ public class RecipeEntry : MonoBehaviour
 {
     public TMP_Text recipeName;
     public Image recipeImage;
+    public ButtonManager buttonManager;
+
+    CookingRecipe _recipe;
 
     public void SetRecipe(CookingRecipe recipe)
     {
         recipeName.text = recipe.recipeName;
         recipeImage.sprite = recipe.finishedFoodItem.FinishedFood.Icon;
+
+        _recipe = recipe;
+
+        buttonManager.onClick.AddListener(OnRecipeSelected);
+    }
+
+    void OnRecipeSelected()
+    {
+        Debug.Log("Recipe selected: " + _recipe.recipeName);
     }
 }

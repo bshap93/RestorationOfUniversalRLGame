@@ -4802,6 +4802,9 @@ ParticleSystemRenderer:
   m_ReflectionProbeUsage: 0
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -5195,6 +5198,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -5278,6 +5284,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -5608,9 +5617,8 @@ Light:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5256888753516123002}
   m_Enabled: 1
-  serializedVersion: 10
+  serializedVersion: 11
   m_Type: 2
-  m_Shape: 0
   m_Color: {r: 1, g: 0.6505372, b: 0.2216981, a: 1}
   m_Intensity: 0.81
   m_Range: 2.62
@@ -5660,8 +5668,12 @@ Light:
   m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
+  m_ForceVisible: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+  m_LightUnit: 1
+  m_LuxAtDistance: 1
+  m_EnableSpotReflector: 1
 --- !u!114 &6803921162438014227
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6049,6 +6061,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -10914,6 +10929,9 @@ ParticleSystemRenderer:
   m_ReflectionProbeUsage: 0
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -11601,7 +11619,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b16ec4602ff6125448e68e86e04432f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentRecipe: {fileID: 11400000, guid: f8136dac99ea7c9439e01ba379bdf08a, type: 2}
   queueInventory: {fileID: 1502303134845518310}
   depositInventory: {fileID: 8745441590104952771}
   fuelInventory: {fileID: 6370259513037424556}
@@ -11614,6 +11631,7 @@ MonoBehaviour:
   interactFeedbacks: {fileID: 4628391826667800565}
   craftingFeedbacks: {fileID: 0}
   completionFeedbacks: {fileID: 4934270127396280176}
+  newRecipeSetFeedbacks: {fileID: 0}
 --- !u!1 &8070970834206717742
 GameObject:
   m_ObjectHideFlags: 0
@@ -12202,11 +12220,12 @@ MonoBehaviour:
   addedRawFoodFeedback: {fileID: 0}
   cookingStartsFeedback: {fileID: 0}
   cookingEndsFeedback: {fileID: 0}
-  currentRecipe: {fileID: 11400000, guid: f8136dac99ea7c9439e01ba379bdf08a, type: 2}
   fuelInventory: {fileID: 6370259513037424556}
   cookingDepositInventory: {fileID: 8745441590104952771}
   cookingProgressBar: {fileID: 0}
   recipeHeader: {fileID: 0}
+  cookableRecipes: []
+  CannotCookFeedback: {fileID: 0}
 --- !u!1001 &5222178533787389207
 PrefabInstance:
   m_ObjectHideFlags: 0

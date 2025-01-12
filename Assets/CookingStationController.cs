@@ -5,10 +5,11 @@ using Project.Core.Events;
 using Project.Gameplay.Interactivity.Items;
 using Project.Gameplay.ItemManagement.InventoryTypes.Cooking;
 using Project.Gameplay.ItemManagement.InventoryTypes.Fuel;
+using Project.Gameplay.SaveLoad.Triggers;
 using TMPro;
 using UnityEngine;
 
-public class CookingStationController : MonoBehaviour
+public class CookingStationController : MonoBehaviour, ISelectableTrigger
 {
     public CookingQueueInventory queueInventory; // Uncooked items
     public CookingDepositInventory depositInventory; // Cooked items
@@ -95,6 +96,15 @@ public class CookingStationController : MonoBehaviour
 
             HidePreview();
         }
+    }
+    public void OnSelectedItem()
+    {
+        Debug.Log("CookingStationSelected event triggered");
+        CookingStationEvent.Trigger("CookingStationSelected", CookingStationEventType.CookingStationSelected, this);
+    }
+    public void OnUnSelectedItem()
+    {
+        CookingStationEvent.Trigger("CookingStationDeselected", CookingStationEventType.CookingStationDeselected, this);
     }
 
     public bool IsPlayerInRange()
