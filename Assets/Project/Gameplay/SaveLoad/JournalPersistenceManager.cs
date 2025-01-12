@@ -1,9 +1,9 @@
-﻿using MoreMountains.Tools;
+﻿using System.Collections.Generic;
+using MoreMountains.Tools;
 using Project.Core.Events;
 using Project.Gameplay.ItemManagement.InventoryTypes.Cooking;
 using Project.Gameplay.SaveLoad.Journal;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Project.Gameplay.SaveLoad
 {
@@ -12,13 +12,17 @@ namespace Project.Gameplay.SaveLoad
         const string JournalFileName = "PlayerJournal.save";
         const string SaveFolderName = "Player";
 
-        [FormerlySerializedAs("_journalData")] public JournalData journalData = new();
+        public JournalData journalData;
 
-        // void Start()
-        // {
-        //     foreach (var recipe in journalData.knownRecipes)
-        //         RecipeEvent.Trigger("RecipeLearned", RecipeEventType.RecipeLearned, recipe);
-        // }
+        void Start()
+        {
+            if (journalData == null || journalData.knownRecipes == null)
+                return;
+
+            var recipesCopy = new List<CookingRecipe>(journalData.knownRecipes);
+            foreach (var recipe in recipesCopy)
+                RecipeEvent.Trigger("RecipeLearned", RecipeEventType.RecipeLearned, recipe);
+        }
 
 
         void OnEnable()
