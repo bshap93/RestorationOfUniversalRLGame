@@ -11,7 +11,7 @@ public class MMFeedbackDisableRigidbody : MMFeedback
         if (Active && TargetRigidbody != null)
         {
             // Disable the Rigidbody
-            TargetRigidbody.velocity = Vector3.zero; // Stop motion
+            TargetRigidbody.linearVelocity = Vector3.zero; // Stop motion
             TargetRigidbody.isKinematic = true; // Disable physics
         }
     }
