@@ -1,9 +1,10 @@
 using System.Collections.Generic;
+using MoreMountains.Tools;
 using Project.Core.Events;
 using Project.Gameplay.SaveLoad;
 using UnityEngine;
 
-public class RecipeDisplay : MonoBehaviour
+public class RecipeDisplay : MonoBehaviour, MMEventListener<RecipeEvent>
 {
     [SerializeField] GameObject recipeEntryPrefab;
     [SerializeField] GameObject recipeListParent;
@@ -13,6 +14,7 @@ public class RecipeDisplay : MonoBehaviour
 
     void OnEnable()
     {
+        this.MMEventStartListening();
         Debug.Log("JournalDisplay.OnEnable");
         foreach (var recipe in journalPersistenceManager.journalData.knownRecipes)
         {
@@ -31,6 +33,11 @@ public class RecipeDisplay : MonoBehaviour
                 // Pass the recipe data directly to the UI
                 recipeEntryScript.SetRecipe(recipe);
         }
+    }
+
+    void OnDisable()
+    {
+        this.MMEventStopListening();
     }
 
 

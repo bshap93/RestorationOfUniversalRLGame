@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using MoreMountains.Tools;
+﻿using MoreMountains.Tools;
 using Project.Core.Events;
 using Project.Gameplay.ItemManagement.InventoryTypes.Cooking;
 using Project.Gameplay.SaveLoad.Journal;
@@ -13,16 +12,6 @@ namespace Project.Gameplay.SaveLoad
         const string SaveFolderName = "Player";
 
         public JournalData journalData;
-
-        void Start()
-        {
-            if (journalData == null || journalData.knownRecipes == null)
-                return;
-
-            var recipesCopy = new List<CookingRecipe>(journalData.knownRecipes);
-            foreach (var recipe in recipesCopy)
-                RecipeEvent.Trigger("RecipeLearned", RecipeEventType.RecipeLearned, recipe);
-        }
 
 
         void OnEnable()
@@ -51,8 +40,12 @@ namespace Project.Gameplay.SaveLoad
 
         public void AddRecipeToJournal(CookingRecipe recipe)
         {
-            journalData.knownRecipes.Add(recipe);
+            if (!journalData.knownRecipes.Exists(r => r.recipeID == recipe.recipeID))
+                journalData.knownRecipes.Add(recipe);
+            else
+                Debug.LogWarning($"Duplicate recipe not added: {recipe.recipeName}");
         }
+
 
         public void SaveJournal()
         {
