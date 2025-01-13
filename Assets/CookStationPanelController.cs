@@ -5,14 +5,22 @@ using MoreMountains.InventoryEngine;
 using MoreMountains.Tools;
 using Project.Core.Events;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class CookStationPanelController : MonoBehaviour, MMEventListener<MMInventoryEvent>,
     MMEventListener<CookingStationEvent>
 {
-    public GameObject CookingStationPanel;
+    [FormerlySerializedAs("CookingStationPanel")]
+    public GameObject cookingStationPanel;
     readonly Stack<CookingStationController> _cookingStationControllers = new();
+
+    [Obsolete("Obsolete")]
     void Start()
     {
+        var cookingStationControllers = FindObjectsOfType<CookingStationController>();
+
+        if (cookingStationControllers.Length == 0) cookingStationPanel.SetActive(false);
+
         HidePanel();
     }
 
@@ -95,7 +103,7 @@ public class CookStationPanelController : MonoBehaviour, MMEventListener<MMInven
 
     void ShowPanel()
     {
-        var canvasGroup = CookingStationPanel.GetComponent<CanvasGroup>();
+        var canvasGroup = cookingStationPanel.GetComponent<CanvasGroup>();
         if (canvasGroup != null)
         {
             Debug.Log("ShowPanel called, setting canvasGroup.alpha to 1");
@@ -107,7 +115,7 @@ public class CookStationPanelController : MonoBehaviour, MMEventListener<MMInven
 
     void HidePanel()
     {
-        var canvasGroup = CookingStationPanel.GetComponent<CanvasGroup>();
+        var canvasGroup = cookingStationPanel.GetComponent<CanvasGroup>();
         if (canvasGroup != null)
         {
             canvasGroup.alpha = 0;
