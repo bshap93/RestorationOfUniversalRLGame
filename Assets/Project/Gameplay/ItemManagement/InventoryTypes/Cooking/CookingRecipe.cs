@@ -14,9 +14,11 @@ namespace Project.Gameplay.ItemManagement.InventoryTypes.Cooking
     {
         public string recipeID;
         public string recipeName;
+        public string recipeDescription;
         public List<CraftingMaterial> requiredMaterials;
         public FinishedFoodItem finishedFoodItem;
         public List<CraftingMaterial> requiredRawFoodItems;
+        public Sprite recipeImage;
 
         public bool CanBeCookedFrom(InventoryItem[] content)
         {

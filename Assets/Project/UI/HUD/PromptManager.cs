@@ -5,25 +5,25 @@ namespace Project.UI.HUD
 {
     public class PromptManager : MonoBehaviour
     {
-        public GameObject PickupPromptUI; // Reference to the pickup prompt UI element
+        // public GameObject PickupPromptUI; // Reference to the pickup prompt UI element
         public GameObject InteractPromptUI;
         string _interactPromptText;
         TMP_Text _interactPromptTextComponent;
 
         void Start()
         {
-            PickupPromptUI.SetActive(false);
+            // PickupPromptUI.SetActive(false);
             InteractPromptUI.SetActive(false);
         }
 
         public void ShowPickupPrompt()
         {
-            if (PickupPromptUI != null) PickupPromptUI.SetActive(true);
+            // if (PickupPromptUI != null) PickupPromptUI.SetActive(true);
         }
 
         public void HidePickupPrompt()
         {
-            if (PickupPromptUI != null) PickupPromptUI.SetActive(false);
+            // if (PickupPromptUI != null) PickupPromptUI.SetActive(false);
         }
 
 
