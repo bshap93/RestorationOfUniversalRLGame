@@ -1,3 +1,4 @@
+using Project.Core.Events;
 using Project.Gameplay.ItemManagement.InventoryTypes.Cooking;
 using TMPro;
 using UnityEngine;
@@ -22,5 +23,6 @@ public class RecipeEntry : MonoBehaviour
     public void OnRecipeSelected()
     {
         Debug.Log("Recipe selected: " + _recipe.recipeName);
+        RecipeEvent.Trigger("ShowRecipeDetails", RecipeEventType.ShowRecipeDetails, _recipe);
     }
 }

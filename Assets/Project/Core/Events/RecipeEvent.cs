@@ -11,7 +11,8 @@ namespace Project.Core.Events
         RecipeCookableWithCurrentIngredients,
         ChooseRecipeFromCookable,
         ClearCookableRecipes,
-        FinishedCookingRecipe
+        FinishedCookingRecipe,
+        ShowRecipeDetails
     }
 
     /// <summary>
