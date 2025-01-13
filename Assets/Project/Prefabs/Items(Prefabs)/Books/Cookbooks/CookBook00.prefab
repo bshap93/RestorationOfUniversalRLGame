@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 6287529815580469972}
   - component: {fileID: 7026037045721283042}
-  - component: {fileID: 7580426041102392810}
   - component: {fileID: 6984197451457758865}
+  - component: {fileID: 2411383669269324512}
   m_Layer: 0
   m_Name: CookBook00
   m_TagString: Books
@@ -51,21 +51,6 @@ MonoBehaviour:
   Quantity: 1
   pickedMmFeedbacks: {fileID: 3593039771793928080, guid: ba9f1eea489d1b449b279d2be5e1c01f,
     type: 3}
---- !u!114 &7580426041102392810
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4682255899042843084}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: de64c03c619e45b99b277c47f83a3686, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Item: {fileID: 11400000, guid: 79c6842e9d918ac4c960776db0881526, type: 2}
-  _selectionFeedbacks: {fileID: 0}
-  _deselectionFeedbacks: {fileID: 0}
 --- !u!135 &6984197451457758865
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -87,6 +72,21 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 1.4
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &2411383669269324512
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4682255899042843084}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0331a9b56ee78c946bb06f9fe3ad3f18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Item: {fileID: 11400000, guid: 79c6842e9d918ac4c960776db0881526, type: 2}
+  _selectionFeedbacks: {fileID: 0}
+  _deselectionFeedbacks: {fileID: 0}
 --- !u!1001 &2055339186867776020
 PrefabInstance:
   m_ObjectHideFlags: 0

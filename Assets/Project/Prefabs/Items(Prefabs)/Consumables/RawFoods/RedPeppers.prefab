@@ -26,7 +26,7 @@ PrefabInstance:
     - target: {fileID: 934595914782374425, guid: be105ee8a07be074caeca43b3133e27b,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.1777296
+      value: 1.1279845
       objectReference: {fileID: 0}
     - target: {fileID: 934595914782374425, guid: be105ee8a07be074caeca43b3133e27b,
         type: 3}
@@ -74,6 +74,12 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: dd60f185a3eede548ab7f641b195e92b,
         type: 2}
+    - target: {fileID: 1691188143273061398, guid: be105ee8a07be074caeca43b3133e27b,
+        type: 3}
+      propertyPath: Item
+      value: 
+      objectReference: {fileID: 11400000, guid: dd60f185a3eede548ab7f641b195e92b,
+        type: 2}
     - target: {fileID: 2803557755844847770, guid: be105ee8a07be074caeca43b3133e27b,
         type: 3}
       propertyPath: Item
@@ -89,8 +95,34 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 3804574430723422955}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 462588133009142390, guid: be105ee8a07be074caeca43b3133e27b,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4841603146504209854}
   m_SourcePrefab: {fileID: 100100000, guid: be105ee8a07be074caeca43b3133e27b, type: 3}
+--- !u!1 &1578713243897772776 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 462588133009142390, guid: be105ee8a07be074caeca43b3133e27b,
+    type: 3}
+  m_PrefabInstance: {fileID: 1406185351456295070}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &4841603146504209854
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1578713243897772776}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3beb49fcc5880ec40a513dd74067c683, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Item: {fileID: 11400000, guid: dd60f185a3eede548ab7f641b195e92b, type: 2}
+  Quantity: 1
+  pickedMmFeedbacks: {fileID: 3593039771793928080, guid: ba9f1eea489d1b449b279d2be5e1c01f,
+    type: 3}
 --- !u!4 &2268578533406896775 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 934595914782374425, guid: be105ee8a07be074caeca43b3133e27b,

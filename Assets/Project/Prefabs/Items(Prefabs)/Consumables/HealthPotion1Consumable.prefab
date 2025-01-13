@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1768902551313302483}
   - component: {fileID: 8054307471572692400}
-  - component: {fileID: 8261190747472310325}
   - component: {fileID: 1103086810894857882}
   - component: {fileID: 3579556112167805733}
+  - component: {fileID: 6145748838285788160}
   m_Layer: 26
   m_Name: HealthPotion1Consumable
   m_TagString: Untagged
@@ -49,19 +49,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   consumableName: HealthPotion1
---- !u!114 &8261190747472310325
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 430786023743036610}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: de64c03c619e45b99b277c47f83a3686, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Item: {fileID: 11400000, guid: 61f9e3acaff6a0940abff962f2c0f3d6, type: 2}
 --- !u!135 &1103086810894857882
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -98,6 +85,21 @@ MonoBehaviour:
   Item: {fileID: 11400000, guid: 61f9e3acaff6a0940abff962f2c0f3d6, type: 2}
   Quantity: 1
   pickedMmFeedbacks: {fileID: 7152091449879400058}
+--- !u!114 &6145748838285788160
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 430786023743036610}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0331a9b56ee78c946bb06f9fe3ad3f18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Item: {fileID: 11400000, guid: 61f9e3acaff6a0940abff962f2c0f3d6, type: 2}
+  _selectionFeedbacks: {fileID: 0}
+  _deselectionFeedbacks: {fileID: 0}
 --- !u!1 &3610215347707167028
 GameObject:
   m_ObjectHideFlags: 0

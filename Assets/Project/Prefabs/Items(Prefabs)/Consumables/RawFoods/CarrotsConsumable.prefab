@@ -58,6 +58,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -535,7 +538,7 @@ Transform:
   m_GameObject: {fileID: 8779874512392424156}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.271317, y: -6.350025, z: 23.112686}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -784,8 +787,8 @@ GameObject:
   - component: {fileID: 1493371307694988600}
   - component: {fileID: -2077793672948821921}
   - component: {fileID: 7263707167970780681}
-  - component: {fileID: 8120540865213184145}
   - component: {fileID: 7263493861405458301}
+  - component: {fileID: 7305933688729706452}
   m_Layer: 0
   m_Name: CarrotsConsumable
   m_TagString: RawFood
@@ -838,21 +841,6 @@ MonoBehaviour:
   Item: {fileID: 11400000, guid: 51d5636217906a848a01aa64b892dc78, type: 2}
   Quantity: 1
   pickedMmFeedbacks: {fileID: 3593039771793928080}
---- !u!114 &8120540865213184145
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9022520988057576563}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: de64c03c619e45b99b277c47f83a3686, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Item: {fileID: 11400000, guid: 51d5636217906a848a01aa64b892dc78, type: 2}
-  _selectionFeedbacks: {fileID: 0}
-  _deselectionFeedbacks: {fileID: 0}
 --- !u!135 &7263493861405458301
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -874,6 +862,21 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 1.4
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &7305933688729706452
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9022520988057576563}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0331a9b56ee78c946bb06f9fe3ad3f18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Item: {fileID: 11400000, guid: 51d5636217906a848a01aa64b892dc78, type: 2}
+  _selectionFeedbacks: {fileID: 0}
+  _deselectionFeedbacks: {fileID: 0}
 --- !u!1 &9136576461466892814
 GameObject:
   m_ObjectHideFlags: 0

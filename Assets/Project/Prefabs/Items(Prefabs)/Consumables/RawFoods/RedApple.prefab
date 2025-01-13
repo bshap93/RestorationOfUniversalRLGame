@@ -113,7 +113,7 @@ PrefabInstance:
     - target: {fileID: 934595914782374425, guid: be105ee8a07be074caeca43b3133e27b,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.1777302
+      value: 1.148
       objectReference: {fileID: 0}
     - target: {fileID: 934595914782374425, guid: be105ee8a07be074caeca43b3133e27b,
         type: 3}
@@ -178,7 +178,8 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 7ea1c1f16f53de446aad9a24211800cd,
         type: 2}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1691188143273061398, guid: be105ee8a07be074caeca43b3133e27b, type: 3}
     m_RemovedGameObjects:
     - {fileID: 1604416812335473622, guid: be105ee8a07be074caeca43b3133e27b, type: 3}
     m_AddedGameObjects:
@@ -186,7 +187,11 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 4989219684890045868}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 462588133009142390, guid: be105ee8a07be074caeca43b3133e27b,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2101660427855162623}
   m_SourcePrefab: {fileID: 100100000, guid: be105ee8a07be074caeca43b3133e27b, type: 3}
 --- !u!4 &5108968826170658797 stripped
 Transform:
@@ -194,3 +199,24 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 5340968013498693108}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &5509484990599137154 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 462588133009142390, guid: be105ee8a07be074caeca43b3133e27b,
+    type: 3}
+  m_PrefabInstance: {fileID: 5340968013498693108}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2101660427855162623
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5509484990599137154}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0331a9b56ee78c946bb06f9fe3ad3f18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Item: {fileID: 11400000, guid: 7ea1c1f16f53de446aad9a24211800cd, type: 2}
+  _selectionFeedbacks: {fileID: 0}
+  _deselectionFeedbacks: {fileID: 0}
