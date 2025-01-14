@@ -9,6 +9,8 @@ namespace Project.Gameplay.ItemManagement.InventoryItemTypes.Books
     [Serializable]
     public class InventoryBook : InventoryItem
     {
-        public string BookTitle;
+
+        [TextArea] [Tooltip("the item's long description to display in the details panel")]
+        public string ContentsExerpt;
     }
 }
