@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 7937547612275173058}
   - component: {fileID: 2123876332061464774}
-  - component: {fileID: 4557278302275078699}
   - component: {fileID: 4335104378553956637}
+  - component: {fileID: 3768868750324689930}
   m_Layer: 0
   m_Name: MediumRedcap
   m_TagString: Untagged
@@ -56,18 +56,6 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 2
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &4557278302275078699
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6118720417077081304}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f0c1c218baea43adb6a1c0740796d629, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &4335104378553956637
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -83,6 +71,21 @@ MonoBehaviour:
   Item: {fileID: 11400000, guid: f6f24d3990a137947b510292411ee180, type: 2}
   _selectionFeedbacks: {fileID: 0}
   _deselectionFeedbacks: {fileID: 0}
+--- !u!114 &3768868750324689930
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6118720417077081304}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3beb49fcc5880ec40a513dd74067c683, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Item: {fileID: 11400000, guid: f6f24d3990a137947b510292411ee180, type: 2}
+  Quantity: 1
+  pickedMmFeedbacks: {fileID: 0}
 --- !u!1001 &8867341847227999631
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -95,6 +98,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Mushroom_Small_A1.004
+      objectReference: {fileID: 0}
+    - target: {fileID: 6367637973451819628, guid: 4601d3680b903d5498c026be1cfdcd36,
+        type: 3}
+      propertyPath: m_Layer
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8639898252090335724, guid: 4601d3680b903d5498c026be1cfdcd36,
         type: 3}
