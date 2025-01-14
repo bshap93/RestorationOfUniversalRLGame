@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using MoreMountains.Feedbacks;
 using MoreMountains.InventoryEngine;
 using MoreMountains.Tools;
@@ -15,6 +16,10 @@ public class CookingStationController : MonoBehaviour, ISelectableTrigger
     public CookingDepositInventory depositInventory; // Cooked items
     public FuelInventory fuelInventory; // Firewood
     public Inventory playerInventory; // Reference to the player's inventory
+
+    public bool FuelWasAlreadyAdded;
+    public bool FireWasAlreadyLit;
+    [CanBeNull] public FuelMaterial FuelItemAlreadyAdded;
 
     public CookingStation CookingStation;
 
@@ -40,6 +45,12 @@ public class CookingStationController : MonoBehaviour, ISelectableTrigger
     void Start()
     {
         if (previewPanel != null) previewPanel.SetActive(false);
+
+        if (FuelWasAlreadyAdded && FireWasAlreadyLit)
+            if (FuelItemAlreadyAdded != null)
+                fuelInventory.AddItem(
+                    FuelItemAlreadyAdded.FuelItem.Item,
+                    FuelItemAlreadyAdded.Quantity);
     }
 
     void Update()
