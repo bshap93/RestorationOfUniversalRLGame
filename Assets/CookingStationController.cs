@@ -23,8 +23,6 @@ public class CookingStationController : MonoBehaviour, ISelectableTrigger
 
     public CookingStation CookingStation;
 
-    public GameObject CookingStationInventoryPanel; // Parent for the station inventories UI.
-
 
     [Header("Fuel & Progress Tracking")] public float fuelBurnRate = 1f; // Time in seconds to burn one unit of fuel
 

@@ -16,7 +16,6 @@ namespace Project.Gameplay.ItemManagement.InventoryTypes.Fuel
         public MMFeedbacks fuelStartsFeedback;
         public MMFeedbacks fuelEndsFeedback;
         // Shows what fraction of the top fuel item unit has been burnt
-        public MMProgressBar fuelBurntProgressBar;
         public bool IsBurning;
         public string cookingStationID;
         public float updateInterval = 0.1f;
@@ -46,7 +45,8 @@ namespace Project.Gameplay.ItemManagement.InventoryTypes.Fuel
 
             MMGameEvent.Trigger("BurnFuel", stringParameter: cookingStationID);
 
-            fuelBurntProgressBar.BarProgress = fuelItem.remainingFraction;
+            MMGameEvent.Trigger(
+                "UpdateFuelProgressBar", stringParameter: cookingStationID, vector2Parameter: new Vector2(1.0f, 0));
 
 
             while (elapsedTime < fuelItem.burnDuration)
@@ -54,8 +54,13 @@ namespace Project.Gameplay.ItemManagement.InventoryTypes.Fuel
                 fuelItem.remainingFraction = 1 - elapsedTime / fuelItem.burnDuration;
 
 
-                fuelBurntProgressBar.UpdateBar(fuelItem.remainingFraction, 0, 1);
-
+                // Every second
+                if (elapsedTime % 1 < updateInterval)
+                    MMGameEvent.Trigger(
+                        "UpdateFuelProgressBar",
+                        stringParameter: cookingStationID,
+                        vector2Parameter: new Vector2(fuelItem.remainingFraction, 0));
+                // fuelBurntProgressBar.BarProgress = fuelItem.remainingFraction;
 
                 yield return null;
 

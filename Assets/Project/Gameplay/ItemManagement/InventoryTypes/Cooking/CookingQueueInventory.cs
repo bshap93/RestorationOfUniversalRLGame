@@ -39,9 +39,10 @@ namespace Project.Gameplay.ItemManagement.InventoryTypes.Cooking
 
         public FuelInventory fuelInventory;
         public CookingDepositInventory cookingDepositInventory;
-        public MMProgressBar cookingProgressBar;
+        // public MMProgressBar cookingProgressBar;
 
         public RecipeHeader recipeHeader;
+
 
         [FormerlySerializedAs("_cookableRecipes")] [SerializeField]
         List<CookingRecipe> cookableRecipes = new();
@@ -134,7 +135,6 @@ namespace Project.Gameplay.ItemManagement.InventoryTypes.Cooking
 
 
             TryDetectRecipeFromIngredientsInQueue(Content[index] as RawFood);
-
 
 
             return result;
@@ -247,9 +247,14 @@ namespace Project.Gameplay.ItemManagement.InventoryTypes.Cooking
 
             while (elapsedTime < _currentRecipe.CraftingTime)
             {
-                cookingProgressBar.UpdateBar(
-                    elapsedTime / _currentRecipe.CraftingTime,
-                    0, 1);
+                MMGameEvent.Trigger(
+                    "UpdateCookingProgressBar",
+                    stringParameter: _cookingStationController.CookingStation.CraftingStationId,
+                    vector2Parameter: new Vector2(elapsedTime / _currentRecipe.CraftingTime, 0));
+
+                // cookingProgressBar.UpdateBar(
+                    // elapsedTime / _currentRecipe.CraftingTime,
+                    // 0, 1);
 
 
                 yield return null;

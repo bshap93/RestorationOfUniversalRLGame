@@ -9,7 +9,8 @@ namespace Project.Core.Events
         CookingStationInRange,
         CookingStationOutOfRange,
         CookingStationSelected,
-        CookingStationDeselected
+        CookingStationDeselected,
+        FuelBurntUpdate
     }
 
     /// <summary>

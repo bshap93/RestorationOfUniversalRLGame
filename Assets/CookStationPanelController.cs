@@ -8,10 +8,12 @@ using UnityEngine;
 using UnityEngine.Serialization;
 
 public class CookStationPanelController : MonoBehaviour, MMEventListener<MMInventoryEvent>,
-    MMEventListener<CookingStationEvent>
+    MMEventListener<CookingStationEvent>, MMEventListener<MMGameEvent>
 {
     [FormerlySerializedAs("CookingStationPanel")]
     public GameObject cookingStationPanel;
+    public MMProgressBar fuelBurntProgressBar;
+    public MMProgressBar cookingProgressBar;
     readonly Stack<CookingStationController> _cookingStationControllers = new();
 
     [Obsolete("Obsolete")]
@@ -29,6 +31,8 @@ public class CookStationPanelController : MonoBehaviour, MMEventListener<MMInven
         this.MMEventStartListening<MMInventoryEvent>();
 
         this.MMEventStartListening<CookingStationEvent>();
+
+        this.MMEventStartListening<MMGameEvent>();
     }
 
 
@@ -37,6 +41,8 @@ public class CookStationPanelController : MonoBehaviour, MMEventListener<MMInven
         this.MMEventStopListening<MMInventoryEvent>();
 
         this.MMEventStopListening<CookingStationEvent>();
+
+        this.MMEventStopListening<MMGameEvent>();
     }
     public void OnMMEvent(CookingStationEvent cookingStationEvent)
     {
@@ -73,6 +79,31 @@ public class CookStationPanelController : MonoBehaviour, MMEventListener<MMInven
 
         if (cookingStationEvent.EventType == CookingStationEventType.CookingStationDeselected)
             HidePanel();
+    }
+    public void OnMMEvent(MMGameEvent cookingStationEvent)
+    {
+        if (cookingStationEvent.EventName == "UpdateFuelProgressBar")
+        {
+            if (_cookingStationControllers.Count == 0) return;
+            var cookingStationController = _cookingStationControllers.Peek();
+            if (cookingStationEvent.StringParameter == cookingStationController.CookingStation.CraftingStationId)
+                fuelBurntProgressBar.BarProgress = cookingStationEvent.Vector2Parameter.x;
+            else
+                Debug.LogError(
+                    "Invalid fuel update: " + cookingStationEvent.StringParameter + " " +
+                    cookingStationController.CookingStation.CraftingStationId);
+        }
+        
+        if (cookingStationEvent.EventName == "UpdateCookingProgressBar") {
+            if (_cookingStationControllers.Count == 0) return;
+            var cookingStationController = _cookingStationControllers.Peek();
+            if (cookingStationEvent.StringParameter == cookingStationController.CookingStation.CraftingStationId)
+                cookingProgressBar.BarProgress = cookingStationEvent.Vector2Parameter.x;
+            else
+                Debug.LogError(
+                    "Invalid cooking update: " + cookingStationEvent.StringParameter + " " +
+                    cookingStationController.CookingStation.CraftingStationId);
+        }
     }
 
 
