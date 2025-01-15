@@ -86,23 +86,24 @@ public class CookStationPanelController : MonoBehaviour, MMEventListener<MMInven
         {
             if (_cookingStationControllers.Count == 0) return;
             var cookingStationController = _cookingStationControllers.Peek();
-            if (cookingStationEvent.StringParameter == cookingStationController.CookingStation.CraftingStationId)
-                fuelBurntProgressBar.BarProgress = cookingStationEvent.Vector2Parameter.x;
-            else
-                Debug.LogError(
-                    "Invalid fuel update: " + cookingStationEvent.StringParameter + " " +
-                    cookingStationController.CookingStation.CraftingStationId);
+            // if (cookingStationEvent.StringParameter == cookingStationController.CookingStation.CraftingStationId)
+            fuelBurntProgressBar.BarProgress = cookingStationEvent.Vector2Parameter.x;
+            // else
+            //     Debug.LogError(
+            //         "Invalid fuel update: " + cookingStationEvent.StringParameter + " " +
+            //         cookingStationController.CookingStation.CraftingStationId);
         }
-        
-        if (cookingStationEvent.EventName == "UpdateCookingProgressBar") {
+
+        if (cookingStationEvent.EventName == "UpdateCookingProgressBar")
+        {
             if (_cookingStationControllers.Count == 0) return;
             var cookingStationController = _cookingStationControllers.Peek();
-            if (cookingStationEvent.StringParameter == cookingStationController.CookingStation.CraftingStationId)
-                cookingProgressBar.BarProgress = cookingStationEvent.Vector2Parameter.x;
-            else
-                Debug.LogError(
-                    "Invalid cooking update: " + cookingStationEvent.StringParameter + " " +
-                    cookingStationController.CookingStation.CraftingStationId);
+            // if (cookingStationEvent.StringParameter == cookingStationController.CookingStation.CraftingStationId)
+            cookingProgressBar.BarProgress = cookingStationEvent.Vector2Parameter.x;
+            // else
+            //     Debug.LogError(
+            //         "Invalid cooking update: " + cookingStationEvent.StringParameter + " " +
+            //         cookingStationController.CookingStation.CraftingStationId);
         }
     }
 
