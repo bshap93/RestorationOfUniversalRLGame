@@ -12,7 +12,8 @@ namespace Project.Core.Events
         ChooseRecipeFromCookable,
         ClearCookableRecipes,
         FinishedCookingRecipe,
-        ShowRecipeDetails
+        ShowRecipeDetails,
+        Error
     }
 
     /// <summary>
