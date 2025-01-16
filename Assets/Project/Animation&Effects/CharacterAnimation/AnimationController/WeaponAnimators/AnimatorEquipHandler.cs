@@ -38,13 +38,13 @@ namespace Project.Animation_Effects.CharacterAnimation.AnimationController.Weapo
             this.MMEventStopListening<MMGameEvent>();
         }
 
-        public void OnMMEvent(MMCameraEvent cookingStationEvent)
+        public void OnMMEvent(MMCameraEvent @event)
         {
-            if (cookingStationEvent.EventType == MMCameraEventTypes.SetTargetCharacter)
+            if (@event.EventType == MMCameraEventTypes.SetTargetCharacter)
             {
                 if (_playerAnimator == null)
                 {
-                    _playerAnimator = cookingStationEvent.TargetCharacter.GetComponentInChildren<Animator>();
+                    _playerAnimator = @event.TargetCharacter.GetComponentInChildren<Animator>();
 
                     if (_playerAnimator == null)
                     {
@@ -74,17 +74,17 @@ namespace Project.Animation_Effects.CharacterAnimation.AnimationController.Weapo
                 }
             }
         }
-        public void OnMMEvent(MMGameEvent cookingStationEvent)
+        public void OnMMEvent(MMGameEvent @event)
         {
-            if (cookingStationEvent.EventName == "ShieldUpEvent") _playerAnimator.SetBool(ShieldUp, true);
+            if (@event.EventName == "ShieldUpEvent") _playerAnimator.SetBool(ShieldUp, true);
 
-            if (cookingStationEvent.EventName == "ShieldDownEvent") _playerAnimator.SetBool(ShieldUp, false);
+            if (@event.EventName == "ShieldDownEvent") _playerAnimator.SetBool(ShieldUp, false);
         }
 
-        public void OnMMEvent(MMInventoryEvent cookingStationEvent)
+        public void OnMMEvent(MMInventoryEvent @event)
         {
-            if (cookingStationEvent.InventoryEventType == MMInventoryEventType.ItemEquipped)
-                EquipWeapon(cookingStationEvent.EventItem);
+            if (@event.InventoryEventType == MMInventoryEventType.ItemEquipped)
+                EquipWeapon(@event.EventItem);
         }
 
         void EquipWeapon(InventoryItem item)

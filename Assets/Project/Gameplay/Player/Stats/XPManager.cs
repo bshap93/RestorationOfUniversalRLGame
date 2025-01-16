@@ -20,11 +20,11 @@ namespace Project.Gameplay.Player.Stats
             this.MMEventStopListening();
         }
 
-        public void OnMMEvent(MMGameEvent cookingStationEvent)
+        public void OnMMEvent(MMGameEvent @event)
         {
-            if (cookingStationEvent.EventName == "PlayerExperienceChanged")
+            if (@event.EventName == "PlayerExperienceChanged")
             {
-                var newXp = cookingStationEvent.IntParameter;
+                var newXp = @event.IntParameter;
                 AddExperience(newXp);
             }
         }

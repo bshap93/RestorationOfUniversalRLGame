@@ -93,19 +93,19 @@ namespace Project.Gameplay.Player.Interaction
             if (!_isSorting && _craftingStationsInRange.Count > 0) UpdateNearestCraftingStation();
         }
 
-        public void OnMMEvent(MMGameEvent cookingStationEvent)
+        public void OnMMEvent(MMGameEvent @event)
         {
-            if (cookingStationEvent.EventName == "CraftingStationRangeEntered")
+            if (@event.EventName == "CraftingStationRangeEntered")
             {
-                var craftingStationId = cookingStationEvent.StringParameter;
-                var position = cookingStationEvent.Vector3Parameter;
+                var craftingStationId = @event.StringParameter;
+                var position = @event.Vector3Parameter;
 
                 var station = FindCraftingStationById(craftingStationId);
                 if (station != null) HandleCraftingStationEntered(station, position);
             }
-            else if (cookingStationEvent.EventName == "CraftingStationRangeExited")
+            else if (@event.EventName == "CraftingStationRangeExited")
             {
-                var craftingStationId = cookingStationEvent.StringParameter;
+                var craftingStationId = @event.StringParameter;
                 var station = FindCraftingStationById(craftingStationId);
                 if (station != null) HandleCraftingStationExited(station);
             }

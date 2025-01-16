@@ -2,17 +2,19 @@ using System.Collections.Generic;
 using HighlightPlus;
 using MoreMountains.InventoryEngine;
 using MoreMountains.Tools;
+using MoreMountains.TopDownEngine;
 using Project.Core.Events;
 using Sirenix.Utilities;
 using UnityEngine;
 using UnityEngine.Serialization;
 
 public class CookStationPanelController : MonoBehaviour, MMEventListener<MMInventoryEvent>,
-    MMEventListener<CookingStationEvent>, MMEventListener<MMGameEvent>
+    MMEventListener<CookingStationEvent>, MMEventListener<MMGameEvent>, MMEventListener<TopDownEngineEvent>
 {
     public GameObject cookingStationPanelPrefab;
     [FormerlySerializedAs("_cookingStationPanels")] [SerializeField]
     List<GameObject> cookingStationPanels = new();
+
 
     GameObject _currentCookingStationPanel;
 
@@ -28,6 +30,8 @@ public class CookStationPanelController : MonoBehaviour, MMEventListener<MMInven
         this.MMEventStartListening<CookingStationEvent>();
 
         this.MMEventStartListening<MMGameEvent>();
+
+        this.MMEventStartListening<TopDownEngineEvent>();
     }
 
 
@@ -38,11 +42,17 @@ public class CookStationPanelController : MonoBehaviour, MMEventListener<MMInven
         this.MMEventStopListening<CookingStationEvent>();
 
         this.MMEventStopListening<MMGameEvent>();
+
+        this.MMEventStopListening<TopDownEngineEvent>();
     }
     public void OnMMEvent(CookingStationEvent cookingStationEvent)
     {
         if (cookingStationEvent.EventType == CookingStationEventType.CookingStationInRange)
         {
+            Debug.Log(
+                "EventCookingStationId: " + cookingStationEvent.CookingStationControllerParameter.CookingStation
+                    .CraftingStationId);
+
             ShowRelevantCookingStationPanel(cookingStationEvent);
             return;
         }
@@ -67,6 +77,12 @@ public class CookStationPanelController : MonoBehaviour, MMEventListener<MMInven
     {
         if (cookingStationEvent.EventName == "UpdateFuelProgressBar")
         {
+            if (cookingStationPanels.IsNullOrEmpty())
+            {
+                Debug.Log("CookingStationPanels is null or empty");
+                return;
+            }
+
             Debug.Log("StringParameter: " + cookingStationEvent.StringParameter);
             var relevantCookingStationPanel = cookingStationPanels.Find(
                 cookingStationPanel =>
@@ -138,9 +154,63 @@ public class CookStationPanelController : MonoBehaviour, MMEventListener<MMInven
                 HighlightManager.instance.UnselectObject(_currentCookingStationPanel.transform);
             }
     }
+    public void OnMMEvent(TopDownEngineEvent cookingStationEvent)
+    {
+        if (cookingStationEvent.EventType == TopDownEngineEventTypes.SpawnComplete)
+        {
+            var cookingStationControllers = FindObjectsByType<CookingStationController>(FindObjectsSortMode.InstanceID);
+
+            if (cookingStationControllers.Length != cookingStationPanels.Count)
+            {
+                Debug.LogError(
+                    "CookingStationControllers length: " + cookingStationControllers.Length +
+                    " is not equal to CookingStationPanelInstances length: " + cookingStationPanels.Count);
+
+                return;
+            }
+
+            for (var i = 0; i < cookingStationControllers.Length; i++)
+            {
+                if (cookingStationControllers[i] == null)
+                {
+                    Debug.LogError("CookingStationController is null");
+                    return;
+                }
+
+                var success = cookingStationPanels[i]
+                    .TryGetComponent(out CookStationPanelInstance cookStationPanelInstance);
+
+                if (!success)
+                {
+                    Debug.LogError("CookStationPanelInstance is null even though CookingStationController is not null");
+                    return;
+                }
+
+                cookingStationPanels[i].GetComponent<CookStationPanelInstance>().cookingStationController =
+                    cookingStationControllers[i];
+
+                Debug.Log(
+                    "CookingStationController: " + cookingStationControllers[i].CookingStation.CraftingStationId +
+                    " set in CookingStationPanelInstance: " + cookStationPanelInstance.name);
+            }
+        }
+    }
 
     void Initialize()
     {
+        if (!cookingStationPanels.IsNullOrEmpty())
+            // Destroy all panels
+            foreach (var cookingStationPanel in cookingStationPanels)
+            {
+                if (cookingStationPanel == null)
+                {
+                    Debug.Log("CookingStationPanel is null");
+                    return;
+                }
+
+                Destroy(cookingStationPanel);
+            }
+
         var cookingStationControllers = FindObjectsByType<CookingStationController>(FindObjectsSortMode.None);
         if (cookingStationControllers.IsNullOrEmpty())
         {
@@ -150,6 +220,9 @@ public class CookStationPanelController : MonoBehaviour, MMEventListener<MMInven
 
         foreach (var cookingStationController in cookingStationControllers)
         {
+            Debug.Log(
+                "Initializing cooking station panel: " + cookingStationController.CookingStation.CraftingStationId);
+
             if (cookingStationPanelPrefab == null)
             {
                 Debug.LogError("CookingStationController is null");
@@ -166,6 +239,7 @@ public class CookStationPanelController : MonoBehaviour, MMEventListener<MMInven
             cookingStationPanelInstance.SetCookingDepositInventory(cookingStationController.GetDepositInventory());
             cookingStationPanelInstance.SetCookingQueueInventory(cookingStationController.GetQueueInventory());
             cookingStationPanelInstance.SetFuelInventory(cookingStationController.GetFuelInventory());
+            cookingStationPanelInstance.SetCookStationIDText(cookingStationController.CookingStation.CraftingStationId);
 
 
             cookingStationPanels.Add(cookingStationPanel);
@@ -201,6 +275,7 @@ public class CookStationPanelController : MonoBehaviour, MMEventListener<MMInven
 
         var cookingEventStationController = cookingStationEvent.CookingStationControllerParameter;
         var eventStationId = cookingEventStationController.CookingStation.CraftingStationId;
+        Debug.Log("EventStationId: in panel " + eventStationId);
 
         if (string.IsNullOrEmpty(eventStationId))
         {

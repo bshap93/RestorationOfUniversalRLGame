@@ -22,19 +22,19 @@ namespace InventoryDoubleClick
             this.MMEventStopListening();
         }
 
-        public void OnMMEvent(MMInventoryEvent cookingStationEvent)
+        public void OnMMEvent(MMInventoryEvent @event)
         {
-            if (cookingStationEvent.InventoryEventType != MMInventoryEventType.Click) return;
+            if (@event.InventoryEventType != MMInventoryEventType.Click) return;
             if (!DoubleClick)
             {
                 _clicked = true;
                 _clickedTime = Time.unscaledTime;
-                _slot = cookingStationEvent.Slot;
+                _slot = @event.Slot;
             }
             else
             {
                 _clicked = false;
-                if (cookingStationEvent.Slot != _slot) return;
+                if (@event.Slot != _slot) return;
                 if (_slot.Unequippable()) _slot.UnEquip();
                 else if (_slot.Equippable()) _slot.Equip();
 

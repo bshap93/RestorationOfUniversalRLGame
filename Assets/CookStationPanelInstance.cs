@@ -3,6 +3,7 @@ using MoreMountains.InventoryEngine;
 using MoreMountains.Tools;
 using Project.Gameplay.ItemManagement.InventoryTypes.Cooking;
 using Project.Gameplay.ItemManagement.InventoryTypes.Fuel;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -24,6 +25,7 @@ public class CookStationPanelInstance : MonoBehaviour
     public InventoryDisplay cookingQueueInventoryDisplay;
     [FormerlySerializedAs("_fuelInventoryDisplay")]
     public InventoryDisplay fuelInventoryDisplay;
+    public TMP_Text CookStationIDText;
     CookableItemsDropDown _cookableItemsDropDown;
 
     CookingDepositInventory _cookingDepositInventory;
@@ -34,6 +36,7 @@ public class CookStationPanelInstance : MonoBehaviour
     {
         _cookableItemsDropDown = recipeDropDown.GetComponent<CookableItemsDropDown>();
         _cookableItemsDropDown.CraftingStationId = cookingStationController.CookingStation.CraftingStationId;
+        CookStationIDText.text = cookingStationController.CookingStation.CraftingStationId;
     }
 
     public void StartCooking()
@@ -63,5 +66,10 @@ public class CookStationPanelInstance : MonoBehaviour
 
         fuelInventoryDisplay.TargetInventoryName = _fuelInventory.name;
         fuelInventoryDisplay.ChangeTargetInventory(_fuelInventory.name);
+    }
+
+    public void SetCookStationIDText(string text)
+    {
+        CookStationIDText.text = text;
     }
 }

@@ -18,11 +18,11 @@ namespace Project.Gameplay.Magic
             this.MMEventStopListening();
         }
 
-        public void OnMMEvent(TopDownEngineEvent cookingStationEvent)
+        public void OnMMEvent(TopDownEngineEvent @event)
         {
-            if (cookingStationEvent.EventType == TopDownEngineEventTypes.SpawnComplete)
+            if (@event.EventType == TopDownEngineEventTypes.SpawnComplete)
             {
-                var player = cookingStationEvent.OriginCharacter?.gameObject;
+                var player = @event.OriginCharacter?.gameObject;
                 if (player != null) LinkPlayerToUI(player);
             }
         }

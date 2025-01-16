@@ -26,7 +26,7 @@ public class RecipeHeader : MonoBehaviour, MMEventListener<MMGameEvent>
         this.MMEventStopListening();
     }
 
-    public void OnMMEvent(MMGameEvent cookingStationEvent)
+    public void OnMMEvent(MMGameEvent @event)
     {
     }
 }

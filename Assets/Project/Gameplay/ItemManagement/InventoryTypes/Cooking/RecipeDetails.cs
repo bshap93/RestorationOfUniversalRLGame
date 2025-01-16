@@ -79,13 +79,13 @@ namespace Project.Gameplay.ItemManagement.InventoryTypes.Cooking
         {
             this.MMEventStopListening();
         }
-        public void OnMMEvent(RecipeEvent cookingStationEvent)
+        public void OnMMEvent(RecipeEvent @event)
         {
             throw new NotImplementedException();
         }
 
         /// <summary>
-        ///   Fills all the detail fields with the specified recipe's values
+        ///     Fills all the detail fields with the specified recipe's values
         /// </summary>
         /// <param name="cookingRecipe"></param>
         public virtual void DisplayDetails(CookingRecipe cookingRecipe)

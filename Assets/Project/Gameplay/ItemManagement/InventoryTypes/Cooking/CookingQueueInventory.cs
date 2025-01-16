@@ -79,10 +79,10 @@ namespace Project.Gameplay.ItemManagement.InventoryTypes.Cooking
             base.OnDisable();
             this.MMEventStopListening<RecipeEvent>();
         }
-        public void OnMMEvent(RecipeEvent cookingStationEvent)
+        public void OnMMEvent(RecipeEvent @event)
         {
-            if (cookingStationEvent.EventType == RecipeEventType.ChooseRecipeFromCookable)
-                ChooseRecipeFromCookableRecipes(cookingStationEvent.RecipeParameter);
+            if (@event.EventType == RecipeEventType.ChooseRecipeFromCookable)
+                ChooseRecipeFromCookableRecipes(@event.RecipeParameter);
         }
 
         public bool CookableRecipesContains(CookingRecipe recipe)

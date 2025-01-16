@@ -63,25 +63,25 @@ namespace Project.Gameplay.Player.Inventory
         }
 
 
-        public void OnMMEvent(ItemEvent cookingStationEvent)
+        public void OnMMEvent(ItemEvent @event)
         {
             // Skip if we're in the middle of a pickup
             if (_isPickingUp) return;
 
-            var itemPicker = cookingStationEvent.ItemTransform.GetComponent<ManualItemPicker>();
+            var itemPicker = @event.ItemTransform.GetComponent<ManualItemPicker>();
             if (itemPicker == null) return;
 
-            switch (cookingStationEvent.EventName)
+            switch (@event.EventName)
             {
                 case "ItemPickupRangeEntered":
                     if (!_itemPickersInRange.ContainsKey(itemPicker.UniqueID))
-                        HandleItemEntered(itemPicker, cookingStationEvent.ItemTransform);
+                        HandleItemEntered(itemPicker, @event.ItemTransform);
 
                     break;
 
                 case "ItemPickupRangeExited":
                 case "ItemPickedUp":
-                    HandleItemExited(itemPicker, cookingStationEvent.ItemTransform);
+                    HandleItemExited(itemPicker, @event.ItemTransform);
                     break;
             }
         }

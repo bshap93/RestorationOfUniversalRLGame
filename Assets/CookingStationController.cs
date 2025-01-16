@@ -43,11 +43,11 @@ public class CookingStationController : MonoBehaviour, ISelectableTrigger
     {
         if (previewPanel != null) previewPanel.SetActive(false);
 
-        if (FuelWasAlreadyAdded && FireWasAlreadyLit)
-            if (FuelItemAlreadyAdded != null)
-                fuelInventory.AddItem(
-                    FuelItemAlreadyAdded.FuelItem.Item,
-                    FuelItemAlreadyAdded.Quantity);
+        // if (FuelWasAlreadyAdded && FireWasAlreadyLit)
+        //     if (FuelItemAlreadyAdded != null)
+        //         fuelInventory.AddItem(
+        //             FuelItemAlreadyAdded.FuelItem.Item,
+        //             FuelItemAlreadyAdded.Quantity);
     }
 
     void Update()
@@ -62,6 +62,13 @@ public class CookingStationController : MonoBehaviour, ISelectableTrigger
         if (other.CompareTag("Player"))
         {
             _isInPlayerRange = true;
+
+            if (CookingStation.CraftingStationId == null)
+            {
+                Debug.LogError("CraftingStationId is null");
+                return;
+            }
+
 
             CookingStationEvent.Trigger("CookingStationInRange", CookingStationEventType.CookingStationInRange, this);
 

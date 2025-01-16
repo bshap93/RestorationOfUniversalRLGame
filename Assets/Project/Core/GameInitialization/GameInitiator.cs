@@ -49,16 +49,16 @@ namespace Project.Core.GameInitialization
             this.MMEventStopListening();
         }
 
-        public void OnMMEvent(MMCameraEvent cookingStationEvent)
+        public void OnMMEvent(MMCameraEvent @event)
         {
-            if (cookingStationEvent.EventType == MMCameraEventTypes.SetTargetCharacter)
+            if (@event.EventType == MMCameraEventTypes.SetTargetCharacter)
             {
                 MMGameEvent.Trigger("SaveInventory");
                 MMGameEvent.Trigger("SaveResources");
                 MMGameEvent.Trigger("SaveJournal");
-                ApplyCharacterCreationDataToPlayer(cookingStationEvent.TargetCharacter.gameObject);
+                ApplyCharacterCreationDataToPlayer(@event.TargetCharacter.gameObject);
 
-                SpawnEnemiesIfPossible(cookingStationEvent.TargetCharacter.gameObject);
+                SpawnEnemiesIfPossible(@event.TargetCharacter.gameObject);
             }
         }
         public void OnMMEvent(TopDownEngineEvent engineEvent)

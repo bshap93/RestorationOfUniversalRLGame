@@ -38,12 +38,12 @@ public class TMPRecipeDetails : MonoBehaviour, MMEventListener<RecipeEvent>
         this.MMEventStopListening();
     }
 
-    public void OnMMEvent(RecipeEvent recipeEvent)
+    public void OnMMEvent(RecipeEvent @event)
     {
-        if (recipeEvent.EventType == RecipeEventType.ShowRecipeDetails)
+        if (@event.EventType == RecipeEventType.ShowRecipeDetails)
         {
             ShowPanel();
-            _recipe = recipeEvent.RecipeParameter;
+            _recipe = @event.RecipeParameter;
             SetRecipeDetails();
         }
     }
