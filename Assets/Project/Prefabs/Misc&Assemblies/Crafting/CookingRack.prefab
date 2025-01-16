@@ -5091,7 +5091,7 @@ GameObject:
   - component: {fileID: 8123608009838677362}
   - component: {fileID: 6370259513037424556}
   m_Layer: 0
-  m_Name: CookingStation01FuelInventory
+  m_Name: CookingStationFuelInventory
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5136,7 +5136,6 @@ MonoBehaviour:
   fuelItemAllowed: {fileID: 11400000, guid: 686e83163144d5040a850536167aff7c, type: 2}
   fuelStartsFeedback: {fileID: 6824818595004192808}
   fuelEndsFeedback: {fileID: 8397193984380210425}
-  fuelBurntProgressBar: {fileID: 0}
   IsBurning: 0
   cookingStationID: 
   updateInterval: 0.1
@@ -5730,7 +5729,6 @@ Transform:
   - {fileID: 1611260931851227350}
   - {fileID: 3794396318937477195}
   - {fileID: 2813060181877020229}
-  - {fileID: 8959620642021563491}
   - {fileID: 924090438773793488}
   m_Father: {fileID: 2649716491489293896}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -11022,225 +11020,6 @@ Transform:
   - {fileID: 757782804206167616}
   m_Father: {fileID: 7980290206290453320}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &7394759120112801598
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 8959620642021563491}
-  - component: {fileID: 7223901340412249839}
-  m_Layer: 0
-  m_Name: SelectionFeedback
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &8959620642021563491
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7394759120112801598}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 5417169732897977149}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7223901340412249839
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7394759120112801598}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6da43522623d4704e979466dc7650b65, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Feedbacks: []
-  InitializationMode: 2
-  AutoInitialization: 1
-  SafeMode: 3
-  Direction: 0
-  AutoChangeDirectionOnEnd: 0
-  AutoPlayOnStart: 0
-  AutoPlayOnEnable: 0
-  ForceTimescaleMode: 0
-  ForcedTimescaleMode: 1
-  DurationMultiplier: 1
-  TimescaleMultiplier: 1
-  RandomizeDuration: 0
-  RandomDurationMultiplier: {x: 0.5, y: 1.5}
-  DisplayFullDurationDetails: 0
-  PlayerTimescaleMode: 1
-  OnlyPlayIfWithinRange: 0
-  RangeCenter: {fileID: 0}
-  RangeDistance: 5
-  UseRangeFalloff: 0
-  RangeFalloff:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  RemapRangeFalloff: {x: 0, y: 1}
-  IgnoreRangeEvents: 0
-  CooldownDuration: 0
-  InitialDelay: 0
-  CanPlay: 1
-  CanPlayWhileAlreadyPlaying: 1
-  ChanceToPlay: 100
-  FeedbacksIntensity: 1
-  Events:
-    TriggerMMFeedbacksEvents: 0
-    TriggerUnityEvents: 1
-    OnPlay:
-      m_PersistentCalls:
-        m_Calls: []
-    OnPause:
-      m_PersistentCalls:
-        m_Calls: []
-    OnResume:
-      m_PersistentCalls:
-        m_Calls: []
-    OnRevert:
-      m_PersistentCalls:
-        m_Calls: []
-    OnComplete:
-      m_PersistentCalls:
-        m_Calls: []
-    OnRestoreInitialValues:
-      m_PersistentCalls:
-        m_Calls: []
-    OnSkipToTheEnd:
-      m_PersistentCalls:
-        m_Calls: []
-    OnInitializationComplete:
-      m_PersistentCalls:
-        m_Calls: []
-    OnEnable:
-      m_PersistentCalls:
-        m_Calls: []
-    OnDisable:
-      m_PersistentCalls:
-        m_Calls: []
-  DebugActive: 0
-  FeedbacksList:
-  - rid: 961850641250779139
-  KeepPlayModeChanges: 0
-  PerformanceMode: 0
-  StopFeedbacksOnDisable: 0
-  PlayCount: 0
-  references:
-    version: 2
-    RefIds:
-    - rid: 961850641250779139
-      type: {class: MMF_MMGameEvent, ns: MoreMountains.Feedbacks, asm: MoreMountains.Tools}
-      data:
-        Active: 1
-        UniqueID: -1618143240
-        Label: MMGameEvent
-        ChannelMode: 0
-        Channel: 0
-        MMChannelDefinition: {fileID: 0}
-        Chance: 100
-        DisplayColor: {r: 0, g: 0, b: 0, a: 1}
-        Timing:
-          TimescaleMode: 0
-          ExcludeFromHoldingPauses: 0
-          ContributeToTotalDuration: 1
-          InitialDelay: 0
-          CooldownDuration: 0
-          InterruptsOnStop: 1
-          NumberOfRepeats: 0
-          RepeatForever: 0
-          DelayBetweenRepeats: 1
-          PlayCount: 0
-          LimitPlayCount: 0
-          MaxPlayCount: 3
-          SetPlayCountToZeroOnReset: 0
-          MMFeedbacksDirectionCondition: 0
-          PlayDirection: 0
-          ConstantIntensity: 0
-          UseIntensityInterval: 0
-          IntensityIntervalMin: 0
-          IntensityIntervalMax: 0
-          Sequence: {fileID: 0}
-          TrackID: 0
-          Quantized: 0
-          TargetBPM: 120
-        AutomatedTargetAcquisition:
-          Mode: 0
-          ChildIndex: 0
-        RandomizeOutput: 0
-        RandomMultiplier: {x: 0.8, y: 1}
-        RandomizeDuration: 0
-        RandomDurationMultiplier: {x: 0.5, y: 2}
-        UseRange: 0
-        RangeDistance: 5
-        UseRangeFalloff: 0
-        RangeFalloff:
-          serializedVersion: 2
-          m_Curve:
-          - serializedVersion: 3
-            time: 0
-            value: 1
-            inSlope: 0
-            outSlope: 0
-            tangentMode: 0
-            weightedMode: 0
-            inWeight: 0
-            outWeight: 0
-          - serializedVersion: 3
-            time: 1
-            value: 0
-            inSlope: 0
-            outSlope: 0
-            tangentMode: 0
-            weightedMode: 0
-            inWeight: 0
-            outWeight: 0
-          m_PreInfinity: 2
-          m_PostInfinity: 2
-          m_RotationOrder: 4
-        RemapRangeFalloff: {x: 0, y: 1}
-        AutomaticShakerSetupButton:
-          ButtonText: 
-        Owner: {fileID: 7223901340412249839}
-        DebugActive: 0
-        MMGameEventName: PreviewCraftingStation
-        IntParameter: 0
-        Vector2Parameter: {x: 0, y: 0}
-        Vector3Parameter: {x: 0, y: 0, z: 0}
-        BoolParameter: 1
-        StringParameter: CookStation01
 --- !u!1 &7630593028259928055
 GameObject:
   m_ObjectHideFlags: 0
@@ -11623,8 +11402,16 @@ MonoBehaviour:
   depositInventory: {fileID: 8745441590104952771}
   fuelInventory: {fileID: 6370259513037424556}
   playerInventory: {fileID: 0}
-  CookingStation: {fileID: 11400000, guid: 25af976d02a13764082c305c750d4fd7, type: 2}
-  CookingStationInventoryPanel: {fileID: 0}
+  FuelWasAlreadyAdded: 0
+  FireWasAlreadyLit: 0
+  FuelItemAlreadyAdded:
+    FuelItem:
+      Item: {fileID: 0}
+      burnDuration: 0
+      remainingFraction: 0
+      defaultBurnDuration: 0
+    Quantity: 0
+  CookingStation: {fileID: 0}
   fuelBurnRate: 1
   previewPanel: {fileID: 0}
   previewText: {fileID: 0}
@@ -11643,7 +11430,7 @@ GameObject:
   - component: {fileID: 4525560008156384008}
   - component: {fileID: 8745441590104952771}
   m_Layer: 0
-  m_Name: CookingStation01Deposit
+  m_Name: CookingStationDeposit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12174,7 +11961,7 @@ GameObject:
   - component: {fileID: 4474000407177959286}
   - component: {fileID: 1502303134845518310}
   m_Layer: 0
-  m_Name: CookingStation01Queue
+  m_Name: CookingStationQueue
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12222,7 +12009,6 @@ MonoBehaviour:
   cookingEndsFeedback: {fileID: 0}
   fuelInventory: {fileID: 6370259513037424556}
   cookingDepositInventory: {fileID: 8745441590104952771}
-  cookingProgressBar: {fileID: 0}
   recipeHeader: {fileID: 0}
   cookableRecipes: []
   CannotCookFeedback: {fileID: 0}

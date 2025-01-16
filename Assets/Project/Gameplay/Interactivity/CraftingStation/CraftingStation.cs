@@ -43,11 +43,11 @@ namespace Project.Gameplay.Interactivity.CraftingStation
         [Tooltip("The name of the inventory where the crafted item will be placed")]
         public string TargetInventoryName;
 
-        [Tooltip("The name of the inventory where uncrafted materials will be placed")]
-        public string QueueInventoryName;
+        [Tooltip("The name of the inventory where uncrafted materials will be placed")] [SerializeField]
+        protected string QueueInventoryName;
 
-        [Tooltip("The name of the inventory finished items")]
-        public string DepositInventoryName;
+        [Tooltip("The name of the inventory finished items")] [SerializeField]
+        protected string DepositInventoryName;
 
         [Tooltip("Is the crafting station active. Or does it need action")]
         public bool IsCraftingStationActive;

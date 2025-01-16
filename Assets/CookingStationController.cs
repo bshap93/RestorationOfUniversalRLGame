@@ -1,7 +1,6 @@
 using JetBrains.Annotations;
 using MoreMountains.Feedbacks;
 using MoreMountains.InventoryEngine;
-using MoreMountains.Tools;
 using Project.Core.Events;
 using Project.Gameplay.Interactivity.Items;
 using Project.Gameplay.ItemManagement.InventoryTypes.Cooking;
@@ -54,21 +53,8 @@ public class CookingStationController : MonoBehaviour, ISelectableTrigger
     void Update()
     {
         if (_isInPlayerRange && Input.GetKeyDown(KeyCode.F))
-        {
             if (!ValidateFuel())
-            {
                 TransferFuelFromPlayer(fuelInventory.fuelItemAllowed, 1);
-
-                return;
-            }
-
-            OpenInventoryDisplays();
-
-            // if (isCrafting)
-            //     StopCrafting();
-            // else
-            //     StartCrafting();
-        }
     }
 
     void OnTriggerEnter(Collider other)
@@ -134,10 +120,6 @@ public class CookingStationController : MonoBehaviour, ISelectableTrigger
         return fuelInventory;
     }
 
-    void OpenInventoryDisplays()
-    {
-        MMGameEvent.Trigger("OpenCraftingStationInventoryParts", stringParameter: "CookingStation01");
-    }
 
     public void PromptFuelDeposit()
     {
