@@ -9,43 +9,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 89fda48f6ea17d642b732733a2b7ae80, type: 3}
-  m_Name: GreenPeppers
+  m_Script: {fileID: 11500000, guid: aa3d9cf8347544fa9e49c8c3e7be140a, type: 3}
+  m_Name: DummyCookingStation
   m_EditorClassIdentifier: 
-  ItemID: GreenPeppers
+  CraftingStationId: DummyCookingStation
+  SourceInventoryName: MainPlayerInventory
   TargetInventoryName: MainPlayerInventory
-  ForceSlotIndex: 0
-  TargetIndex: 0
-  Usable: 1
-  Consumable: 1
-  ConsumeQuantity: 1
-  Equippable: 0
-  EquippableIfInventoryIsFull: 1
-  MoveWhenEquipped: 1
-  Droppable: 1
-  CanMoveObject: 1
-  CanSwapObject: 1
-  DisplayProperties:
-    DisplayEquipUseButton: 1
-    DisplayMoveButton: 1
-    DisplayDropButton: 1
-    DisplayEquipButton: 1
-    DisplayUseButton: 1
-    DisplayUnequipButton: 1
-    AllowEquipUseShortcut: 1
-    AllowMoveShortcut: 1
-    AllowDropShortcut: 1
-    AllowEquipShortcut: 1
-    AllowUseShortcut: 1
-  Quantity: 1
-  ItemName: Green Peppers
-  ShortDescription: 
-  Description: 
-  Icon: {fileID: 21300000, guid: db8d20dddc1d567469f19ecb236855eb, type: 3}
-  Prefab: {fileID: 0}
-  ForcePrefabDropQuantity: 0
-  PrefabDropQuantity: 1
-  DropProperties:
+  QueueInventoryName: CookingStationQueue
+  DepositInventoryName: CookingStationDeposit
+  IsCraftingStationActive: 0
+  InitialActivationResources:
+    ActivationItem: {fileID: 11400000, guid: 686e83163144d5040a850536167aff7c, type: 2}
+    ActivationQuantity: 0
+  CraftingRecipes: []
+  CraftingStationEfficiency: 0.5
+  ConcurrentCraftingLimit: 1
+  OverflowSpawnProperties:
     Shape: 0
     MinimumSphereRadius: 1
     MaximumSphereRadius: 2
@@ -87,14 +66,15 @@ MonoBehaviour:
     MaximumRotation: {x: 0, y: 0, z: 0}
     MinimumScale: {x: 1, y: 1, z: 1}
     MaximumScale: {x: 1, y: 1, z: 1}
-  MaximumStack: 1
-  MaximumQuantity: 999999999
-  ItemClass: 0
-  TargetEquipmentInventoryName: 
-  EquippedSound: {fileID: 0}
-  UsedSound: {fileID: 0}
-  MovedSound: {fileID: 0}
-  DroppedSound: {fileID: 0}
-  UseDefaultSoundsIfNull: 1
-  HealthToGive: 2
-  CookedSingleRawFoodRecipe: {fileID: 0}
+  StationType: 0
+  CraftingStationName: Cook Station First
+  ShortDescription: An Old Wood Stove and Cook Station
+  Description: 
+  Icon: {fileID: 21300000, guid: 9322216c7c1f6b047b60c1419070f5d0, type: 3}
+  InteractFeedbacks: {fileID: 0}
+  CraftingInProgressFeedbacks: {fileID: 0}
+  CraftingCompleteFeedbacks: {fileID: 0}
+  CraftingStationDepositInventoryFullFeedbacks: {fileID: 0}
+  InteractSound: {fileID: 0}
+  CraftingInProgressSound: {fileID: 0}
+  CraftingCompleteSound: {fileID: 0}

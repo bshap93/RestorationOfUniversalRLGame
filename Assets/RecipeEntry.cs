@@ -23,6 +23,6 @@ public class RecipeEntry : MonoBehaviour
     public void OnRecipeSelected()
     {
         Debug.Log("Recipe selected: " + _recipe.recipeName);
-        RecipeEvent.Trigger("ShowRecipeDetails", RecipeEventType.ShowRecipeDetails, _recipe);
+        RecipeEvent.Trigger("ShowRecipeDetails", RecipeEventType.ShowRecipeDetails, _recipe, null);
     }
 }

@@ -26,12 +26,15 @@ namespace Project.Core.Events
         public string EventName;
         public RecipeEventType EventType;
         public CookingRecipe RecipeParameter;
+        public string CraftingStationID;
 
-        public static void Trigger(string eventName, RecipeEventType recipeEventType, CookingRecipe recipe)
+        public static void Trigger(string eventName, RecipeEventType recipeEventType, CookingRecipe recipe,
+            string craftingStationID)
         {
             e.EventName = eventName;
             e.RecipeParameter = recipe;
             e.EventType = recipeEventType;
+            e.CraftingStationID = craftingStationID;
             MMEventManager.TriggerEvent(e);
         }
     }

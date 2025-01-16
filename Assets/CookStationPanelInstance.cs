@@ -24,10 +24,17 @@ public class CookStationPanelInstance : MonoBehaviour
     public InventoryDisplay cookingQueueInventoryDisplay;
     [FormerlySerializedAs("_fuelInventoryDisplay")]
     public InventoryDisplay fuelInventoryDisplay;
+    CookableItemsDropDown _cookableItemsDropDown;
 
     CookingDepositInventory _cookingDepositInventory;
     CookingQueueInventory _cookingQueueInventory;
     FuelInventory _fuelInventory;
+
+    void Start()
+    {
+        _cookableItemsDropDown = recipeDropDown.GetComponent<CookableItemsDropDown>();
+        _cookableItemsDropDown.CraftingStationId = cookingStationController.CookingStation.CraftingStationId;
+    }
 
     public void StartCooking()
     {
@@ -38,12 +45,14 @@ public class CookStationPanelInstance : MonoBehaviour
     {
         _cookingDepositInventory = cookingDepositInventory;
         cookingDepositInventoryDisplay.TargetInventoryName = _cookingDepositInventory.name;
+        cookingDepositInventoryDisplay.ChangeTargetInventory(_cookingDepositInventory.name);
     }
 
     public void SetCookingQueueInventory(CookingQueueInventory cookingQueueInventory)
     {
         _cookingQueueInventory = cookingQueueInventory;
         cookingQueueInventoryDisplay.TargetInventoryName = _cookingQueueInventory.name;
+        cookingQueueInventoryDisplay.ChangeTargetInventory(_cookingQueueInventory.name);
     }
 
     public void SetFuelInventory(FuelInventory fuelInventory)
@@ -53,5 +62,6 @@ public class CookStationPanelInstance : MonoBehaviour
             cookingStationController.CookingStation.CraftingStationId;
 
         fuelInventoryDisplay.TargetInventoryName = _fuelInventory.name;
+        fuelInventoryDisplay.ChangeTargetInventory(_fuelInventory.name);
     }
 }

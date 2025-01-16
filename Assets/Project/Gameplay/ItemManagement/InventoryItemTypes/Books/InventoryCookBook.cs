@@ -29,7 +29,7 @@ namespace Project.Gameplay.ItemManagement.InventoryItemTypes.Books
         public override bool Use(string playerID)
         {
             foreach (var recipe in CookingRecipes)
-                RecipeEvent.Trigger("RecipeLearned", RecipeEventType.RecipeLearned, recipe);
+                RecipeEvent.Trigger("RecipeLearned", RecipeEventType.RecipeLearned, recipe, null);
 
 
             RecipeLearnedFeedback?.PlayFeedbacks();

@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class CookableItemsDropDown : MonoBehaviour, MMEventListener<RecipeEvent>
 {
+    public string CraftingStationId;
     CustomDropdown _dropdown;
     bool isInitialized;
 
@@ -30,16 +31,20 @@ public class CookableItemsDropDown : MonoBehaviour, MMEventListener<RecipeEvent>
         ClearDropdownItems();
     }
 
+    // ONly update Dropdown for one specific CraftingStation,
+    // and if the craftingstation id doesnt' match, ignore the event
     public void OnMMEvent(RecipeEvent recipeEvent)
     {
         if (_dropdown == null) return;
 
         if (recipeEvent.EventType == RecipeEventType.ClearCookableRecipes ||
             recipeEvent.EventType == RecipeEventType.FinishedCookingRecipe)
-            ClearDropdownItems();
+            if (recipeEvent.CraftingStationID == CraftingStationId)
+                ClearDropdownItems();
 
         if (recipeEvent.EventType == RecipeEventType.RecipeCookableWithCurrentIngredients)
-            AddRecipeToDropdown(recipeEvent.RecipeParameter);
+            if (recipeEvent.CraftingStationID == CraftingStationId)
+                AddRecipeToDropdown(recipeEvent.RecipeParameter);
     }
 
     void InitializeDropdown()
@@ -107,7 +112,8 @@ public class CookableItemsDropDown : MonoBehaviour, MMEventListener<RecipeEvent>
             () =>
             {
                 if (_dropdown.items.Contains(newItem))
-                    RecipeEvent.Trigger("ChooseRecipe", RecipeEventType.ChooseRecipeFromCookable, recipe);
+                    RecipeEvent.Trigger(
+                        "ChooseRecipe", RecipeEventType.ChooseRecipeFromCookable, recipe, CraftingStationId);
             });
 
         // Add item and setup the dropdown

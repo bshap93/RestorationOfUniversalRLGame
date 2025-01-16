@@ -175,7 +175,11 @@ namespace Project.Gameplay.ItemManagement.InventoryTypes.Cooking
         void TryDetectRecipeFromIngredientsInQueue(RawFood rawFood)
         {
             cookableRecipes.Clear();
-            RecipeEvent.Trigger("ClearCookableRecipes", RecipeEventType.ClearCookableRecipes, null);
+
+            // Should only update the relevant cooking station's dropdown
+            RecipeEvent.Trigger(
+                "ClearCookableRecipes", RecipeEventType.ClearCookableRecipes, null,
+                _cookingStationController.CookingStation.CraftingStationId);
 
             foreach (var recipe in _journalPersistenceManager.journalData.knownRecipes)
                 if (recipe.CanBeCookedFrom(Content))
@@ -186,7 +190,7 @@ namespace Project.Gameplay.ItemManagement.InventoryTypes.Cooking
                     cookableRecipes.Add(recipe);
                     RecipeEvent.Trigger(
                         "RecipeCookableWithCurrentIngredients", RecipeEventType.RecipeCookableWithCurrentIngredients,
-                        recipe);
+                        recipe, _cookingStationController.CookingStation.CraftingStationId);
 
 
                     Debug.Log("Added recipe to cookableRecipes: " + recipe.recipeName);
@@ -253,8 +257,8 @@ namespace Project.Gameplay.ItemManagement.InventoryTypes.Cooking
                     vector2Parameter: new Vector2(elapsedTime / _currentRecipe.CraftingTime, 0));
 
                 // cookingProgressBar.UpdateBar(
-                    // elapsedTime / _currentRecipe.CraftingTime,
-                    // 0, 1);
+                // elapsedTime / _currentRecipe.CraftingTime,
+                // 0, 1);
 
 
                 yield return null;
@@ -270,7 +274,9 @@ namespace Project.Gameplay.ItemManagement.InventoryTypes.Cooking
                 cookingRecipeInProgress.currentRecipe.finishedFoodItem.FinishedFood, quantity);
 
             _currentRecipe = null;
-            RecipeEvent.Trigger("FinishedCookingRecipe", RecipeEventType.FinishedCookingRecipe, null);
+            RecipeEvent.Trigger(
+                "FinishedCookingRecipe", RecipeEventType.FinishedCookingRecipe, null,
+                _cookingStationController.CookingStation.CraftingStationId);
 
             cookingEndsFeedback?.PlayFeedbacks();
         }
