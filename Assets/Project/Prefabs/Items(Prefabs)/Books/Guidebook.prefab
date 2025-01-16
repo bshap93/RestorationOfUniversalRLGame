@@ -273,9 +273,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2495947169063248673}
-  - component: {fileID: 6706356645812361000}
   - component: {fileID: 5232423636208323783}
   - component: {fileID: 5031209850633645494}
+  - component: {fileID: 6612240495513836371}
   m_Layer: 0
   m_Name: Guidebook
   m_TagString: Untagged
@@ -300,21 +300,6 @@ Transform:
   - {fileID: 4555679101137168755}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6706356645812361000
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7268080588211370501}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: de64c03c619e45b99b277c47f83a3686, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Item: {fileID: 11400000, guid: c2e2ea0bf813b204f8ee3933f736fab9, type: 2}
-  _selectionFeedbacks: {fileID: 0}
-  _deselectionFeedbacks: {fileID: 0}
 --- !u!114 &5232423636208323783
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -327,7 +312,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3beb49fcc5880ec40a513dd74067c683, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Item: {fileID: 11400000, guid: c2e2ea0bf813b204f8ee3933f736fab9, type: 2}
+  Item: {fileID: 11400000, guid: b7dd0d07ddc54e64a8f44bca9082d604, type: 2}
   Quantity: 1
   pickedMmFeedbacks: {fileID: 5193154480153930750}
 --- !u!135 &5031209850633645494
@@ -351,6 +336,21 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 2
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &6612240495513836371
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7268080588211370501}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0331a9b56ee78c946bb06f9fe3ad3f18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Item: {fileID: 11400000, guid: b7dd0d07ddc54e64a8f44bca9082d604, type: 2}
+  _selectionFeedbacks: {fileID: 0}
+  _deselectionFeedbacks: {fileID: 0}
 --- !u!1001 &8341875776696318421
 PrefabInstance:
   m_ObjectHideFlags: 0

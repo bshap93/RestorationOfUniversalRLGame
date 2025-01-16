@@ -13,6 +13,8 @@ namespace Project.Gameplay.Player.Inventory
 {
     public class ManualItemPicker : MonoBehaviour
     {
+        [Tooltip("Unique identifier for this item, ensure it is unique per scene.")]
+        public string UniqueID;
         public InventoryItem Item; // The item to be picked up
         public int Quantity = 1;
 
@@ -27,16 +29,26 @@ namespace Project.Gameplay.Player.Inventory
         bool _isInRange;
         PromptManager _promptManager;
         MoreMountains.InventoryEngine.Inventory _targetInventory;
-        public string UniqueID { get; set; }
 
         void Awake()
         {
-            UniqueID = Guid.NewGuid().ToString(); // Generate a unique ID
+            if (string.IsNullOrEmpty(UniqueID))
+            {
+                UniqueID = Guid.NewGuid().ToString(); // Generate only if unset
+                Debug.LogWarning($"Generated new UniqueID for {gameObject.name}: {UniqueID}");
+            }
         }
+
 
         void Start()
         {
-            _promptManager = FindObjectOfType<PromptManager>();
+            if (PickableManager.IsItemPicked(UniqueID))
+            {
+                Destroy(gameObject); // Remove the object if already picked
+                return;
+            }
+
+            _promptManager = FindFirstObjectByType<PromptManager>();
             if (_promptManager == null) Debug.LogWarning("PickupPromptManager not found in the scene.");
 
 
@@ -59,6 +71,8 @@ namespace Project.Gameplay.Player.Inventory
 
             // Initialize feedbacks
             if (pickedMmFeedbacks != null) pickedMmFeedbacks.Initialization(gameObject);
+
+            _promptManager = FindFirstObjectByType<PromptManager>();
         }
 
         void Update()
@@ -92,6 +106,12 @@ namespace Project.Gameplay.Player.Inventory
                 _promptManager?.HidePickupPrompt();
                 ItemEvent.Trigger("ItemPickupRangeExited", Item, transform);
             }
+        }
+
+        bool HasItemBeenPicked(string uniqueID)
+        {
+            // Use Easy Save to check if the item was picked
+            return ES3.KeyExists(uniqueID, "PickedItems.es3") && ES3.Load<bool>(uniqueID, "PickedItems.es3");
         }
 
         public void SetInRange(bool inRange)
@@ -135,12 +155,19 @@ namespace Project.Gameplay.Player.Inventory
 
         void FinishPickup()
         {
+            SavePickedItem(UniqueID); // Save to Easy Save and manager
+
             _promptManager?.HidePickupPrompt();
             ItemEvent.Trigger("ItemPickedUp", Item, transform);
             pickedMmFeedbacks?.PlayFeedbacks();
 
-            // Use Destroy delayed to ensure all cleanup happens first
+            PickableManager.PickedItems.Add(UniqueID); // Update in-memory state
             Destroy(gameObject, 0.1f);
+        }
+
+        void SavePickedItem(string uniqueID)
+        {
+            ES3.Save(uniqueID, true, "PickedItems.es3"); // File: PickedItems.es3
         }
 
 
