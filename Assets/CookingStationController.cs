@@ -38,24 +38,40 @@ public class CookingStationController : MonoBehaviour, ISelectableTrigger
 
     bool _isInPlayerRange;
 
-
     void Start()
     {
-        if (playerInventory == null) playerInventory = Inventory.FindInventory("MainPlayerInventory", "Player1");
+        InitializeInventories();
         if (previewPanel != null) previewPanel.SetActive(false);
-
-        // if (FuelWasAlreadyAdded && FireWasAlreadyLit)
-        //     if (FuelItemAlreadyAdded != null)
-        //         fuelInventory.AddItem(
-        //             FuelItemAlreadyAdded.FuelItem.Item,
-        //             FuelItemAlreadyAdded.Quantity);
     }
+
+
+    // if (FuelWasAlreadyAdded && FireWasAlreadyLit)
+    //     if (FuelItemAlreadyAdded != null)
+    //         fuelInventory.AddItem(
+    //             FuelItemAlreadyAdded.FuelItem.Item,
+    //             FuelItemAlreadyAdded.Quantity);
 
     void Update()
     {
+        // Add null check before accessing playerInventory
         if (_isInPlayerRange && Input.GetKeyDown(KeyCode.F))
             if (!ValidateFuel())
-                TransferFuelFromPlayer(fuelInventory.fuelItemAllowed, 1);
+            {
+                // Reinitialize inventories if reference is lost
+                if (playerInventory == null) InitializeInventories();
+
+                // Only try to transfer if we have a valid inventory
+                if (playerInventory != null)
+                    TransferFuelFromPlayer(fuelInventory.fuelItemAllowed, 1);
+                else
+                    Debug.LogWarning("Cannot transfer fuel - player inventory is null");
+            }
+    }
+
+    // Optionally, add OnEnable to reinitialize on scene changes
+    void OnEnable()
+    {
+        InitializeInventories();
     }
 
     void OnTriggerEnter(Collider other)
@@ -110,6 +126,16 @@ public class CookingStationController : MonoBehaviour, ISelectableTrigger
         CookingStationEvent.Trigger("CookingStationDeselected", CookingStationEventType.CookingStationDeselected, this);
     }
 
+    // Add this method to reinitialize inventory references
+    void InitializeInventories()
+    {
+        if (playerInventory == null)
+        {
+            playerInventory = Inventory.FindInventory("MainPlayerInventory", "Player1");
+            if (playerInventory == null) Debug.LogError("Could not find MainPlayerInventory");
+        }
+    }
+
     public bool IsPlayerInRange()
     {
         return _isInPlayerRange;
@@ -157,6 +183,14 @@ public class CookingStationController : MonoBehaviour, ISelectableTrigger
 
     public void TransferFuelFromPlayer(InventoryItem fuelItem, int quantity)
     {
+        // Add null check at start of method
+        if (playerInventory == null)
+        {
+            Debug.LogWarning("Cannot transfer fuel - player inventory is null");
+            ShowPreview("Cannot transfer fuel - inventory error");
+            return;
+        }
+
         if (playerInventory.GetQuantity(fuelItem.ItemID) >= quantity)
         {
             if (fuelInventory.AddItem(fuelItem, quantity))
