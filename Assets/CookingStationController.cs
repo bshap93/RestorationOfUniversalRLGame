@@ -41,6 +41,7 @@ public class CookingStationController : MonoBehaviour, ISelectableTrigger
 
     void Start()
     {
+        if (playerInventory == null) playerInventory = Inventory.FindInventory("MainPlayerInventory", "Player1");
         if (previewPanel != null) previewPanel.SetActive(false);
 
         // if (FuelWasAlreadyAdded && FireWasAlreadyLit)
