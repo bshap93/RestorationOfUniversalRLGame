@@ -49,6 +49,9 @@ namespace Project.Gameplay.Interactivity.CraftingStation
         [Tooltip("The name of the inventory finished items")] [SerializeField]
         protected string DepositInventoryName;
 
+        [Tooltip("Fuel inventory")] [SerializeField]
+        protected string FuelInventoryName;
+
         [Tooltip("Is the crafting station active. Or does it need action")]
         public bool IsCraftingStationActive;
 
@@ -138,6 +141,13 @@ namespace Project.Gameplay.Interactivity.CraftingStation
 
             _depositInventory = Inventory.FindInventory(DepositInventoryName, playerID);
             return _depositInventory;
+        }
+
+        public virtual Inventory FuelInventory(string playerID)
+        {
+            if (FuelInventoryName == null) return null;
+
+            return Inventory.FindInventory(FuelInventoryName, playerID);
         }
 
         public virtual void Interact()
