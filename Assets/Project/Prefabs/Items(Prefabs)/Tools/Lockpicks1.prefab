@@ -58,6 +58,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -93,7 +96,6 @@ GameObject:
   m_Component:
   - component: {fileID: 8735792765969610418}
   - component: {fileID: 3094483415202777771}
-  - component: {fileID: 8199638188557234640}
   - component: {fileID: 1115202861965989582}
   m_Layer: 0
   m_Name: Lockpicks1
@@ -131,22 +133,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3beb49fcc5880ec40a513dd74067c683, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  UniqueID: 
   Item: {fileID: 11400000, guid: aa9c306721a7f0f41acb909b1cae937a, type: 2}
   Quantity: 1
-  PickedMMFeedbacks: {fileID: 498304344686327847}
---- !u!114 &8199638188557234640
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6457767380366394717}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: de64c03c619e45b99b277c47f83a3686, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Item: {fileID: 11400000, guid: aa9c306721a7f0f41acb909b1cae937a, type: 2}
+  pickedMmFeedbacks: {fileID: 498304344686327847}
 --- !u!135 &1115202861965989582
 SphereCollider:
   m_ObjectHideFlags: 0

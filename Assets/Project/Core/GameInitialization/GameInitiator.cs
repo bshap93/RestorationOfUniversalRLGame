@@ -53,9 +53,10 @@ namespace Project.Core.GameInitialization
         {
             if (@event.EventType == MMCameraEventTypes.SetTargetCharacter)
             {
-                MMGameEvent.Trigger("SaveInventory");
-                MMGameEvent.Trigger("SaveResources");
-                MMGameEvent.Trigger("SaveJournal");
+                // MMGameEvent.Trigger("SaveInventory");
+                // MMGameEvent.Trigger("SaveResources");
+                // MMGameEvent.Trigger("SaveJournal");
+                SaveManager.Instance.SaveAll();
                 ApplyCharacterCreationDataToPlayer(@event.TargetCharacter.gameObject);
 
                 SpawnEnemiesIfPossible(@event.TargetCharacter.gameObject);
@@ -73,7 +74,8 @@ namespace Project.Core.GameInitialization
 
         async Task InitializeCore()
         {
-            var hasSave = await LoadLastGame(); // Attempt to load the last save
+            var hasSave = await Task.Run(() => SaveManager.Instance.LoadAll());
+            // var hasSave = await LoadLastGame(); // Attempt to load the last save
             var saveManager = FindObjectOfType<SaveStateManager>();
 
             if (saveManager == null)
@@ -102,7 +104,7 @@ namespace Project.Core.GameInitialization
         {
             var seed = Random.Range(0, int.MaxValue);
             if (_dungeonManager != null) await _dungeonManager.GenerateNewDungeon(seed);
-            
+
             // Reset item placements 
             PickableManager.ResetPickedItems();
 

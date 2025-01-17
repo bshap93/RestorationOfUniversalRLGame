@@ -55,19 +55,20 @@ namespace Project.Gameplay.SaveLoad
         public void RevertJournalToLastSave()
         {
             if (ES3.FileExists("PlayerJournal.save"))
-            {
                 journalData = ES3.Load<JournalData>("JournalData", "PlayerJournal.save");
-            }
             else
-            {
                 Debug.LogWarning("Save file not found.");
-            }
         }
 
 
         public JournalData GetJournalData()
         {
             return journalData;
+        }
+        public bool HasSavedData()
+        {
+            // Check for journal-specific save files
+            return ES3.FileExists("PlayerJournal.save");
         }
     }
 }

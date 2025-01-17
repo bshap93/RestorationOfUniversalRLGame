@@ -45,7 +45,7 @@ namespace Project.Gameplay.SaveLoad
                 RevertResourcesToLastSave();
         }
 
-        void SaveResources()
+        public void SaveResources()
         {
             // Save Player Health
             SaveHealthState();
@@ -69,16 +69,17 @@ namespace Project.Gameplay.SaveLoad
             }
 
             // Save player currency
-            MMSaveLoadManager.Save(playerStats.playerCurrency, CurrentCurrencyFileName, SaveFolderName);
+            ES3.Save(CurrentCurrencyFileName, playerStats.playerCurrency);
             Debug.Log($"Player currency saved: {playerStats.playerCurrency}");
 
             // Save XPManager data
             var xpManager = playerStats.XpManager;
             if (xpManager != null)
             {
-                MMSaveLoadManager.Save(xpManager.playerExperiencePoints, XPFileName, SaveFolderName);
-                MMSaveLoadManager.Save(xpManager.playerCurrentLevel, LevelFileName, SaveFolderName);
-                MMSaveLoadManager.Save(xpManager.playerXpForNextLevel, XPForNextLevelFileName, SaveFolderName);
+                ES3.Save(XPFileName, xpManager.playerExperiencePoints);
+                ES3.Save(LevelFileName, xpManager.playerCurrentLevel);
+                ES3.Save(XPForNextLevelFileName, xpManager.playerXpForNextLevel);
+
                 Debug.Log(
                     $"XP data saved: XP={xpManager.playerExperiencePoints}, Level={xpManager.playerCurrentLevel}, XPForNextLevel={xpManager.playerXpForNextLevel}");
             }
@@ -88,7 +89,8 @@ namespace Project.Gameplay.SaveLoad
             }
         }
 
-        void RevertResourcesToLastSave()
+
+        public void RevertResourcesToLastSave()
         {
             // Revert Player Health
             RevertHealthToLastSave();
@@ -105,7 +107,6 @@ namespace Project.Gameplay.SaveLoad
         {
             NotifyUIOfUpdatedStats();
         }
-
         void RevertPlayerStats()
         {
             if (playerStats == null)
@@ -119,21 +120,25 @@ namespace Project.Gameplay.SaveLoad
             }
 
             // Load player currency
-            var loadedCurrency = MMSaveLoadManager.Load(typeof(int), CurrentCurrencyFileName, SaveFolderName);
-            playerStats.playerCurrency = loadedCurrency != null ? (int)loadedCurrency : 0;
-            Debug.Log($"Player currency reverted: {playerStats.playerCurrency}");
+            if (ES3.KeyExists(CurrentCurrencyFileName))
+            {
+                playerStats.playerCurrency = ES3.Load<int>(CurrentCurrencyFileName);
+                Debug.Log($"Player currency reverted: {playerStats.playerCurrency}");
+            }
+            else
+            {
+                playerStats.playerCurrency = 0;
+                Debug.LogWarning("No save data for player currency. Defaulting to 0.");
+            }
 
             // Load XPManager data
             var xpManager = playerStats.XpManager;
             if (xpManager != null)
             {
-                var loadedXP = MMSaveLoadManager.Load(typeof(int), XPFileName, SaveFolderName);
-                var loadedLevel = MMSaveLoadManager.Load(typeof(int), LevelFileName, SaveFolderName);
-                var loadedXPForNextLevel = MMSaveLoadManager.Load(typeof(int), XPForNextLevelFileName, SaveFolderName);
-
-                xpManager.playerExperiencePoints = loadedXP != null ? (int)loadedXP : 0;
-                xpManager.playerCurrentLevel = loadedLevel != null ? (int)loadedLevel : 1;
-                xpManager.playerXpForNextLevel = loadedXPForNextLevel != null ? (int)loadedXPForNextLevel : 20;
+                xpManager.playerExperiencePoints = ES3.KeyExists(XPFileName) ? ES3.Load<int>(XPFileName) : 0;
+                xpManager.playerCurrentLevel = ES3.KeyExists(LevelFileName) ? ES3.Load<int>(LevelFileName) : 1;
+                xpManager.playerXpForNextLevel =
+                    ES3.KeyExists(XPForNextLevelFileName) ? ES3.Load<int>(XPForNextLevelFileName) : 20;
 
                 Debug.Log(
                     $"XP data reverted: XP={xpManager.playerExperiencePoints}, Level={xpManager.playerCurrentLevel}, XPForNextLevel={xpManager.playerXpForNextLevel}");
@@ -143,6 +148,7 @@ namespace Project.Gameplay.SaveLoad
                 Debug.LogWarning("XPManager is null. Cannot revert XP data.");
             }
         }
+
 
         void NotifyUIOfUpdatedStats()
         {
@@ -162,12 +168,13 @@ namespace Project.Gameplay.SaveLoad
                 }
             }
 
-            MMSaveLoadManager.Save(playerHealth.CurrentHealth, HealthFileName, SaveFolderName);
-            MMSaveLoadManager.Save(playerHealth.MaximumHealth, MaxHealthFileName, SaveFolderName);
+            ES3.Save(HealthFileName, playerHealth.CurrentHealth);
+            ES3.Save(MaxHealthFileName, playerHealth.MaximumHealth);
 
             Debug.Log(
                 $"Health saved: CurrentHealth={playerHealth.CurrentHealth}, MaximumHealth={playerHealth.MaximumHealth}");
         }
+
 
         void RevertHealthToLastSave()
         {
@@ -181,15 +188,30 @@ namespace Project.Gameplay.SaveLoad
                 }
             }
 
-            var loadedHealth = MMSaveLoadManager.Load(typeof(float), HealthFileName, SaveFolderName);
-            var loadedMaxHealth = MMSaveLoadManager.Load(typeof(float), MaxHealthFileName, SaveFolderName);
+            if (ES3.KeyExists(HealthFileName))
+            {
+                playerHealth.SetHealth(ES3.Load<float>(HealthFileName));
+            }
+            else
+            {
+                playerHealth.SetHealth(playerHealth.MaximumHealth);
+                Debug.LogWarning("No save data for health. Defaulting to maximum health.");
+            }
 
-            playerHealth.SetHealth(loadedHealth != null ? (float)loadedHealth : playerHealth.MaximumHealth);
-            playerHealth.SetMaximumHealth(
-                loadedMaxHealth != null ? (float)loadedMaxHealth : playerHealth.MaximumHealth);
+            if (ES3.KeyExists(MaxHealthFileName)) playerHealth.SetMaximumHealth(ES3.Load<float>(MaxHealthFileName));
 
             Debug.Log(
                 $"Health reverted: CurrentHealth={playerHealth.CurrentHealth}, MaximumHealth={playerHealth.MaximumHealth}");
+        }
+
+        public bool HasSavedData()
+        {
+            return ES3.KeyExists(HealthFileName) ||
+                   ES3.KeyExists(MaxHealthFileName) ||
+                   ES3.KeyExists(CurrentCurrencyFileName) ||
+                   ES3.KeyExists(XPFileName) ||
+                   ES3.KeyExists(LevelFileName) ||
+                   ES3.KeyExists(XPForNextLevelFileName);
         }
     }
 }

@@ -49,7 +49,7 @@ namespace Project.Gameplay.SaveLoad
             else if (@event.EventName == "RevertInventory") RevertInventoriesToLastSave();
         }
 
-        void SaveInventories()
+        public void SaveInventories()
         {
             // Save Main Inventory
             _mainInventorySavedState = SaveInventoryState(mainInventory);
@@ -63,7 +63,7 @@ namespace Project.Gameplay.SaveLoad
             ReEquipItemsInEquipmentInventory();
         }
 
-        void RevertInventoriesToLastSave()
+        public void RevertInventoriesToLastSave()
         {
             // Revert Main Inventory
             if (_mainInventorySavedState != null) RevertInventoryState(mainInventory, _mainInventorySavedState);
@@ -166,6 +166,11 @@ namespace Project.Gameplay.SaveLoad
                     var success = inventory.AddItem(savedState[i].Copy(), savedState[i].Quantity);
                     if (!success) Debug.LogWarning($"Failed to add item {savedState[i].ItemID} at index {i}");
                 }
+        }
+        public bool HasSavedData()
+        {
+            // Replace with actual file or key checks for inventory save data
+            return ES3.FileExists("InventorySave.es3");
         }
     }
 }

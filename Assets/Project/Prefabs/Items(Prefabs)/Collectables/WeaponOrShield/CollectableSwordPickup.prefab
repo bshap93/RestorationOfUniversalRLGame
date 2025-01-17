@@ -97,7 +97,7 @@ GameObject:
   - component: {fileID: 4310025328910443688}
   - component: {fileID: 5717723087469268477}
   m_Layer: 0
-  m_Name: Feedback
+  m_Name: SwordPickFeedback
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -361,7 +361,7 @@ GameObject:
   - component: {fileID: 3482809135265175343}
   - component: {fileID: 2689411566254164794}
   m_Layer: 0
-  m_Name: Feedback
+  m_Name: SelectionFeedback
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -563,7 +563,7 @@ MonoBehaviour:
           ButtonText: Automatic Shaker Setup
         Owner: {fileID: 2689411566254164794}
         DebugActive: 0
-        Sfx: {fileID: 8300000, guid: 19e4e216ce44d4300881ea4d7a761944, type: 3}
+        Sfx: {fileID: 8300000, guid: 31d4f1dd43729438dad0be3f00964d04, type: 3}
         RandomSfx: []
         TestPlayButton:
           ButtonText: Debug Play Sound
@@ -641,7 +641,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7260569854120710624}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: 1, z: -0, w: 0.0000005364418}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: -25.059, y: 1.341, z: 6.222}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -650,7 +650,7 @@ Transform:
   - {fileID: 4310025328910443688}
   - {fileID: 6230286263353641806}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!114 &3713671623524450922
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -663,6 +663,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3beb49fcc5880ec40a513dd74067c683, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  UniqueID: Sword01
   Item: {fileID: 11400000, guid: 5ed20433d8fdf7b4ea9d2d926cd066e8, type: 2}
   Quantity: 1
   pickedMmFeedbacks: {fileID: 5717723087469268477}
@@ -700,5 +701,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Item: {fileID: 11400000, guid: 5ed20433d8fdf7b4ea9d2d926cd066e8, type: 2}
-  _selectionFeedbacks: {fileID: 0}
+  _selectionFeedbacks: {fileID: 2689411566254164794}
   _deselectionFeedbacks: {fileID: 0}
