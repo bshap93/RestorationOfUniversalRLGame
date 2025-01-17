@@ -22,7 +22,9 @@ namespace Project.Core.SaveSystem
         public void OnMMEvent(CheckPointEvent @event)
         {
             Debug.Log("SaveStateManager: Checkpoint reached.");
+            MMGameEvent.Trigger("SaveResources");
             MMGameEvent.Trigger("RevertResources");
+            MMGameEvent.Trigger("SaveJournal");
             MMGameEvent.Trigger("RevertJournal");
         }
     }
