@@ -13,6 +13,13 @@ public class SaveManager : MonoBehaviour
     [SerializeField] ResourcesPersistenceManager resourcesManager;
     [SerializeField] JournalPersistenceManager journalManager;
     int currentSlot = 1; // Default slot
+    
+    void Start()
+    {
+        inventoryManager = GetComponent<InventoryPersistenceManager>();
+        resourcesManager = GetComponent<ResourcesPersistenceManager>();
+        journalManager = GetComponent<JournalPersistenceManager>();
+    }
 
     public static SaveManager Instance { get; private set; }
 

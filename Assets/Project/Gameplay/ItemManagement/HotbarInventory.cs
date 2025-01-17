@@ -8,6 +8,12 @@ namespace Project.Gameplay.ItemManagement
     {
         public Inventory MainInventory;
 
+        void Awake()
+        {
+            
+            DontDestroyOnLoad(gameObject);
+        }
+
         public override bool AddItem(InventoryItem itemToAdd, int quantity)
         {
             // if the item to add is null, we do nothing and exit
