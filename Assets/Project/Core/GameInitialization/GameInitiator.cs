@@ -102,6 +102,9 @@ namespace Project.Core.GameInitialization
         {
             var seed = Random.Range(0, int.MaxValue);
             if (_dungeonManager != null) await _dungeonManager.GenerateNewDungeon(seed);
+            
+            // Reset item placements 
+            PickableManager.ResetPickedItems();
 
             // Spawn the player
             var initialSpawnPoint = FindObjectOfType<SpawnPoint>();

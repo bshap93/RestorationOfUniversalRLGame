@@ -1,5 +1,18 @@
+#if UNITY_EDITOR
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
+
+public static class PickableManagerDebug
+{
+    [MenuItem("Debug/Reset Picked Items")]
+    public static void ResetPickedItemsMenu()
+    {
+        PickableManager.ResetPickedItems();
+    }
+}
+#endif
+
 
 public class PickableManager : MonoBehaviour
 {
@@ -23,7 +36,7 @@ public class PickableManager : MonoBehaviour
                     PickedItems.Add(key);
         }
     }
-    
+
     public static void ResetPickedItems()
     {
         // Delete the Easy Save file storing picked items

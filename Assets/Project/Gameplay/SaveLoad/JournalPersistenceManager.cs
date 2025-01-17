@@ -57,7 +57,6 @@ namespace Project.Gameplay.SaveLoad
             if (ES3.FileExists("PlayerJournal.save"))
             {
                 journalData = ES3.Load<JournalData>("JournalData", "PlayerJournal.save");
-                Debug.Log("Journal reverted to last save.");
             }
             else
             {
