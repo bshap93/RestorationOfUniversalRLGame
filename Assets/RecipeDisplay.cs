@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using MoreMountains.Tools;
 using Project.Core.Events;
-using Project.Gameplay.SaveLoad;
 using UnityEngine;
 
 public class RecipeDisplay : MonoBehaviour, MMEventListener<RecipeEvent>
@@ -23,7 +22,7 @@ public class RecipeDisplay : MonoBehaviour, MMEventListener<RecipeEvent>
 
         CookingRepiceIds.Clear(); // Clear the list to rebuild correctly
 
-        foreach (var recipe in journalPersistenceManager.journalData.knownRecipes)
+        foreach (var recipe in JournalPersistenceManager.JournalData.knownRecipes)
         {
             if (CookingRepiceIds.Contains(recipe.recipeID))
                 continue;

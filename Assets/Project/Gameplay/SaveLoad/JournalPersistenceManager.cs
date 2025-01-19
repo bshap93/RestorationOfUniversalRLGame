@@ -1,74 +1,103 @@
-﻿using MoreMountains.Tools;
+﻿#if UNITY_EDITOR
+using MoreMountains.Tools;
 using Project.Core.Events;
 using Project.Gameplay.ItemManagement.InventoryTypes.Cooking;
 using Project.Gameplay.SaveLoad.Journal;
+using UnityEditor;
 using UnityEngine;
 
-namespace Project.Gameplay.SaveLoad
+public static class JournalRecipeDebug
 {
-    public class JournalPersistenceManager : MonoBehaviour, MMEventListener<MMGameEvent>, MMEventListener<RecipeEvent>
+    [MenuItem("Debug/Reset Journal Recipes")]
+    public static void ResetJournalRecipesMenu()
     {
-        const string JournalFileName = "PlayerJournal.save";
-        const string SaveFolderName = "Player";
-
-        public JournalData journalData;
-
-
-        void OnEnable()
-        {
-            this.MMEventStartListening<MMGameEvent>();
-            this.MMEventStartListening<RecipeEvent>();
-        }
-
-        void OnDisable()
-        {
-            this.MMEventStopListening<MMGameEvent>();
-            this.MMEventStopListening<RecipeEvent>();
-        }
-
-        public void OnMMEvent(MMGameEvent @event)
-        {
-            if (@event.EventName == "SaveJournal")
-                SaveJournal();
-            else if (@event.EventName == "RevertJournal") RevertJournalToLastSave();
-        }
-        public void OnMMEvent(RecipeEvent @event)
-        {
-            if (@event.EventType == RecipeEventType.RecipeLearned)
-                AddRecipeToJournal(@event.RecipeParameter);
-        }
-
-        public void AddRecipeToJournal(CookingRecipe recipe)
-        {
-            if (!journalData.knownRecipes.Exists(r => r.recipeID == recipe.recipeID))
-                journalData.knownRecipes.Add(recipe);
-            else
-                Debug.LogWarning($"Duplicate recipe not added: {recipe.recipeName}");
-        }
+        JournalPersistenceManager.ResetJournal();
+    }
+}
+#endif
 
 
-        public void SaveJournal()
-        {
-            ES3.Save("JournalData", journalData, "PlayerJournal.save");
-        }
+public class JournalPersistenceManager : MonoBehaviour, MMEventListener<MMGameEvent>, MMEventListener<RecipeEvent>
+{
+    const string JournalFileName = "PlayerJournal.save";
+    const string SaveFolderName = "Player";
 
-        public void RevertJournalToLastSave()
-        {
-            if (ES3.FileExists("PlayerJournal.save"))
-                journalData = ES3.Load<JournalData>("JournalData", "PlayerJournal.save");
-            else
-                Debug.LogWarning("Save file not found.");
-        }
+    public static JournalData JournalData;
+
+    void Awake()
+    {
+        // Load journal recipes
+        RevertJournalToLastSave();
 
 
-        public JournalData GetJournalData()
-        {
-            return journalData;
-        }
-        public bool HasSavedData()
-        {
-            // Check for journal-specific save files
-            return ES3.FileExists("PlayerJournal.save");
-        }
+        // Don't destroy this object when loading a new scene
+        DontDestroyOnLoad(gameObject);
+    }
+
+
+    void OnEnable()
+    {
+        this.MMEventStartListening<MMGameEvent>();
+        this.MMEventStartListening<RecipeEvent>();
+    }
+
+    void OnDisable()
+    {
+        this.MMEventStopListening<MMGameEvent>();
+        this.MMEventStopListening<RecipeEvent>();
+    }
+
+    public void OnMMEvent(MMGameEvent @event)
+    {
+        if (@event.EventName == "SaveJournal")
+            SaveJournal();
+        else if (@event.EventName == "RevertJournal") RevertJournalToLastSave();
+    }
+    public void OnMMEvent(RecipeEvent @event)
+    {
+        if (@event.EventType == RecipeEventType.RecipeLearned)
+            AddRecipeToJournal(@event.RecipeParameter);
+    }
+
+    public void AddRecipeToJournal(CookingRecipe recipe)
+    {
+        if (!JournalData.knownRecipes.Exists(r => r.recipeID == recipe.recipeID))
+            JournalData.knownRecipes.Add(recipe);
+        else
+            Debug.LogWarning($"Duplicate recipe not added: {recipe.recipeName}");
+    }
+
+
+    public void SaveJournal()
+    {
+        ES3.Save("JournalData", JournalData, "PlayerJournal.save");
+    }
+
+    public void RevertJournalToLastSave()
+    {
+        if (ES3.FileExists("PlayerJournal.save"))
+            JournalData = ES3.Load<JournalData>("JournalData", "PlayerJournal.save");
+        else
+            Debug.LogWarning("Save file not found.");
+    }
+
+    public static void ResetJournal()
+    {
+        ES3.DeleteFile("PlayerJournal.save");
+
+        JournalData = new JournalData();
+
+        Debug.Log("Journal reset.");
+    }
+
+
+    public JournalData GetJournalData()
+    {
+        return JournalData;
+    }
+    public bool HasSavedData()
+    {
+        // Check for journal-specific save files
+        return ES3.FileExists("PlayerJournal.save");
     }
 }

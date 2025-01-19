@@ -8,7 +8,6 @@ using Project.Core.Events;
 using Project.Gameplay.Interactivity.Food;
 using Project.Gameplay.Interactivity.Items;
 using Project.Gameplay.ItemManagement.InventoryTypes.Fuel;
-using Project.Gameplay.SaveLoad;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -181,7 +180,7 @@ namespace Project.Gameplay.ItemManagement.InventoryTypes.Cooking
                 "ClearCookableRecipes", RecipeEventType.ClearCookableRecipes, null,
                 _cookingStationController.CookingStation.CraftingStationId);
 
-            foreach (var recipe in _journalPersistenceManager.journalData.knownRecipes)
+            foreach (var recipe in JournalPersistenceManager.JournalData.knownRecipes)
                 if (recipe.CanBeCookedFrom(Content))
                 {
                     if (CookableRecipesContains(recipe))

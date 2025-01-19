@@ -1,7 +1,6 @@
 ﻿using System;
 using MoreMountains.Tools;
 using Project.Core.Events;
-using Project.Gameplay.SaveLoad;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
@@ -90,7 +89,7 @@ namespace Project.Gameplay.ItemManagement.InventoryTypes.Cooking
         /// <param name="cookingRecipe"></param>
         public virtual void DisplayDetails(CookingRecipe cookingRecipe)
         {
-            if (journalPersistenceManager.journalData.knownRecipes.Contains(cookingRecipe))
+            if (JournalPersistenceManager.JournalData.knownRecipes.Contains(cookingRecipe))
             {
                 if (!Hidden)
                 {
