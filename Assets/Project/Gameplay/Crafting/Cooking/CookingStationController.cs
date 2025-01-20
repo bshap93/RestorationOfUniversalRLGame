@@ -16,8 +16,7 @@ public class CookingStationController : MonoBehaviour, ISelectableTrigger
     public FuelInventory fuelInventory; // Firewood
     public Inventory playerInventory; // Reference to the player's inventory
 
-    public bool FuelWasAlreadyAdded;
-    public bool FireWasAlreadyLit;
+
     [CanBeNull] public FuelMaterial FuelItemAlreadyAdded;
 
     public CookingStation CookingStation;
@@ -42,14 +41,21 @@ public class CookingStationController : MonoBehaviour, ISelectableTrigger
     {
         InitializeInventories();
         if (previewPanel != null) previewPanel.SetActive(false);
+
+        if (fuelInventory.GetQuantity("Firewood") > 0)
+            FuelItemAlreadyAdded =
+                new FuelMaterial(
+                    fuelInventory.fuelItemAllowed, fuelInventory.GetQuantity(fuelInventory.fuelItemAllowed.ItemID));
+        else
+            FuelItemAlreadyAdded = null;
+
+
+        if (FuelItemAlreadyAdded != null)
+            fuelInventory.TreatAddedItem(
+                FuelItemAlreadyAdded.FuelItem.Item,
+                FuelItemAlreadyAdded.Quantity);
     }
 
-
-    // if (FuelWasAlreadyAdded && FireWasAlreadyLit)
-    //     if (FuelItemAlreadyAdded != null)
-    //         fuelInventory.AddItem(
-    //             FuelItemAlreadyAdded.FuelItem.Item,
-    //             FuelItemAlreadyAdded.Quantity);
 
     void Update()
     {

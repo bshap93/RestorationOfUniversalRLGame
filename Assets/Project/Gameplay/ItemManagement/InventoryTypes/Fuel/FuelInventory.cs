@@ -38,6 +38,16 @@ namespace Project.Gameplay.ItemManagement.InventoryTypes.Fuel
             return false;
         }
 
+        public void TreatAddedItem(InventoryItem fuelItem, int quantity)
+        {
+            if (fuelItem.ItemID == fuelItemAllowed.ItemID)
+            {
+                fuelStartsFeedback?.PlayFeedbacks();
+                var fuelItemInstance = new FuelItem(fuelItem);
+                StartCoroutine(BurnFuel(fuelItemInstance, quantity));
+            }
+        }
+
         IEnumerator BurnFuel(FuelItem fuelItem, int quantity)
         {
             IsBurning = true;

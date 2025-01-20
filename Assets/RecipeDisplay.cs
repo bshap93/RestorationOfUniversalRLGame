@@ -22,7 +22,7 @@ public class RecipeDisplay : MonoBehaviour, MMEventListener<RecipeEvent>
 
         CookingRepiceIds.Clear(); // Clear the list to rebuild correctly
 
-        foreach (var recipe in JournalPersistenceManager.JournalData.knownRecipes)
+        foreach (var recipe in journalPersistenceManager.JournalData.knownRecipes)
         {
             if (CookingRepiceIds.Contains(recipe.recipeID))
                 continue;

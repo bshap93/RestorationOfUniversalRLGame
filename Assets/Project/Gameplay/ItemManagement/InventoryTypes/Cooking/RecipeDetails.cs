@@ -89,7 +89,7 @@ namespace Project.Gameplay.ItemManagement.InventoryTypes.Cooking
         /// <param name="cookingRecipe"></param>
         public virtual void DisplayDetails(CookingRecipe cookingRecipe)
         {
-            if (JournalPersistenceManager.JournalData.knownRecipes.Contains(cookingRecipe))
+            if (journalPersistenceManager.JournalData.knownRecipes.Contains(cookingRecipe))
             {
                 if (!Hidden)
                 {

@@ -180,7 +180,7 @@ namespace Project.Gameplay.ItemManagement.InventoryTypes.Cooking
                 "ClearCookableRecipes", RecipeEventType.ClearCookableRecipes, null,
                 _cookingStationController.CookingStation.CraftingStationId);
 
-            foreach (var recipe in JournalPersistenceManager.JournalData.knownRecipes)
+            foreach (var recipe in _journalPersistenceManager.JournalData.knownRecipes)
                 if (recipe.CanBeCookedFrom(Content))
                 {
                     if (CookableRecipesContains(recipe))

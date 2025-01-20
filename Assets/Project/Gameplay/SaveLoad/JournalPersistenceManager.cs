@@ -22,14 +22,10 @@ public class JournalPersistenceManager : MonoBehaviour, MMEventListener<MMGameEv
     const string JournalFileName = "PlayerJournal.save";
     const string SaveFolderName = "Player";
 
-    public static JournalData JournalData;
+    public JournalData JournalData;
 
     void Awake()
     {
-        // Load journal recipes
-        RevertJournalToLastSave();
-
-
         // Don't destroy this object when loading a new scene
         DontDestroyOnLoad(gameObject);
     }
@@ -85,7 +81,6 @@ public class JournalPersistenceManager : MonoBehaviour, MMEventListener<MMGameEv
     {
         ES3.DeleteFile("PlayerJournal.save");
 
-        JournalData = new JournalData();
 
         Debug.Log("Journal reset.");
     }
