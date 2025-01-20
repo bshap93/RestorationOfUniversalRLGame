@@ -1,26 +1,37 @@
-﻿#if UNITY_EDITOR
-using PixelCrushers;
+﻿using PixelCrushers;
+using PixelCrushers.QuestMachine;
 using UnityEditor;
 using UnityEngine;
 
 namespace Project.Gameplay.Quests
 {
-    public static class QuestDataManagerDebug
+    public class QuestResetManager : MonoBehaviour
     {
-        [MenuItem("Debug/Reset Quest Data")]
-        public static void ResetQuestDataMenu()
+        [MenuItem("Debug/Reset All Quest Progress")]
+        public static void ResetAllQuestProgress()
         {
-            // Call your save system's reset method for quest data
-            ResetQuestData();
+            // Clear all quest journals
+            var journals = FindObjectsOfType<QuestJournal>();
+            foreach (var journal in journals)
+            {
+                if (journal.questList != null)
+                    journal.questList.Clear();
 
-            Debug.Log("[QuestDataManager] Quest data has been reset.");
-        }
+                if (journal.questList != null) journal.questList.Clear(); // If a specific method is available
+            }
 
-        static void ResetQuestData()
-        {
-            // Example: Replace this with the actual implementation to reset quest data
-            SaveSystem.ResetGameState(); // Adjust this to your exact method for quest reset
+            // Reset all quest givers to their initial state
+            var questGivers = FindObjectsOfType<QuestGiver>();
+            foreach (var questGiver in questGivers)
+                questGiver.ResetToOriginalState();
+
+            // Unregister all quest instances
+            QuestMachine.UnregisterAllQuestInstances();
+
+            // Clear save system quest state
+            SaveSystem.ResetGameState();
+
+            Debug.Log("All quest progress has been reset.");
         }
     }
 }
-#endif
