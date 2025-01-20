@@ -42010,7 +42010,6 @@ GameObject:
   - component: {fileID: 2147500982725304588}
   - component: {fileID: 743801165420944651}
   - component: {fileID: 8294267455872793848}
-  - component: {fileID: 436030599449463590}
   - component: {fileID: 2190125629540307051}
   - component: {fileID: 3122707553842577923}
   - component: {fileID: 9078600043551628577}
@@ -42024,6 +42023,7 @@ GameObject:
   - component: {fileID: 1290245265646136399}
   - component: {fileID: 3927299879870572010}
   - component: {fileID: 118613288431853644}
+  - component: {fileID: 5545902511213418861}
   m_Layer: 10
   m_Name: PrototypingPlayer4
   m_TagString: Player
@@ -42295,21 +42295,6 @@ MonoBehaviour:
   AutoEquipOnlyIfEquipmentInventoryIsEmpty: 0
   AutoEquipOnRespawn: 1
   CharacterHandleWeapon: {fileID: 962769219621710381}
---- !u!114 &436030599449463590
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4194478886614523176}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 43d9485530bd49e18f8c94f149108d93, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  MainInventoryName: MainPlayerInventory
-  EquipmentInventoryName: RightHandInventory
-  StartingShield: {fileID: 0}
 --- !u!114 &2190125629540307051
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -42987,6 +42972,44 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be2f813a3ec342e4d93e5113d8474a97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &5545902511213418861
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4194478886614523176}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e934de1a262c41478a844f227d499e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_key: Player1QuestJournal
+  m_appendSaverTypeToKey: 0
+  m_saveAcrossSceneChanges: 1
+  m_restoreStateOnStart: 0
+  m_forwardEventsToListeners: 1
+  m_includeInSavedGameData: 1
+  m_addNewQuestsSinceSavedGame: 0
+  m_questList: []
+  m_deletedStaticQuests: []
+  m_id:
+    m_text: Player1
+    m_stringAsset: {fileID: 0}
+    m_textTable: {fileID: 0}
+    m_textTableFieldID: 0
+  m_displayName:
+    m_text: Player Name
+    m_stringAsset: {fileID: 0}
+    m_textTable: {fileID: 0}
+    m_textTableFieldID: 0
+  m_image: {fileID: 21300000, guid: bd4763095ba0de249a4276ea4fd53c42, type: 3}
+  m_questJournalUI: {fileID: 0}
+  m_questHUD: {fileID: 0}
+  m_rememberCompletedQuests: 1
+  m_onlyRememberHandwrittenQuests: 0
+  m_compressCompletedProcgenQuests: 0
+  m_onlyTrackOneQuestAtATime: 0
 --- !u!1 &4196067256495071556
 GameObject:
   m_ObjectHideFlags: 0

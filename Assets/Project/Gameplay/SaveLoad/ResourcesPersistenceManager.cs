@@ -52,8 +52,6 @@ namespace Project.Gameplay.SaveLoad
 
             // Save Player Stats (currency, XP, level, etc.)
             SavePlayerStats();
-
-            Debug.Log("Resources saved.");
         }
 
         void SavePlayerStats()
@@ -70,7 +68,6 @@ namespace Project.Gameplay.SaveLoad
 
             // Save player currency
             ES3.Save(CurrentCurrencyFileName, playerStats.playerCurrency);
-            Debug.Log($"Player currency saved: {playerStats.playerCurrency}");
 
             // Save XPManager data
             var xpManager = playerStats.XpManager;
@@ -79,9 +76,6 @@ namespace Project.Gameplay.SaveLoad
                 ES3.Save(XPFileName, xpManager.playerExperiencePoints);
                 ES3.Save(LevelFileName, xpManager.playerCurrentLevel);
                 ES3.Save(XPForNextLevelFileName, xpManager.playerXpForNextLevel);
-
-                Debug.Log(
-                    $"XP data saved: XP={xpManager.playerExperiencePoints}, Level={xpManager.playerCurrentLevel}, XPForNextLevel={xpManager.playerXpForNextLevel}");
             }
             else
             {
@@ -123,7 +117,6 @@ namespace Project.Gameplay.SaveLoad
             if (ES3.KeyExists(CurrentCurrencyFileName))
             {
                 playerStats.playerCurrency = ES3.Load<int>(CurrentCurrencyFileName);
-                Debug.Log($"Player currency reverted: {playerStats.playerCurrency}");
             }
             else
             {
@@ -139,9 +132,6 @@ namespace Project.Gameplay.SaveLoad
                 xpManager.playerCurrentLevel = ES3.KeyExists(LevelFileName) ? ES3.Load<int>(LevelFileName) : 1;
                 xpManager.playerXpForNextLevel =
                     ES3.KeyExists(XPForNextLevelFileName) ? ES3.Load<int>(XPForNextLevelFileName) : 20;
-
-                Debug.Log(
-                    $"XP data reverted: XP={xpManager.playerExperiencePoints}, Level={xpManager.playerCurrentLevel}, XPForNextLevel={xpManager.playerXpForNextLevel}");
             }
             else
             {
@@ -199,9 +189,6 @@ namespace Project.Gameplay.SaveLoad
             }
 
             if (ES3.KeyExists(MaxHealthFileName)) playerHealth.SetMaximumHealth(ES3.Load<float>(MaxHealthFileName));
-
-            Debug.Log(
-                $"Health reverted: CurrentHealth={playerHealth.CurrentHealth}, MaximumHealth={playerHealth.MaximumHealth}");
         }
 
         public bool HasSavedData()

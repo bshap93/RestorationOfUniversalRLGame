@@ -11,7 +11,8 @@ using UnityEngine.Serialization;
 
 namespace Project.Gameplay.SaveLoad
 {
-    public class InventoryPersistenceManager : MonoBehaviour, MMEventListener<MMGameEvent>
+    public class InventoryPersistenceManager : MonoBehaviour, MMEventListener<MMGameEvent>,
+        MMEventListener<MMCameraEvent>
     {
         [Header("Inventories")] [SerializeField]
         Inventory mainInventory; // Assign your Main Inventory here
@@ -23,6 +24,8 @@ namespace Project.Gameplay.SaveLoad
         AltCharacterHandleWeapon _altCharacterHandleWeapon;
         [SerializeField] CharacterHandleShield _characterHandleShield;
         [SerializeField] CharacterHandleTorch _characterHandleTorch;
+
+        [SerializeField] string PlayerID = "Player1";
         InventoryItem[] _hotbarInventorySavedState;
         InventoryItem[] _leftHandInventorySavedState;
         InventoryItem[] _mainInventorySavedState;
@@ -33,20 +36,34 @@ namespace Project.Gameplay.SaveLoad
         void OnEnable()
         {
             // Subscribe to global save/load events
-            this.MMEventStartListening();
+            this.MMEventStartListening<MMGameEvent>();
+            this.MMEventStartListening<MMCameraEvent>();
         }
 
         void OnDisable()
         {
             // Unsubscribe to prevent leaks
-            this.MMEventStopListening();
+            this.MMEventStopListening<MMGameEvent>();
+            this.MMEventStopListening<MMCameraEvent>();
+        }
+        public void OnMMEvent(MMCameraEvent cookingStationEvent)
+        {
+            if (cookingStationEvent.EventType == MMCameraEventTypes.SetTargetCharacter)
+                UnEquipItemsInEquipmentInventory();
         }
 
         public void OnMMEvent(MMGameEvent @event)
         {
             if (@event.EventName == "SaveInventory")
+            {
+                Debug.Log("Saving inventories...");
+
                 SaveInventories();
-            else if (@event.EventName == "RevertInventory") RevertInventoriesToLastSave();
+            }
+            else if (@event.EventName == "RevertInventory")
+            {
+                RevertInventoriesToLastSave();
+            }
         }
 
         public void SaveInventories()
@@ -58,9 +75,6 @@ namespace Project.Gameplay.SaveLoad
             _rightHandInventorySavedState = SaveInventoryState(rightHandInventory);
             _leftHandInventorySavedState = SaveInventoryState(leftHandInventory);
             _hotbarInventorySavedState = SaveInventoryState(hotbarInventory);
-
-
-            ReEquipItemsInEquipmentInventory();
         }
 
         public void RevertInventoriesToLastSave()
@@ -77,7 +91,7 @@ namespace Project.Gameplay.SaveLoad
 
             if (_hotbarInventorySavedState != null) RevertInventoryState(hotbarInventory, _hotbarInventorySavedState);
 
-            ReEquipItemsInEquipmentInventory();
+            UnEquipItemsInEquipmentInventory();
         }
 
         InventoryItem[] SaveInventoryState(Inventory inventory)
@@ -109,37 +123,58 @@ namespace Project.Gameplay.SaveLoad
             return savedState;
         }
 
-        void ReEquipItemsInEquipmentInventory()
+        void UnEquipItemsInEquipmentInventory()
         {
-            if (_altCharacterHandleWeapon == null || _characterHandleShield == null || _characterHandleTorch == null)
-            {
-                _altCharacterHandleWeapon = FindObjectOfType<AltCharacterHandleWeapon>();
-                _characterHandleShield = FindObjectOfType<CharacterHandleShield>();
-                _characterHandleTorch = FindObjectOfType<CharacterHandleTorch>();
-            }
+            Debug.Log("Unequipping items in equipment inventories...");
 
-            if (_altCharacterHandleWeapon == null || _characterHandleShield == null || _characterHandleTorch == null)
+            UnEquipInventory(rightHandInventory);
+            UnEquipInventory(leftHandInventory);
+        }
+
+        void UnEquipInventory(Inventory inventory)
+        {
+            if (inventory == null || inventory.Content == null)
             {
-                Debug.LogError("CharacterHandle components not found. Cannot re-equip items in equipment inventory.");
+                Debug.LogWarning("Inventory or Content is null, skipping...");
                 return;
             }
 
-
-            ReEquipInventory(rightHandInventory);
-            ReEquipInventory(leftHandInventory);
-        }
-        void ReEquipInventory(Inventory equipmentUInventoryLocal)
-        {
-            for (var i = 0; i < rightHandInventory.Content.Length; i++)
+            for (var i = 0; i < inventory.Content.Length; i++)
             {
-                if (equipmentUInventoryLocal.Content[i] == null) continue;
-                if (equipmentUInventoryLocal.Content[i] is InventoryWeapon weapon)
-                    _altCharacterHandleWeapon.ChangeWeapon(weapon.EquippableWeapon, weapon.ItemID);
-                else if (equipmentUInventoryLocal.Content[i] is InventoryShieldItem shield)
-                    _characterHandleShield.EquipShield(shield.ShieldPrefab);
-                else if (equipmentUInventoryLocal.Content[i] is TorchItem torch)
-                    _characterHandleTorch.EquipTorch(torch.TorchPrefab);
+                var item = inventory.Content[i];
+                if (item != null)
+                {
+                    var targetInventoryName = item.TargetInventoryName;
+                    var targetInventory = Inventory.FindInventory(targetInventoryName, PlayerID);
+
+                    Debug.Log("Target Inventory Name: " + targetInventoryName);
+                    var freeIndex = FirstFreeIndex(targetInventory);
+                    if (targetInventory != null && freeIndex != -1)
+                    {
+                        inventory.RemoveItemByID(item.ItemID, item.Quantity);
+                        targetInventory.AddItemAt(item, item.Quantity, freeIndex);
+                        Debug.Log($"Unequipped {item.ItemID} from {inventory.name} and added to {targetInventoryName}");
+                    }
+                    else
+                    {
+                        Debug.LogWarning(
+                            $"Target inventory {targetInventoryName} not found so item was left in equipment inventory");
+                    }
+                }
+                else
+                {
+                    Debug.LogWarning($"Null item found in {inventory.name} at position {i}");
+                }
             }
+        }
+
+        int FirstFreeIndex(Inventory inventory)
+        {
+            for (var i = 0; i < inventory.Content.Length; i++)
+                if (InventoryItem.IsNull(inventory.Content[i]))
+                    return i;
+
+            return -1;
         }
 
 
