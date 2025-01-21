@@ -43,7 +43,6 @@ public class SaveManager : MonoBehaviour
 
     public bool LoadAll()
     {
-        Debug.Log("[SaveManager] Loading all data...");
 
         var inventoryLoaded = inventoryManager != null && inventoryManager.HasSavedData();
         var resourcesLoaded = resourcesManager != null && resourcesManager.HasSavedData();

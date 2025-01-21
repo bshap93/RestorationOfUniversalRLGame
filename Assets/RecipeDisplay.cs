@@ -15,7 +15,6 @@ public class RecipeDisplay : MonoBehaviour, MMEventListener<RecipeEvent>
     {
         this.MMEventStartListening();
 
-        Debug.Log("JournalDisplay.OnEnable");
 
         // Clear existing UI elements to avoid duplicates
         foreach (Transform child in recipeListParent.transform) Destroy(child.gameObject);
