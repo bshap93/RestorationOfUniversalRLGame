@@ -101,9 +101,9 @@ namespace Project.Gameplay.SaveLoad.Triggers
             _playerPreviewManager.HideSelectedItemPreviewPanel();
         }
 
-        public void OnMMEvent(MMCameraEvent @event)
+        public void OnMMEvent(MMCameraEvent itemEvent)
         {
-            if (@event.EventType == MMCameraEventTypes.SetTargetCharacter)
+            if (itemEvent.EventType == MMCameraEventTypes.SetTargetCharacter)
             {
                 if (_playerPreviewManager == null)
                     _playerPreviewManager = FindObjectOfType<PlayerItemPreviewManager>();

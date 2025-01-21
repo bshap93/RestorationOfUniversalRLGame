@@ -43,16 +43,16 @@ public class JournalPersistenceManager : MonoBehaviour, MMEventListener<MMGameEv
         this.MMEventStopListening<RecipeEvent>();
     }
 
-    public void OnMMEvent(MMGameEvent @event)
+    public void OnMMEvent(MMGameEvent itemEvent)
     {
-        if (@event.EventName == "SaveJournal")
+        if (itemEvent.EventName == "SaveJournal")
             SaveJournal();
-        else if (@event.EventName == "RevertJournal") RevertJournalToLastSave();
+        else if (itemEvent.EventName == "RevertJournal") RevertJournalToLastSave();
     }
-    public void OnMMEvent(RecipeEvent @event)
+    public void OnMMEvent(RecipeEvent itemEvent)
     {
-        if (@event.EventType == RecipeEventType.RecipeLearned)
-            AddRecipeToJournal(@event.RecipeParameter);
+        if (itemEvent.EventType == RecipeEventType.RecipeLearned)
+            AddRecipeToJournal(itemEvent.RecipeParameter);
     }
 
     public void AddRecipeToJournal(CookingRecipe recipe)

@@ -23,14 +23,14 @@ public class CompassNavigatorInitiator : MonoBehaviour, MMEventListener<MMCamera
         this.MMEventStopListening();
     }
 
-    public void OnMMEvent(MMCameraEvent @event)
+    public void OnMMEvent(MMCameraEvent itemEvent)
     {
-        if (@event.EventType == MMCameraEventTypes.SetTargetCharacter)
+        if (itemEvent.EventType == MMCameraEventTypes.SetTargetCharacter)
         {
             if (_compassPro == null)
                 _compassPro = FindObjectOfType<CompassPro>();
 
-            if (_compassPro != null) _compassPro.follow = @event.TargetCharacter.transform;
+            if (_compassPro != null) _compassPro.follow = itemEvent.TargetCharacter.transform;
         }
     }
 }

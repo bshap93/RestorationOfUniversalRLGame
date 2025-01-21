@@ -20,9 +20,9 @@ namespace Project.Gameplay.Enemy
             this.MMEventStopListening();
         }
 
-        public void OnMMEvent(MMCameraEvent @event)
+        public void OnMMEvent(MMCameraEvent itemEvent)
         {
-            if (@event.EventType == MMCameraEventTypes.SetTargetCharacter)
+            if (itemEvent.EventType == MMCameraEventTypes.SetTargetCharacter)
             {
                 var character = FindObjectOfType<DungenCharacter>();
                 character.OnTileChanged += OnPlayerTileChanged;

@@ -23,22 +23,22 @@ public class PersistentDrop : MonoBehaviour, MMEventListener<MMGameEvent>
     {
         this.MMEventStopListening();
     }
-    public void OnMMEvent(MMGameEvent @event)
+    public void OnMMEvent(MMGameEvent itemEvent)
     {
-        if (@event.EventName == "Save")
+        if (itemEvent.EventName == "Save")
         {
             SaveToMemory();
             for (var i = 0; i < _count; i++) MMSaveLoadManager.Save(_data[i], _scenes[i], _folder);
             _count = 0;
         }
-        else if (@event.EventName == "Load")
+        else if (itemEvent.EventName == "Load")
         {
             var scene = Scene;
             var i = Array.IndexOf(_scenes, scene, 0, _count);
             if (i == -1) ((Data)MMSaveLoadManager.Load(typeof(Data), scene, _folder))?.Spawn();
             else _data[i].Spawn();
         }
-        else if (@event.EventName == "SaveToMemory")
+        else if (itemEvent.EventName == "SaveToMemory")
         {
             SaveToMemory();
         }

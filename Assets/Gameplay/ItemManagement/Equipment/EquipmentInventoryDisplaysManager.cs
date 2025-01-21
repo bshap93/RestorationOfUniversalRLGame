@@ -19,7 +19,6 @@ namespace Project.Gameplay.ItemManagement
         bool isTwoHandedWeaponEquipped;
 
 
-
         void OnEnable()
         {
             this.MMEventStartListening();
@@ -30,12 +29,12 @@ namespace Project.Gameplay.ItemManagement
             this.MMEventStopListening();
         }
 
-        public void OnMMEvent(MMInventoryEvent @event)
+        public void OnMMEvent(MMInventoryEvent itemEvent)
         {
-            switch (@event.InventoryEventType)
+            switch (itemEvent.InventoryEventType)
             {
                 case MMInventoryEventType.EquipRequest:
-                    var item = @event.EventItem;
+                    var item = itemEvent.EventItem;
                     Debug.Log("Item requested equipment: " + item.ItemID);
                     if (TwoHandedItems.Contains(item))
                     {

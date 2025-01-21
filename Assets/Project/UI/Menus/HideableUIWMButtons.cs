@@ -20,12 +20,12 @@ public class HideableUIWMButtons : MonoBehaviour, MMEventListener<MMInventoryEve
         this.MMEventStopListening();
     }
 
-    public void OnMMEvent(MMInventoryEvent @event)
+    public void OnMMEvent(MMInventoryEvent itemEvent)
     {
-        if (@event.InventoryEventType == MMInventoryEventType.InventoryOpens)
+        if (itemEvent.InventoryEventType == MMInventoryEventType.InventoryOpens)
             // Show the UI buttons
             gameObject.SetActive(true);
-        else if (@event.InventoryEventType == MMInventoryEventType.InventoryCloses)
+        else if (itemEvent.InventoryEventType == MMInventoryEventType.InventoryCloses)
             // Hide the UI buttons
             gameObject.SetActive(false);
     }

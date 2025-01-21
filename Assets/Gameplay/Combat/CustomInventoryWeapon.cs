@@ -2,7 +2,6 @@
 using MoreMountains.InventoryEngine;
 using MoreMountains.TopDownEngine;
 using Project.Gameplay.Combat.Weapons;
-using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -19,7 +18,7 @@ namespace Project.Gameplay.Combat
         [FormerlySerializedAs("overrideController")]
         public RuntimeAnimatorController runtimeAnimatorController;
 
-        [ShowIf("isTwoHanded")] public string secondaryTargetEquipmentInventoryName;
+        public string secondaryTargetEquipmentInventoryName;
 
         /// <summary>
         ///     When we grab the weapon, we equip it, occupying both the primary and secondary inventory slots if the weapon is

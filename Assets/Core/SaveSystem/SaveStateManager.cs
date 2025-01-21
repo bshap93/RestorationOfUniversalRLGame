@@ -19,7 +19,7 @@ namespace Project.Core.SaveSystem
             this.MMEventStopListening();
         }
 
-        public void OnMMEvent(CheckPointEvent @event)
+        public void OnMMEvent(CheckPointEvent itemEvent)
         {
             Debug.Log("SaveStateManager: Checkpoint reached.");
             MMGameEvent.Trigger("SaveResources");

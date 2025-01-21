@@ -26,15 +26,15 @@ namespace Project.UI.HUD
             this.MMEventStopListening<MMInventoryEvent>();
             this.MMEventStopListening<MMGameEvent>();
         }
-        public void OnMMEvent(MMGameEvent @event)
+        public void OnMMEvent(MMGameEvent itemEvent)
         {
         }
 
-        public void OnMMEvent(MMInventoryEvent @event)
+        public void OnMMEvent(MMInventoryEvent itemEvent)
         {
-            if (@event.InventoryEventType == MMInventoryEventType.InventoryOpens) HideInventoryPreview();
+            if (itemEvent.InventoryEventType == MMInventoryEventType.InventoryOpens) HideInventoryPreview();
 
-            if (@event.InventoryEventType == MMInventoryEventType.InventoryCloses) HideInventoryPreview();
+            if (itemEvent.InventoryEventType == MMInventoryEventType.InventoryCloses) HideInventoryPreview();
         }
 
 

@@ -106,13 +106,13 @@ namespace Project.Gameplay.TDEExtensions.Stamina
             this.MMEventStopListening();
         }
 
-        public void OnMMEvent(MMStateChangeEvent<CharacterStates.MovementStates> @event)
+        public void OnMMEvent(MMStateChangeEvent<CharacterStates.MovementStates> itemEvent)
         {
-            if (@event.Target != gameObject)
+            if (itemEvent.Target != gameObject)
                 return;
 
-            if (@event.NewState != CharacterStates.MovementStates.Running) _running = false;
-            switch (@event.NewState)
+            if (itemEvent.NewState != CharacterStates.MovementStates.Running) _running = false;
+            switch (itemEvent.NewState)
             {
                 case CharacterStates.MovementStates.Running:
                     StartCoroutine(ConsumeRunningStamina());

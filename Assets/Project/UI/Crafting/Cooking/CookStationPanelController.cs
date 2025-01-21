@@ -41,11 +41,11 @@ public class CookStationPanelController : MonoBehaviour, MMEventListener<MMInven
 
         this.MMEventStopListening<TopDownEngineEvent>();
     }
-    public void OnMMEvent(CookingStationEvent cookingStationEvent)
+    public void OnMMEvent(CookingStationEvent itemEvent)
     {
-        if (cookingStationEvent.EventType == CookingStationEventType.CookingStationInRange)
+        if (itemEvent.EventType == CookingStationEventType.CookingStationInRange)
         {
-            var controller = cookingStationEvent.CookingStationControllerParameter;
+            var controller = itemEvent.CookingStationControllerParameter;
             if (controller == null)
             {
                 Debug.LogError("Cooking station controller is null");
@@ -73,7 +73,7 @@ public class CookStationPanelController : MonoBehaviour, MMEventListener<MMInven
             return;
         }
 
-        if (cookingStationEvent.EventType == CookingStationEventType.CookingStationOutOfRange)
+        if (itemEvent.EventType == CookingStationEventType.CookingStationOutOfRange)
         {
             HidePanel();
             if (cookingStationPanel != null)
@@ -84,24 +84,24 @@ public class CookStationPanelController : MonoBehaviour, MMEventListener<MMInven
             }
         }
     }
-    public void OnMMEvent(MMGameEvent cookingStationEvent)
+    public void OnMMEvent(MMGameEvent itemEvent)
     {
-        if (cookingStationEvent.EventName == "UpdateFuelProgressBar")
+        if (itemEvent.EventName == "UpdateFuelProgressBar")
         {
         }
 
-        if (cookingStationEvent.EventName == "UpdateCookingProgressBar")
+        if (itemEvent.EventName == "UpdateCookingProgressBar")
         {
         }
     }
 
 
-    public void OnMMEvent(MMInventoryEvent inventoryEvent)
+    public void OnMMEvent(MMInventoryEvent itemEvent)
     {
     }
-    public void OnMMEvent(TopDownEngineEvent cookingStationEvent)
+    public void OnMMEvent(TopDownEngineEvent itemEvent)
     {
-        if (cookingStationEvent.EventType == TopDownEngineEventTypes.SpawnComplete)
+        if (itemEvent.EventType == TopDownEngineEventTypes.SpawnComplete)
         {
         }
     }

@@ -78,7 +78,7 @@ namespace Project.Gameplay.ItemManagement.InventoryTypes.Cooking
         {
             this.MMEventStopListening();
         }
-        public void OnMMEvent(RecipeEvent @event)
+        public void OnMMEvent(RecipeEvent itemEvent)
         {
             throw new NotImplementedException();
         }

@@ -42,23 +42,23 @@ public class RecipeDisplay : MonoBehaviour, MMEventListener<RecipeEvent>
         this.MMEventStopListening();
     }
 
-    public void OnMMEvent(RecipeEvent @event)
+    public void OnMMEvent(RecipeEvent itemEvent)
     {
-        if (@event.EventType == RecipeEventType.RecipeLearned)
+        if (itemEvent.EventType == RecipeEventType.RecipeLearned)
         {
-            if (CookingRepiceIds.Contains(@event.RecipeParameter.recipeID))
+            if (CookingRepiceIds.Contains(itemEvent.RecipeParameter.recipeID))
             {
-                Debug.LogWarning($"Duplicate recipe ignored: {@event.RecipeParameter.recipeName}");
+                Debug.LogWarning($"Duplicate recipe ignored: {itemEvent.RecipeParameter.recipeName}");
                 return;
             }
 
             var recipeEntry = Instantiate(recipeEntryPrefab, recipeListParent.transform);
 
-            CookingRepiceIds.Add(@event.RecipeParameter.recipeID);
+            CookingRepiceIds.Add(itemEvent.RecipeParameter.recipeID);
 
             var recipeEntryScript = recipeEntry.GetComponent<RecipeEntry>();
             if (recipeEntryScript != null)
-                recipeEntryScript.SetRecipe(@event.RecipeParameter);
+                recipeEntryScript.SetRecipe(itemEvent.RecipeParameter);
         }
     }
 }
