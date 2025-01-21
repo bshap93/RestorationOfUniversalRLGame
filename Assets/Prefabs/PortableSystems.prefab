@@ -1200,7 +1200,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 128
+  orthographic size: 500
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
@@ -6303,7 +6303,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &8910918010409475388
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8754,7 +8754,7 @@ RectTransform:
   m_GameObject: {fileID: 4250782943294624712}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.84682, y: 0.84682, z: 0.84682}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6888217408279805550}
@@ -9837,7 +9837,7 @@ MonoBehaviour:
   _updateIntervalFrameCount: 60
   _updateIntervalTime: 0.2
   _hideIfNoCamera: 0
-  _showCompassBar: 1
+  _showCompassBar: 0
   _style: 12
   _compassBackSprite: {fileID: 0}
   _compassBackSpriteScrollable: 0
@@ -9849,7 +9849,7 @@ MonoBehaviour:
   _titleMinPOIDistance: 10
   _nearDistance: 75
   _visitedDistance: 10
-  _showOnScreenIndicators: 1
+  _showOnScreenIndicators: 0
   _compassIconPrefab: {fileID: 1385918027501300178, guid: f12bdec15a51f4a1eb951e168dfaa08e,
     type: 3}
   _onScreenIndicatorPrefab: {fileID: 581153794483119717, guid: ce8e0ba24dc3a46be879976007c2b616,
@@ -9862,7 +9862,7 @@ MonoBehaviour:
   _onScreenIndicatorShowDistance: 1
   _onScreenIndicatorShowDistanceFormat: 0m
   _onScreenIndicatorShowTitle: 0
-  _showOffScreenIndicators: 1
+  _showOffScreenIndicators: 0
   _offScreenIndicatorScale: 1
   _offScreenIndicatorMargin: 0.05
   _offScreenIndicatorRect:
@@ -9896,11 +9896,11 @@ MonoBehaviour:
   _showHalfWinds: 1
   _halfWindsHeight: 0.125
   _halfWindsWidth: 0.25
-  _halfWindsInterval: 5
+  _halfWindsInterval: 16.8
   _halfWindsTintColor: {r: 1, g: 1, b: 1, a: 0.5}
   _labelHotZone: 0.01
-  _maxIconSize: 1.1508378
-  _minIconSize: 0.49916196
+  _maxIconSize: 0.75167584
+  _minIconSize: 0.1
   _scaleInDuration: 0.3
   _focusedPOI: {fileID: 0}
   _worldMappingMode: 1
@@ -9955,7 +9955,7 @@ MonoBehaviour:
   _miniMapStyle: 12
   _miniMapBackgroundColor: {r: 0, g: 0, b: 0, a: 1}
   _miniMapBackgroundOpaque: 0
-  _miniMapContents: 0
+  _miniMapContents: 1
   _miniMapContentsTexture: {fileID: 0}
   _miniMapContentsTextureAllowRotation: 0
   _miniMapMaskSpriteFullScreenMode: {fileID: 0}
@@ -15412,7 +15412,7 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 1339447920142238836}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -19810,7 +19810,7 @@ PrefabInstance:
     - target: {fileID: 359883824020749076, guid: 1c31279fef1379d4e909ad3c28af7681,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.000015258789
+      value: -0.000061035156
       objectReference: {fileID: 0}
     - target: {fileID: 441649169390135342, guid: 1c31279fef1379d4e909ad3c28af7681,
         type: 3}
@@ -19825,7 +19825,7 @@ PrefabInstance:
     - target: {fileID: 855959811373876473, guid: 1c31279fef1379d4e909ad3c28af7681,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.00012207031
+      value: -0.000091552734
       objectReference: {fileID: 0}
     - target: {fileID: 993757202642615446, guid: 1c31279fef1379d4e909ad3c28af7681,
         type: 3}
@@ -20060,7 +20060,7 @@ PrefabInstance:
     - target: {fileID: 5939028321230523691, guid: 1c31279fef1379d4e909ad3c28af7681,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.000045776367
+      value: 0.000015258789
       objectReference: {fileID: 0}
     - target: {fileID: 6737113381336603237, guid: 1c31279fef1379d4e909ad3c28af7681,
         type: 3}
@@ -20095,7 +20095,7 @@ PrefabInstance:
     - target: {fileID: 6991553941410466901, guid: 1c31279fef1379d4e909ad3c28af7681,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.00015258789
+      value: -0.00010681152
       objectReference: {fileID: 0}
     - target: {fileID: 7012655533044627239, guid: 1c31279fef1379d4e909ad3c28af7681,
         type: 3}
@@ -21457,7 +21457,7 @@ PrefabInstance:
     - target: {fileID: 6009495674712305878, guid: 9a01471342a0b534f92200a413f73f6b,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.000045776367
+      value: 0.000015258789
       objectReference: {fileID: 0}
     - target: {fileID: 6316680974446822255, guid: 9a01471342a0b534f92200a413f73f6b,
         type: 3}

@@ -94,18 +94,30 @@ MonoBehaviour:
   ButtonPromptText: F
   ButtonPromptColor: {r: 0.4862745, g: 0.9882353, b: 0, a: 1}
   ButtonPromptTextColor: {r: 1, g: 1, b: 1, a: 1}
-  AlwaysShowPrompt: 1
+  AlwaysShowPrompt: 0
   ShowPromptWhenColliding: 1
   HidePromptAfterUse: 0
-  PromptRelativePosition: {x: 0, y: 1.66, z: 0}
-  PromptRotation: {x: 0, y: -0, z: 0}
+  PromptRelativePosition: {x: 0, y: 2.67, z: 0}
+  PromptRotation: {x: 0, y: 180, z: 0}
   ActivationFeedback: {fileID: 0}
   DeniedFeedback: {fileID: 0}
   EnterFeedback: {fileID: 0}
   ExitFeedback: {fileID: 0}
   OnActivation:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 6000289104378185474}
+        m_TargetAssemblyTypeName: PixelCrushers.QuestMachine.QuestGiver, Assembly-CSharp-firstpass
+        m_MethodName: StartDialogueWithPlayer
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   OnExit:
     m_PersistentCalls:
       m_Calls: []
@@ -128,7 +140,7 @@ GameObject:
   - component: {fileID: 8824430647030226296}
   - component: {fileID: 6037913432945938450}
   - component: {fileID: 2599606560555484355}
-  - component: {fileID: 1933508369147125791}
+  - component: {fileID: 6000289104378185474}
   m_Layer: 3
   m_Name: NPC01
   m_TagString: Untagged
@@ -414,7 +426,7 @@ MonoBehaviour:
   WalkParticles: []
   TouchTheGroundParticles: []
   TouchTheGroundSfx: []
---- !u!114 &1933508369147125791
+--- !u!114 &6000289104378185474
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -423,35 +435,71 @@ MonoBehaviour:
   m_GameObject: {fileID: 4506375951709357717}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1e934de1a262c41478a844f227d499e3, type: 3}
+  m_Script: {fileID: 11500000, guid: 2185d538298c73f418ba252c3e3e01ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_key: Player1QuestSave
+  m_key: NPC01Giver
   m_appendSaverTypeToKey: 0
   m_saveAcrossSceneChanges: 1
   m_restoreStateOnStart: 0
   m_forwardEventsToListeners: 1
   m_includeInSavedGameData: 1
   m_addNewQuestsSinceSavedGame: 0
-  m_questList: []
+  m_questList:
+  - {fileID: 11400000, guid: 176d6dfb97428534baf03d9836335446, type: 2}
+  - {fileID: 11400000, guid: 7a562f84f6368dd4eb275a49cb1cf864, type: 2}
   m_deletedStaticQuests: []
   m_id:
-    m_text: Player1
+    m_text: NPC01
     m_stringAsset: {fileID: 0}
     m_textTable: {fileID: 0}
     m_textTableFieldID: 0
   m_displayName:
-    m_text: Player Name
+    m_text: Nameless Hermit
     m_stringAsset: {fileID: 0}
     m_textTable: {fileID: 0}
     m_textTableFieldID: 0
-  m_image: {fileID: 21300000, guid: bd4763095ba0de249a4276ea4fd53c42, type: 3}
-  m_questJournalUI: {fileID: 0}
-  m_questHUD: {fileID: 0}
-  m_rememberCompletedQuests: 1
-  m_onlyRememberHandwrittenQuests: 0
-  m_compressCompletedProcgenQuests: 0
-  m_onlyTrackOneQuestAtATime: 0
+  m_image: {fileID: 21300000, guid: b067b3b44a64db546aca25bccefed6d6, type: 3}
+  m_textTable: {fileID: 0}
+  m_noQuestsUIContents:
+    m_icon: {fileID: 0}
+    m_headingText:
+      m_text: 'Quests here:'
+      m_stringAsset: {fileID: 0}
+      m_textTable: {fileID: 0}
+      m_textTableFieldID: 0
+    m_bodyText:
+      m_text: Hello
+      m_stringAsset: {fileID: 0}
+      m_textTable: {fileID: 0}
+      m_textTableFieldID: 0
+  m_offerableQuestsUIContents:
+    m_icon: {fileID: 0}
+    m_headingText:
+      m_text: What's up?
+      m_stringAsset: {fileID: 0}
+      m_textTable: {fileID: 0}
+      m_textTableFieldID: 0
+    m_bodyText:
+      m_text: 
+      m_stringAsset: {fileID: 0}
+      m_textTable: {fileID: 0}
+      m_textTableFieldID: 0
+  m_activeQuestsUIContents:
+    m_icon: {fileID: 0}
+    m_headingText:
+      m_text: 
+      m_stringAsset: {fileID: 0}
+      m_textTable: {fileID: 0}
+      m_textTableFieldID: 0
+    m_bodyText:
+      m_text: 
+      m_stringAsset: {fileID: 0}
+      m_textTable: {fileID: 0}
+      m_textTableFieldID: 0
+  m_completedQuestDialogueMode: 0
+  m_questDialogueUI: {fileID: 0}
+  m_cooldownCheckFrequency: 0
 --- !u!1 &6403813399049551361
 GameObject:
   m_ObjectHideFlags: 0
@@ -5758,7 +5806,7 @@ Transform:
   m_GameObject: {fileID: 6403813399049551839}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 44.962, y: 0.117637634, z: 27.829}
+  m_LocalPosition: {x: 0, y: -1.108, z: 0}
   m_LocalScale: {x: 1.3, y: 1.3, z: 1.3}
   m_ConstrainProportionsScale: 1
   m_Children:
