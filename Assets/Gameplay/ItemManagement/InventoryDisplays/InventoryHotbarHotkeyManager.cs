@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class InventoryHotbarHotkeyManager : MonoBehaviour
 {
-    public string[] HotbarKeys = { "1", "2", "3", "4" };
+    // public string[] HotbarKeys = { "1", "2", "3", "4" };
     public string[] HotbarAltKeys = { "h", "j", "k", "l" };
     CustomInventoryHotbar _customInventoryHotbar;
     Dictionary<KeyCode, int> _keyMappings;
@@ -16,12 +16,12 @@ public class InventoryHotbarHotkeyManager : MonoBehaviour
 
         // Initialize key mappings for faster lookups
         _keyMappings = new Dictionary<KeyCode, int>();
-        for (var i = 0; i < HotbarKeys.Length; i++)
+        for (var i = 0; i < HotbarAltKeys.Length; i++)
         {
-            var primaryKey = (KeyCode)Enum.Parse(typeof(KeyCode), HotbarKeys[i].ToUpper());
+            // var primaryKey = (KeyCode)Enum.Parse(typeof(KeyCode), HotbarKeys[i].ToUpper());
             var altKey = (KeyCode)Enum.Parse(typeof(KeyCode), HotbarAltKeys[i].ToUpper());
 
-            if (!_keyMappings.ContainsKey(primaryKey)) _keyMappings[primaryKey] = i;
+            // if (!_keyMappings.ContainsKey(primaryKey)) _keyMappings[primaryKey] = i;
             if (!_keyMappings.ContainsKey(altKey)) _keyMappings[altKey] = i;
         }
     }

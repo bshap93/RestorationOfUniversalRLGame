@@ -987,6 +987,9 @@ SkinnedMeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 3
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -1540,7 +1543,6 @@ CharacterController:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -2900,6 +2902,9 @@ SkinnedMeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 3
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -3027,6 +3032,9 @@ SkinnedMeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 3
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -3376,6 +3384,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6415391164923203448}
+  - {fileID: 3299264994877919873}
   m_Father: {fileID: 5318364920517193835}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4632677872450280269
@@ -3891,6 +3900,9 @@ SkinnedMeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 3
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -9747,6 +9759,9 @@ ParticleSystemRenderer:
   m_ReflectionProbeUsage: 0
   m_RayTracingMode: 0
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -10392,6 +10407,9 @@ SkinnedMeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 3
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -10684,12 +10702,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8244594788926375046}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 5318364920517193835}
+  m_Father: {fileID: 2341353722978161747}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!137 &8080548049154568021
 SkinnedMeshRenderer:
@@ -10708,6 +10726,9 @@ SkinnedMeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 3
   m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -10862,7 +10883,6 @@ GameObject:
   - component: {fileID: 4308294244542908254}
   - component: {fileID: 4404754404042484524}
   - component: {fileID: 7889327354003624555}
-  - component: {fileID: 8040476375210018620}
   m_Layer: 3
   m_Name: Spider 1
   m_TagString: Untagged
@@ -10887,14 +10907,13 @@ Transform:
   - {fileID: 7865759384030774819}
   - {fileID: 5813682557570280586}
   - {fileID: 2898036906301506881}
-  - {fileID: 3299264994877919873}
   - {fileID: 2341353722978161747}
   - {fileID: 2455560342795084466}
   m_Father: {fileID: 5085475494648639348}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &4308294244542908254
 Animator:
-  serializedVersion: 5
+  serializedVersion: 7
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -10908,6 +10927,7 @@ Animator:
   m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
@@ -10924,6 +10944,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -11023,249 +11044,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animator: {fileID: 4308294244542908254}
   particle: {fileID: 0}
---- !u!114 &8040476375210018620
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8335377646225999336}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 609f49429392c476bb71685431efda79, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  audioClips:
-  - name: Bite
-    audioClips:
-    - {fileID: 8300000, guid: cff46531e474d4236bc89d454abcf7bd, type: 3}
-    - {fileID: 8300000, guid: 7d3f28f437bfc40c28317116409906ff, type: 3}
-    - {fileID: 8300000, guid: 9dd8f1f69e8cb460cbae2d0b31b1a54f, type: 3}
-    - {fileID: 8300000, guid: 63f03a666454e4a729f2802ea3f4a688, type: 3}
-    - {fileID: 8300000, guid: e7a41a1671baf407dbd0d2ef7b80721d, type: 3}
-    chanceOfPlaying: 100
-    volume: 1
-    volumeBySpeed: 0
-    minVolume: 0
-    pitchBySpeed: 0
-    minPitch: 0
-    maxPitch: 0
-  - name: ButtShake
-    audioClips:
-    - {fileID: 8300000, guid: a367e5ce86d664917b2cf46cea09c09e, type: 3}
-    - {fileID: 8300000, guid: 7c3764600b2ca4c1e91e99d4f98df76c, type: 3}
-    - {fileID: 8300000, guid: 10f29559622f241858e771c8ad571602, type: 3}
-    chanceOfPlaying: 100
-    volume: 1
-    volumeBySpeed: 0
-    minVolume: 0
-    pitchBySpeed: 0
-    minPitch: 0
-    maxPitch: 0
-  - name: CastWeb
-    audioClips:
-    - {fileID: 8300000, guid: 8dbadc2eefe514fc78c365ffe6bf5cee, type: 3}
-    - {fileID: 8300000, guid: 348f4f484080a43799ff6fa5037dc8c6, type: 3}
-    chanceOfPlaying: 100
-    volume: 1
-    volumeBySpeed: 0
-    minVolume: 0
-    pitchBySpeed: 0
-    minPitch: 0
-    maxPitch: 0
-  - name: Crackle
-    audioClips:
-    - {fileID: 8300000, guid: 9fb70223ef7ed48ffbaa4c14ab9184aa, type: 3}
-    - {fileID: 8300000, guid: d5f6730cbcc884a249437a5215a85629, type: 3}
-    - {fileID: 8300000, guid: 327cb230cb7f0466c8aa9c62617e1f0a, type: 3}
-    chanceOfPlaying: 100
-    volume: 1
-    volumeBySpeed: 0
-    minVolume: 0
-    pitchBySpeed: 0
-    minPitch: 0
-    maxPitch: 0
-  - name: DeathScream
-    audioClips:
-    - {fileID: 8300000, guid: 5a9196544cb414dcbacb19929d7e4639, type: 3}
-    - {fileID: 8300000, guid: e766931c5a913413ab0e610fa4f31236, type: 3}
-    - {fileID: 8300000, guid: 38ec05062a55840778ad77260c4d70ea, type: 3}
-    chanceOfPlaying: 100
-    volume: 1
-    volumeBySpeed: 0
-    minVolume: 0
-    pitchBySpeed: 0
-    minPitch: 0
-    maxPitch: 0
-  - name: FootstepFull
-    audioClips:
-    - {fileID: 8300000, guid: e9cdf225ebad44186a212dfd9ec7d99b, type: 3}
-    - {fileID: 8300000, guid: c54316e73ab384f8b9bc862a19bf755f, type: 3}
-    - {fileID: 8300000, guid: 53793a38c2abb456f9652825bae25a3b, type: 3}
-    - {fileID: 8300000, guid: b450169d2e7a14996a118fb4474721df, type: 3}
-    - {fileID: 8300000, guid: bf5c4181764f242a3bfdc76903a0c722, type: 3}
-    - {fileID: 8300000, guid: b24d1e9af5f774f449cd300a9bf7836a, type: 3}
-    chanceOfPlaying: 100
-    volume: 1
-    volumeBySpeed: 0
-    minVolume: 0
-    pitchBySpeed: 0
-    minPitch: 0
-    maxPitch: 0
-  - name: FootstepLarge
-    audioClips:
-    - {fileID: 8300000, guid: bf8af74619d1145bd932914822ac343d, type: 3}
-    - {fileID: 8300000, guid: 3a6692dcbdb014b69953d2b43161c996, type: 3}
-    - {fileID: 8300000, guid: eebb1665b152b497ead55b154ba13bf1, type: 3}
-    - {fileID: 8300000, guid: f5d61bc48c74749c4bd3168cb4b1f278, type: 3}
-    - {fileID: 8300000, guid: 38e881649a03a466c988ba7dd8314ef4, type: 3}
-    - {fileID: 8300000, guid: 570f2d87964ec4b3a995c725ceb18008, type: 3}
-    chanceOfPlaying: 100
-    volume: 1
-    volumeBySpeed: 0
-    minVolume: 0
-    pitchBySpeed: 0
-    minPitch: 0
-    maxPitch: 0
-  - name: FootstepMedium
-    audioClips:
-    - {fileID: 8300000, guid: 9e2643f3244c748bcbcc29fb2b210383, type: 3}
-    - {fileID: 8300000, guid: 7edb3758f6c93417f89daeb2cab605d8, type: 3}
-    - {fileID: 8300000, guid: 98f7c4653f2e74a098a43d4d8e15cc14, type: 3}
-    - {fileID: 8300000, guid: 8424d02d539ca485ba2776b471471cfe, type: 3}
-    - {fileID: 8300000, guid: d1368875f2888434187d5023ab7a8190, type: 3}
-    - {fileID: 8300000, guid: 663a89efee1c040deb375f04525b628d, type: 3}
-    chanceOfPlaying: 100
-    volume: 1
-    volumeBySpeed: 0
-    minVolume: 0
-    pitchBySpeed: 0
-    minPitch: 0
-    maxPitch: 0
-  - name: FootstepSmall
-    audioClips:
-    - {fileID: 8300000, guid: 89807809c55984bda9d3c80531212a8c, type: 3}
-    - {fileID: 8300000, guid: f481d038fff9d4973bf0955a079527d4, type: 3}
-    - {fileID: 8300000, guid: c67e2f9ff6f144b5eb2efd136751512c, type: 3}
-    - {fileID: 8300000, guid: e16538696ca104b48abbba82ce4a5093, type: 3}
-    - {fileID: 8300000, guid: 6fc0422b12add4a5ead2e4b664dbd944, type: 3}
-    - {fileID: 8300000, guid: a47dd3cf576f34b6083ced2cad734299, type: 3}
-    chanceOfPlaying: 100
-    volume: 1
-    volumeBySpeed: 0
-    minVolume: 0
-    pitchBySpeed: 0
-    minPitch: 0
-    maxPitch: 0
-  - name: GotHit
-    audioClips:
-    - {fileID: 8300000, guid: 7b579501f77244bc4b33de5d135c48b1, type: 3}
-    - {fileID: 8300000, guid: 1f4cbd19a777d4541b0ead02e6f9b9b6, type: 3}
-    - {fileID: 8300000, guid: bb1a7e9689ef046be997d921950e4090, type: 3}
-    chanceOfPlaying: 100
-    volume: 1
-    volumeBySpeed: 0
-    minVolume: 0
-    pitchBySpeed: 0
-    minPitch: 0
-    maxPitch: 0
-  - name: JumpHard
-    audioClips:
-    - {fileID: 8300000, guid: b84ac0371c7a845a884758a3dc619519, type: 3}
-    - {fileID: 8300000, guid: dfd2ba84835444e978655abbfafa06f0, type: 3}
-    - {fileID: 8300000, guid: b18538d2887bb47fb860960c373534b1, type: 3}
-    chanceOfPlaying: 100
-    volume: 1
-    volumeBySpeed: 0
-    minVolume: 0
-    pitchBySpeed: 0
-    minPitch: 0
-    maxPitch: 0
-  - name: JumpLight
-    audioClips:
-    - {fileID: 8300000, guid: b4d2ac34d849d49549eef802797f9080, type: 3}
-    - {fileID: 8300000, guid: 059d25a37a8ad4484bb40bcb437b6ebf, type: 3}
-    - {fileID: 8300000, guid: 0137c2437040f4dbab5e2b01e74bc34f, type: 3}
-    chanceOfPlaying: 100
-    volume: 1
-    volumeBySpeed: 0
-    minVolume: 0
-    pitchBySpeed: 0
-    minPitch: 0
-    maxPitch: 0
-  - name: MovementHeavy
-    audioClips:
-    - {fileID: 8300000, guid: 363c5d17f45ab420f8dc261843108e5e, type: 3}
-    - {fileID: 8300000, guid: 1a066b66298794b49a5806b4e8273cda, type: 3}
-    - {fileID: 8300000, guid: 3e288268213ab44b7a4c9ea4d15f4749, type: 3}
-    chanceOfPlaying: 100
-    volume: 1
-    volumeBySpeed: 0
-    minVolume: 0
-    pitchBySpeed: 0
-    minPitch: 0
-    maxPitch: 0
-  - name: MovementIdle
-    audioClips:
-    - {fileID: 8300000, guid: 2a8a8605a6ca84fd8a4326a3b6419626, type: 3}
-    - {fileID: 8300000, guid: 0e3a4868b127c40afb3b58e30ccfd671, type: 3}
-    - {fileID: 8300000, guid: a53410f013a4e43cdbb996adb126b9d9, type: 3}
-    chanceOfPlaying: 100
-    volume: 1
-    volumeBySpeed: 0
-    minVolume: 0
-    pitchBySpeed: 0
-    minPitch: 0
-    maxPitch: 0
-  - name: Scream
-    audioClips:
-    - {fileID: 8300000, guid: fe1425659ecc8465f863aba239e70f9f, type: 3}
-    - {fileID: 8300000, guid: 6cdfb79f4bb4a430f96f91716bc696c7, type: 3}
-    - {fileID: 8300000, guid: f0bb820de50ec49dd84b77dd6e908c51, type: 3}
-    chanceOfPlaying: 100
-    volume: 1
-    volumeBySpeed: 0
-    minVolume: 0
-    pitchBySpeed: 0
-    minPitch: 0
-    maxPitch: 0
-  - name: MovementHeavyRandom
-    audioClips:
-    - {fileID: 8300000, guid: 363c5d17f45ab420f8dc261843108e5e, type: 3}
-    - {fileID: 8300000, guid: 1a066b66298794b49a5806b4e8273cda, type: 3}
-    - {fileID: 8300000, guid: 3e288268213ab44b7a4c9ea4d15f4749, type: 3}
-    chanceOfPlaying: 50
-    volume: 1
-    volumeBySpeed: 0
-    minVolume: 0
-    pitchBySpeed: 0
-    minPitch: 0
-    maxPitch: 0
-  - name: IdleRandom
-    audioClips:
-    - {fileID: 8300000, guid: 2a8a8605a6ca84fd8a4326a3b6419626, type: 3}
-    - {fileID: 8300000, guid: 0e3a4868b127c40afb3b58e30ccfd671, type: 3}
-    - {fileID: 8300000, guid: a53410f013a4e43cdbb996adb126b9d9, type: 3}
-    chanceOfPlaying: 10
-    volume: 1
-    volumeBySpeed: 0
-    minVolume: 0
-    pitchBySpeed: 0
-    minPitch: 0
-    maxPitch: 0
-  audioLoops:
-  - name: CastWeb
-    audioClips:
-    - {fileID: 8300000, guid: 8dbadc2eefe514fc78c365ffe6bf5cee, type: 3}
-    - {fileID: 8300000, guid: 348f4f484080a43799ff6fa5037dc8c6, type: 3}
-    chanceOfPlaying: 0
-    volume: 1
-    volumeBySpeed: 0
-    minVolume: 0
-    pitchBySpeed: 0
-    minPitch: 0
-    maxPitch: 0
-  pitchByTimescale: 1
 --- !u!1 &8371288568457103971
 GameObject:
   m_ObjectHideFlags: 0
