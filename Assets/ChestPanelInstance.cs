@@ -25,7 +25,5 @@ public class ChestPanelInstance : MonoBehaviour
         }
 
         _chestInventory = getInventory;
-
-        _chestInventory.containerID = containerController.gameObject.name;
     }
 }

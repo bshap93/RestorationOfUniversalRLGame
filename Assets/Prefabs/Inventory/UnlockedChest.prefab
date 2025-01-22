@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6432912670234190984}
   - component: {fileID: 540989378879782383}
   - component: {fileID: 2310855536386761011}
+  - component: {fileID: 2408803877141572095}
   m_Layer: 0
   m_Name: UnlockedChest
   m_TagString: Untagged
@@ -26,7 +27,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 906346441316782543}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 13.83269, y: 1.950921, z: 19.275661}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -109,6 +110,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 081d2f1eb6905a847bee52b28579a319, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerInventory: {fileID: 0}
+  containerInventory: {fileID: 1824483605824416087}
+  ContainerSO: {fileID: 11400000, guid: 4a13078b14b232546a480d5b697c1fa1, type: 2}
+  previewPanel: {fileID: 0}
+  previewText: {fileID: 0}
+  interactFeedbacks: {fileID: 0}
+--- !u!135 &2408803877141572095
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 906346441316782543}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 2.5
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8683032287579183898
 GameObject:
   m_ObjectHideFlags: 0
@@ -120,7 +148,7 @@ GameObject:
   - component: {fileID: 3749033650343472949}
   - component: {fileID: 1824483605824416087}
   m_Layer: 0
-  m_Name: ChestInventory
+  m_Name: ChestInventory01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -150,7 +178,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8683032287579183898}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c916eb2b3f0e4532b61fd98b4044adba, type: 3}
+  m_Script: {fileID: 11500000, guid: c9e5913805954cbda7b8a4dccbecddad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   PlayerID: Player1
@@ -164,6 +192,7 @@ MonoBehaviour:
   Persistent: 1
   ResetThisInventorySaveOnStart: 0
   DrawContentInInspector: 1
+  containerID: Chest0001
 --- !u!1001 &5389402798604358625
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -44,6 +44,20 @@ public class ChestPanelController : MonoBehaviour, MMEventListener<ContainerEven
             // Set Inventory
             if (controller.GetInventory() != null)
                 _chestPanelInstance.SetInventory(controller.GetInventory());
+
+            ShowPanel();
+            return;
+        }
+
+        if (mmEvent.EventType == ContainerEventType.ContainerOutOfRange)
+        {
+            HidePanel();
+            if (chestPanel != null)
+            {
+                Destroy(chestPanel);
+                chestPanel = null;
+                _chestPanelInstance = null;
+            }
         }
     }
 

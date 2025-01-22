@@ -1,4 +1,5 @@
 using System.Linq;
+using Core.Events;
 using Gameplay.ItemManagement.InventoryTypes;
 using Gameplay.ItemManagement.InventoryTypes.Storage;
 using MoreMountains.Feedbacks;
@@ -42,7 +43,30 @@ public class ContainerController : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player")) _isInPlayerRange = true;
+        if (other.CompareTag("Player"))
+        {
+            _isInPlayerRange = true;
+
+            if (ContainerSO.ContainerID == null)
+            {
+                Debug.LogError("Container ID is null");
+                return;
+            }
+
+            ContainerEvent.Trigger("ContainerInRange", ContainerEventType.ContainerInRange, this);
+
+            ShowPreview("Press F to take all.");
+        }
+    }
+
+    void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            _isInPlayerRange = false;
+            ContainerEvent.Trigger("ContainerOutOfRange", ContainerEventType.ContainerOutOfRange, this);
+            HidePreview();
+        }
     }
 
     void InitializeInventory()
@@ -53,8 +77,37 @@ public class ContainerController : MonoBehaviour
             if (playerInventory == null) Debug.LogError("Player inventory not found");
         }
     }
+
+    public void OnSelectedItem()
+    {
+        Debug.Log("ContainerSelected event triggered");
+        ContainerEvent.Trigger("ContainerSelected", ContainerEventType.ContainerSelected, this);
+    }
+
+    public void OnUnSelectedItem()
+    {
+        ContainerEvent.Trigger("ContainerDeselected", ContainerEventType.ContainerDeselected, this);
+    }
     public ContainerInventory GetInventory()
     {
         return containerInventory;
+    }
+
+    public void ShowPreview(string text)
+    {
+        if (previewPanel != null)
+        {
+            previewPanel.SetActive(true);
+            previewText.text = text;
+        }
+        else
+        {
+            Debug.LogError("Preview panel is null");
+        }
+    }
+
+    public void HidePreview()
+    {
+        if (previewPanel != null) previewPanel.SetActive(false);
     }
 }
