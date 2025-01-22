@@ -1,4 +1,5 @@
 using Project.Gameplay.Interactivity.Items;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,8 +8,8 @@ namespace Gameplay.Extensions.InventoryEngineExtensions.PickupDisplayer
     public class PickupDisplayItem : MonoBehaviour
     {
         [SerializeField] Image Icon;
-        [SerializeField] Text Name;
-        [SerializeField] Text Quantity;
+        [SerializeField] TMP_Text Name;
+        [SerializeField] TMP_Text Quantity;
         public void Display(InventoryItem item, int quantity)
         {
             Icon.sprite = item.Icon;

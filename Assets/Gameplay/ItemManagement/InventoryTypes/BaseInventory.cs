@@ -1,6 +1,6 @@
 ﻿using MoreMountains.InventoryEngine;
 
-namespace Project.Gameplay.ItemManagement.InventoryTypes
+namespace Gameplay.ItemManagement.InventoryTypes
 {
     public class BaseInventory : Inventory
     {

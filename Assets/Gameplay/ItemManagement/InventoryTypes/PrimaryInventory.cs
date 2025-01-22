@@ -1,4 +1,5 @@
-﻿using Project.Gameplay.Interactivity.Items;
+﻿using Gameplay.ItemManagement.InventoryTypes;
+using Project.Gameplay.Interactivity.Items;
 
 namespace Project.Gameplay.ItemManagement.InventoryTypes
 {
@@ -13,6 +14,5 @@ namespace Project.Gameplay.ItemManagement.InventoryTypes
         {
             return base.RemoveItem(itemIndex, quantity);
         }
-        
     }
 }

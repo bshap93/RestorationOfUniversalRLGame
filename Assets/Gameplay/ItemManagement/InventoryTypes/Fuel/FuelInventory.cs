@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using Gameplay.ItemManagement.InventoryTypes;
 using MoreMountains.Feedbacks;
 using MoreMountains.InventoryEngine;
 using MoreMountains.Tools;
