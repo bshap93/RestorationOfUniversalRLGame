@@ -46,21 +46,21 @@ namespace Project.Gameplay.SaveLoad
             this.MMEventStopListening<MMGameEvent>();
             this.MMEventStopListening<MMCameraEvent>();
         }
-        public void OnMMEvent(MMCameraEvent itemEvent)
+        public void OnMMEvent(MMCameraEvent mmEvent)
         {
-            if (itemEvent.EventType == MMCameraEventTypes.SetTargetCharacter)
+            if (mmEvent.EventType == MMCameraEventTypes.SetTargetCharacter)
                 UnEquipItemsInEquipmentInventory();
         }
 
-        public void OnMMEvent(MMGameEvent itemEvent)
+        public void OnMMEvent(MMGameEvent mmEvent)
         {
-            if (itemEvent.EventName == "SaveInventory")
+            if (mmEvent.EventName == "SaveInventory")
             {
                 Debug.Log("Saving inventories...");
 
                 SaveInventories();
             }
-            else if (itemEvent.EventName == "RevertInventory")
+            else if (mmEvent.EventName == "RevertInventory")
             {
                 RevertInventoriesToLastSave();
             }

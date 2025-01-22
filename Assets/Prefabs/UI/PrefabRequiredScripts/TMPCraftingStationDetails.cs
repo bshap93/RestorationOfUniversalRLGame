@@ -49,9 +49,9 @@ namespace Prefabs.UI.PrefabRequiredScripts
             this.MMEventStopListening();
         }
 
-        public void OnMMEvent(MMGameEvent itemEvent)
+        public void OnMMEvent(MMGameEvent mmEvent)
         {
-            if (itemEvent.EventName == PreviewEventName)
+            if (mmEvent.EventName == PreviewEventName)
             {
                 switch (CraftingStationType)
                 {

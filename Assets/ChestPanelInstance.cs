@@ -1,16 +1,31 @@
+using Gameplay.ItemManagement.InventoryTypes;
+using MoreMountains.InventoryEngine;
+using TMPro;
 using UnityEngine;
 
 public class ChestPanelInstance : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    public CanvasGroup chestCanvasGroup;
+    public TMP_Text ChestIDText;
+    public ContainerController containerController;
+    public InventoryDisplay chestInventoryDisplay;
+
+
+    ContainerInventory _chestInventory;
+
     void Start()
     {
-        
     }
-
-    // Update is called once per frame
-    void Update()
+    public void SetInventory(ContainerInventory getInventory)
     {
-        
+        if (_chestInventory == null || chestInventoryDisplay == null)
+        {
+            Debug.LogWarning("Null inventory or display");
+            return;
+        }
+
+        _chestInventory = getInventory;
+
+        _chestInventory.containerID = containerController.gameObject.name;
     }
 }

@@ -24,11 +24,11 @@ namespace Project.Gameplay.Player.Stats
             this.MMEventStopListening();
         }
 
-        public void OnMMEvent(MMGameEvent itemEvent)
+        public void OnMMEvent(MMGameEvent mmEvent)
         {
-            if (itemEvent.EventName == "PlayerLevelChanged")
+            if (mmEvent.EventName == "PlayerLevelChanged")
             {
-                var newLevel = itemEvent.IntParameter;
+                var newLevel = mmEvent.IntParameter;
                 Debug.Log($"PlayerStats: Player leveled up to {newLevel}.");
                 OnPlayerLevelUp(newLevel);
                 // Do something with the new level

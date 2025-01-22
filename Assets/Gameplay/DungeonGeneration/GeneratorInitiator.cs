@@ -23,15 +23,15 @@ public class GeneratorInitiator : MonoBehaviour, MMEventListener<MMCameraEvent>
         this.MMEventStopListening();
     }
 
-    public void OnMMEvent(MMCameraEvent itemEvent)
+    public void OnMMEvent(MMCameraEvent mmEvent)
     {
-        if (itemEvent.EventType == MMCameraEventTypes.SetTargetCharacter)
+        if (mmEvent.EventType == MMCameraEventTypes.SetTargetCharacter)
         {
             if (_adjacentRoomCulling == null)
                 _adjacentRoomCulling = FindObjectOfType<AdjacentRoomCulling>();
 
             if (_adjacentRoomCulling != null)
-                _adjacentRoomCulling.TargetOverride = itemEvent.TargetCharacter.transform;
+                _adjacentRoomCulling.TargetOverride = mmEvent.TargetCharacter.transform;
         }
     }
 }

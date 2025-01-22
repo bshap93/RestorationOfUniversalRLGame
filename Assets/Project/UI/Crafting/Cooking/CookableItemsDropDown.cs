@@ -33,18 +33,18 @@ public class CookableItemsDropDown : MonoBehaviour, MMEventListener<RecipeEvent>
 
     // ONly update Dropdown for one specific CraftingStation,
     // and if the craftingstation id doesnt' match, ignore the event
-    public void OnMMEvent(RecipeEvent itemEvent)
+    public void OnMMEvent(RecipeEvent mmEvent)
     {
         if (_dropdown == null) return;
 
-        if (itemEvent.EventType == RecipeEventType.ClearCookableRecipes ||
-            itemEvent.EventType == RecipeEventType.FinishedCookingRecipe)
-            if (itemEvent.CraftingStationID == CraftingStationId)
+        if (mmEvent.EventType == RecipeEventType.ClearCookableRecipes ||
+            mmEvent.EventType == RecipeEventType.FinishedCookingRecipe)
+            if (mmEvent.CraftingStationID == CraftingStationId)
                 ClearDropdownItems();
 
-        if (itemEvent.EventType == RecipeEventType.RecipeCookableWithCurrentIngredients)
-            if (itemEvent.CraftingStationID == CraftingStationId)
-                AddRecipeToDropdown(itemEvent.RecipeParameter);
+        if (mmEvent.EventType == RecipeEventType.RecipeCookableWithCurrentIngredients)
+            if (mmEvent.CraftingStationID == CraftingStationId)
+                AddRecipeToDropdown(mmEvent.RecipeParameter);
     }
 
     void InitializeDropdown()

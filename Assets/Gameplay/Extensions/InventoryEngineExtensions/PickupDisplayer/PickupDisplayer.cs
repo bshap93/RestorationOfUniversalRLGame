@@ -33,12 +33,12 @@ namespace Gameplay.Extensions.InventoryEngineExtensions.PickupDisplayer
             _pickupDisplayWfs = new WaitForSeconds(PickupDisplayDuration);
         }
 
-        public void OnMMEvent(ItemEvent itemEvent)
+        public void OnMMEvent(ItemEvent mmEvent)
         {
-            if (itemEvent.EventName != "ItemPickedUp") return;
-            Debug.LogError("PickupDisplayer: " + itemEvent.EventName + " x" + itemEvent.Amount);
-            var item = itemEvent.Item;
-            var quantity = itemEvent.Amount;
+            if (mmEvent.EventName != "ItemPickedUp") return;
+            Debug.LogError("PickupDisplayer: " + mmEvent.EventName + " x" + mmEvent.Amount);
+            var item = mmEvent.Item;
+            var quantity = mmEvent.Amount;
             if (_displays.TryGetValue(item.ItemID, out var display))
             {
                 display.AddQuantity(quantity);

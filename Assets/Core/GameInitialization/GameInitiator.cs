@@ -49,17 +49,17 @@ namespace Project.Core.GameInitialization
             this.MMEventStopListening();
         }
 
-        public void OnMMEvent(MMCameraEvent itemEvent)
+        public void OnMMEvent(MMCameraEvent mmEvent)
         {
-            if (itemEvent.EventType == MMCameraEventTypes.SetTargetCharacter)
+            if (mmEvent.EventType == MMCameraEventTypes.SetTargetCharacter)
             {
                 // MMGameEvent.Trigger("SaveInventory");
                 // MMGameEvent.Trigger("SaveResources");
                 // MMGameEvent.Trigger("SaveJournal");
                 SaveManager.Instance.SaveAll();
-                ApplyCharacterCreationDataToPlayer(itemEvent.TargetCharacter.gameObject);
+                ApplyCharacterCreationDataToPlayer(mmEvent.TargetCharacter.gameObject);
 
-                SpawnEnemiesIfPossible(itemEvent.TargetCharacter.gameObject);
+                SpawnEnemiesIfPossible(mmEvent.TargetCharacter.gameObject);
             }
         }
         public void OnMMEvent(TopDownEngineEvent engineEvent)

@@ -38,13 +38,13 @@ namespace Project.Animation_Effects.CharacterAnimation.AnimationController.Weapo
             this.MMEventStopListening<MMGameEvent>();
         }
 
-        public void OnMMEvent(MMCameraEvent itemEvent)
+        public void OnMMEvent(MMCameraEvent mmEvent)
         {
-            if (itemEvent.EventType == MMCameraEventTypes.SetTargetCharacter)
+            if (mmEvent.EventType == MMCameraEventTypes.SetTargetCharacter)
             {
                 if (_playerAnimator == null)
                 {
-                    _playerAnimator = itemEvent.TargetCharacter.GetComponentInChildren<Animator>();
+                    _playerAnimator = mmEvent.TargetCharacter.GetComponentInChildren<Animator>();
 
                     if (_playerAnimator == null)
                     {
@@ -74,17 +74,17 @@ namespace Project.Animation_Effects.CharacterAnimation.AnimationController.Weapo
                 }
             }
         }
-        public void OnMMEvent(MMGameEvent itemEvent)
+        public void OnMMEvent(MMGameEvent mmEvent)
         {
-            if (itemEvent.EventName == "ShieldUpEvent") _playerAnimator.SetBool(ShieldUp, true);
+            if (mmEvent.EventName == "ShieldUpEvent") _playerAnimator.SetBool(ShieldUp, true);
 
-            if (itemEvent.EventName == "ShieldDownEvent") _playerAnimator.SetBool(ShieldUp, false);
+            if (mmEvent.EventName == "ShieldDownEvent") _playerAnimator.SetBool(ShieldUp, false);
         }
 
-        public void OnMMEvent(MMInventoryEvent itemEvent)
+        public void OnMMEvent(MMInventoryEvent mmEvent)
         {
-            if (itemEvent.InventoryEventType == MMInventoryEventType.ItemEquipped)
-                EquipWeapon(itemEvent.EventItem);
+            if (mmEvent.InventoryEventType == MMInventoryEventType.ItemEquipped)
+                EquipWeapon(mmEvent.EventItem);
         }
 
         void EquipWeapon(InventoryItem item)

@@ -8,100 +8,105 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-public class CookStationPanelInstance : MonoBehaviour
+namespace Project.UI.Crafting.Cooking
 {
-    public MMProgressBar fuelBurntProgressBar;
-    public MMProgressBar cookingProgressBar;
-
-    public CanvasGroup cookStationCanvasGroup;
-
-    public GameObject recipeDropDown;
-
-    public ButtonManager startCookingButtonManager;
-    public CookingStationController cookingStationController;
-
-    [FormerlySerializedAs("_cookingDepositInventoryDisplay")]
-    public InventoryDisplay cookingDepositInventoryDisplay;
-    [FormerlySerializedAs("_cookingQueueInventoryDisplay")]
-    public InventoryDisplay cookingQueueInventoryDisplay;
-    [FormerlySerializedAs("_fuelInventoryDisplay")]
-    public InventoryDisplay fuelInventoryDisplay;
-    public TMP_Text CookStationIDText;
-    CookableItemsDropDown _cookableItemsDropDown;
-
-    CookingDepositInventory _cookingDepositInventory;
-    CookingQueueInventory _cookingQueueInventory;
-    FuelInventory _fuelInventory;
-
-    void Start()
+    public class CookStationPanelInstance : MonoBehaviour
     {
-        if (recipeDropDown != null)
+        public MMProgressBar fuelBurntProgressBar;
+        public MMProgressBar cookingProgressBar;
+
+        public CanvasGroup cookStationCanvasGroup;
+
+        public GameObject recipeDropDown;
+
+        public ButtonManager startCookingButtonManager;
+        public CookingStationController cookingStationController;
+
+        [FormerlySerializedAs("_cookingDepositInventoryDisplay")]
+        public InventoryDisplay cookingDepositInventoryDisplay;
+        [FormerlySerializedAs("_cookingQueueInventoryDisplay")]
+        public InventoryDisplay cookingQueueInventoryDisplay;
+        [FormerlySerializedAs("_fuelInventoryDisplay")]
+        public InventoryDisplay fuelInventoryDisplay;
+        public TMP_Text CookStationIDText;
+        CookableItemsDropDown _cookableItemsDropDown;
+
+        CookingDepositInventory _cookingDepositInventory;
+        CookingQueueInventory _cookingQueueInventory;
+        FuelInventory _fuelInventory;
+
+        void Start()
         {
-            _cookableItemsDropDown = recipeDropDown.GetComponent<CookableItemsDropDown>();
-            if (_cookableItemsDropDown != null && cookingStationController != null &&
+            if (recipeDropDown != null)
+            {
+                _cookableItemsDropDown = recipeDropDown.GetComponent<CookableItemsDropDown>();
+                if (_cookableItemsDropDown != null && cookingStationController != null &&
+                    cookingStationController.CookingStation != null)
+                    _cookableItemsDropDown.CraftingStationId =
+                        cookingStationController.CookingStation.CraftingStationId;
+            }
+
+            if (CookStationIDText != null && cookingStationController != null &&
                 cookingStationController.CookingStation != null)
-                _cookableItemsDropDown.CraftingStationId = cookingStationController.CookingStation.CraftingStationId;
+                CookStationIDText.text = cookingStationController.CookingStation.CraftingStationId;
         }
 
-        if (CookStationIDText != null && cookingStationController != null &&
-            cookingStationController.CookingStation != null)
-            CookStationIDText.text = cookingStationController.CookingStation.CraftingStationId;
-    }
-
-    public void StartCooking()
-    {
-        _cookingQueueInventory.StartCookingCurrentRecipe();
-    }
-
-    public void SetCookingDepositInventory(CookingDepositInventory cookingDepositInventory)
-    {
-        if (cookingDepositInventory == null || cookingDepositInventoryDisplay == null)
+        public void StartCooking()
         {
-            Debug.LogWarning("Null deposit inventory or display");
-            return;
+            _cookingQueueInventory.StartCookingCurrentRecipe();
         }
 
-        _cookingDepositInventory = cookingDepositInventory;
-        cookingDepositInventoryDisplay.TargetInventoryName = _cookingDepositInventory.name;
-        cookingDepositInventoryDisplay.ChangeTargetInventory(_cookingDepositInventory.name);
-    }
-
-    public void SetCookingQueueInventory(CookingQueueInventory cookingQueueInventory)
-    {
-        if (cookingQueueInventory == null || cookingQueueInventoryDisplay == null)
+        public void SetCookingDepositInventory(CookingDepositInventory cookingDepositInventory)
         {
-            Debug.LogWarning("Null queue inventory or display");
-            return;
+            if (cookingDepositInventory == null || cookingDepositInventoryDisplay == null)
+            {
+                Debug.LogWarning("Null deposit inventory or display");
+                return;
+            }
+
+            _cookingDepositInventory = cookingDepositInventory;
+            cookingDepositInventoryDisplay.TargetInventoryName = _cookingDepositInventory.name;
+            cookingDepositInventoryDisplay.ChangeTargetInventory(_cookingDepositInventory.name);
         }
 
-        _cookingQueueInventory = cookingQueueInventory;
-        cookingQueueInventoryDisplay.TargetInventoryName = _cookingQueueInventory.name;
-        cookingQueueInventoryDisplay.ChangeTargetInventory(_cookingQueueInventory.name);
-    }
-
-    public void SetFuelInventory(FuelInventory fuelInventory)
-    {
-        if (fuelInventory == null || fuelInventoryDisplay == null)
+        public void SetCookingQueueInventory(CookingQueueInventory cookingQueueInventory)
         {
-            Debug.LogWarning("Null fuel inventory or display");
-            return;
+            if (cookingQueueInventory == null || cookingQueueInventoryDisplay == null)
+            {
+                Debug.LogWarning("Null queue inventory or display");
+                return;
+            }
+
+            _cookingQueueInventory = cookingQueueInventory;
+            cookingQueueInventoryDisplay.TargetInventoryName = _cookingQueueInventory.name;
+            cookingQueueInventoryDisplay.ChangeTargetInventory(_cookingQueueInventory.name);
         }
 
-        _fuelInventory = fuelInventory;
+        public void SetFuelInventory(FuelInventory fuelInventory)
+        {
+            if (fuelInventory == null || fuelInventoryDisplay == null)
+            {
+                Debug.LogWarning("Null fuel inventory or display");
+                return;
+            }
 
-        if (cookingStationController != null && cookingStationController.CookingStation != null)
-            _fuelInventory.cookingStationID = cookingStationController.CookingStation.CraftingStationId;
+            _fuelInventory = fuelInventory;
 
-        fuelInventoryDisplay.TargetInventoryName = _fuelInventory.name;
-        fuelInventoryDisplay.ChangeTargetInventory(_fuelInventory.name);
-    }
+            // Set the cooking station ID for the fuel inventory
+            if (cookingStationController != null && cookingStationController.CookingStation != null)
+                _fuelInventory.cookingStationID = cookingStationController.CookingStation.CraftingStationId;
 
-    public void SetCookStationIDText(string text)
-    {
-        CookStationIDText.text = text;
-    }
-    public void SetPlayerInventory(Inventory playerInventory)
-    {
-        throw new NotImplementedException();
+            fuelInventoryDisplay.TargetInventoryName = _fuelInventory.name;
+            fuelInventoryDisplay.ChangeTargetInventory(_fuelInventory.name);
+        }
+
+        public void SetCookStationIDText(string text)
+        {
+            CookStationIDText.text = text;
+        }
+        public void SetPlayerInventory(Inventory playerInventory)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

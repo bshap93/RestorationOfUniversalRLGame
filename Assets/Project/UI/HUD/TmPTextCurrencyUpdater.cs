@@ -35,14 +35,14 @@ namespace Project.UI.HUD
         /// <summary>
         ///     Called when the MMCameraEvent is received (for SetTargetCharacter)
         /// </summary>
-        /// <param name="itemEvent"></param>
-        public void OnMMEvent(MMCameraEvent itemEvent)
+        /// <param name="mmEvent"></param>
+        public void OnMMEvent(MMCameraEvent mmEvent)
         {
-            if (itemEvent.EventType == MMCameraEventTypes.SetTargetCharacter)
+            if (mmEvent.EventType == MMCameraEventTypes.SetTargetCharacter)
             {
                 if (playerStats != null) playerStats.OnCurrencyChanged -= UpdateCurrencyText;
 
-                var newCharacter = itemEvent.TargetCharacter.gameObject;
+                var newCharacter = mmEvent.TargetCharacter.gameObject;
                 if (newCharacter != null)
                 {
                     playerStats = newCharacter.GetComponent<PlayerStats>();

@@ -63,9 +63,9 @@ namespace Project.Gameplay.Interactivity.CraftingStation
             if (other.CompareTag("Player")) HandlePlayerExit();
         }
 
-        public void OnMMEvent(MMCameraEvent itemEvent)
+        public void OnMMEvent(MMCameraEvent mmEvent)
         {
-            if (itemEvent.EventType == MMCameraEventTypes.SetTargetCharacter)
+            if (mmEvent.EventType == MMCameraEventTypes.SetTargetCharacter)
             {
                 if (_playerPreviewManager == null)
                     _playerPreviewManager = FindObjectOfType<CraftingStationPreviewManager>();

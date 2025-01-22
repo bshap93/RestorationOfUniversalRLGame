@@ -43,9 +43,9 @@ public class RecipeSoundPlayer : MonoBehaviour, MMEventListener<RecipeEvent>
         PlayCloseSound();
     }
 
-    public void OnMMEvent(RecipeEvent itemEvent)
+    public void OnMMEvent(RecipeEvent mmEvent)
     {
-        switch (itemEvent.EventType)
+        switch (mmEvent.EventType)
         {
             case RecipeEventType.RecipeLearned:
                 PlaySound(RecipeLearnedFx);

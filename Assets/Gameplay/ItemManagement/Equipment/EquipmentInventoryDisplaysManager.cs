@@ -29,12 +29,12 @@ namespace Project.Gameplay.ItemManagement
             this.MMEventStopListening();
         }
 
-        public void OnMMEvent(MMInventoryEvent itemEvent)
+        public void OnMMEvent(MMInventoryEvent mmEvent)
         {
-            switch (itemEvent.InventoryEventType)
+            switch (mmEvent.InventoryEventType)
             {
                 case MMInventoryEventType.EquipRequest:
-                    var item = itemEvent.EventItem;
+                    var item = mmEvent.EventItem;
                     Debug.Log("Item requested equipment: " + item.ItemID);
                     if (TwoHandedItems.Contains(item))
                     {

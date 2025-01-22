@@ -1,21 +1,30 @@
-﻿namespace Project.Core.Events
+﻿using MoreMountains.Tools;
+
+namespace Core.Events
 {
     public enum ContainerEventType
     {
         ContainerInRange,
         ContainerOutOfRange,
         ContainerSelected,
-        ContainerDeselected,
-
+        ContainerDeselected
     }
-    public class ContainerEvent
+
+    public struct ContainerEvent
     {
         static ContainerEvent e;
-        
+
         public string EventName;
         public ContainerEventType EventType;
         public ContainerController ContainerControllerParameter;
-        
-        
+
+        public static void Trigger(string eventName, ContainerEventType containerEventType,
+            ContainerController containerController)
+        {
+            e.EventName = eventName;
+            e.EventType = containerEventType;
+            e.ContainerControllerParameter = containerController;
+            MMEventManager.TriggerEvent(e);
+        }
     }
 }

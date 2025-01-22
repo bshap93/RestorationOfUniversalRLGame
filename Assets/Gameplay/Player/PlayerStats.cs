@@ -58,11 +58,11 @@ namespace Project.Gameplay.Player
         }
 
 
-        public void OnMMEvent(MMGameEvent itemEvent)
+        public void OnMMEvent(MMGameEvent mmEvent)
         {
-            if (itemEvent.EventName == "EnemyDeathXP")
+            if (mmEvent.EventName == "EnemyDeathXP")
             {
-                var xpAwarded = itemEvent.IntParameter; // Extract the XP from the event
+                var xpAwarded = mmEvent.IntParameter; // Extract the XP from the event
                 XpManager.AddExperience(xpAwarded);
 
 
