@@ -23,7 +23,7 @@ public class PickableItemsListPanel : MonoBehaviour
     public void NextPage()
     {
         _currentPageIndex++;
-        if (_currentPageIndex >= _pagesCount - 1)
+        if (_currentPageIndex >= _pagesCount)
             _currentPageIndex = 0;
 
         for (var i = 0; i < itemSubLists.Length; i++)
@@ -34,7 +34,14 @@ public class PickableItemsListPanel : MonoBehaviour
 
     public void PreviousPage()
     {
-        Debug.Log("Logging from PreviousPage method");
+        _currentPageIndex--;
+        if (_currentPageIndex < 0)
+            _currentPageIndex = _pagesCount - 1;
+
+        for (var i = 0; i < itemSubLists.Length; i++)
+            if (i != _currentPageIndex)
+                itemSubLists[i].SetActive(false);
+            else itemSubLists[i].SetActive(true);
     }
 
 
