@@ -1,4 +1,5 @@
 ﻿using System;
+using Gameplay.Combat.Tools;
 using MoreMountains.InventoryEngine;
 using MoreMountains.TopDownEngine;
 using Project.Gameplay.Combat.Weapons;
@@ -19,6 +20,8 @@ namespace Project.Gameplay.Combat
         public RuntimeAnimatorController runtimeAnimatorController;
 
         public string secondaryTargetEquipmentInventoryName;
+
+        [SerializeField] ItemType itemType = ItemType.CustomInventoryWeapon;
 
         /// <summary>
         ///     When we grab the weapon, we equip it, occupying both the primary and secondary inventory slots if the weapon is

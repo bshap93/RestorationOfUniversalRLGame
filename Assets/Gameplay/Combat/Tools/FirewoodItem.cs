@@ -1,6 +1,8 @@
 ﻿using System;
+using Gameplay.Combat.Tools;
 using Project.Gameplay.Interactivity.Items;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Project.Gameplay.Combat.Tools
 {
@@ -10,6 +12,9 @@ namespace Project.Gameplay.Combat.Tools
     {
         [Header("Torch Properties")] [Tooltip("The torch prefab to instantiate when equipped.")]
         public GameObject CampfirePrefab;
+
+        [FormerlySerializedAs("_itemType")] [SerializeField]
+        ItemType itemType = ItemType.Firewood;
 
 
         public void BuildSmallFire(Vector3 position)

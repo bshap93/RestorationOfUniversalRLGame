@@ -12,6 +12,7 @@ public class ItemInfoPrefab : MonoBehaviour
     public Image typeIcon;
     public TMP_Text itemQuantity;
     public ButtonManager takeItemButton;
-    
+
     InventoryItem _item;
+    int _quantity;
 }

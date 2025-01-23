@@ -1,8 +1,10 @@
 ﻿using System;
+using Gameplay.Combat.Tools;
 using MoreMountains.InventoryEngine;
 using MoreMountains.TopDownEngine;
 using Project.Gameplay.Interactivity.Items;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Project.Gameplay.Combat.Tools
 {
@@ -18,6 +20,9 @@ namespace Project.Gameplay.Combat.Tools
 
         [Tooltip("Should this torch auto-equip when picked up.")]
         public bool AutoEquipOnPickup;
+
+        [FormerlySerializedAs("_itemType")] [SerializeField]
+        ItemType itemType = ItemType.Torch;
 
         public override bool Equip(string playerID)
         {
