@@ -1,13 +1,14 @@
 using MoreMountains.InventoryEngine;
 using MoreMountains.Tools;
 using Prefabs.UI.PrefabRequiredScripts;
+using Project.Core.Events;
 using Project.Gameplay.Interactivity.CraftingStation;
 using Project.Gameplay.Interactivity.Items;
 using UnityEngine;
 
 namespace Project.UI.HUD
 {
-    public class PreviewManager : MonoBehaviour, MMEventListener<MMInventoryEvent>, MMEventListener<MMGameEvent>
+    public class PreviewManager : MonoBehaviour, MMEventListener<MMInventoryEvent>, MMEventListener<CookingStationEvent>
     {
         public TMPInventoryDetails InventoryDetails;
         public TMPCraftingStationDetails CraftingStationDetails;
@@ -18,16 +19,21 @@ namespace Project.UI.HUD
         void OnEnable()
         {
             this.MMEventStartListening<MMInventoryEvent>();
-            this.MMEventStartListening<MMGameEvent>();
+            this.MMEventStartListening<CookingStationEvent>();
         }
 
         void OnDisable()
         {
             this.MMEventStopListening<MMInventoryEvent>();
-            this.MMEventStopListening<MMGameEvent>();
+
+            this.MMEventStopListening<CookingStationEvent>();
         }
-        public void OnMMEvent(MMGameEvent mmEvent)
+        public void OnMMEvent(CookingStationEvent mmEvent)
         {
+            if (mmEvent.EventType == CookingStationEventType.CookingStationSelected) HideCraftingStationPreviw();
+
+            if (mmEvent.EventType == CookingStationEventType.CookingStationInRange)
+                ShowCraftingStationPreview(mmEvent.CookingStationControllerParameter.CookingStation);
         }
 
         public void OnMMEvent(MMInventoryEvent mmEvent)

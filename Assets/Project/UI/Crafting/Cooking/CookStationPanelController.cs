@@ -71,20 +71,23 @@ namespace Project.UI.Crafting.Cooking
                 if (controller.GetFuelInventory() != null)
                     _cookingStationPanelInstance.SetFuelInventory(controller.GetFuelInventory());
 
-                ShowPanel();
+                // ShowPanel();
+                HidePanel();
                 return;
             }
 
             if (mmEvent.EventType == CookingStationEventType.CookingStationOutOfRange)
-            {
-                HidePanel();
+                // HidePanel();
                 if (cookingStationPanel != null)
                 {
                     Destroy(cookingStationPanel);
                     cookingStationPanel = null;
                     _cookingStationPanelInstance = null;
                 }
-            }
+
+            if (mmEvent.EventType == CookingStationEventType.CookingStationSelected) ShowPanel();
+
+            if (mmEvent.EventType == CookingStationEventType.CookingStationDeselected) HidePanel();
         }
         public void OnMMEvent(MMGameEvent mmEvent)
         {
