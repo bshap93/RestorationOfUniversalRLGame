@@ -4,7 +4,7 @@ using Gameplay.ItemManagement.InventoryTypes;
 using Gameplay.ItemManagement.InventoryTypes.Storage;
 using MoreMountains.Feedbacks;
 using MoreMountains.InventoryEngine;
-using TMPro;
+using Project.Gameplay.Interactivity.Items;
 using UnityEngine;
 
 public class ContainerController : MonoBehaviour
@@ -15,9 +15,10 @@ public class ContainerController : MonoBehaviour
     public ContainerSO ContainerSO;
 
     public GameObject previewPanel;
-    public TextMeshProUGUI previewText;
 
     public MMFeedbacks interactFeedbacks;
+
+    public InventoryItem[] InitialItems;
 
     readonly bool _isOpen = false;
 
@@ -76,6 +77,19 @@ public class ContainerController : MonoBehaviour
             playerInventory = Inventory.FindInventory("MainPlayerInventory", "Player1");
             if (playerInventory == null) Debug.LogError("Player inventory not found");
         }
+
+        if (containerInventory == null)
+        {
+            containerInventory = Inventory.FindInventory(ContainerSO.ContainerID, "Player1") as ContainerInventory;
+            if (containerInventory == null) Debug.LogError("Container inventory not found");
+        }
+
+        if (InitialItems != null)
+            foreach (var item in InitialItems)
+            {
+                if (item == null) continue;
+                if (containerInventory != null) containerInventory.AddItem(item, item.Quantity);
+            }
     }
 
     public void OnSelectedItem()
@@ -96,14 +110,9 @@ public class ContainerController : MonoBehaviour
     public void ShowPreview(string text)
     {
         if (previewPanel != null)
-        {
             previewPanel.SetActive(true);
-            previewText.text = text;
-        }
         else
-        {
             Debug.LogError("Preview panel is null");
-        }
     }
 
     public void HidePreview()

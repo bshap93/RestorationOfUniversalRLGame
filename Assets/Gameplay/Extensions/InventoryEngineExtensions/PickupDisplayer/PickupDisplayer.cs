@@ -36,7 +36,6 @@ namespace Gameplay.Extensions.InventoryEngineExtensions.PickupDisplayer
         public void OnMMEvent(ItemEvent mmEvent)
         {
             if (mmEvent.EventName != "ItemPickedUp") return;
-            Debug.LogError("PickupDisplayer: " + mmEvent.EventName + " x" + mmEvent.Amount);
             var item = mmEvent.Item;
             var quantity = mmEvent.Amount;
             if (_displays.TryGetValue(item.ItemID, out var display))

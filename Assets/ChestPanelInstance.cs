@@ -15,6 +15,8 @@ public class ChestPanelInstance : MonoBehaviour
 
     void Start()
     {
+        if (containerController != null && containerController.ContainerSO != null)
+            ChestIDText.text = containerController.ContainerSO.ContainerID;
     }
     public void SetInventory(ContainerInventory getInventory)
     {
@@ -25,5 +27,7 @@ public class ChestPanelInstance : MonoBehaviour
         }
 
         _chestInventory = getInventory;
+        chestInventoryDisplay.TargetInventoryName = _chestInventory.name;
+        chestInventoryDisplay.ChangeTargetInventory(_chestInventory.name);
     }
 }

@@ -44,6 +44,7 @@ public class ChestPanelController : MonoBehaviour, MMEventListener<ContainerEven
             // Set Inventory
             if (controller.GetInventory() != null)
                 _chestPanelInstance.SetInventory(controller.GetInventory());
+            else Debug.LogError("Inventory is null");
 
             ShowPanel();
             return;
