@@ -112,5 +112,8 @@ namespace Project.UI.HUD
                 }
             }
         }
+        public void AddToItemListPreview(InventoryItem currentPreviewedItem)
+        {
+        }
     }
 }

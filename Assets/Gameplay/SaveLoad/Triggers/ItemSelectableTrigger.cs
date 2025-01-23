@@ -1,4 +1,5 @@
-﻿using MoreMountains.Feedbacks;
+﻿using Gameplay.Player.Inventory;
+using MoreMountains.Feedbacks;
 using MoreMountains.Tools;
 using MoreMountains.TopDownEngine;
 using Project.Gameplay.Events;
@@ -17,7 +18,7 @@ namespace Project.Gameplay.SaveLoad.Triggers
         [SerializeField] MMFeedbacks _deselectionFeedbacks;
         ManualItemPicker _itemPicker;
 
-        PlayerItemPreviewManager _playerPreviewManager;
+        PlayerItemListPreviewManager _playerPreviewManager;
 
 
         void Awake()
@@ -56,7 +57,7 @@ namespace Project.Gameplay.SaveLoad.Triggers
             if (other.CompareTag("Player"))
             {
                 if (_playerPreviewManager == null)
-                    _playerPreviewManager = other.GetComponent<PlayerItemPreviewManager>();
+                    _playerPreviewManager = other.GetComponent<PlayerItemListPreviewManager>();
 
                 var itemPicker = GetComponent<ManualItemPicker>();
                 if (itemPicker != null)
@@ -72,7 +73,7 @@ namespace Project.Gameplay.SaveLoad.Triggers
             if (other.CompareTag("Player"))
             {
                 if (_playerPreviewManager == null)
-                    _playerPreviewManager = other.GetComponent<PlayerItemPreviewManager>();
+                    _playerPreviewManager = other.GetComponent<PlayerItemListPreviewManager>();
 
                 var itemPicker = GetComponent<ManualItemPicker>();
                 if (itemPicker != null)
@@ -86,7 +87,7 @@ namespace Project.Gameplay.SaveLoad.Triggers
         public void OnSelectedItem()
         {
             if (_playerPreviewManager == null)
-                _playerPreviewManager = FindObjectOfType<PlayerItemPreviewManager>();
+                _playerPreviewManager = FindObjectOfType<PlayerItemListPreviewManager>();
 
             _selectionFeedbacks?.PlayFeedbacks();
             _playerPreviewManager.ShowSelectedItemPreviewPanel(Item);
@@ -95,7 +96,7 @@ namespace Project.Gameplay.SaveLoad.Triggers
         public void OnUnSelectedItem()
         {
             if (_playerPreviewManager == null)
-                _playerPreviewManager = FindObjectOfType<PlayerItemPreviewManager>();
+                _playerPreviewManager = FindObjectOfType<PlayerItemListPreviewManager>();
 
             _deselectionFeedbacks?.PlayFeedbacks();
             _playerPreviewManager.HideSelectedItemPreviewPanel();
@@ -106,7 +107,7 @@ namespace Project.Gameplay.SaveLoad.Triggers
             if (mmEvent.EventType == MMCameraEventTypes.SetTargetCharacter)
             {
                 if (_playerPreviewManager == null)
-                    _playerPreviewManager = FindObjectOfType<PlayerItemPreviewManager>();
+                    _playerPreviewManager = FindObjectOfType<PlayerItemListPreviewManager>();
 
                 if (_selectionFeedbacks == null)
                     _selectionFeedbacks = _playerPreviewManager.SelectionFeedbacks;

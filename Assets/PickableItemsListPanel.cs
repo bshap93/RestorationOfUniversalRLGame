@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 public class PickableItemsListPanel : MonoBehaviour
@@ -14,6 +13,6 @@ public class PickableItemsListPanel : MonoBehaviour
     }
     public void DisplayPreview()
     {
-        throw new System.NotImplementedException();
+        Debug.Log("Logging from DisplayPreview method");
     }
 }
