@@ -12,7 +12,17 @@ public class ItemInfoPrefab : MonoBehaviour
     public Image typeIcon;
     public TMP_Text itemQuantity;
     public ButtonManager takeItemButton;
+    public ButtonManager infoItemButton;
 
     InventoryItem _item;
     int _quantity;
+    public void SetItem(InventoryItem item)
+    {
+        _item = item;
+        itemImage.sprite = item.Icon;
+        itemName.text = item.ItemName;
+        itemType.text = "TBI";
+        itemQuantity.text = item.Quantity.ToString();
+        _quantity = item.Quantity;
+    }
 }

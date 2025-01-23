@@ -124,7 +124,6 @@ public class CookingStationController : MonoBehaviour, ISelectableTrigger
     }
     public void OnSelectedItem()
     {
-        Debug.Log("CookingStationSelected event triggered");
         CookingStationEvent.Trigger("CookingStationSelected", CookingStationEventType.CookingStationSelected, this);
     }
     public void OnUnSelectedItem()

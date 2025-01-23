@@ -114,6 +114,13 @@ namespace Project.UI.HUD
         }
         public void AddToItemListPreview(InventoryItem currentPreviewedItem)
         {
+            Debug.Log("Adding: " + currentPreviewedItem.name);
+            PickableItemsListPanel.AddItemToItemsList(currentPreviewedItem);
+        }
+
+        public void RemoveFromItemListPreview(InventoryItem currentPreviewedItem)
+        {
+            Debug.Log("Removing: " + currentPreviewedItem.name);
         }
     }
 }

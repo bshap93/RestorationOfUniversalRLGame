@@ -8,6 +8,7 @@ public class PickableItemsListPanel : MonoBehaviour
     public GameObject[] itemSubLists;
     // 12 items total in 3 sublists
     public GameObject[] itemDisplayerPanels;
+
     public GameObject itemInfoPrefab;
 
     int _currentPageIndex;
@@ -44,10 +45,38 @@ public class PickableItemsListPanel : MonoBehaviour
             else itemSubLists[i].SetActive(true);
     }
 
+    public void SetToPageNumber(int pageNumber)
+    {
+        if (pageNumber < 0 || pageNumber >= _pagesCount)
+        {
+            Debug.LogWarning("Invalid page number");
+            return;
+        }
+
+        _currentPageIndex = pageNumber;
+
+        for (var i = 0; i < itemSubLists.Length; i++)
+            if (i != _currentPageIndex)
+                itemSubLists[i].SetActive(false);
+            else itemSubLists[i].SetActive(true);
+    }
+
 
     public void AddItemToItemsList(InventoryItem item)
     {
         _currentPreviewedItems.Add(item);
+        TryAddItemToPanel(item);
+    }
+
+    void TryAddItemToPanel(InventoryItem item)
+    {
+        for (var i = 0; i < itemDisplayerPanels.Length; i++)
+            if (itemDisplayerPanels[i].transform.childCount == 0)
+            {
+                var itemInfo = Instantiate(itemInfoPrefab, itemDisplayerPanels[i].transform);
+                itemInfo.GetComponent<ItemInfoPrefab>().SetItem(item);
+                return;
+            }
     }
 
     public void RemoveItemFromItemsList(InventoryItem item)
@@ -59,6 +88,5 @@ public class PickableItemsListPanel : MonoBehaviour
 
     public void DisplayPreview()
     {
-        Debug.Log("Logging from DisplayPreview method");
     }
 }
