@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Gameplay.Player.Inventory;
 using Project.Gameplay.Interactivity.Items;
 using UnityEngine;
 
@@ -63,19 +64,19 @@ public class PickableItemsListPanel : MonoBehaviour
     }
 
 
-    public void AddItemToItemsList(InventoryItem item)
+    public void AddItemToItemsList(InventoryItem item, ManualItemPicker manualItemPicker)
     {
         CurrentPreviewedItems.Add(item);
-        TryAddItemToPanel(item);
+        TryAddItemToPanel(item, manualItemPicker);
     }
 
-    void TryAddItemToPanel(InventoryItem item)
+    void TryAddItemToPanel(InventoryItem item, ManualItemPicker manualItemPicker)
     {
         for (var i = 0; i < itemDisplayerPanels.Length; i++)
             if (itemDisplayerPanels[i].transform.childCount == 0)
             {
                 var itemInfo = Instantiate(itemInfoPrefab, itemDisplayerPanels[i].transform);
-                itemInfo.GetComponent<ItemInfoPrefab>().SetItem(item);
+                itemInfo.GetComponent<ItemInfoPrefab>().SetItem(item, manualItemPicker);
                 return;
             }
     }
@@ -115,6 +116,5 @@ public class PickableItemsListPanel : MonoBehaviour
     }
     public void RefreshPreviewOrder()
     {
-
     }
 }

@@ -1,3 +1,4 @@
+using Gameplay.Player.Inventory;
 using MoreMountains.InventoryEngine;
 using MoreMountains.Tools;
 using Prefabs.UI.PrefabRequiredScripts;
@@ -115,9 +116,9 @@ namespace Project.UI.HUD
                 }
             }
         }
-        public void AddToItemListPreview(InventoryItem currentPreviewedItem)
+        public void AddToItemListPreview(InventoryItem currentPreviewedItem, ManualItemPicker manualItemPicker)
         {
-            PickableItemsListPanel.AddItemToItemsList(currentPreviewedItem);
+            PickableItemsListPanel.AddItemToItemsList(currentPreviewedItem, manualItemPicker);
         }
 
         public void RemoveFromItemListPreview(InventoryItem currentPreviewedItem)

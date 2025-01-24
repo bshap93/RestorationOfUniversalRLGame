@@ -88,8 +88,10 @@ namespace Project.Gameplay.SaveLoad.Triggers
             if (_playerPreviewManager == null)
                 _playerPreviewManager = FindFirstObjectByType<PlayerItemListPreviewManager>();
 
+            var manualItemPicker = GetComponent<ManualItemPicker>();
+
             _selectionFeedbacks?.PlayFeedbacks();
-            _playerPreviewManager.AddToItemListPreview(Item);
+            _playerPreviewManager.AddToItemListPreview(Item, manualItemPicker);
             _playerPreviewManager.ShowSelectedItemPreviewPanel();
         }
 

@@ -172,7 +172,7 @@ namespace Gameplay.Player.Inventory
         }
 
 
-        void PickItem()
+        public void PickItem()
         {
             Debug.Log("Picking: " + Item.ItemName);
             if (Item == null || !_isInRange || _isBeingDestroyed)

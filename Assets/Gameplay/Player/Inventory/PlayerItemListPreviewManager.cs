@@ -229,9 +229,9 @@ namespace Gameplay.Player.Inventory
             }
         }
 
-        public void AddToItemListPreview(InventoryItem item)
+        public void AddToItemListPreview(InventoryItem item, ManualItemPicker manualItemPicker)
         {
-            _previewManager.AddToItemListPreview(item);
+            _previewManager.AddToItemListPreview(item, manualItemPicker);
         }
 
 

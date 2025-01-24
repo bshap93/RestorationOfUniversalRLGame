@@ -1,3 +1,4 @@
+using Gameplay.Player.Inventory;
 using Michsky.MUIP;
 using Project.Gameplay.Interactivity.Items;
 using TMPro;
@@ -14,25 +15,30 @@ public class ItemInfoPrefab : MonoBehaviour
     public TMP_Text itemQuantity;
     public ButtonManager takeItemButton;
     public ButtonManager infoItemButton;
+    public ManualItemPicker manualItemPicker;
 
     [FormerlySerializedAs("_item")] public InventoryItem item;
     int _quantity;
-    public void SetItem(InventoryItem item)
+    public void SetItem(InventoryItem item, ManualItemPicker manualItemPicker)
     {
+        this.manualItemPicker = manualItemPicker;
         this.item = item;
         itemImage.sprite = item.Icon;
         itemName.text = item.ItemName;
         itemType.text = "TBI";
         itemQuantity.text = item.Quantity.ToString();
         _quantity = item.Quantity;
+
+        Debug.Log("ManualItemPicker: " + manualItemPicker);
     }
+
 
     public void TakeItem()
     {
-        if (_quantity > 0)
+        if (manualItemPicker != null)
         {
-            _quantity--;
-            itemQuantity.text = _quantity.ToString();
+            Debug.Log("Taking item");
+            manualItemPicker.PickItem();
         }
     }
 }
