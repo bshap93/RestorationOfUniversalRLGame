@@ -12,12 +12,13 @@ public class PickableItemsListPanel : MonoBehaviour
     public GameObject itemInfoPrefab;
 
     int _currentPageIndex;
-    List<InventoryItem> _currentPreviewedItems;
     int _pagesCount;
+
+    public List<InventoryItem> CurrentPreviewedItems { get; private set; }
 
     void Start()
     {
-        _currentPreviewedItems = new List<InventoryItem>();
+        CurrentPreviewedItems = new List<InventoryItem>();
         _pagesCount = itemSubLists.Length;
     }
 
@@ -64,7 +65,7 @@ public class PickableItemsListPanel : MonoBehaviour
 
     public void AddItemToItemsList(InventoryItem item)
     {
-        _currentPreviewedItems.Add(item);
+        CurrentPreviewedItems.Add(item);
         TryAddItemToPanel(item);
     }
 
@@ -81,12 +82,35 @@ public class PickableItemsListPanel : MonoBehaviour
 
     public void RemoveItemFromItemsList(InventoryItem item)
     {
-        if (_currentPreviewedItems.Contains(item))
-            _currentPreviewedItems.Remove(item);
+        if (CurrentPreviewedItems.Contains(item))
+            CurrentPreviewedItems.Remove(item);
         else Debug.LogWarning("Item not found in the list");
+
+        TryRemoveItemFromPanel(item);
+    }
+
+    void TryRemoveItemFromPanel(InventoryItem item)
+    {
+        for (var i = 0; i < itemDisplayerPanels.Length; i++)
+        {
+            if (itemDisplayerPanels[i].transform.childCount == 0) continue;
+            var itemInfo = itemDisplayerPanels[i].GetComponentInChildren<ItemInfoPrefab>().gameObject;
+            if (itemInfo != null && itemInfo.GetComponent<ItemInfoPrefab>().item == item)
+            {
+                Destroy(itemInfo);
+                return;
+            }
+        }
     }
 
     public void DisplayPreview()
     {
+    }
+    public void RemoveAllItemsFromList()
+    {
+        CurrentPreviewedItems.Clear();
+        foreach (var panel in itemDisplayerPanels)
+            if (panel.transform.childCount > 0)
+                Destroy(panel.transform.GetChild(0).gameObject);
     }
 }

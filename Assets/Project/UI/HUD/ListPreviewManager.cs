@@ -18,6 +18,11 @@ namespace Project.UI.HUD
 
         public List<InventoryItem> CurrentPreviewedItems { get; set; }
         public CraftingStation CurrentPreviewedCraftingStation { get; set; }
+
+        void Start()
+        {
+            HideItemListPreview();
+        }
         void OnEnable()
         {
             this.MMEventStartListening<MMInventoryEvent>();
@@ -121,6 +126,15 @@ namespace Project.UI.HUD
         public void RemoveFromItemListPreview(InventoryItem currentPreviewedItem)
         {
             Debug.Log("Removing: " + currentPreviewedItem.name);
+            PickableItemsListPanel.RemoveItemFromItemsList(currentPreviewedItem);
+        }
+        public void RemoveAllFromItemList()
+        {
+            PickableItemsListPanel.RemoveAllItemsFromList();
+        }
+        public void HidePanelIfEmpty()
+        {
+            if (PickableItemsListPanel.CurrentPreviewedItems.Count == 0) HideItemListPreview();
         }
     }
 }

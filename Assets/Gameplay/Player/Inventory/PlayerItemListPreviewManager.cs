@@ -115,6 +115,7 @@ namespace Gameplay.Player.Inventory
                     // If this was the last item, clear everything
                     if (_itemPickersInRange.Count == 0)
                     {
+                        _previewManager.RemoveFromItemListPreview(CurrentPreviewedItem);
                         CurrentPreviewedItemPicker = null;
                         CurrentPreviewedItem = null;
                         _previewManager.HideItemListPreview();
@@ -148,7 +149,7 @@ namespace Gameplay.Player.Inventory
                 _highlightManager.SelectObject(itemTransform);
 
                 // Only show preview panel if this is the first/only item
-                if (_itemPickersInRange.Count == 1) ShowPreviewPanel(itemPicker.Item);
+                if (_itemPickersInRange.Count == 1) ShowPreviewPanel();
 
                 // Force update of nearest item
                 UpdateNearestItem();
@@ -166,6 +167,7 @@ namespace Gameplay.Player.Inventory
                 // Only if this was the last item AND it was being previewed, reset everything
                 if (_itemPickersInRange.Count == 0 && wasCurrentlyPreviewed)
                 {
+                    _previewManager.RemoveAllFromItemList();
                     CurrentPreviewedItemPicker = null;
                     CurrentPreviewedItem = null;
                     HidePreviewPanel();
@@ -199,6 +201,7 @@ namespace Gameplay.Player.Inventory
                 {
                     if (CurrentPreviewedItemPicker != null)
                     {
+                        _previewManager.RemoveFromItemListPreview(CurrentPreviewedItem);
                         CurrentPreviewedItemPicker = null;
                         CurrentPreviewedItem = null;
                         _previewManager.HideItemListPreview();
@@ -217,7 +220,7 @@ namespace Gameplay.Player.Inventory
                                               closestPicker.UniqueID != CurrentPreviewedItemPicker.UniqueID))
                 {
                     SetPreviewedItem(closestPicker);
-                    _previewManager.AddToItemListPreview(CurrentPreviewedItem);
+                    // _previewManager.AddToItemListPreview(CurrentPreviewedItem);
                     _previewManager.ShowItemListPreview();
                 }
             }
@@ -225,6 +228,11 @@ namespace Gameplay.Player.Inventory
             {
                 _isSorting = false;
             }
+        }
+
+        public void AddToItemListPreview(InventoryItem item)
+        {
+            _previewManager.AddToItemListPreview(item);
         }
 
 
@@ -240,23 +248,30 @@ namespace Gameplay.Player.Inventory
             if (PreviewPanelUI != null) PreviewPanelUI.SetActive(false);
         }
 
-        public void ShowPreviewPanel(InventoryItem item)
+        public void ShowPreviewPanel()
         {
             if (PreviewPanelUI != null) PreviewPanelUI.SetActive(true);
         }
 
 
-        public void ShowSelectedItemPreviewPanel(InventoryItem item)
+        public void ShowSelectedItemPreviewPanel()
         {
             if (PreviewPanelUI != null) PreviewPanelUI.SetActive(true);
-            _previewManager.AddToItemListPreview(item);
             _previewManager.ShowItemListPreview();
         }
 
-        public void HideSelectedItemPreviewPanel()
+        public void HideSelectedItemPreviewPanel(InventoryItem item)
         {
             if (PreviewPanelUI != null) PreviewPanelUI.SetActive(false);
             _previewManager.HideItemListPreview();
+        }
+        public void HidePanelIfEmpty(InventoryItem item)
+        {
+            _previewManager.HidePanelIfEmpty();
+        }
+        public void RemoveFromItemListPreview(InventoryItem item)
+        {
+            _previewManager.RemoveFromItemListPreview(item);
         }
     }
 }

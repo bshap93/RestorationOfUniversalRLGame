@@ -35,7 +35,6 @@ public class SaveManager : MonoBehaviour
 
     public void SaveAll()
     {
-        Debug.Log("[SaveManager] Saving all data...");
         inventoryManager?.SaveInventories();
         resourcesManager?.SaveResources();
         journalManager?.SaveJournal();
@@ -43,7 +42,6 @@ public class SaveManager : MonoBehaviour
 
     public bool LoadAll()
     {
-
         var inventoryLoaded = inventoryManager != null && inventoryManager.HasSavedData();
         var resourcesLoaded = resourcesManager != null && resourcesManager.HasSavedData();
         var journalLoaded = journalManager != null && journalManager.HasSavedData();

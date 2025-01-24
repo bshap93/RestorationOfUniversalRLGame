@@ -160,9 +160,6 @@ namespace Project.Gameplay.SaveLoad
 
             ES3.Save(HealthFileName, playerHealth.CurrentHealth);
             ES3.Save(MaxHealthFileName, playerHealth.MaximumHealth);
-
-            Debug.Log(
-                $"Health saved: CurrentHealth={playerHealth.CurrentHealth}, MaximumHealth={playerHealth.MaximumHealth}");
         }
 
 

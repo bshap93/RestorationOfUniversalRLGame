@@ -29,7 +29,7 @@ namespace Project.Gameplay.Player.Interaction
         bool _isInteractLocked;
         bool _isSorting;
         float _lastInteractTime;
-        PreviewManager _previewManager;
+        ListPreviewManager _previewManager;
 
         public ManualCraftingStationInteract CurrentPreviewedStationInteract
         {
@@ -78,8 +78,8 @@ namespace Project.Gameplay.Player.Interaction
 
         void Start()
         {
-            _previewManager = FindObjectOfType<PreviewManager>();
-            _highlightManager = FindObjectOfType<HighlightManager>();
+            _previewManager = FindFirstObjectByType<ListPreviewManager>();
+            _highlightManager = FindFirstObjectByType<HighlightManager>();
 
             if (_previewManager == null) Debug.LogWarning("PreviewManager not found in the scene");
             if (_highlightManager == null) Debug.LogWarning("HighlightManager not found in the scene");

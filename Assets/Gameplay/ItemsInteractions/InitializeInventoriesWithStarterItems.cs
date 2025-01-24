@@ -19,13 +19,8 @@ namespace Project.Gameplay.ItemsInteractions
         void Start()
         {
             foreach (var starterItemsForInventory in starterItemsForInventories)
-            {
-                foreach (var starterItem in starterItemsForInventory.starterItems)
-                    starterItemsForInventory.inventory.AddItem(starterItem, 1);
-
-                Debug.Log(
-                    $"Added {starterItemsForInventory.starterItems.Count} items to {starterItemsForInventory.inventory.name}");
-            }
+            foreach (var starterItem in starterItemsForInventory.starterItems)
+                starterItemsForInventory.inventory.AddItem(starterItem, 1);
         }
     }
 }

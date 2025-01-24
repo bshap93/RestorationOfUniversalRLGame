@@ -2,6 +2,7 @@ using Michsky.MUIP;
 using Project.Gameplay.Interactivity.Items;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class ItemInfoPrefab : MonoBehaviour
@@ -14,11 +15,11 @@ public class ItemInfoPrefab : MonoBehaviour
     public ButtonManager takeItemButton;
     public ButtonManager infoItemButton;
 
-    InventoryItem _item;
+    [FormerlySerializedAs("_item")] public InventoryItem item;
     int _quantity;
     public void SetItem(InventoryItem item)
     {
-        _item = item;
+        this.item = item;
         itemImage.sprite = item.Icon;
         itemName.text = item.ItemName;
         itemType.text = "TBI";

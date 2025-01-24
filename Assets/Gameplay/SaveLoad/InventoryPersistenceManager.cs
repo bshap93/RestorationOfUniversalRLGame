@@ -125,8 +125,6 @@ namespace Project.Gameplay.SaveLoad
 
         void UnEquipItemsInEquipmentInventory()
         {
-            Debug.Log("Unequipping items in equipment inventories...");
-
             UnEquipInventory(rightHandInventory);
             UnEquipInventory(leftHandInventory);
         }

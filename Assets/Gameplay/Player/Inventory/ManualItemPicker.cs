@@ -1,4 +1,5 @@
 using System;
+using Gameplay.Player.Inventory;
 using MoreMountains.Feedbacks;
 using Project.Gameplay.Events;
 using Project.Gameplay.Interactivity.Items;
@@ -173,6 +174,7 @@ namespace Project.Gameplay.Player.Inventory
 
         void PickItem()
         {
+            Debug.Log("Picking: " + Item.ItemName);
             if (Item == null || !_isInRange || _isBeingDestroyed)
             {
                 Debug.Log(
@@ -187,9 +189,17 @@ namespace Project.Gameplay.Player.Inventory
             var previewManager = player.GetComponent<PlayerItemPreviewManager>();
             if (previewManager == null) return;
 
-            if (!previewManager.IsPreviewedItem(this)) return;
+            if (!previewManager.IsPreviewedItem(this))
+            {
+                Debug.Log("Not previewed item.");
+                return;
+            }
 
-            if (!previewManager.TryPickupItem(this)) return;
+            if (!previewManager.TryPickupItem(this))
+            {
+                Debug.Log("Failed to pickup item.");
+                return;
+            }
 
             _isBeingDestroyed = true;
             _isInRange = false;

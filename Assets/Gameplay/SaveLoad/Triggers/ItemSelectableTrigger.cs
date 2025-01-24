@@ -87,19 +87,21 @@ namespace Project.Gameplay.SaveLoad.Triggers
         public void OnSelectedItem()
         {
             if (_playerPreviewManager == null)
-                _playerPreviewManager = FindObjectOfType<PlayerItemListPreviewManager>();
+                _playerPreviewManager = FindFirstObjectByType<PlayerItemListPreviewManager>();
 
             _selectionFeedbacks?.PlayFeedbacks();
-            _playerPreviewManager.ShowSelectedItemPreviewPanel(Item);
+            _playerPreviewManager.AddToItemListPreview(Item);
+            _playerPreviewManager.ShowSelectedItemPreviewPanel();
         }
 
         public void OnUnSelectedItem()
         {
             if (_playerPreviewManager == null)
-                _playerPreviewManager = FindObjectOfType<PlayerItemListPreviewManager>();
+                _playerPreviewManager = FindFirstObjectByType<PlayerItemListPreviewManager>();
 
             _deselectionFeedbacks?.PlayFeedbacks();
-            _playerPreviewManager.HideSelectedItemPreviewPanel();
+            _playerPreviewManager.RemoveFromItemListPreview(Item);
+            _playerPreviewManager.HidePanelIfEmpty(Item);
         }
 
         public void OnMMEvent(MMCameraEvent mmEvent)

@@ -21,7 +21,6 @@ namespace Project.Core.SaveSystem
 
         public void OnMMEvent(CheckPointEvent mmEvent)
         {
-            Debug.Log("SaveStateManager: Checkpoint reached.");
             MMGameEvent.Trigger("SaveResources");
             MMGameEvent.Trigger("RevertResources");
             MMGameEvent.Trigger("SaveJournal");
