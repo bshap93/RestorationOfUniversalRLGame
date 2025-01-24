@@ -26,4 +26,13 @@ public class ItemInfoPrefab : MonoBehaviour
         itemQuantity.text = item.Quantity.ToString();
         _quantity = item.Quantity;
     }
+
+    public void TakeItem()
+    {
+        if (_quantity > 0)
+        {
+            _quantity--;
+            itemQuantity.text = _quantity.ToString();
+        }
+    }
 }

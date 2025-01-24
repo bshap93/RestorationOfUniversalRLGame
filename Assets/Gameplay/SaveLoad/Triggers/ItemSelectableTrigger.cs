@@ -5,7 +5,6 @@ using MoreMountains.TopDownEngine;
 using Project.Gameplay.Events;
 using Project.Gameplay.Interactivity.Food;
 using Project.Gameplay.Interactivity.Items;
-using Project.Gameplay.Player.Inventory;
 using UnityEngine;
 
 namespace Project.Gameplay.SaveLoad.Triggers

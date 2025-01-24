@@ -1,16 +1,16 @@
 using System;
-using Gameplay.Player.Inventory;
 using MoreMountains.Feedbacks;
 using Project.Gameplay.Events;
 using Project.Gameplay.Interactivity.Items;
 using Project.Gameplay.ItemManagement;
 using Project.Gameplay.ItemManagement.InventoryItemTypes;
+using Project.Gameplay.Player;
 using Project.UI.HUD;
 using UnityEngine;
 using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
-namespace Project.Gameplay.Player.Inventory
+namespace Gameplay.Player.Inventory
 {
     public class ManualItemPicker : MonoBehaviour
     {
@@ -78,7 +78,7 @@ namespace Project.Gameplay.Player.Inventory
 
         void Update()
         {
-            if (_isInRange && UnityEngine.Input.GetKeyDown(KeyCode.F)) PickItem();
+            if (_isInRange && Input.GetKeyDown(KeyCode.F)) PickItem();
         }
 
         void OnDestroy()
@@ -186,20 +186,15 @@ namespace Project.Gameplay.Player.Inventory
             var player = GameObject.FindWithTag("Player");
             if (player == null) return;
 
-            var previewManager = player.GetComponent<PlayerItemPreviewManager>();
+            var previewManager = player.GetComponent<PlayerItemListPreviewManager>();
             if (previewManager == null) return;
 
-            if (!previewManager.IsPreviewedItem(this))
-            {
-                Debug.Log("Not previewed item.");
-                return;
-            }
+            if (!previewManager.IsPreviewedItem(this)) return;
 
-            if (!previewManager.TryPickupItem(this))
-            {
-                Debug.Log("Failed to pickup item.");
-                return;
-            }
+            if (!previewManager.TryPickupItem(this)) return;
+
+            previewManager.RemoveFromItemListPreview(Item);
+            previewManager.RefreshPreviewOrder();
 
             _isBeingDestroyed = true;
             _isInRange = false;

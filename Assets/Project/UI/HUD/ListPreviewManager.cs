@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using MoreMountains.InventoryEngine;
 using MoreMountains.Tools;
 using Prefabs.UI.PrefabRequiredScripts;
@@ -16,7 +15,6 @@ namespace Project.UI.HUD
         public TMPCraftingStationDetails CraftingStationDetails;
 
 
-        public List<InventoryItem> CurrentPreviewedItems { get; set; }
         public CraftingStation CurrentPreviewedCraftingStation { get; set; }
 
         void Start()
@@ -119,7 +117,6 @@ namespace Project.UI.HUD
         }
         public void AddToItemListPreview(InventoryItem currentPreviewedItem)
         {
-            Debug.Log("Adding: " + currentPreviewedItem.name);
             PickableItemsListPanel.AddItemToItemsList(currentPreviewedItem);
         }
 
@@ -135,6 +132,10 @@ namespace Project.UI.HUD
         public void HidePanelIfEmpty()
         {
             if (PickableItemsListPanel.CurrentPreviewedItems.Count == 0) HideItemListPreview();
+        }
+        public void RefreshPreviewOrder()
+        {
+            PickableItemsListPanel.RefreshPreviewOrder();
         }
     }
 }

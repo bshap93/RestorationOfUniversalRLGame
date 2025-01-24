@@ -1,7 +1,7 @@
 using System.Collections.Generic;
+using Gameplay.Player.Inventory;
 using MoreMountains.Feedbacks;
 using Project.Gameplay.Interactivity.Items;
-using Project.Gameplay.Player.Inventory;
 using Project.Gameplay.SaveLoad.Triggers;
 using Project.UI.HUD;
 using UnityEngine;

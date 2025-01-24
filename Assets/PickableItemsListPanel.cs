@@ -113,4 +113,8 @@ public class PickableItemsListPanel : MonoBehaviour
             if (panel.transform.childCount > 0)
                 Destroy(panel.transform.GetChild(0).gameObject);
     }
+    public void RefreshPreviewOrder()
+    {
+
+    }
 }

@@ -5,7 +5,6 @@ using MoreMountains.Feedbacks;
 using MoreMountains.Tools;
 using Project.Gameplay.Events;
 using Project.Gameplay.Interactivity.Items;
-using Project.Gameplay.Player.Inventory;
 using Project.UI.HUD;
 using UnityEngine;
 
@@ -271,7 +270,12 @@ namespace Gameplay.Player.Inventory
         }
         public void RemoveFromItemListPreview(InventoryItem item)
         {
+            Debug.Log("Removing: " + item.name);
             _previewManager.RemoveFromItemListPreview(item);
+        }
+        public void RefreshPreviewOrder()
+        {
+            _previewManager.RefreshPreviewOrder();
         }
     }
 }

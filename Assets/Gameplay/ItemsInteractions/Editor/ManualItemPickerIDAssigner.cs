@@ -1,5 +1,5 @@
 ﻿using System;
-using Project.Gameplay.Player.Inventory;
+using Gameplay.Player.Inventory;
 using UnityEditor;
 using UnityEngine;
 
