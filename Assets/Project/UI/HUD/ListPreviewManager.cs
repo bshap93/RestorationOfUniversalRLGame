@@ -5,7 +5,9 @@ using Prefabs.UI.PrefabRequiredScripts;
 using Project.Core.Events;
 using Project.Gameplay.Interactivity.CraftingStation;
 using Project.Gameplay.Interactivity.Items;
+using Project.Gameplay.ItemManagement.InventoryTypes.Cooking;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Project.UI.HUD
 {
@@ -13,7 +15,8 @@ namespace Project.UI.HUD
         MMEventListener<CookingStationEvent>
     {
         public PickableItemsListPanel PickableItemsListPanel;
-        public TMPCraftingStationDetails CraftingStationDetails;
+        [FormerlySerializedAs("CraftingStationDetails")]
+        public TMPCookingStationDetails CookingStationDetails;
 
 
         public CraftingStation CurrentPreviewedCraftingStation { get; set; }
@@ -39,7 +42,7 @@ namespace Project.UI.HUD
             if (mmEvent.EventType == CookingStationEventType.CookingStationSelected) HideCraftingStationPreviw();
 
             if (mmEvent.EventType == CookingStationEventType.CookingStationInRange)
-                ShowCraftingStationPreview(mmEvent.CookingStationControllerParameter.CookingStation);
+                ShowCookingStationPreview(mmEvent.CookingStationControllerParameter.CookingStation);
         }
 
         public void OnMMEvent(MMInventoryEvent mmEvent)
@@ -83,17 +86,17 @@ namespace Project.UI.HUD
         }
 
 
-        public void ShowCraftingStationPreview(CraftingStation craftingStation)
+        public void ShowCookingStationPreview(CookingStation craftingStation)
         {
-            if (CraftingStationDetails != null)
+            if (CookingStationDetails != null)
             {
-                CraftingStationDetails.DisplayPreview(craftingStation);
+                CookingStationDetails.DisplayPreview(craftingStation);
 
                 CurrentPreviewedCraftingStation = craftingStation;
 
 
                 // Make sure CanvasGroup is visible
-                var canvasGroup = CraftingStationDetails.GetComponent<CanvasGroup>();
+                var canvasGroup = CookingStationDetails.GetComponent<CanvasGroup>();
                 if (canvasGroup != null)
                 {
                     canvasGroup.alpha = 1;
@@ -104,9 +107,9 @@ namespace Project.UI.HUD
         }
         public void HideCraftingStationPreviw()
         {
-            if (CraftingStationDetails != null)
+            if (CookingStationDetails != null)
             {
-                var canvasGroup = CraftingStationDetails.GetComponent<CanvasGroup>();
+                var canvasGroup = CookingStationDetails.GetComponent<CanvasGroup>();
                 CurrentPreviewedCraftingStation = null;
                 if (canvasGroup != null)
                 {

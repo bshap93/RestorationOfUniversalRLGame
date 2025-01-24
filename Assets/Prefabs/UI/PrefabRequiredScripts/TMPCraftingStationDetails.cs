@@ -33,6 +33,7 @@ namespace Prefabs.UI.PrefabRequiredScripts
 
         CanvasGroup _canvasGroup;
 
+
         void Start()
         {
             _canvasGroup = GetComponent<CanvasGroup>();
@@ -63,33 +64,6 @@ namespace Prefabs.UI.PrefabRequiredScripts
             }
         }
 
-        /// <summary>
-        ///     Display the details of a given crafting station.
-        /// </summary>
-        public void DisplayPreview(CraftingStation craftingStation)
-        {
-            if (craftingStation == null)
-            {
-                FillWithDefaults();
-                return;
-            }
-
-            if (TMPTitle != null) TMPTitle.text = craftingStation.CraftingStationName;
-            if (TMPShortDescription != null) TMPShortDescription.text = craftingStation.ShortDescription;
-            if (TMPDescription != null) TMPDescription.text = craftingStation.Description;
-            if (TMPEfficiency != null)
-                TMPEfficiency.text = craftingStation.CraftingStationEfficiency.ToString("P0");
-
-            if (TMPConcurrentCraftingLimit != null)
-                TMPConcurrentCraftingLimit.text = craftingStation.ConcurrentCraftingLimit.ToString();
-
-            if (TMPIsActive != null)
-                TMPIsActive.text = craftingStation.IsCraftingStationActive ? "Active" : "Inactive";
-
-            if (Icon != null) Icon.sprite = craftingStation.Icon;
-
-            Show();
-        }
 
         /// <summary>
         ///     Fills the fields with default values.

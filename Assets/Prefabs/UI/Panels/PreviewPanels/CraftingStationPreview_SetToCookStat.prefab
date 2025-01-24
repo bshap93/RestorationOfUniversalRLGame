@@ -581,7 +581,7 @@ GameObject:
   - component: {fileID: 8022422540111137718}
   - component: {fileID: 4585123358116562596}
   - component: {fileID: 8329888691105003765}
-  - component: {fileID: 3809504108176058622}
+  - component: {fileID: 4359079568856303099}
   m_Layer: 5
   m_Name: CraftingStationPreview_SetToCookStat
   m_TagString: CraftingStationPanel
@@ -598,7 +598,7 @@ RectTransform:
   m_GameObject: {fileID: 1331388496406443009}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 3.710138, y: 3.7966104, z: 3.1927614}
+  m_LocalScale: {x: 2.9665892, y: 3.0357316, z: 2.5529}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5487780303983611623}
@@ -659,7 +659,7 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
---- !u!114 &3809504108176058622
+--- !u!114 &4359079568856303099
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -668,7 +668,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1331388496406443009}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0818f8f338b04a6c8571946bac32b74d, type: 3}
+  m_Script: {fileID: 11500000, guid: a7ec66f1555a4087b50853116eb29fd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   TMPTitle: {fileID: 7295890600042172341}
@@ -681,12 +681,14 @@ MonoBehaviour:
   DefaultTitle: No Station Selected
   DefaultShortDescription: Select a crafting station
   DefaultDescription: 
-  DefaultEfficiency: 1.0
+  DefaultEfficiency: 1.9
   DefaultConcurrentCraftingLimit: 1
   DefaultIsActive: Inactive
   DefaultIcon: {fileID: 0}
   PreviewEventName: PreviewCraftingStation
   CraftingStationType: 0
+  AddFuelButton: {fileID: 6102722517799969250}
+  CookingPanelOpenButton: {fileID: 5277210330957738529}
 --- !u!1 &1419000577064364280
 GameObject:
   m_ObjectHideFlags: 0
@@ -701,7 +703,7 @@ GameObject:
   - component: {fileID: 433029267258918856}
   - component: {fileID: 5787350622192444935}
   m_Layer: 5
-  m_Name: Button
+  m_Name: CookingButton
   m_TagString: Untagged
   m_Icon: {fileID: 2800000, guid: 98d001ce6b3b53242911dcc3d1415f59, type: 3}
   m_NavMeshLayer: 0
@@ -795,7 +797,33 @@ MonoBehaviour:
   animationSolution: 1
   onClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 4359079568856303099}
+        m_TargetAssemblyTypeName: Prefabs.UI.PrefabRequiredScripts.TMPCraftingStationDetails,
+          Assembly-CSharp
+        m_MethodName: Hide
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: Prefabs.UI.PrefabRequiredScripts.TMPCraftingStationDetails,
+          Assembly-CSharp
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   onDoubleClick:
     m_PersistentCalls:
       m_Calls: []
@@ -3707,7 +3735,7 @@ GameObject:
   - component: {fileID: 4643773411626678029}
   - component: {fileID: 3079393895092523531}
   m_Layer: 5
-  m_Name: Button
+  m_Name: AddFuelButton
   m_TagString: Untagged
   m_Icon: {fileID: 2800000, guid: 98d001ce6b3b53242911dcc3d1415f59, type: 3}
   m_NavMeshLayer: 0
@@ -3801,7 +3829,32 @@ MonoBehaviour:
   animationSolution: 1
   onClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 4359079568856303099}
+        m_TargetAssemblyTypeName: Prefabs.UI.PrefabRequiredScripts.TMPCookingStationDetails,
+          Assembly-CSharp
+        m_MethodName: TryAddFuel
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 6102722517799969250}
+        m_TargetAssemblyTypeName: Michsky.MUIP.ButtonManager, Assembly-CSharp-firstpass
+        m_MethodName: Interactable
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   onDoubleClick:
     m_PersistentCalls:
       m_Calls: []
@@ -3810,7 +3863,19 @@ MonoBehaviour:
       m_Calls: []
   onLeave:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 6102722517799969250}
+        m_TargetAssemblyTypeName: Michsky.MUIP.ButtonManager, Assembly-CSharp-firstpass
+        m_MethodName: Interactable
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
   rippleUpdateMode: 1
   targetCanvas: {fileID: 0}
   rippleShape: {fileID: 21300000, guid: 100d5727b1babc14bac90fe9c56af800, type: 3}

@@ -1,16 +1,17 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Gameplay.ItemsInteractions.CraftingStation;
 using HighlightPlus;
 using MoreMountains.Feedbacks;
 using MoreMountains.Tools;
 using Prefabs.UI.PrefabRequiredScripts;
-using Project.Gameplay.Interactivity.CraftingStation;
+using Project.Gameplay.ItemManagement.InventoryTypes.Cooking;
 using Project.UI.HUD;
 using UnityEngine;
 
 namespace Project.Gameplay.Player.Interaction
 {
-    public class CraftingStationPreviewManager : MonoBehaviour, MMEventListener<MMGameEvent>
+    public class CookingStationPreviewManager : MonoBehaviour, MMEventListener<MMGameEvent>
     {
         public GameObject PreviewPanelUI;
         public MMFeedbacks SelectionFeedbacks;
@@ -19,7 +20,7 @@ namespace Project.Gameplay.Player.Interaction
         public string PreviewPanelTag = "CraftingStationPanel"; // Tag to find panel in scene
         readonly Dictionary<string, ManualCraftingStationInteract> _craftingStationsInRange = new();
         readonly float _interactCooldown = 0.5f;
-        TMPCraftingStationDetails _craftingStationDetails;
+        TMPCookingStationDetails _craftingStationDetails;
 
 
         ManualCraftingStationInteract _currentPreviewedStationInteract;
@@ -43,7 +44,7 @@ namespace Project.Gameplay.Player.Interaction
                 {
                     if (value != null)
                     {
-                        ShowPreviewPanel(value.craftingStation);
+                        ShowPreviewPanel(value.cookingStation);
                         Debug.Log($"Set current previewed station to: {value.UniqueID}");
                     }
                     else
@@ -69,7 +70,7 @@ namespace Project.Gameplay.Player.Interaction
             // Get the details component
             if (PreviewPanelUI != null)
             {
-                _craftingStationDetails = PreviewPanelUI.GetComponentInChildren<TMPCraftingStationDetails>();
+                _craftingStationDetails = PreviewPanelUI.GetComponentInChildren<TMPCookingStationDetails>();
                 if (_craftingStationDetails == null)
                     Debug.LogError(
                         "CraftingStationPreviewManager: Could not find TMPCraftingStationDetails in preview panel");
@@ -202,7 +203,7 @@ namespace Project.Gameplay.Player.Interaction
 
             try
             {
-                manualCraftingStationInteract.craftingStation.Interact();
+                manualCraftingStationInteract.cookingStation.Interact();
                 return true;
             }
             finally
@@ -214,20 +215,20 @@ namespace Project.Gameplay.Player.Interaction
         ManualCraftingStationInteract FindCraftingStationById(string id)
         {
             foreach (var station in _craftingStationsInRange.Values)
-                if (station.craftingStation.CraftingStationId == id)
+                if (station.cookingStation.CraftingStationId == id)
                     return station;
 
             return null;
         }
 
         // UI Methods for showing/hiding preview panel
-        public void ShowPreviewPanel(CraftingStation craftingStation)
+        public void ShowPreviewPanel(CookingStation craftingStation)
         {
             if (PreviewPanelUI != null)
             {
                 PreviewPanelUI.SetActive(true);
                 if (_craftingStationDetails != null) _craftingStationDetails.DisplayPreview(craftingStation);
-                _previewManager?.ShowCraftingStationPreview(craftingStation);
+                _previewManager?.ShowCookingStationPreview(craftingStation);
                 Debug.Log($"Showing preview panel for station: {craftingStation.CraftingStationName}");
             }
             else
@@ -248,13 +249,13 @@ namespace Project.Gameplay.Player.Interaction
         }
 
         // UI Methods
-        public void ShowSelectedCraftingStationPreviewPanel(CraftingStation craftingStation)
+        public void ShowSelectedCraftingStationPreviewPanel(CookingStation cookingStation)
         {
             if (PreviewPanelUI != null)
             {
                 PreviewPanelUI.SetActive(true);
-                _previewManager?.ShowCraftingStationPreview(craftingStation);
-                Debug.Log($"Showing selected preview for station: {craftingStation.CraftingStationName}");
+                _previewManager?.ShowCookingStationPreview(cookingStation);
+                Debug.Log($"Showing selected preview for station: {cookingStation.CraftingStationName}");
             }
         }
 

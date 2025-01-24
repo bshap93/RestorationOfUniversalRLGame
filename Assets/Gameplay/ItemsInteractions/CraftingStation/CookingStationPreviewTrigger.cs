@@ -1,21 +1,22 @@
 using MoreMountains.Feedbacks;
 using MoreMountains.Tools;
 using MoreMountains.TopDownEngine;
+using Project.Gameplay.ItemManagement.InventoryTypes.Cooking;
 using Project.Gameplay.Player.Interaction;
 using UnityEngine;
 
-namespace Project.Gameplay.Interactivity.CraftingStation
+namespace Gameplay.ItemsInteractions.CraftingStation
 {
-    public class CraftingStationPreviewTrigger : MonoBehaviour, MMEventListener<MMCameraEvent>
+    public class CookingStationPreviewTrigger : MonoBehaviour, MMEventListener<MMCameraEvent>
     {
-        public CraftingStation CraftingStation;
+        public CookingStation CookingStation;
 
         [SerializeField] MMFeedbacks _selectionFeedbacks;
         [SerializeField] MMFeedbacks _deselectionFeedbacks;
 
         ManualCraftingStationInteract _craftingStationInteract;
         bool _isInPlayerRange;
-        CraftingStationPreviewManager _playerPreviewManager;
+        CookingStationPreviewManager _playerPreviewManager;
 
         void Awake()
         {
@@ -27,7 +28,7 @@ namespace Project.Gameplay.Interactivity.CraftingStation
             // Try to find the preview manager if not already set
             if (_playerPreviewManager == null)
             {
-                _playerPreviewManager = FindObjectOfType<CraftingStationPreviewManager>();
+                _playerPreviewManager = FindObjectOfType<CookingStationPreviewManager>();
                 if (_playerPreviewManager == null)
                     Debug.LogWarning($"[{gameObject.name}] CraftingStationPreviewManager not found in scene");
             }
@@ -68,7 +69,7 @@ namespace Project.Gameplay.Interactivity.CraftingStation
             if (mmEvent.EventType == MMCameraEventTypes.SetTargetCharacter)
             {
                 if (_playerPreviewManager == null)
-                    _playerPreviewManager = FindObjectOfType<CraftingStationPreviewManager>();
+                    _playerPreviewManager = FindObjectOfType<CookingStationPreviewManager>();
 
                 if (_selectionFeedbacks == null) _selectionFeedbacks = _playerPreviewManager?.SelectionFeedbacks;
 
@@ -86,19 +87,19 @@ namespace Project.Gameplay.Interactivity.CraftingStation
                 Debug.Log($"[{gameObject.name}] Added ManualCraftingStationInteract component");
             }
 
-            if (CraftingStation == null)
+            if (CookingStation == null)
             {
                 Debug.LogError($"[{gameObject.name}] CraftingStation reference is missing!");
                 return;
             }
 
-            _craftingStationInteract.craftingStation = CraftingStation;
-            Debug.Log($"[{gameObject.name}] Initialized with CraftingStation: {CraftingStation.CraftingStationName}");
+            _craftingStationInteract.cookingStation = CookingStation;
+            Debug.Log($"[{gameObject.name}] Initialized with CraftingStation: {CookingStation.CraftingStationName}");
         }
 
         void HandlePlayerEnter(Collider playerCollider)
         {
-            if (_craftingStationInteract == null || CraftingStation == null)
+            if (_craftingStationInteract == null || CookingStation == null)
             {
                 Debug.LogError($"[{gameObject.name}] Missing required components for player interaction");
                 return;
@@ -107,7 +108,7 @@ namespace Project.Gameplay.Interactivity.CraftingStation
             // Get the preview manager from the player if we don't have it
             if (_playerPreviewManager == null)
             {
-                _playerPreviewManager = playerCollider.GetComponent<CraftingStationPreviewManager>();
+                _playerPreviewManager = playerCollider.GetComponent<CookingStationPreviewManager>();
                 if (_playerPreviewManager == null)
                 {
                     Debug.LogError($"[{gameObject.name}] Player is missing CraftingStationPreviewManager component");
@@ -120,50 +121,50 @@ namespace Project.Gameplay.Interactivity.CraftingStation
 
             MMGameEvent.Trigger(
                 "CraftingStationRangeEntered",
-                stringParameter: CraftingStation.CraftingStationId,
+                stringParameter: CookingStation.CraftingStationId,
                 vector3Parameter: transform.position
             );
 
             Debug.Log(
-                $"[{gameObject.name}] Player entered range of crafting station: {CraftingStation.CraftingStationName}");
+                $"[{gameObject.name}] Player entered range of crafting station: {CookingStation.CraftingStationName}");
         }
 
         void HandlePlayerExit()
         {
-            if (_craftingStationInteract != null && CraftingStation != null)
+            if (_craftingStationInteract != null && CookingStation != null)
             {
                 _isInPlayerRange = false;
                 _craftingStationInteract.SetInRange(false);
 
                 MMGameEvent.Trigger(
                     "CraftingStationRangeExited",
-                    stringParameter: CraftingStation.CraftingStationId,
+                    stringParameter: CookingStation.CraftingStationId,
                     vector3Parameter: transform.position
                 );
 
                 Debug.Log(
-                    $"[{gameObject.name}] Player exited range of crafting station: {CraftingStation.CraftingStationName}");
+                    $"[{gameObject.name}] Player exited range of crafting station: {CookingStation.CraftingStationName}");
             }
         }
 
         public void OnSelectedItem()
         {
             if (_playerPreviewManager == null)
-                _playerPreviewManager = FindObjectOfType<CraftingStationPreviewManager>();
+                _playerPreviewManager = FindObjectOfType<CookingStationPreviewManager>();
 
             _selectionFeedbacks?.PlayFeedbacks();
-            _playerPreviewManager?.ShowSelectedCraftingStationPreviewPanel(CraftingStation);
-            Debug.Log($"[{gameObject.name}] Selected crafting station: {CraftingStation.CraftingStationName}");
+            _playerPreviewManager?.ShowSelectedCraftingStationPreviewPanel(CookingStation);
+            Debug.Log($"[{gameObject.name}] Selected crafting station: {CookingStation.CraftingStationName}");
         }
 
         public void OnDeselectedItem()
         {
             if (_playerPreviewManager == null)
-                _playerPreviewManager = FindObjectOfType<CraftingStationPreviewManager>();
+                _playerPreviewManager = FindObjectOfType<CookingStationPreviewManager>();
 
             _deselectionFeedbacks?.PlayFeedbacks();
             _playerPreviewManager?.HideSelectedCraftingStationPreviewPanel();
-            Debug.Log($"[{gameObject.name}] Deselected crafting station: {CraftingStation.CraftingStationName}");
+            Debug.Log($"[{gameObject.name}] Deselected crafting station: {CookingStation.CraftingStationName}");
         }
     }
 }

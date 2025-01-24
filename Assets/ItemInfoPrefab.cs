@@ -19,17 +19,17 @@ public class ItemInfoPrefab : MonoBehaviour
 
     [FormerlySerializedAs("_item")] public InventoryItem item;
     int _quantity;
-    public void SetItem(InventoryItem item, ManualItemPicker manualItemPicker)
+    public void SetItem(InventoryItem itemVar, ManualItemPicker manualItemPickerVar)
     {
-        this.manualItemPicker = manualItemPicker;
-        this.item = item;
-        itemImage.sprite = item.Icon;
-        itemName.text = item.ItemName;
+        manualItemPicker = manualItemPickerVar;
+        item = itemVar;
+        itemImage.sprite = itemVar.Icon;
+        itemName.text = itemVar.ItemName;
         itemType.text = "TBI";
-        itemQuantity.text = item.Quantity.ToString();
-        _quantity = item.Quantity;
+        itemQuantity.text = itemVar.Quantity.ToString();
+        _quantity = itemVar.Quantity;
 
-        Debug.Log("ManualItemPicker: " + manualItemPicker);
+        Debug.Log("ManualItemPicker: " + manualItemPickerVar);
     }
 
 

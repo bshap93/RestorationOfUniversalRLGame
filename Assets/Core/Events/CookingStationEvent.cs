@@ -1,5 +1,7 @@
 ﻿using System;
+using JetBrains.Annotations;
 using MoreMountains.Tools;
+using Project.Gameplay.ItemManagement.InventoryTypes.Cooking;
 
 namespace Project.Core.Events
 {
@@ -10,7 +12,8 @@ namespace Project.Core.Events
         CookingStationOutOfRange,
         CookingStationSelected,
         CookingStationDeselected,
-        FuelBurntUpdate
+        FuelBurntUpdate,
+        TryAddFuel
     }
 
     /// <summary>
@@ -23,14 +26,19 @@ namespace Project.Core.Events
         public string EventName;
         public CookingStationEventType EventType;
         public CookingStationController CookingStationControllerParameter;
+        [CanBeNull] public CookingStation CookingStationParameter;
 
         public static void Trigger(string eventName,
             CookingStationEventType cookingStationEventType,
-            CookingStationController cookingStationController)
+            CookingStationController cookingStationController, CookingStation cookingStation = null)
         {
             e.EventName = eventName;
             e.EventType = cookingStationEventType;
             e.CookingStationControllerParameter = cookingStationController;
+
+            if (cookingStation != null)
+                e.CookingStationParameter = cookingStation;
+
             MMEventManager.TriggerEvent(e);
         }
     }

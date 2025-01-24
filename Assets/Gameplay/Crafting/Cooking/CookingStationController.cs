@@ -1,6 +1,7 @@
 using JetBrains.Annotations;
 using MoreMountains.Feedbacks;
 using MoreMountains.InventoryEngine;
+using MoreMountains.Tools;
 using Project.Core.Events;
 using Project.Gameplay.Interactivity.Items;
 using Project.Gameplay.ItemManagement.InventoryTypes.Cooking;
@@ -9,7 +10,7 @@ using Project.Gameplay.SaveLoad.Triggers;
 using TMPro;
 using UnityEngine;
 
-public class CookingStationController : MonoBehaviour, ISelectableTrigger
+public class CookingStationController : MonoBehaviour, ISelectableTrigger, MMEventListener<CookingStationEvent>
 {
     public CookingQueueInventory queueInventory; // Uncooked items
     public CookingDepositInventory depositInventory; // Cooked items
@@ -36,6 +37,8 @@ public class CookingStationController : MonoBehaviour, ISelectableTrigger
     bool _isCrafting;
 
     bool _isInPlayerRange;
+    
+
 
     void Start()
     {
@@ -60,24 +63,20 @@ public class CookingStationController : MonoBehaviour, ISelectableTrigger
     void Update()
     {
         // Add null check before accessing playerInventory
-        if (_isInPlayerRange && Input.GetKeyDown(KeyCode.F))
-            if (!ValidateFuel())
-            {
-                // Reinitialize inventories if reference is lost
-                if (playerInventory == null) InitializeInventories();
-
-                // Only try to transfer if we have a valid inventory
-                if (playerInventory != null)
-                    TransferFuelFromPlayer(fuelInventory.fuelItemAllowed, 1);
-                else
-                    Debug.LogWarning("Cannot transfer fuel - player inventory is null");
-            }
+        if (Input.GetKeyDown(KeyCode.F)) TryAddFuel();
     }
 
     // Optionally, add OnEnable to reinitialize on scene changes
     void OnEnable()
     {
         InitializeInventories();
+        
+        this.MMEventStartListening();
+    }
+    
+    void OnDisable()
+    {
+        this.MMEventStopListening();
     }
 
     void OnTriggerEnter(Collider other)
@@ -129,6 +128,21 @@ public class CookingStationController : MonoBehaviour, ISelectableTrigger
     public void OnUnSelectedItem()
     {
         CookingStationEvent.Trigger("CookingStationDeselected", CookingStationEventType.CookingStationDeselected, this);
+    }
+    public void TryAddFuel()
+    {
+        if (_isInPlayerRange)
+            if (!ValidateFuel())
+            {
+                // Reinitialize inventories if reference is lost
+                if (playerInventory == null) InitializeInventories();
+
+                // Only try to transfer if we have a valid inventory
+                if (playerInventory != null)
+                    TransferFuelFromPlayer(fuelInventory.fuelItemAllowed, 1);
+                else
+                    Debug.LogWarning("Cannot transfer fuel - player inventory is null");
+            }
     }
 
     // Add this method to reinitialize inventory references
@@ -221,5 +235,14 @@ public class CookingStationController : MonoBehaviour, ISelectableTrigger
         newRecipeSetFeedbacks?.PlayFeedbacks();
         if (_currentRecipe != null)
             Debug.Log("Current recipe set to: " + currentRecipe.recipeName);
+    }
+    public void OnMMEvent(CookingStationEvent mmEvent)
+    {
+        if (mmEvent.EventType == CookingStationEventType.TryAddFuel)
+        {
+            Debug.Log("Received TryAddFuel event");
+            TryAddFuel();
+        }
+        
     }
 }
