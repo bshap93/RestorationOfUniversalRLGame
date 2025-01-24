@@ -85,6 +85,9 @@ namespace Project.Animation_Effects.CharacterAnimation.AnimationController.Weapo
         {
             if (mmEvent.InventoryEventType == MMInventoryEventType.ItemEquipped)
                 EquipWeapon(mmEvent.EventItem);
+
+            if (mmEvent.InventoryEventType == MMInventoryEventType.ItemUnEquipped)
+                UnEquipWeapon();
         }
 
         void EquipWeapon(InventoryItem item)
@@ -118,6 +121,11 @@ namespace Project.Animation_Effects.CharacterAnimation.AnimationController.Weapo
             {
                 Debug.LogWarning($"No weapon data found for item: {item.ItemID}");
             }
+        }
+
+        void UnEquipWeapon()
+        {
+            ResetToDefaultAnimator();
         }
 
         void ResetToDefaultAnimator()

@@ -1,9 +1,12 @@
 using System.Collections.Generic;
 using Gameplay.Player.Inventory;
+using MoreMountains.Tools;
+using Prefabs.UI.PrefabRequiredScripts;
+using Project.Gameplay.Events;
 using Project.Gameplay.Interactivity.Items;
 using UnityEngine;
 
-public class PickableItemsListPanel : MonoBehaviour
+public class PickableItemsListPanel : MonoBehaviour, MMEventListener<ItemEvent>
 {
     // 3 sublists
     public GameObject[] itemSubLists;
@@ -11,6 +14,8 @@ public class PickableItemsListPanel : MonoBehaviour
     public GameObject[] itemDisplayerPanels;
 
     public GameObject itemInfoPrefab;
+
+    public TMPInventoryDetails ItemDetailsPanel;
 
     int _currentPageIndex;
     int _pagesCount;
@@ -21,30 +26,28 @@ public class PickableItemsListPanel : MonoBehaviour
     {
         CurrentPreviewedItems = new List<InventoryItem>();
         _pagesCount = itemSubLists.Length;
+        if (ItemDetailsPanel != null)
+            ItemDetailsPanel.gameObject.SetActive(false);
     }
 
-    public void NextPage()
+    void OnEnable()
     {
-        _currentPageIndex++;
-        if (_currentPageIndex >= _pagesCount)
-            _currentPageIndex = 0;
-
-        for (var i = 0; i < itemSubLists.Length; i++)
-            if (i != _currentPageIndex)
-                itemSubLists[i].SetActive(false);
-            else itemSubLists[i].SetActive(true);
+        this.MMEventStartListening();
     }
 
-    public void PreviousPage()
+    void OnDisable()
     {
-        _currentPageIndex--;
-        if (_currentPageIndex < 0)
-            _currentPageIndex = _pagesCount - 1;
+        this.MMEventStopListening();
+    }
 
-        for (var i = 0; i < itemSubLists.Length; i++)
-            if (i != _currentPageIndex)
-                itemSubLists[i].SetActive(false);
-            else itemSubLists[i].SetActive(true);
+    public void OnMMEvent(ItemEvent eventType)
+    {
+        if (eventType.EventName == "ShowItemInfo")
+        {
+            Debug.Log("ShowItemInfo event received");
+            ItemDetailsPanel.gameObject.SetActive(true);
+            ItemDetailsPanel.DisplayPreview(eventType.Item);
+        }
     }
 
     public void SetToPageNumber(int pageNumber)
@@ -68,6 +71,12 @@ public class PickableItemsListPanel : MonoBehaviour
     {
         CurrentPreviewedItems.Add(item);
         TryAddItemToPanel(item, manualItemPicker);
+        if (ItemDetailsPanel != null) HideInfoPanel();
+    }
+    void HideInfoPanel()
+    {
+        ItemDetailsPanel.HidePreview();
+        ItemDetailsPanel.gameObject.SetActive(false);
     }
 
     void TryAddItemToPanel(InventoryItem item, ManualItemPicker manualItemPicker)
@@ -88,6 +97,9 @@ public class PickableItemsListPanel : MonoBehaviour
         else Debug.LogWarning("Item not found in the list");
 
         TryRemoveItemFromPanel(item);
+
+        if (ItemDetailsPanel != null)
+            HideInfoPanel();
     }
 
     void TryRemoveItemFromPanel(InventoryItem item)
@@ -113,6 +125,9 @@ public class PickableItemsListPanel : MonoBehaviour
         foreach (var panel in itemDisplayerPanels)
             if (panel.transform.childCount > 0)
                 Destroy(panel.transform.GetChild(0).gameObject);
+
+        if (ItemDetailsPanel != null)
+            HideInfoPanel();
     }
     public void RefreshPreviewOrder()
     {

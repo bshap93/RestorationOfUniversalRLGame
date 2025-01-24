@@ -145,12 +145,12 @@ namespace Project.Gameplay.SaveLoad
                     var targetInventoryName = item.TargetInventoryName;
                     var targetInventory = Inventory.FindInventory(targetInventoryName, PlayerID);
 
+
                     Debug.Log("Target Inventory Name: " + targetInventoryName);
                     var freeIndex = FirstFreeIndex(targetInventory);
                     if (targetInventory != null && freeIndex != -1)
                     {
                         inventory.RemoveItemByID(item.ItemID, item.Quantity);
-                        targetInventory.AddItemAt(item, item.Quantity, freeIndex);
                         Debug.Log($"Unequipped {item.ItemID} from {inventory.name} and added to {targetInventoryName}");
                     }
                     else

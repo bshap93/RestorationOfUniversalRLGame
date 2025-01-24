@@ -1,5 +1,6 @@
 using Gameplay.Player.Inventory;
 using Michsky.MUIP;
+using Project.Gameplay.Events;
 using Project.Gameplay.Interactivity.Items;
 using TMPro;
 using UnityEngine;
@@ -40,5 +41,11 @@ public class ItemInfoPrefab : MonoBehaviour
             Debug.Log("Taking item");
             manualItemPicker.PickItem();
         }
+    }
+
+    public void ShowItemInfo()
+    {
+        Debug.Log("Info item");
+        ItemEvent.Trigger("ShowItemInfo", item, null);
     }
 }

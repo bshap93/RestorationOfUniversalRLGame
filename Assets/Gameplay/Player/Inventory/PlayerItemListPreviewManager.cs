@@ -66,7 +66,7 @@ namespace Gameplay.Player.Inventory
         public void OnMMEvent(ItemEvent mmEvent)
         {
             // Skip if we're in the middle of a pickup
-            if (_isPickingUp) return;
+            if (_isPickingUp || mmEvent.EventName == "ShowItemInfo") return;
 
             var itemPicker = mmEvent.ItemTransform.GetComponent<ManualItemPicker>();
             if (itemPicker == null) return;
