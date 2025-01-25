@@ -16,9 +16,9 @@ namespace Gameplay.Player.Inventory
 
         public MMFeedbacks SelectionFeedbacks;
         public MMFeedbacks DeselectionFeedbacks;
+        public List<ManualItemPicker> CurrentPreviewedItemPickers = new();
         readonly Dictionary<string, ManualItemPicker> _itemPickersInRange = new();
         readonly float _pickupCooldown = 0.5f; // Add cooldown to prevent rapid pickups
-        readonly object _pickupLock = new();
 
         // Add to PlayerItemPreviewManager.cs
 
@@ -31,7 +31,6 @@ namespace Gameplay.Player.Inventory
         bool _isSorting;
         float _lastPickupTime;
         ListPreviewManager _previewManager;
-        public List<ManualItemPicker> CurrentPreviewedItemPickers { get; private set; }
         public List<InventoryItem> CurrentPreviewedItems { get; private set; }
 
 
@@ -115,16 +114,16 @@ namespace Gameplay.Player.Inventory
                     if (_itemPickersInRange.Count == 0)
                     {
                         _previewManager.RemoveFromItemListPreview(itemPicker.Item);
-                        CurrentPreviewedItemPickers = null;
-                        CurrentPreviewedItems = null;
+                        CurrentPreviewedItemPickers = new List<ManualItemPicker>();
+                        CurrentPreviewedItems = new List<InventoryItem>();
                         _previewManager.HideItemListPreview();
                         HidePreviewPanel();
                     }
                     else
                     {
                         // Clear current preview and let UpdateNearestItem handle the next item
-                        CurrentPreviewedItemPickers = null;
-                        CurrentPreviewedItems = null;
+                        CurrentPreviewedItemPickers.Remove(itemPicker);
+                        CurrentPreviewedItems.Remove(itemPicker.Item);
                         UpdateNearestItem();
                     }
 
@@ -145,6 +144,7 @@ namespace Gameplay.Player.Inventory
             if (!_itemPickersInRange.ContainsKey(itemPicker.UniqueID))
             {
                 _itemPickersInRange.Add(itemPicker.UniqueID, itemPicker);
+                CurrentPreviewedItemPickers.Add(itemPicker);
                 _highlightManager.SelectObject(itemTransform);
 
                 // Only show preview panel if this is the first/only item
@@ -164,21 +164,16 @@ namespace Gameplay.Player.Inventory
                                                 picker => picker.UniqueID == itemPicker.UniqueID);
 
                 _itemPickersInRange.Remove(itemPicker.UniqueID);
+                CurrentPreviewedItemPickers.Remove(itemPicker);
+                CurrentPreviewedItems.Remove(itemPicker.Item);
                 _highlightManager.UnselectObject(itemTransform);
+                _previewManager.RemoveFromItemListPreview(itemPicker.Item);
 
                 // Only if this was the last item AND it was being previewed, reset everything
                 if (_itemPickersInRange.Count == 0 && wasCurrentlyPreviewed)
                 {
-                    _previewManager.RemoveAllFromItemList();
-                    CurrentPreviewedItemPickers = null;
-                    CurrentPreviewedItems = null;
                     HidePreviewPanel();
                     _previewManager.HideItemListPreview();
-                }
-                // If items remain and we removed the previewed item, update to show the next one
-                else if (wasCurrentlyPreviewed)
-                {
-                    UpdateNearestItem();
                 }
             }
         }
