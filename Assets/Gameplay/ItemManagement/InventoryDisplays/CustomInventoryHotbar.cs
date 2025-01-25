@@ -74,10 +74,34 @@ namespace Project.Gameplay.ItemManagement.InventoryDisplays
                 Debug.Log($"Item in slot {index} is {item.ItemID}");
                 if (item.Equippable)
                 {
-                    // item.Equip(PlayerID);
                     InventorySlots[index].Equip();
+                    MMInventoryEvent.Trigger(
+                        MMInventoryEventType.ItemEquipped,
+                        null,
+                        TargetInventory.name,
+                        item,
+                        item.Quantity,
+                        index,
+                        PlayerID
+                    );
+
                     Debug.Log($"Equipped {item.ItemID}");
                 }
+                else
+                {
+                    MMInventoryEvent.Trigger(
+                        MMInventoryEventType.ItemUnEquipped,
+                        null,
+                        TargetInventory.name,
+                        item,
+                        item.Quantity,
+                        index,
+                        PlayerID
+                    );
+
+                    Debug.Log($"Triggered ItemUnEquipped for {item.ItemID} from inventory {name}.");
+                }
+
 
                 if (item.Usable)
                 {

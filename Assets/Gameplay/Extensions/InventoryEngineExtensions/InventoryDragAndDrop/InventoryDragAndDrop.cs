@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Gameplay.ItemManagement.InventoryTypes;
 using MoreMountains.InventoryEngine;
 using Project.Gameplay.Interactivity.Items;
 using UnityEngine;
@@ -56,126 +57,148 @@ namespace Project.Gameplay.Extensions.InventoryEngineExtensions.InventoryDragAnd
         }
 
         public void OnEndDrag(PointerEventData eventData)
+{
+    if (_slot == null) return;
+
+    // Reset icon position after drag
+    _slot.IconImage.transform.SetParent(_slot.transform, false);
+    _slot.IconImage.transform.localPosition = Vector3.zero;
+
+    Raycast(eventData);
+
+    foreach (var result in _raycastResults)
+    {
+        var destinationSlot = result.gameObject.GetComponent<InventorySlot>();
+        if (destinationSlot == null) continue;
+
+        var destinationInventory = destinationSlot.ParentInventoryDisplay.TargetInventory;
+        var destinationItem = destinationInventory.Content[destinationSlot.Index];
+        var isDestinationEmpty = InventoryItem.IsNull(destinationItem);
+
+        // Move within the same inventory
+        if (_inventory == destinationInventory &&
+            ((_item.CanMoveObject && isDestinationEmpty) ||
+             (_item.CanSwapObject && !isDestinationEmpty && destinationItem.CanSwapObject)))
         {
-            if (_slot == null) return;
-
-            // Reset icon position after drag
-            _slot.IconImage.transform.SetParent(_slot.transform, false);
-            _slot.IconImage.transform.localPosition = Vector3.zero;
-
-            Raycast(eventData);
-            foreach (var result in _raycastResults)
+            _inventory.MoveItem(_slot.Index, destinationSlot.Index);
+        }
+        // Equip the item
+        else if (_item.IsEquippable && _item.TargetEquipmentInventoryName == destinationInventory.name)
+        {
+            if (isDestinationEmpty)
             {
-                var destinationSlot = result.gameObject.GetComponent<InventorySlot>();
-                if (destinationSlot == null) continue;
+                _item.Equip(_playerID);
+                _inventory.MoveItemToInventory(_slot.Index, destinationInventory, destinationSlot.Index);
+                MMInventoryEvent.Trigger(
+                    MMInventoryEventType.ItemEquipped,
+                    destinationSlot,
+                    destinationInventory.name,
+                    _item,
+                    0,
+                    destinationSlot.Index,
+                    _playerID
+                );
+            }
+            else
+            {
+                // Unequip the destination item
+                destinationItem.UnEquip(_playerID);
+                MMInventoryEvent.Trigger(
+                    MMInventoryEventType.ItemUnEquipped,
+                    destinationSlot,
+                    destinationInventory.name,
+                    destinationItem,
+                    0,
+                    destinationSlot.Index,
+                    _playerID
+                );
 
-                var destinationInventory = destinationSlot.ParentInventoryDisplay.TargetInventory;
-                var destinationItem = destinationInventory.Content[destinationSlot.Index];
-                var isDestinationEmpty = InventoryItem.IsNull(destinationItem);
+                // Equip the new item
+                _item.Equip(_playerID);
+                MMInventoryEvent.Trigger(
+                    MMInventoryEventType.ItemEquipped,
+                    destinationSlot,
+                    destinationInventory.name,
+                    _item,
+                    0,
+                    destinationSlot.Index,
+                    _playerID
+                );
 
-                // Move within the same inventory
-                if (_inventory == destinationInventory &&
-                    ((_item.CanMoveObject && isDestinationEmpty) ||
-                     (_item.CanSwapObject && !isDestinationEmpty && destinationItem.CanSwapObject)))
-                {
-                    _inventory.MoveItem(_slot.Index, destinationSlot.Index);
-                }
-                // Equip the item
-                else if (_item.IsEquippable && _item.TargetEquipmentInventoryName == destinationInventory.name)
-                {
-                    if (isDestinationEmpty)
-                    {
-                        _item.Equip(_playerID);
-                        _inventory.MoveItemToInventory(_slot.Index, destinationInventory, destinationSlot.Index);
-                        MMInventoryEvent.Trigger(
-                            MMInventoryEventType.ItemEquipped, destinationSlot, destinationInventory.name, _item, 0,
-                            destinationSlot.Index, _playerID);
-                    }
-                    else
-                    {
-                        // Unequip the destination item
-                        destinationItem.UnEquip(_playerID);
-                        MMInventoryEvent.Trigger(
-                            MMInventoryEventType.ItemUnEquipped, destinationSlot, destinationInventory.name,
-                            destinationItem, 0, destinationSlot.Index, _playerID);
+                // Swap items between inventories
+                var tempItem = _item.Copy();
+                _inventory.Content[_slot.Index] = destinationItem.Copy();
+                destinationInventory.Content[destinationSlot.Index] = tempItem;
 
-                        // Equip the new item
-                        _item.Equip(_playerID);
-                        MMInventoryEvent.Trigger(
-                            MMInventoryEventType.ItemEquipped, destinationSlot, destinationInventory.name, _item, 0,
-                            destinationSlot.Index, _playerID);
+                MMInventoryEvent.Trigger(
+                    MMInventoryEventType.ContentChanged,
+                    null,
+                    destinationInventory.name,
+                    null,
+                    0,
+                    0,
+                    _playerID
+                );
 
-                        // Swap items
-                        var tempItem = destinationItem.Copy();
-                        destinationInventory.Content[destinationSlot.Index] = _item.Copy();
-                        _inventory.Content[_slot.Index] = tempItem;
+                MMInventoryEvent.Trigger(
+                    MMInventoryEventType.ContentChanged,
+                    null,
+                    _inventory.name,
+                    null,
+                    0,
+                    0,
+                    _playerID
+                );
+            }
+        }
+        // Handle moving to MainInventory or other inventories
+        else if (_inventory != destinationInventory && isDestinationEmpty)
+        {
+            // If moving to MainInventory and item is equippable, trigger unequip
+            if (destinationInventory is MainInventory && _item.Equippable)
+            {
+                _item.UnEquip(_playerID);
+                MMInventoryEvent.Trigger(
+                    MMInventoryEventType.ItemUnEquipped,
+                    _slot,
+                    _inventory.name,
+                    _item,
+                    0,
+                    _slot.Index,
+                    _playerID
+                );
 
-                        // Trigger content updates
-                        MMInventoryEvent.Trigger(
-                            MMInventoryEventType.ContentChanged, null, _inventory.name, null, 0, 0, _playerID);
-
-                        MMInventoryEvent.Trigger(
-                            MMInventoryEventType.ContentChanged, null, destinationInventory.name, null, 0, 0,
-                            _playerID);
-                    }
-                }
-                // Unequip the item
-                else if (_slot.Unequippable() && _item.TargetInventoryName == destinationInventory.name)
-                {
-                    if (isDestinationEmpty)
-                    {
-                        _item.UnEquip(_playerID);
-                        MMInventoryEvent.Trigger(
-                            MMInventoryEventType.ItemUnEquipped, _slot, _inventory.name, _item, 0, _slot.Index,
-                            _playerID);
-
-                        _inventory.MoveItemToInventory(_slot.Index, destinationInventory, destinationSlot.Index);
-                    }
-                    else if (destinationItem.IsEquippable &&
-                             destinationItem.TargetEquipmentInventoryName == _inventory.name)
-                    {
-                        _item.UnEquip(_playerID);
-                        MMInventoryEvent.Trigger(
-                            MMInventoryEventType.ItemUnEquipped, _slot, _inventory.name, _item, 0, _slot.Index,
-                            _playerID);
-
-                        destinationItem.Equip(_playerID);
-                        MMInventoryEvent.Trigger(
-                            MMInventoryEventType.ItemEquipped, destinationSlot, destinationInventory.name,
-                            destinationItem, 0,
-                            destinationSlot.Index, _playerID);
-
-                        // Swap items
-                        var tempItem = _item.Copy();
-                        _inventory.Content[_slot.Index] = destinationItem.Copy();
-                        destinationInventory.Content[destinationSlot.Index] = tempItem;
-
-                        // Trigger content updates
-                        MMInventoryEvent.Trigger(
-                            MMInventoryEventType.ContentChanged, null, destinationInventory.name, null, 0, 0,
-                            _playerID);
-
-                        MMInventoryEvent.Trigger(
-                            MMInventoryEventType.ContentChanged, null, _inventory.name, null, 0, 0, _playerID);
-                    }
-                }
-                // Move between different inventories
-                else if (_inventory != destinationInventory && isDestinationEmpty)
-                {
-                    _inventory.MoveItemToInventory(_slot.Index, destinationInventory, destinationSlot.Index);
-                    MMInventoryEvent.Trigger(
-                        MMInventoryEventType.ContentChanged, null, _inventory.name, null, 0, 0, _playerID);
-
-                    MMInventoryEvent.Trigger(
-                        MMInventoryEventType.ContentChanged, null, destinationInventory.name, null, 0, 0, _playerID);
-                }
-
-                return;
+                Debug.Log($"Unequipped {_item.ItemID} when moved to MainInventory.");
             }
 
-            // Drop the item if no valid target is found
-            _slot.Drop();
+            _inventory.MoveItemToInventory(_slot.Index, destinationInventory, destinationSlot.Index);
+            MMInventoryEvent.Trigger(
+                MMInventoryEventType.ContentChanged,
+                null,
+                _inventory.name,
+                null,
+                0,
+                0,
+                _playerID
+            );
+            MMInventoryEvent.Trigger(
+                MMInventoryEventType.ContentChanged,
+                null,
+                destinationInventory.name,
+                null,
+                0,
+                0,
+                _playerID
+            );
         }
+
+        // Stop processing if the item has been successfully moved
+        break;
+    }
+
+    _raycastResults.Clear();
+}
+
 
         void Raycast(PointerEventData eventData)
         {

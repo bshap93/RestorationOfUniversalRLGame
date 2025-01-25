@@ -51,12 +51,29 @@ namespace Project.Gameplay.ItemManagement
             {
                 if (MainInventory != null)
                 {
+                    // Trigger unequip event if this inventory is an equipment inventory
+                    if (InventoryType == InventoryTypes.Equipment)
+                    {
+                        MMInventoryEvent.Trigger(
+                            MMInventoryEventType.ItemUnEquipped,
+                            null,
+                            name,
+                            itemToAdd,
+                            quantity,
+                            -1,
+                            PlayerID
+                        );
+
+                        Debug.Log($"Triggered ItemUnEquipped for {itemToAdd.ItemID} from inventory {name}.");
+                    }
+
                     var res = MainInventory.AddItem(itemToAdd, quantity);
                     return res;
                 }
 
                 return false;
             }
+
 
             while (quantity > 0)
                 if (quantity > itemToAdd.MaximumStack)

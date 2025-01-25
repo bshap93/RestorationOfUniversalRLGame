@@ -3,7 +3,7 @@ using Project.Gameplay.Interactivity.Items;
 
 namespace Project.Gameplay.ItemManagement.InventoryTypes
 {
-    public class PrimaryInventory : BaseInventory
+    public class PrimaryInventory : MainInventory
     {
         public override bool AddItem(InventoryItem item, int quantity)
         {

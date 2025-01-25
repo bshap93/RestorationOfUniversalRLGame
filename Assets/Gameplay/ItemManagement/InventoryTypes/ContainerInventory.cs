@@ -1,6 +1,6 @@
 ﻿namespace Gameplay.ItemManagement.InventoryTypes
 {
-    public class ContainerInventory : BaseInventory
+    public class ContainerInventory : MainInventory
     {
         public string containerID;
     }

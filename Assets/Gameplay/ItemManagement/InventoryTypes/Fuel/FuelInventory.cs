@@ -9,7 +9,7 @@ using UnityEngine.Serialization;
 
 namespace Project.Gameplay.ItemManagement.InventoryTypes.Fuel
 {
-    public class FuelInventory : BaseInventory
+    public class FuelInventory : MainInventory
     {
         [FormerlySerializedAs("FuelItemAllowed")]
         public Inventory primaryPlayerInventory;
