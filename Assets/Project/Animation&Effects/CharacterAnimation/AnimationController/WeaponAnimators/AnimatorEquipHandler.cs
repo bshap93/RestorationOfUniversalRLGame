@@ -59,6 +59,9 @@ namespace Project.Animation_Effects.CharacterAnimation.AnimationController.Weapo
             // Initialize the default override controller if not already set
             if (_defaultOverrideController == null)
                 _defaultOverrideController = new AnimatorOverrideController(_playerAnimator.runtimeAnimatorController);
+            
+            ResetToDefaultAnimator();
+            Debug.Log("Animator reset to default.");
 
             // Find the WeaponAnimationManager if not already cached
             _weaponAnimationManager ??= FindObjectOfType<WeaponAnimationManager>();
@@ -139,7 +142,7 @@ namespace Project.Animation_Effects.CharacterAnimation.AnimationController.Weapo
         }
 
 
-        void ResetToDefaultAnimator()
+        public void ResetToDefaultAnimator()
         {
             if (_defaultOverrideController == null)
             {

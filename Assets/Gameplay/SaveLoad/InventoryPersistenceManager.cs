@@ -1,6 +1,7 @@
 using MoreMountains.InventoryEngine;
 using MoreMountains.Tools;
 using MoreMountains.TopDownEngine;
+using Project.Animation_Effects.CharacterAnimation.AnimationController.WeaponAnimators;
 using Project.Gameplay.Combat.Shields;
 using Project.Gameplay.Combat.Tools;
 using Project.Gameplay.Combat.Weapons;
@@ -127,6 +128,18 @@ namespace Project.Gameplay.SaveLoad
         {
             UnEquipInventory(rightHandInventory);
             UnEquipInventory(leftHandInventory);
+
+            // Reset the animator to the default state
+            var animatorEquipHandler = FindObjectOfType<AnimatorEquipHandler>();
+            if (animatorEquipHandler != null)
+            {
+                animatorEquipHandler.ResetToDefaultAnimator();
+                Debug.Log("Reset animator to default after unequipping items.");
+            }
+            else
+            {
+                Debug.LogWarning("AnimatorEquipHandler not found during unequipping.");
+            }
         }
 
         void UnEquipInventory(Inventory inventory)
