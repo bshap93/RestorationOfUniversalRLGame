@@ -189,9 +189,14 @@ namespace Gameplay.Player.Inventory
             var previewManager = player.GetComponent<PlayerItemListPreviewManager>();
             if (previewManager == null) return;
 
+
             if (!previewManager.IsPreviewedItem(this)) return;
 
+            Debug.Log("Previwed item is true");
+
             if (!previewManager.TryPickupItem(this)) return;
+
+            Debug.Log("TryPickupItem is true");
 
             previewManager.RemoveFromItemListPreview(Item);
             previewManager.RefreshPreviewOrder();
