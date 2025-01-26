@@ -6,6 +6,7 @@ namespace Project.Gameplay.Interactivity
 {
     public class SelectionHighlightEventHandler : MonoBehaviour
     {
+        public bool SelectionByClickEnabled;
         ISelectableTrigger _selectedObjectController;
         void Start()
         {
