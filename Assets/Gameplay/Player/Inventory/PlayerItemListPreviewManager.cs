@@ -267,7 +267,6 @@ namespace Gameplay.Player.Inventory
         }
         public void RemoveFromItemListPreview(InventoryItem item)
         {
-            Debug.Log("Removing: " + item.name);
             _previewManager.RemoveFromItemListPreview(item);
         }
         public void RefreshPreviewOrder()
