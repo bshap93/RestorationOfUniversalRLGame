@@ -57,7 +57,14 @@ namespace Project.Gameplay.ItemManagement
 
 
                     break;
-                case MMInventoryEventType.UnEquipRequest:
+                case MMInventoryEventType.ItemUnEquipped:
+                    if (isTwoHandedWeaponEquipped)
+                    {
+                        LeftHandSlot.UnEquip();
+                        RightHandSlot.UnEquip();
+                        isTwoHandedWeaponEquipped = false;
+                    }
+
                     break;
             }
         }
