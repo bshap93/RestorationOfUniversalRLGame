@@ -41,5 +41,16 @@ namespace Project.UI.HUD
         {
             if (InteractPromptUI != null) InteractPromptUI.SetActive(false);
         }
+
+
+        public void ShowUsePrompt()
+        {
+            Debug.Log("Press E to Use");
+        }
+
+        public void HideUsePrompt()
+        {
+            Debug.Log("Hide Use Prompt");
+        }
     }
 }

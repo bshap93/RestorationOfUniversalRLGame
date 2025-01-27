@@ -5,9 +5,10 @@ using MoreMountains.TopDownEngine;
 using Project.Gameplay.Events;
 using Project.Gameplay.Interactivity.Food;
 using Project.Gameplay.Interactivity.Items;
+using Project.Gameplay.SaveLoad.Triggers;
 using UnityEngine;
 
-namespace Project.Gameplay.SaveLoad.Triggers
+namespace Gameplay.SaveLoad.Triggers
 {
     public class ItemSelectableTrigger : MonoBehaviour, MMEventListener<MMCameraEvent>, ISelectableTrigger
     {
@@ -15,6 +16,8 @@ namespace Project.Gameplay.SaveLoad.Triggers
 
         [SerializeField] MMFeedbacks _selectionFeedbacks;
         [SerializeField] MMFeedbacks _deselectionFeedbacks;
+
+        public bool NotPickable;
         ManualItemPicker _itemPicker;
 
         PlayerItemListPreviewManager _playerPreviewManager;
@@ -22,12 +25,16 @@ namespace Project.Gameplay.SaveLoad.Triggers
 
         void Awake()
         {
-            _itemPicker = GetComponent<ManualItemPicker>();
+            if (!NotPickable)
+            {
+                _itemPicker = GetComponent<ManualItemPicker>();
 
-            if (_itemPicker == null)
-                _itemPicker = gameObject.AddComponent<ManualItemPicker>();
 
-            _itemPicker.Item = Item;
+                if (_itemPicker == null)
+                    _itemPicker = gameObject.AddComponent<ManualItemPicker>();
+
+                _itemPicker.Item = Item;
+            }
         }
 
         void Start()
