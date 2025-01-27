@@ -1,5 +1,4 @@
 using System;
-using Gameplay.ItemManagement.Cooking;
 using Gameplay.ItemManagement.InventoryItemTypes;
 using MoreMountains.Feedbacks;
 using Plugins.TopDownEngine.ThirdParty.MoreMountains.InentoryEngine.InventoryEngine.Scripts.Items;
@@ -241,12 +240,12 @@ namespace Gameplay.Player.Inventory
 
         void DisplayLearnedRecipes(InventoryCookBook cookbook)
         {
-            // Show a recipe learning display similar to the PickupDisplayer
-            var displayer = FindFirstObjectByType<RecipeDisplayer>();
-            if (displayer != null)
-                displayer.DisplayLearnedRecipes(cookbook.CookingRecipes);
-            else
-                Debug.LogWarning("No RecipeDisplayer found in the scene.");
+            // // Show a recipe learning display similar to the PickupDisplayer
+            // var displayer = FindFirstObjectByType<RecipeDisplayer>();
+            // if (displayer != null)
+            //     displayer.DisplayLearnedRecipes(cookbook.CookingRecipes);
+            // else
+            //     Debug.LogWarning("No RecipeDisplayer found in the scene.");
         }
 
 
