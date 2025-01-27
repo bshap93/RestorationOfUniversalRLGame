@@ -13,7 +13,9 @@ namespace Project.Core.Events
         ClearCookableRecipes,
         FinishedCookingRecipe,
         ShowRecipeDetails,
-        Error
+        Error,
+        RecipeAlreadyKnown,
+        NoNewRecipes
     }
 
     /// <summary>

@@ -17,18 +17,27 @@ namespace Gameplay.ItemManagement.Cooking
 
         [Tooltip("The fade in/out duration")] public float FadeDuration = 0.2f;
 
-        public void DisplayLearnedRecipes(List<CookingRecipe> recipes)
+        public void DisplayLearnedRecipes(List<CookingRecipe> recipes, bool areNew = true)
         {
             foreach (var recipe in recipes)
             {
-                // Instantiate and show the recipe
+                // Instantiate the display item
                 var display = Instantiate(RecipeDisplayPrefab, transform);
+
+                // Update the display text and icon
                 display.Display(recipe);
+
+                // Optionally customize for already-known recipes
+                if (!areNew)
+                {
+                    display.GetComponentInChildren<TMPro.TMP_Text>().text = $"Already Known: {recipe.recipeName}";
+                }
 
                 // Fade out and destroy the display
                 StartCoroutine(FadeOutAndDestroy(display.gameObject));
             }
         }
+
 
         IEnumerator FadeOutAndDestroy(GameObject display)
         {

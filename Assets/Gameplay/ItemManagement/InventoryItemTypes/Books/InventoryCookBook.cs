@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using Gameplay.ItemManagement.Cooking;
 using MoreMountains.Feedbacks;
 using Project.Core.Events;
 using Project.Gameplay.ItemManagement.InventoryTypes.Cooking;
@@ -29,19 +28,36 @@ namespace Project.Gameplay.ItemManagement.InventoryItemTypes.Books
 
         public override bool Use(string playerID)
         {
+            var journalManager = FindObjectOfType<JournalPersistenceManager>();
+            if (journalManager == null)
+            {
+                Debug.LogWarning("JournalPersistenceManager not found in the scene.");
+                return false;
+            }
+
+            var hasLearnedNewRecipes = false;
+
             foreach (var recipe in CookingRecipes)
-                // Trigger recipe learned event
-                RecipeEvent.Trigger("RecipeLearned", RecipeEventType.RecipeLearned, recipe, null);
+                if (journalManager.JournalData.knownRecipes.Exists(r => r.recipeID == recipe.recipeID))
+                {
+                    Debug.Log($"Recipe {recipe.recipeName} is already known.");
+                    // Optionally play feedback for already-known recipes
+                    RecipeEvent.Trigger("RecipeAlreadyKnown", RecipeEventType.RecipeAlreadyKnown, recipe, null);
+                }
+                else
+                {
+                    Debug.Log($"Learning new recipe: {recipe.recipeName}");
+                    journalManager.AddRecipeToJournal(recipe);
+                    RecipeEvent.Trigger("RecipeLearned", RecipeEventType.RecipeLearned, recipe, null);
+                    hasLearnedNewRecipes = true;
+                }
 
-            // Play feedback for learning recipes
-            RecipeLearnedFeedback?.PlayFeedbacks();
-
-            // Display recipes on the RecipeDisplayer
-            var recipeDisplayer = FindObjectOfType<RecipeDisplayer>();
-            if (recipeDisplayer != null)
-                recipeDisplayer.DisplayLearnedRecipes(CookingRecipes);
+            if (hasLearnedNewRecipes)
+                // Play feedback for newly learned recipes
+                RecipeLearnedFeedback?.PlayFeedbacks();
             else
-                Debug.LogWarning("No RecipeDisplayer found in the scene.");
+                // Play alternative feedback for no new recipes
+                RecipeEvent.Trigger("NoNewRecipes", RecipeEventType.NoNewRecipes, null, null);
 
             return true;
         }

@@ -58,10 +58,16 @@ public class JournalPersistenceManager : MonoBehaviour, MMEventListener<MMGameEv
     public void AddRecipeToJournal(CookingRecipe recipe)
     {
         if (!JournalData.knownRecipes.Exists(r => r.recipeID == recipe.recipeID))
+        {
             JournalData.knownRecipes.Add(recipe);
+            Debug.Log($"Recipe {recipe.recipeName} added to the journal.");
+        }
         else
-            Debug.LogWarning($"Duplicate recipe not added: {recipe.recipeName}");
+        {
+            Debug.Log($"Recipe {recipe.recipeName} is already in the journal.");
+        }
     }
+
 
 
     public void SaveJournal()
