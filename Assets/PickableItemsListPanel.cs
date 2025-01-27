@@ -76,10 +76,19 @@ public class PickableItemsListPanel : MonoBehaviour
             if (itemDisplayerPanels[i].transform.childCount == 0)
             {
                 var itemInfo = Instantiate(itemInfoPrefab, itemDisplayerPanels[i].transform);
-                itemInfo.GetComponent<ItemInfoPrefab>().SetItem(item, manualItemPicker);
+                var itemInfoComponent = itemInfo.GetComponent<ItemInfoPrefab>();
+                itemInfoComponent.SetItem(item, manualItemPicker);
+
+                // Ensure the button reflects the proper interaction
+                if (manualItemPicker != null && manualItemPicker.NotPickable)
+                    itemInfoComponent.takeItemButton.buttonText = "Use";
+                else
+                    itemInfoComponent.takeItemButton.buttonText = "Take";
+
                 return;
             }
     }
+
 
     public void RemoveItemFromItemsList(InventoryItem item)
     {

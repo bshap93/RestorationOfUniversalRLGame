@@ -1,7 +1,7 @@
 ﻿using System;
 using Gameplay.Combat.Tools;
+using Gameplay.Player.Inventory;
 using MoreMountains.InventoryEngine;
-using MoreMountains.TopDownEngine;
 using Project.Gameplay.Combat.Weapons;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -11,7 +11,7 @@ namespace Project.Gameplay.Combat
     [CreateAssetMenu(
         fileName = "CustomInventoryWeapon", menuName = "Roguelike/Weapons/CustomInventoryWeapon", order = 3)]
     [Serializable]
-    public class CustomInventoryWeapon : InventoryWeapon
+    public class CustomInventoryWeapon : BaseWeapon
     {
         [FormerlySerializedAs("WeaponAttachmentType")]
         public WeaponAttachmentType weaponAttachmentType;

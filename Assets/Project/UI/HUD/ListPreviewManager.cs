@@ -1,6 +1,8 @@
+using System;
 using Gameplay.Player.Inventory;
 using MoreMountains.InventoryEngine;
 using MoreMountains.Tools;
+using Plugins.TopDownEngine.ThirdParty.MoreMountains.InentoryEngine.InventoryEngine.Scripts.Items;
 using Prefabs.UI.PrefabRequiredScripts;
 using Project.Core.Events;
 using Project.Gameplay.Interactivity.CraftingStation;
@@ -140,6 +142,10 @@ namespace Project.UI.HUD
         public void RefreshPreviewOrder()
         {
             PickableItemsListPanel.RefreshPreviewOrder();
+        }
+        public bool IsItemInList(BaseItem itemPickerItem)
+        {
+            throw new NotImplementedException();
         }
     }
 }

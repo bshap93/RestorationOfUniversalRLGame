@@ -1,12 +1,12 @@
 ﻿using MoreMountains.InventoryEngine;
 using MoreMountains.TopDownEngine;
-using Project.Gameplay.Interactivity.Items;
+using Plugins.TopDownEngine.ThirdParty.MoreMountains.InentoryEngine.InventoryEngine.Scripts.Items;
 using UnityEngine;
 
 namespace Project.Gameplay.Combat.Shields
 {
     [CreateAssetMenu(fileName = "ShieldItem", menuName = "Inventory/Equipment/Shield")]
-    public class InventoryShieldItem : InventoryItem
+    public class InventoryShieldItem : BaseItem
     {
         [Header("Shield Settings")] [Tooltip("The shield prefab to instantiate when equipped")]
         public Shield ShieldPrefab;

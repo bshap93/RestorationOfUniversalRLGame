@@ -23,11 +23,21 @@ public class ItemInfoPrefab : MonoBehaviour
     {
         manualItemPicker = manualItemPickerVar;
         item = itemVar;
+
         itemImage.sprite = itemVar.Icon;
         itemName.text = itemVar.ItemName;
-        itemType.text = "TBI";
+        itemType.text = "TBI"; // Set this to the item's type if applicable
         itemQuantity.text = itemVar.Quantity.ToString();
         _quantity = itemVar.Quantity;
+
+        // Dynamically adjust the TakeItem button text
+        if (manualItemPicker != null)
+        {
+            if (manualItemPicker.NotPickable)
+                takeItemButton.buttonText = "Use";
+            else
+                takeItemButton.buttonText = "Take";
+        }
 
         Debug.Log("ManualItemPicker: " + manualItemPickerVar);
     }
@@ -37,8 +47,16 @@ public class ItemInfoPrefab : MonoBehaviour
     {
         if (manualItemPicker != null)
         {
-            Debug.Log("Taking item");
-            manualItemPicker.PickItem();
+            if (manualItemPicker.NotPickable)
+            {
+                Debug.Log("Using item");
+                manualItemPicker.UseItem();
+            }
+            else
+            {
+                Debug.Log("Taking item");
+                manualItemPicker.PickItem();
+            }
         }
     }
 }

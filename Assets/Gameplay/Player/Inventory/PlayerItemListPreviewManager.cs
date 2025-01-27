@@ -3,6 +3,7 @@ using System.Linq;
 using HighlightPlus;
 using MoreMountains.Feedbacks;
 using MoreMountains.Tools;
+using Plugins.TopDownEngine.ThirdParty.MoreMountains.InentoryEngine.InventoryEngine.Scripts.Items;
 using Project.Gameplay.Events;
 using Project.Gameplay.Interactivity.Items;
 using Project.UI.HUD;
@@ -98,6 +99,14 @@ namespace Gameplay.Player.Inventory
         {
             if (_isPickingUp || Time.time - _lastPickupTime < _pickupCooldown) return false;
 
+            if (itemPicker.Item.UsageType == ItemUsageType.Usable)
+            {
+                Debug.Log($"Cannot pick up {itemPicker.Item.ItemName} because it is not pickable.");
+                return false;
+            }
+
+            if (_isPickingUp || Time.time - _lastPickupTime < _pickupCooldown) return false;
+
             if (CurrentPreviewedItemPickers == null || CurrentPreviewedItemPickers.Count == 0 ||
                 !CurrentPreviewedItemPickers.Any(picker => picker.UniqueID == itemPicker.UniqueID)) return false;
 
@@ -141,42 +150,52 @@ namespace Gameplay.Player.Inventory
 
         void HandleItemEntered(ManualItemPicker itemPicker, Transform itemTransform)
         {
-            if (!_itemPickersInRange.ContainsKey(itemPicker.UniqueID))
+            // Only add the item if it's not already tracked by its UniqueID
+            if (_itemPickersInRange.ContainsKey(itemPicker.UniqueID))
             {
-                _itemPickersInRange.Add(itemPicker.UniqueID, itemPicker);
-                CurrentPreviewedItemPickers.Add(itemPicker);
-                _highlightManager.SelectObject(itemTransform);
-
-                // Only show preview panel if this is the first/only item
-                if (_itemPickersInRange.Count == 1) ShowPreviewPanel();
-
-                // Force update of nearest item
-                UpdateNearestItem();
+                Debug.Log($"Item {itemPicker.UniqueID} is already in range. Skipping duplicate entry.");
+                return;
             }
+
+            _itemPickersInRange.Add(itemPicker.UniqueID, itemPicker);
+            CurrentPreviewedItemPickers.Add(itemPicker);
+
+            // Add the item to the preview list, ensuring it's tracked uniquely
+            if (itemPicker.Item != null) _previewManager.AddToItemListPreview(itemPicker.Item, itemPicker);
+
+            _highlightManager.SelectObject(itemTransform);
+
+            // Show the preview panel if this is the first/only item
+            if (_itemPickersInRange.Count == 1) ShowPreviewPanel();
+
+            UpdateNearestItem(); // Ensure the nearest item is calculated
         }
+
 
         void HandleItemExited(ManualItemPicker itemPicker, Transform itemTransform)
         {
-            if (_itemPickersInRange.ContainsKey(itemPicker.UniqueID))
+            if (!_itemPickersInRange.ContainsKey(itemPicker.UniqueID))
             {
-                var wasCurrentlyPreviewed = CurrentPreviewedItemPickers.Count != 0 &&
-                                            CurrentPreviewedItemPickers.Any(
-                                                picker => picker.UniqueID == itemPicker.UniqueID);
+                Debug.Log($"Item {itemPicker.UniqueID} was not in range. Skipping removal.");
+                return;
+            }
 
-                _itemPickersInRange.Remove(itemPicker.UniqueID);
-                CurrentPreviewedItemPickers.Remove(itemPicker);
-                CurrentPreviewedItems.Remove(itemPicker.Item);
-                _highlightManager.UnselectObject(itemTransform);
-                _previewManager.RemoveFromItemListPreview(itemPicker.Item);
+            _itemPickersInRange.Remove(itemPicker.UniqueID);
+            CurrentPreviewedItemPickers.Remove(itemPicker);
 
-                // Only if this was the last item AND it was being previewed, reset everything
-                if (_itemPickersInRange.Count == 0 && wasCurrentlyPreviewed)
-                {
-                    HidePreviewPanel();
-                    _previewManager.HideItemListPreview();
-                }
+            // Remove the specific item instance from the preview
+            if (itemPicker.Item != null) _previewManager.RemoveFromItemListPreview(itemPicker.Item);
+
+            _highlightManager.UnselectObject(itemTransform);
+
+            // Hide the preview panel if no items remain in range
+            if (_itemPickersInRange.Count == 0)
+            {
+                HidePreviewPanel();
+                _previewManager.HideItemListPreview();
             }
         }
+
 
         void UpdateNearestItem()
         {
@@ -226,9 +245,20 @@ namespace Gameplay.Player.Inventory
             }
         }
 
-        public void AddToItemListPreview(InventoryItem item, ManualItemPicker manualItemPicker)
+        public void AddToItemListPreview(InventoryItem item, ManualItemPicker manualItemPicker = null)
         {
+            if (item == null || manualItemPicker == null) return;
+
+            // Ensure no duplicates by checking the UniqueID
+            if (CurrentPreviewedItemPickers.Any(picker => picker.UniqueID == manualItemPicker.UniqueID))
+            {
+                Debug.Log($"Item with UniqueID {manualItemPicker.UniqueID} is already in the preview list.");
+                return;
+            }
+
             _previewManager.AddToItemListPreview(item, manualItemPicker);
+            CurrentPreviewedItemPickers.Add(manualItemPicker);
+            RefreshPreviewOrder();
         }
 
 

@@ -1,9 +1,11 @@
 using System;
+using Gameplay.ItemManagement.Cooking;
+using Gameplay.ItemManagement.InventoryItemTypes;
 using MoreMountains.Feedbacks;
+using Plugins.TopDownEngine.ThirdParty.MoreMountains.InentoryEngine.InventoryEngine.Scripts.Items;
 using Project.Gameplay.Events;
-using Project.Gameplay.Interactivity.Items;
 using Project.Gameplay.ItemManagement;
-using Project.Gameplay.ItemManagement.InventoryItemTypes;
+using Project.Gameplay.ItemManagement.InventoryItemTypes.Books;
 using Project.Gameplay.Player;
 using Project.UI.HUD;
 using UnityEngine;
@@ -16,7 +18,7 @@ namespace Gameplay.Player.Inventory
     {
         [Tooltip("Unique identifier for this item, ensure it is unique per scene.")]
         public string UniqueID;
-        public InventoryItem Item; // The item to be picked up
+        public BaseItem Item; // The item to be picked up
         public int Quantity = 1;
 
 
@@ -24,6 +26,10 @@ namespace Gameplay.Player.Inventory
         [Header("Feedbacks")]
         [Tooltip("Feedbacks to play when the item is picked up")]
         public MMFeedbacks pickedMmFeedbacks; // Feedbacks to play when the item is picked up
+        [Tooltip("Feedbacks to play when the item is used")]
+        public MMFeedbacks usedMmFeedbacks; // Feedbacks to play when the item is used
+        public MMFeedbacks disappearMmFeedbacks; // Feedbacks to play when the item disappears
+        public bool NotPickable; // If true, the item cannot be picked up
 
         bool _isBeingDestroyed;
 
@@ -84,6 +90,7 @@ namespace Gameplay.Player.Inventory
         void OnDestroy()
         {
             _isBeingDestroyed = true;
+
             _isInRange = false;
             enabled = false;
         }
@@ -174,14 +181,20 @@ namespace Gameplay.Player.Inventory
 
         public void PickItem()
         {
-            Debug.Log("Picking: " + Item.ItemName);
             if (Item == null || !_isInRange || _isBeingDestroyed)
             {
-                Debug.Log(
-                    $"[{UniqueID}] Early exit - Item null: {Item == null}, Not in range: {!_isInRange}, Being destroyed: {_isBeingDestroyed}");
-
+                Debug.LogWarning($"Cannot interact with item: {Item?.ItemName ?? "null"}");
                 return;
             }
+
+            if (NotPickable)
+            {
+                Debug.Log($"Item {Item.ItemName} is not pickable. Attempting to use instead.");
+                UseItem();
+                return;
+            }
+
+            Debug.Log($"Picking up: {Item.ItemName}");
 
             var player = GameObject.FindWithTag("Player");
             if (player == null) return;
@@ -189,25 +202,51 @@ namespace Gameplay.Player.Inventory
             var previewManager = player.GetComponent<PlayerItemListPreviewManager>();
             if (previewManager == null) return;
 
-
             if (!previewManager.IsPreviewedItem(this)) return;
 
-            Debug.Log("Previwed item is true");
-
             if (!previewManager.TryPickupItem(this)) return;
-
-            Debug.Log("TryPickupItem is true");
 
             previewManager.RemoveFromItemListPreview(Item);
             previewManager.RefreshPreviewOrder();
 
             _isBeingDestroyed = true;
             _isInRange = false;
-            enabled = false; // Disable this component
+            enabled = false;
 
             if (Item is InventoryCoinPickup coinPickup)
                 HandleCoinPickup(player, coinPickup);
             else if (_targetInventory != null) HandleInventoryItemPickup();
+        }
+
+        public void UseItem()
+        {
+            Debug.Log($"Using item: {Item?.ItemName}");
+
+            // Play the feedbacks for using the item
+            usedMmFeedbacks?.PlayFeedbacks();
+
+            // Perform the item's use logic
+            Item?.Use("Player1");
+
+            // If it's a cookbook, show the recipe learning displayer
+            if (Item is InventoryCookBook cookbook) DisplayLearnedRecipes(cookbook);
+
+            // Optional: Destroy the item if it should disappear after use
+            if (Item?.DisappearAfterUse == true)
+            {
+                disappearMmFeedbacks?.PlayFeedbacks();
+                Destroy(gameObject, 0.1f);
+            }
+        }
+
+        void DisplayLearnedRecipes(InventoryCookBook cookbook)
+        {
+            // Show a recipe learning display similar to the PickupDisplayer
+            var displayer = FindFirstObjectByType<RecipeDisplayer>();
+            if (displayer != null)
+                displayer.DisplayLearnedRecipes(cookbook.CookingRecipes);
+            else
+                Debug.LogWarning("No RecipeDisplayer found in the scene.");
         }
 
 

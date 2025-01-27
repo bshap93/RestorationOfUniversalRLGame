@@ -2,7 +2,7 @@
 using Gameplay.Combat.Tools;
 using MoreMountains.InventoryEngine;
 using MoreMountains.TopDownEngine;
-using Project.Gameplay.Interactivity.Items;
+using Plugins.TopDownEngine.ThirdParty.MoreMountains.InentoryEngine.InventoryEngine.Scripts.Items;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -10,7 +10,7 @@ namespace Project.Gameplay.Combat.Tools
 {
     [CreateAssetMenu(fileName = "TorchItem", menuName = "Inventory/Equipment/Torch", order = 2)]
     [Serializable]
-    public class TorchItem : InventoryItem
+    public class TorchItem : BaseItem
     {
         [Header("Torch Properties")] [Tooltip("The torch prefab to instantiate when equipped.")]
         public GameObject TorchPrefab;

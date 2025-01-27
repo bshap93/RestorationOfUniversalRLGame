@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Gameplay.ItemManagement.Cooking;
 using MoreMountains.Feedbacks;
 using Project.Core.Events;
 using Project.Gameplay.ItemManagement.InventoryTypes.Cooking;
@@ -29,11 +30,18 @@ namespace Project.Gameplay.ItemManagement.InventoryItemTypes.Books
         public override bool Use(string playerID)
         {
             foreach (var recipe in CookingRecipes)
+                // Trigger recipe learned event
                 RecipeEvent.Trigger("RecipeLearned", RecipeEventType.RecipeLearned, recipe, null);
 
-
+            // Play feedback for learning recipes
             RecipeLearnedFeedback?.PlayFeedbacks();
 
+            // Display recipes on the RecipeDisplayer
+            var recipeDisplayer = FindObjectOfType<RecipeDisplayer>();
+            if (recipeDisplayer != null)
+                recipeDisplayer.DisplayLearnedRecipes(CookingRecipes);
+            else
+                Debug.LogWarning("No RecipeDisplayer found in the scene.");
 
             return true;
         }

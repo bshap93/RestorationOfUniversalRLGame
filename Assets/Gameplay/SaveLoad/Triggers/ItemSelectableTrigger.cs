@@ -2,9 +2,9 @@
 using MoreMountains.Feedbacks;
 using MoreMountains.Tools;
 using MoreMountains.TopDownEngine;
+using Plugins.TopDownEngine.ThirdParty.MoreMountains.InentoryEngine.InventoryEngine.Scripts.Items;
 using Project.Gameplay.Events;
 using Project.Gameplay.Interactivity.Food;
-using Project.Gameplay.Interactivity.Items;
 using Project.Gameplay.SaveLoad.Triggers;
 using UnityEngine;
 
@@ -12,7 +12,7 @@ namespace Gameplay.SaveLoad.Triggers
 {
     public class ItemSelectableTrigger : MonoBehaviour, MMEventListener<MMCameraEvent>, ISelectableTrigger
     {
-        public InventoryItem Item;
+        public BaseItem Item;
 
         [SerializeField] MMFeedbacks _selectionFeedbacks;
         [SerializeField] MMFeedbacks _deselectionFeedbacks;
@@ -25,16 +25,13 @@ namespace Gameplay.SaveLoad.Triggers
 
         void Awake()
         {
-            if (!NotPickable)
-            {
-                _itemPicker = GetComponent<ManualItemPicker>();
+            _itemPicker = GetComponent<ManualItemPicker>();
 
 
-                if (_itemPicker == null)
-                    _itemPicker = gameObject.AddComponent<ManualItemPicker>();
+            if (_itemPicker == null)
+                _itemPicker = gameObject.AddComponent<ManualItemPicker>();
 
-                _itemPicker.Item = Item;
-            }
+            _itemPicker.Item = Item;
         }
 
         void Start()
@@ -65,14 +62,28 @@ namespace Gameplay.SaveLoad.Triggers
                 if (_playerPreviewManager == null)
                     _playerPreviewManager = other.GetComponent<PlayerItemListPreviewManager>();
 
-                var itemPicker = GetComponent<ManualItemPicker>();
-                if (itemPicker != null)
+                if (_playerPreviewManager != null && Item != null)
+                    if (!_playerPreviewManager.CurrentPreviewedItems.Contains(Item))
+                    {
+                        _playerPreviewManager.AddToItemListPreview(
+                            Item, NotPickable ? null : GetComponent<ManualItemPicker>());
+
+                        _playerPreviewManager.ShowSelectedItemPreviewPanel();
+                    }
+
+                if (!NotPickable)
                 {
-                    itemPicker.SetInRange(true);
-                    ItemEvent.Trigger("ItemPickupRangeEntered", Item, transform);
+                    // Handle normal pickable logic
+                    var itemPicker = GetComponent<ManualItemPicker>();
+                    if (itemPicker != null)
+                    {
+                        itemPicker.SetInRange(true);
+                        ItemEvent.Trigger("ItemPickupRangeEntered", Item, transform);
+                    }
                 }
             }
         }
+
 
         void OnTriggerExit(Collider other)
         {
@@ -81,11 +92,22 @@ namespace Gameplay.SaveLoad.Triggers
                 if (_playerPreviewManager == null)
                     _playerPreviewManager = other.GetComponent<PlayerItemListPreviewManager>();
 
-                var itemPicker = GetComponent<ManualItemPicker>();
-                if (itemPicker != null)
+                if (_playerPreviewManager != null && Item != null)
                 {
-                    itemPicker.SetInRange(false);
-                    ItemEvent.Trigger("ItemPickupRangeExited", Item, transform);
+                    // Remove the item from the preview list
+                    _playerPreviewManager.RemoveFromItemListPreview(Item);
+                    _playerPreviewManager.HidePanelIfEmpty(Item);
+                }
+
+                if (!NotPickable)
+                {
+                    // Handle normal pickable logic
+                    var itemPicker = GetComponent<ManualItemPicker>();
+                    if (itemPicker != null)
+                    {
+                        itemPicker.SetInRange(false);
+                        ItemEvent.Trigger("ItemPickupRangeExited", Item, transform);
+                    }
                 }
             }
         }

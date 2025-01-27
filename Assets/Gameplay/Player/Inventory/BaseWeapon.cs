@@ -1,0 +1,81 @@
+﻿using System;
+using MoreMountains.Tools;
+using MoreMountains.TopDownEngine;
+using Plugins.TopDownEngine.ThirdParty.MoreMountains.InentoryEngine.InventoryEngine.Scripts.Items;
+using UnityEngine;
+
+namespace Gameplay.Player.Inventory
+{
+    [CreateAssetMenu(fileName = "BaseWeapon", menuName = "MoreMountains/TopDownEngine/BaseWeapon", order = 2)]
+    [Serializable]
+    public class BaseWeapon : BaseItem
+    {
+        /// the possible auto equip modes
+        public enum AutoEquipModes
+        {
+            NoAutoEquip,
+            AutoEquip,
+            AutoEquipIfEmptyHanded
+        }
+
+        [Header("Weapon")]
+        [MMInformation(
+            "Here you need to bind the weapon you want to equip when picking that item.",
+            MMInformationAttribute.InformationType.Info, false)]
+        /// the weapon to equip
+        [Tooltip("the weapon to equip")]
+        public Weapon EquippableWeapon;
+        /// how to equip this weapon when picked : not equip it, automatically equip it, or only equip it if no weapon is currently equipped
+        [Tooltip(
+            "how to equip this weapon when picked : not equip it, automatically equip it, or only equip it if no weapon is currently equipped")]
+        public AutoEquipModes AutoEquipMode = AutoEquipModes.NoAutoEquip;
+        /// the ID of the CharacterHandleWeapon you want this weapon to be equipped to
+        [Tooltip("the ID of the CharacterHandleWeapon you want this weapon to be equipped to")]
+        public int HandleWeaponID = 1;
+
+        /// <summary>
+        ///     When we grab the weapon, we equip it
+        /// </summary>
+        public override bool Equip(string playerID)
+        {
+            EquipWeapon(EquippableWeapon, playerID);
+            return true;
+        }
+
+        /// <summary>
+        ///     When dropping or unequipping a weapon, we remove it
+        /// </summary>
+        public override bool UnEquip(string playerID)
+        {
+            // if this is a currently equipped weapon, we unequip it
+            if (TargetEquipmentInventory(playerID) == null) return false;
+
+            if (TargetEquipmentInventory(playerID).InventoryContains(ItemID).Count > 0) EquipWeapon(null, playerID);
+
+            return true;
+        }
+
+        /// <summary>
+        ///     Grabs the CharacterHandleWeapon component and sets the weapon
+        /// </summary>
+        /// <param name="newWeapon">New weapon.</param>
+        protected virtual void EquipWeapon(Weapon newWeapon, string playerID)
+        {
+            if (EquippableWeapon == null) return;
+            if (TargetInventory(playerID).Owner == null) return;
+
+            var character = TargetInventory(playerID).Owner.GetComponentInParent<Character>();
+
+            if (character == null) return;
+
+            // we equip the weapon to the chosen CharacterHandleWeapon
+            CharacterHandleWeapon targetHandleWeapon = null;
+            var handleWeapons = character.GetComponentsInChildren<CharacterHandleWeapon>();
+            foreach (var handleWeapon in handleWeapons)
+                if (handleWeapon.HandleWeaponID == HandleWeaponID)
+                    targetHandleWeapon = handleWeapon;
+
+            if (targetHandleWeapon != null) targetHandleWeapon.ChangeWeapon(newWeapon, ItemID);
+        }
+    }
+}

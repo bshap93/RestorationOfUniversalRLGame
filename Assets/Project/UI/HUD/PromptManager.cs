@@ -45,7 +45,7 @@ namespace Project.UI.HUD
 
         public void ShowUsePrompt()
         {
-            Debug.Log("Press E to Use");
+            Debug.Log("Press F to Use");
         }
 
         public void HideUsePrompt()
