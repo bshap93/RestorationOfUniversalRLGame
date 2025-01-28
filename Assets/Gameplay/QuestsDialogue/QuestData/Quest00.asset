@@ -711,8 +711,8 @@ MonoBehaviour:
     m_childIndexList: 03000000
     m_canvasRect:
       serializedVersion: 2
-      x: 195.99994
-      y: 111.21213
+      x: 195.33328
+      y: 112.545456
       width: 120
       height: 48
   - m_id:
@@ -957,7 +957,7 @@ MonoBehaviour:
     m_canvasRect:
       serializedVersion: 2
       x: 358.39227
-      y: 305.83694
+      y: 305.17026
       width: 120
       height: 48
   - m_id:
@@ -1039,7 +1039,9 @@ MonoBehaviour:
       - m_contentList: []
       - m_contentList: []
       - m_contentList: []
-    - m_actionList: []
+    - m_actionList:
+      - {fileID: 8021845293476788060}
+      - {fileID: 444623665522851991}
       m_categorizedContentList:
       - m_contentList: []
       - m_contentList: []
@@ -1112,6 +1114,24 @@ MonoBehaviour:
     m_textTable: {fileID: 0}
     m_textTableFieldID: 0
   m_headingLevel: 1
+--- !u!114 &444623665522851991
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e4e25cd4dc7a5b4c859b087bdeb27c1, type: 3}
+  m_Name: AudioQuestAction
+  m_EditorClassIdentifier: 
+  m_audioClip: {fileID: 8300000, guid: b7dbf8d9c8ba7472989f9d7755dd821e, type: 3}
+  m_useAudioSourceOn:
+    m_type: 0
+    m_id: 
+  m_interruptPreviousClip: 0
+  m_audioNameProxy: 
 --- !u!114 &1149034455585604023
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1465,6 +1485,21 @@ MonoBehaviour:
     m_textTable: {fileID: 0}
     m_textTableFieldID: 0
   m_headingLevel: 1
+--- !u!114 &8021845293476788060
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9840a28297a53d449903f34dc60157bb, type: 3}
+  m_Name: UnityEventQuestAction
+  m_EditorClassIdentifier: 
+  m_onExecute:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &8162902146875308604
 MonoBehaviour:
   m_ObjectHideFlags: 1
