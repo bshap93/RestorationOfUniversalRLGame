@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using MoreMountains.Feedbacks;
+using PixelCrushers;
 using Project.Core.Events;
 using Project.Gameplay.ItemManagement.InventoryTypes.Cooking;
 using UnityEngine;
@@ -24,6 +25,11 @@ namespace Project.Gameplay.ItemManagement.InventoryItemTypes.Books
 
         public List<CookingRecipe> CookingRecipes;
         public MMFeedbacks RecipeLearnedFeedback;
+
+        [Tooltip("The message to send when the book is read.")]
+        public string message = "CookbookRead";
+        [Tooltip("The message value to send with the message (optional).")]
+        public string messageValue = "";
 
 
         public override bool Use(string playerID)
@@ -53,11 +59,21 @@ namespace Project.Gameplay.ItemManagement.InventoryItemTypes.Books
                 }
 
             if (hasLearnedNewRecipes)
+            {
                 // Play feedback for newly learned recipes
                 RecipeLearnedFeedback?.PlayFeedbacks();
+                if (messageValue != "")
+                {
+                    MessageSystem.SendMessage(this, message, messageValue);
+                    Debug.Log($"Message sent: {message} with value: {messageValue}");
+                }
+            }
             else
                 // Play alternative feedback for no new recipes
+
+            {
                 RecipeEvent.Trigger("NoNewRecipes", RecipeEventType.NoNewRecipes, null, null);
+            }
 
             return true;
         }
