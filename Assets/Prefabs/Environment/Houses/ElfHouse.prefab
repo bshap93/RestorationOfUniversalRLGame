@@ -214,7 +214,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 543993496367175808}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: aad0219ba3e603343a2a4c498e2dae4c, type: 3}
   m_Name: 
@@ -255,7 +255,7 @@ MonoBehaviour:
   ActivationFeedback: {fileID: 5640403509433141075}
   DeniedFeedback: {fileID: 0}
   EnterFeedback: {fileID: 0}
-  ExitFeedback: {fileID: 0}
+  ExitFeedback: {fileID: 5640403509433141075}
   OnActivation:
     m_PersistentCalls:
       m_Calls:
@@ -273,7 +273,19 @@ MonoBehaviour:
         m_CallState: 2
   OnExit:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 760002977472429831}
+        m_TargetAssemblyTypeName: DG.Tweening.DOTweenAnimation, Assembly-CSharp-firstpass
+        m_MethodName: DOPlayBackwards
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   OnStay:
     m_PersistentCalls:
       m_Calls: []
@@ -418,13 +430,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 831926537072754443}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.00000003774895, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0.0000000275255, y: 0.68433, z: -0.000000025832742, w: 0.7291725}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3375139411016354349}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 86.366, z: 0}
 --- !u!33 &1322323222481349072
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -485,7 +497,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 831926537072754443}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 40306178, guid: aa0b1eebb5db27a419fa4564bbe5c9c5, type: 3}
   m_Name: 
@@ -500,7 +512,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 831926537072754443}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4d0390bd8b8ffd640b34fe25065ff1df, type: 3}
   m_Name: 
@@ -508,7 +520,7 @@ MonoBehaviour:
   updateType: 0
   isSpeedBased: 0
   hasOnStart: 0
-  hasOnPlay: 1
+  hasOnPlay: 0
   hasOnUpdate: 0
   hasOnStepComplete: 0
   hasOnComplete: 0
@@ -2133,7 +2145,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 1489123925735018292, guid: bf68fb2ada058464dbf689b338d8c605, type: 3}
+  - {fileID: 2100000, guid: d62aef125114af34fa44d8d14aba3de4, type: 2}
   - {fileID: 2100000, guid: b8e0b68bea8db0b4e872c264b39b5448, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -3605,7 +3617,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8208262492862351497}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0.7532306, z: -0, w: 0.6577566}
+  m_LocalRotation: {x: 0, y: -0.7532306, z: 0, w: 0.6577566}
   m_LocalPosition: {x: 12.45, y: -0.17999983, z: 5.0999985}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
