@@ -38,6 +38,7 @@ namespace Gameplay.Player.Inventory
         int _halfThreshold;
 
         bool _isInRange;
+        ListPreviewManager _listPreviewManager;
         PromptManager _promptManager;
         MoreMountains.InventoryEngine.Inventory _targetInventory;
 
@@ -53,6 +54,7 @@ namespace Gameplay.Player.Inventory
         void Start()
         {
             _promptManager = FindFirstObjectByType<PromptManager>();
+            _listPreviewManager = FindFirstObjectByType<ListPreviewManager>();
             if (_promptManager == null) Debug.LogWarning("PromptManager not found in the scene.");
 
             var portableSystems = GameObject.Find("PortableSystems");
@@ -77,8 +79,14 @@ namespace Gameplay.Player.Inventory
             if (other.CompareTag("Player"))
             {
                 _isInRange = true;
-                _promptManager?.ShowPickupPrompt();
                 ItemEvent.Trigger("DispenserRangeEntered", DispensedItem, transform);
+
+                Debug.Log("DispenserItem event triggered" + DispensedItem);
+
+                // Call ListPreviewManager to show DispenserItemPanel
+                if (_listPreviewManager == null) _listPreviewManager = FindFirstObjectByType<ListPreviewManager>();
+                Debug.Log("ListPreviewManager: " + _listPreviewManager);
+                if (_listPreviewManager != null) _listPreviewManager.ShowDispenserItemPreview(this);
             }
         }
 
@@ -87,10 +95,14 @@ namespace Gameplay.Player.Inventory
             if (other.CompareTag("Player"))
             {
                 _isInRange = false;
-                _promptManager?.HidePickupPrompt();
                 ItemEvent.Trigger("DispenserRangeExited", DispensedItem, transform);
+
+                // Call ListPreviewManager to hide DispenserItemPanel
+                var listPreviewManager = other.GetComponent<ListPreviewManager>();
+                if (listPreviewManager != null) listPreviewManager.HideDispenserItemPreview();
             }
         }
+
 
         void DispenseItem()
         {
@@ -113,8 +125,20 @@ namespace Gameplay.Player.Inventory
             TotalSupply -= DispenseAmount;
 
             dispenseFeedbacks?.PlayFeedbacks();
-            UpdateStockDisplay();
-            // UpdateDispenserModel();
+
+            // **Update UI if the player is still in range**
+            var player = GameObject.FindWithTag("Player");
+            if (player != null && _isInRange)
+            {
+                var listPreviewManager = player.GetComponent<ListPreviewManager>();
+                if (listPreviewManager != null)
+                {
+                    listPreviewManager.ShowDispenserItemPreview(this);
+
+                    // **Call UpdateStock to refresh the remaining amount in the UI**
+                    listPreviewManager.DispenserItemPanel.UpdateStock(TotalSupply);
+                }
+            }
 
             // **Trigger ItemEvent so PickupDisplayer shows it**
             ItemEvent.Trigger("ItemPickedUp", DispensedItem, transform, DispenseAmount);
@@ -125,11 +149,8 @@ namespace Gameplay.Player.Inventory
                 emptyFeedbacks?.PlayFeedbacks();
             }
         }
-
-
         void UpdateStockDisplay()
         {
-            if (stockText != null) stockText.text = $"Stock: {TotalSupply}";
         }
 
         // void UpdateDispenserModel()

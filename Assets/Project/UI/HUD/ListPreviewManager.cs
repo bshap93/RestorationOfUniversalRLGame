@@ -1,4 +1,5 @@
 using System;
+using Gameplay.Extensions.InventoryEngineExtensions.PickupDisplayer;
 using Gameplay.Player.Inventory;
 using MoreMountains.InventoryEngine;
 using MoreMountains.Tools;
@@ -19,6 +20,7 @@ namespace Project.UI.HUD
         public PickableItemsListPanel PickableItemsListPanel;
         [FormerlySerializedAs("CraftingStationDetails")]
         public TMPCookingStationDetails CookingStationDetails;
+        public DispenserItemPanel DispenserItemPanel;
 
 
         public CraftingStation CurrentPreviewedCraftingStation { get; set; }
@@ -26,6 +28,7 @@ namespace Project.UI.HUD
         void Start()
         {
             HideItemListPreview();
+            HideDispenserItemPreview();
         }
         void OnEnable()
         {
@@ -146,6 +149,42 @@ namespace Project.UI.HUD
         public bool IsItemInList(BaseItem itemPickerItem)
         {
             throw new NotImplementedException();
+        }
+
+        public void ShowDispenserItemPreview(DispenserItem dispenser)
+        {
+            if (DispenserItemPanel != null)
+            {
+                DispenserItemPanel.SetItem(
+                    dispenser.DispensedItem,
+                    dispenser.TotalSupply,
+                    dispenser.TotalSupply, // Assuming the cap is the initial stock
+                    "Dispenser"
+                );
+
+                // Make sure it's visible
+                var canvasGroup = DispenserItemPanel.GetComponent<CanvasGroup>();
+                if (canvasGroup != null)
+                {
+                    canvasGroup.alpha = 1;
+                    canvasGroup.interactable = true;
+                    canvasGroup.blocksRaycasts = true;
+                }
+            }
+        }
+
+        public void HideDispenserItemPreview()
+        {
+            if (DispenserItemPanel != null)
+            {
+                var canvasGroup = DispenserItemPanel.GetComponent<CanvasGroup>();
+                if (canvasGroup != null)
+                {
+                    canvasGroup.alpha = 0;
+                    canvasGroup.interactable = false;
+                    canvasGroup.blocksRaycasts = false;
+                }
+            }
         }
     }
 }
