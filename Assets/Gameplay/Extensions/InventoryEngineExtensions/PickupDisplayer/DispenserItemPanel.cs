@@ -12,18 +12,21 @@ namespace Gameplay.Extensions.InventoryEngineExtensions.PickupDisplayer
         public TMP_Text remainingItem;
         public TMP_Text dispenserType;
 
+        int _capacity; // Store the original capacity
+
         public void SetItem(BaseItem item, int remaining, int cap, string type)
         {
             itemImage.sprite = item.Icon;
             itemName.text = item.ItemName;
-            remainingItem.text = $"{remaining}/{cap}";
             dispenserType.text = type;
+
+            _capacity = cap; // Store the original capacity value
+            UpdateStock(remaining); // Call update method to ensure it remains consistent
         }
 
-        // **New method to update stock without resetting everything**
         public void UpdateStock(int remaining)
         {
-            remainingItem.text = $"{remaining}/?";
+            remainingItem.text = $"{remaining}/{_capacity}"; // Always keep the correct capacity
         }
     }
 }

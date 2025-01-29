@@ -97,9 +97,19 @@ namespace Gameplay.Player.Inventory
                 _isInRange = false;
                 ItemEvent.Trigger("DispenserRangeExited", DispensedItem, transform);
 
-                // Call ListPreviewManager to hide DispenserItemPanel
-                var listPreviewManager = other.GetComponent<ListPreviewManager>();
-                if (listPreviewManager != null) listPreviewManager.HideDispenserItemPreview();
+                // Ensure the ListPreviewManager reference is correct
+                if (_listPreviewManager == null)
+                    _listPreviewManager = FindFirstObjectByType<ListPreviewManager>();
+
+                if (_listPreviewManager != null)
+                {
+                    _listPreviewManager.HideDispenserItemPreview();
+                    Debug.Log("Hiding DispenserItemPanel on exit.");
+                }
+                else
+                {
+                    Debug.LogWarning("ListPreviewManager not found in OnTriggerExit.");
+                }
             }
         }
 
@@ -126,22 +136,16 @@ namespace Gameplay.Player.Inventory
 
             dispenseFeedbacks?.PlayFeedbacks();
 
-            // **Update UI if the player is still in range**
-            var player = GameObject.FindWithTag("Player");
-            if (player != null && _isInRange)
-            {
-                var listPreviewManager = player.GetComponent<ListPreviewManager>();
-                if (listPreviewManager != null)
-                {
-                    listPreviewManager.ShowDispenserItemPreview(this);
-
-                    // **Call UpdateStock to refresh the remaining amount in the UI**
-                    listPreviewManager.DispenserItemPanel.UpdateStock(TotalSupply);
-                }
-            }
-
             // **Trigger ItemEvent so PickupDisplayer shows it**
             ItemEvent.Trigger("ItemPickedUp", DispensedItem, transform, DispenseAmount);
+
+            // **Ensure the UI updates even if the player moved slightly out of range**
+            if (_listPreviewManager == null)
+                _listPreviewManager = FindFirstObjectByType<ListPreviewManager>();
+
+            if (_listPreviewManager != null)
+                // **Update the dispenser UI dynamically**
+                _listPreviewManager.DispenserItemPanel.UpdateStock(TotalSupply);
 
             if (TotalSupply <= 0)
             {
@@ -149,6 +153,7 @@ namespace Gameplay.Player.Inventory
                 emptyFeedbacks?.PlayFeedbacks();
             }
         }
+
         void UpdateStockDisplay()
         {
         }
