@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 7391952696522221894}
   - component: {fileID: 7831831647521458929}
   - component: {fileID: 1686277380259878968}
-  - component: {fileID: 2018456548644021222}
   - component: {fileID: 7540311331045967900}
   - component: {fileID: 2617100557422972148}
+  - component: {fileID: 6945802280571487966}
   m_Layer: 0
   m_Name: FuelInventoryDisplay
   m_TagString: Untagged
@@ -80,58 +80,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &2018456548644021222
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 369017742019412739}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 451de0ab4ebef804ea32af6b63b22370, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TargetInventoryName: CookingStationFuelInventory
-  PlayerID: Player1
-  NumberOfRows: 1
-  NumberOfColumns: 1
-  TargetChoiceInventory: {fileID: 2018456548644021222}
-  ItemClass: 0
-  DrawEmptySlots: 1
-  AllowMovingObjectsToThisInventory: 0
-  PaddingTop: 0
-  PaddingRight: 0
-  PaddingBottom: 0
-  PaddingLeft: 0
-  SlotPrefab: {fileID: 0}
-  SlotSize: {x: 64, y: 64}
-  IconSize: {x: 50, y: 50}
-  SlotMargin: {x: 5, y: 5}
-  EmptySlotImage: {fileID: 21300000, guid: 8141b0d7eb45e444bb5dc9786685f64f, type: 3}
-  FilledSlotImage: {fileID: 21300000, guid: 07f02bf8583f9644cb478de772093867, type: 3}
-  HighlightedSlotImage: {fileID: 21300000, guid: dd6a3c0ef77ba3e44bb3ee0eafdad118,
-    type: 3}
-  PressedSlotImage: {fileID: 21300000, guid: 2191bb85bc512e4468006bcf8c5e1f46, type: 3}
-  DisabledSlotImage: {fileID: 21300000, guid: 1e7db7170f6e8cb43ad26b4699a5be39, type: 3}
-  MovedSlotImage: {fileID: 21300000, guid: e181d8e14b5f884438dbb393e0d9e7d1, type: 3}
-  SlotImageType: 0
-  EnableNavigation: 1
-  GetFocusOnStart: 1
-  DisplayTitle: 1
-  Title: Fuel
-  TitleFont: {fileID: 12800000, guid: a6fbc6a5528d83146a62e255c9cfac00, type: 3}
-  TitleFontSize: 16
-  TitleColor: {r: 1, g: 1, b: 1, a: 1}
-  TitleOffset: {x: 0, y: 0, z: 0}
-  TitleAlignment: 1
-  QtyFont: {fileID: 12800000, guid: 59e3f46809760144e8197c1e9e946f29, type: 3}
-  QtyFontSize: 12
-  QtyColor: {r: 1, g: 1, b: 1, a: 1}
-  QtyPadding: 10
-  QtyAlignment: 8
-  PreviousInventory: {fileID: 0}
-  NextInventory: {fileID: 0}
 --- !u!114 &7540311331045967900
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -139,7 +87,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 369017742019412739}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9dc3715ceeed93c4ea524deda0b03b42, type: 3}
   m_Name: 
@@ -251,6 +199,57 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+--- !u!114 &6945802280571487966
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 369017742019412739}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41fcffebfcf84bd44a683f96d016d1d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TargetInventoryName: MainInventory
+  PlayerID: Player1
+  NumberOfRows: 3
+  NumberOfColumns: 2
+  TargetChoiceInventory: {fileID: 0}
+  ItemClass: 0
+  DrawEmptySlots: 1
+  AllowMovingObjectsToThisInventory: 0
+  PaddingTop: 20
+  PaddingRight: 20
+  PaddingBottom: 20
+  PaddingLeft: 20
+  SlotPrefab: {fileID: 0}
+  SlotSize: {x: 50, y: 50}
+  IconSize: {x: 30, y: 30}
+  SlotMargin: {x: 5, y: 5}
+  EmptySlotImage: {fileID: 0}
+  FilledSlotImage: {fileID: 0}
+  HighlightedSlotImage: {fileID: 0}
+  PressedSlotImage: {fileID: 0}
+  DisabledSlotImage: {fileID: 0}
+  MovedSlotImage: {fileID: 0}
+  SlotImageType: 0
+  EnableNavigation: 1
+  GetFocusOnStart: 0
+  DisplayTitle: 1
+  Title: 
+  TitleFont: {fileID: 0}
+  TitleFontSize: 20
+  TitleColor: {r: 0, g: 0, b: 0, a: 1}
+  TitleOffset: {x: 0, y: 0, z: 0}
+  TitleAlignment: 8
+  QtyFont: {fileID: 0}
+  QtyFontSize: 12
+  QtyColor: {r: 0, g: 0, b: 0, a: 1}
+  QtyPadding: 10
+  QtyAlignment: 8
+  PreviousInventory: {fileID: 0}
+  NextInventory: {fileID: 0}
 --- !u!1 &378581390701550152
 GameObject:
   m_ObjectHideFlags: 0
@@ -2325,7 +2324,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   MovedSprite: {fileID: 21300000, guid: e181d8e14b5f884438dbb393e0d9e7d1, type: 3}
-  ParentInventoryDisplay: {fileID: 325890575797409455}
+  ParentInventoryDisplay: {fileID: 0}
   Index: 1
   SlotEnabled: 1
   TargetImage: {fileID: 5487003186310466625}
@@ -2923,7 +2922,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   MovedSprite: {fileID: 21300000, guid: e181d8e14b5f884438dbb393e0d9e7d1, type: 3}
-  ParentInventoryDisplay: {fileID: 1374818061619190758}
+  ParentInventoryDisplay: {fileID: 0}
   Index: 0
   SlotEnabled: 1
   TargetImage: {fileID: 5511086313775299372}
@@ -3068,7 +3067,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   MovedSprite: {fileID: 21300000, guid: e181d8e14b5f884438dbb393e0d9e7d1, type: 3}
-  ParentInventoryDisplay: {fileID: 325890575797409455}
+  ParentInventoryDisplay: {fileID: 0}
   Index: 2
   SlotEnabled: 1
   TargetImage: {fileID: 5252388844191012850}
@@ -3437,9 +3436,9 @@ GameObject:
   - component: {fileID: 4379265027658237749}
   - component: {fileID: 3153142939681151075}
   - component: {fileID: 197675230380324162}
-  - component: {fileID: 325890575797409455}
   - component: {fileID: 6339647444763785031}
   - component: {fileID: 1285562093177833486}
+  - component: {fileID: 5536399562473597800}
   m_Layer: 0
   m_Name: QueueInventoryDisplay
   m_TagString: Untagged
@@ -3507,58 +3506,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &325890575797409455
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4405974360843063626}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 451de0ab4ebef804ea32af6b63b22370, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TargetInventoryName: CookingStationQueue
-  PlayerID: Player1
-  NumberOfRows: 1
-  NumberOfColumns: 3
-  TargetChoiceInventory: {fileID: 325890575797409455}
-  ItemClass: 0
-  DrawEmptySlots: 1
-  AllowMovingObjectsToThisInventory: 0
-  PaddingTop: 0
-  PaddingRight: 0
-  PaddingBottom: 0
-  PaddingLeft: 0
-  SlotPrefab: {fileID: 0}
-  SlotSize: {x: 64, y: 64}
-  IconSize: {x: 50, y: 50}
-  SlotMargin: {x: 5, y: 5}
-  EmptySlotImage: {fileID: 21300000, guid: 8141b0d7eb45e444bb5dc9786685f64f, type: 3}
-  FilledSlotImage: {fileID: 21300000, guid: 07f02bf8583f9644cb478de772093867, type: 3}
-  HighlightedSlotImage: {fileID: 21300000, guid: dd6a3c0ef77ba3e44bb3ee0eafdad118,
-    type: 3}
-  PressedSlotImage: {fileID: 21300000, guid: 2191bb85bc512e4468006bcf8c5e1f46, type: 3}
-  DisabledSlotImage: {fileID: 21300000, guid: 1e7db7170f6e8cb43ad26b4699a5be39, type: 3}
-  MovedSlotImage: {fileID: 21300000, guid: e181d8e14b5f884438dbb393e0d9e7d1, type: 3}
-  SlotImageType: 0
-  EnableNavigation: 1
-  GetFocusOnStart: 1
-  DisplayTitle: 1
-  Title: Queue
-  TitleFont: {fileID: 12800000, guid: a6fbc6a5528d83146a62e255c9cfac00, type: 3}
-  TitleFontSize: 16
-  TitleColor: {r: 1, g: 1, b: 1, a: 1}
-  TitleOffset: {x: 0, y: 0, z: 0}
-  TitleAlignment: 1
-  QtyFont: {fileID: 12800000, guid: 59e3f46809760144e8197c1e9e946f29, type: 3}
-  QtyFontSize: 12
-  QtyColor: {r: 1, g: 1, b: 1, a: 1}
-  QtyPadding: 10
-  QtyAlignment: 8
-  PreviousInventory: {fileID: 0}
-  NextInventory: {fileID: 0}
 --- !u!114 &6339647444763785031
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3566,7 +3513,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4405974360843063626}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9dc3715ceeed93c4ea524deda0b03b42, type: 3}
   m_Name: 
@@ -3678,6 +3625,57 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+--- !u!114 &5536399562473597800
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4405974360843063626}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41fcffebfcf84bd44a683f96d016d1d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TargetInventoryName: MainInventory
+  PlayerID: Player1
+  NumberOfRows: 3
+  NumberOfColumns: 2
+  TargetChoiceInventory: {fileID: 0}
+  ItemClass: 0
+  DrawEmptySlots: 1
+  AllowMovingObjectsToThisInventory: 0
+  PaddingTop: 20
+  PaddingRight: 20
+  PaddingBottom: 20
+  PaddingLeft: 20
+  SlotPrefab: {fileID: 0}
+  SlotSize: {x: 50, y: 50}
+  IconSize: {x: 30, y: 30}
+  SlotMargin: {x: 5, y: 5}
+  EmptySlotImage: {fileID: 0}
+  FilledSlotImage: {fileID: 0}
+  HighlightedSlotImage: {fileID: 0}
+  PressedSlotImage: {fileID: 0}
+  DisabledSlotImage: {fileID: 0}
+  MovedSlotImage: {fileID: 0}
+  SlotImageType: 0
+  EnableNavigation: 1
+  GetFocusOnStart: 0
+  DisplayTitle: 1
+  Title: 
+  TitleFont: {fileID: 0}
+  TitleFontSize: 20
+  TitleColor: {r: 0, g: 0, b: 0, a: 1}
+  TitleOffset: {x: 0, y: 0, z: 0}
+  TitleAlignment: 8
+  QtyFont: {fileID: 0}
+  QtyFontSize: 12
+  QtyColor: {r: 0, g: 0, b: 0, a: 1}
+  QtyPadding: 10
+  QtyAlignment: 8
+  PreviousInventory: {fileID: 0}
+  NextInventory: {fileID: 0}
 --- !u!1 &4434791477205063039
 GameObject:
   m_ObjectHideFlags: 0
@@ -4389,7 +4387,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   MovedSprite: {fileID: 21300000, guid: e181d8e14b5f884438dbb393e0d9e7d1, type: 3}
-  ParentInventoryDisplay: {fileID: 2018456548644021222}
+  ParentInventoryDisplay: {fileID: 0}
   Index: 0
   SlotEnabled: 1
   TargetImage: {fileID: 2659569045157661246}
@@ -5964,9 +5962,9 @@ GameObject:
   - component: {fileID: 1198972139308866374}
   - component: {fileID: 3294175299324903313}
   - component: {fileID: 7900570898994750618}
-  - component: {fileID: 1374818061619190758}
   - component: {fileID: 6788987236043858399}
   - component: {fileID: 9042031284889369077}
+  - component: {fileID: 7969120396947064138}
   m_Layer: 0
   m_Name: DepositInventoryDisplay
   m_TagString: Untagged
@@ -6033,58 +6031,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &1374818061619190758
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7908706453830122773}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 451de0ab4ebef804ea32af6b63b22370, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TargetInventoryName: CookingStationDeposit
-  PlayerID: Player1
-  NumberOfRows: 1
-  NumberOfColumns: 1
-  TargetChoiceInventory: {fileID: 1374818061619190758}
-  ItemClass: 0
-  DrawEmptySlots: 1
-  AllowMovingObjectsToThisInventory: 0
-  PaddingTop: 0
-  PaddingRight: 0
-  PaddingBottom: 0
-  PaddingLeft: 0
-  SlotPrefab: {fileID: 0}
-  SlotSize: {x: 64, y: 64}
-  IconSize: {x: 50, y: 50}
-  SlotMargin: {x: 5, y: 5}
-  EmptySlotImage: {fileID: 21300000, guid: 8141b0d7eb45e444bb5dc9786685f64f, type: 3}
-  FilledSlotImage: {fileID: 21300000, guid: 07f02bf8583f9644cb478de772093867, type: 3}
-  HighlightedSlotImage: {fileID: 21300000, guid: dd6a3c0ef77ba3e44bb3ee0eafdad118,
-    type: 3}
-  PressedSlotImage: {fileID: 21300000, guid: 2191bb85bc512e4468006bcf8c5e1f46, type: 3}
-  DisabledSlotImage: {fileID: 21300000, guid: 1e7db7170f6e8cb43ad26b4699a5be39, type: 3}
-  MovedSlotImage: {fileID: 21300000, guid: e181d8e14b5f884438dbb393e0d9e7d1, type: 3}
-  SlotImageType: 0
-  EnableNavigation: 1
-  GetFocusOnStart: 1
-  DisplayTitle: 1
-  Title: Deposit
-  TitleFont: {fileID: 12800000, guid: a6fbc6a5528d83146a62e255c9cfac00, type: 3}
-  TitleFontSize: 16
-  TitleColor: {r: 1, g: 1, b: 1, a: 1}
-  TitleOffset: {x: 0, y: 0, z: 0}
-  TitleAlignment: 1
-  QtyFont: {fileID: 12800000, guid: 59e3f46809760144e8197c1e9e946f29, type: 3}
-  QtyFontSize: 12
-  QtyColor: {r: 1, g: 1, b: 1, a: 1}
-  QtyPadding: 10
-  QtyAlignment: 8
-  PreviousInventory: {fileID: 0}
-  NextInventory: {fileID: 0}
 --- !u!114 &6788987236043858399
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6092,7 +6038,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7908706453830122773}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9dc3715ceeed93c4ea524deda0b03b42, type: 3}
   m_Name: 
@@ -6204,6 +6150,57 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+--- !u!114 &7969120396947064138
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7908706453830122773}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41fcffebfcf84bd44a683f96d016d1d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TargetInventoryName: MainInventory
+  PlayerID: Player1
+  NumberOfRows: 3
+  NumberOfColumns: 2
+  TargetChoiceInventory: {fileID: 0}
+  ItemClass: 0
+  DrawEmptySlots: 1
+  AllowMovingObjectsToThisInventory: 0
+  PaddingTop: 20
+  PaddingRight: 20
+  PaddingBottom: 20
+  PaddingLeft: 20
+  SlotPrefab: {fileID: 0}
+  SlotSize: {x: 50, y: 50}
+  IconSize: {x: 30, y: 30}
+  SlotMargin: {x: 5, y: 5}
+  EmptySlotImage: {fileID: 0}
+  FilledSlotImage: {fileID: 0}
+  HighlightedSlotImage: {fileID: 0}
+  PressedSlotImage: {fileID: 0}
+  DisabledSlotImage: {fileID: 0}
+  MovedSlotImage: {fileID: 0}
+  SlotImageType: 0
+  EnableNavigation: 1
+  GetFocusOnStart: 0
+  DisplayTitle: 1
+  Title: 
+  TitleFont: {fileID: 0}
+  TitleFontSize: 20
+  TitleColor: {r: 0, g: 0, b: 0, a: 1}
+  TitleOffset: {x: 0, y: 0, z: 0}
+  TitleAlignment: 8
+  QtyFont: {fileID: 0}
+  QtyFontSize: 12
+  QtyColor: {r: 0, g: 0, b: 0, a: 1}
+  QtyPadding: 10
+  QtyAlignment: 8
+  PreviousInventory: {fileID: 0}
+  NextInventory: {fileID: 0}
 --- !u!1 &7975799577270338890
 GameObject:
   m_ObjectHideFlags: 0
@@ -6424,7 +6421,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   MovedSprite: {fileID: 21300000, guid: e181d8e14b5f884438dbb393e0d9e7d1, type: 3}
-  ParentInventoryDisplay: {fileID: 325890575797409455}
+  ParentInventoryDisplay: {fileID: 0}
   Index: 0
   SlotEnabled: 1
   TargetImage: {fileID: 1158279290573010925}
@@ -7275,9 +7272,9 @@ MonoBehaviour:
   recipeDropDown: {fileID: 2049179312254667280}
   startCookingButtonManager: {fileID: 1392569561438843202}
   cookingStationController: {fileID: 0}
-  cookingDepositInventoryDisplay: {fileID: 1374818061619190758}
-  cookingQueueInventoryDisplay: {fileID: 325890575797409455}
-  fuelInventoryDisplay: {fileID: 2018456548644021222}
+  cookingDepositInventoryDisplay: {fileID: 0}
+  cookingQueueInventoryDisplay: {fileID: 0}
+  fuelInventoryDisplay: {fileID: 0}
   CookStationIDText: {fileID: 8589303914686826963}
 --- !u!1 &9035330858050615038
 GameObject:
