@@ -1,5 +1,59 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-9188735262510492312
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0ed0c4e68ee98946bb5016adda42373, type: 3}
+  m_Name: BodyTextQuestContent
+  m_EditorClassIdentifier: 
+  m_contentID: -1
+  m_bodyText:
+    m_text: '{#Firewood}/2 Firewood'
+    m_stringAsset: {fileID: 0}
+    m_textTable: {fileID: 0}
+    m_textTableFieldID: 0
+--- !u!114 &-8622390870338568351
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0ed0c4e68ee98946bb5016adda42373, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_contentID: -1
+  m_bodyText:
+    m_text: I found the mushrooms and returned them.
+    m_stringAsset: {fileID: 0}
+    m_textTable: {fileID: 0}
+    m_textTableFieldID: 0
+--- !u!114 &-8282419450935287244
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0ed0c4e68ee98946bb5016adda42373, type: 3}
+  m_Name: BodyTextQuestContent
+  m_EditorClassIdentifier: 
+  m_contentID: -1
+  m_bodyText:
+    m_text: '{#Firewood}/2 Firewood'
+    m_stringAsset: {fileID: 0}
+    m_textTable: {fileID: 0}
+    m_textTableFieldID: 0
 --- !u!114 &-7974078672563114404
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -33,7 +87,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_contentID: -1
   m_bodyText:
-    m_text: It's around here.
+    m_text: You should be able to find Brown Stalks around here.
     m_stringAsset: {fileID: 0}
     m_textTable: {fileID: 0}
     m_textTableFieldID: 0
@@ -73,6 +127,24 @@ MonoBehaviour:
     m_stringAsset: {fileID: 0}
     m_textTable: {fileID: 0}
     m_textTableFieldID: 0
+--- !u!114 &-5428376566783436361
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f920637d9355194ebe59290ad4f0260, type: 3}
+  m_Name: CompassProPOIQuestAction
+  m_EditorClassIdentifier: 
+  m_poiName:
+    m_text: 
+    m_stringAsset: {fileID: 0}
+    m_textTable: {fileID: 0}
+    m_textTableFieldID: 0
+  m_operation: 0
 --- !u!114 &-5182601999096474319
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -114,6 +186,44 @@ MonoBehaviour:
     m_stringAsset: {fileID: 0}
     m_textTable: {fileID: 0}
     m_textTableFieldID: 0
+--- !u!114 &-4274543377652436531
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f920637d9355194ebe59290ad4f0260, type: 3}
+  m_Name: CompassProPOIQuestAction
+  m_EditorClassIdentifier: 
+  m_poiName:
+    m_text: NPC01
+    m_stringAsset: {fileID: 0}
+    m_textTable: {fileID: 0}
+    m_textTableFieldID: 0
+  m_operation: 3
+--- !u!114 &-4205331856735895144
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec9067142080e4148ac88a41a9f67c67, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_questToSet: {fileID: 11400000, guid: 7a562f84f6368dd4eb275a49cb1cf864, type: 2}
+  m_questID:
+    m_text: Quest03AFineHunt
+    m_stringAsset: {fileID: 0}
+    m_textTable: {fileID: 0}
+    m_textTableFieldID: 0
+  m_state: 0
+  m_setQuestNodesToSame: 1
 --- !u!114 &-3630925048364340484
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -134,6 +244,24 @@ MonoBehaviour:
     m_textTableFieldID: 0
   m_state: 0
   m_setQuestNodesToSame: 1
+--- !u!114 &-3630306745453652555
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f920637d9355194ebe59290ad4f0260, type: 3}
+  m_Name: CompassProPOIQuestAction
+  m_EditorClassIdentifier: 
+  m_poiName:
+    m_text: CrossingIntoTownPOI
+    m_stringAsset: {fileID: 0}
+    m_textTable: {fileID: 0}
+    m_textTableFieldID: 0
+  m_operation: 3
 --- !u!114 &-3530163089781633563
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -150,6 +278,25 @@ MonoBehaviour:
   m_bodyText:
     m_text: 'That''s one of my nice cookbooks, but you seem like a nice sort. Go
       ahead and read it so we can get cooking! (Press I to open inventory and ''Use'') '
+    m_stringAsset: {fileID: 0}
+    m_textTable: {fileID: 0}
+    m_textTableFieldID: 0
+--- !u!114 &-3449124325028581128
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0ed0c4e68ee98946bb5016adda42373, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_contentID: -1
+  m_bodyText:
+    m_text: 'Those smell tasty! Heres a cookbook with some basic recipes common among
+      us cave folk. '
     m_stringAsset: {fileID: 0}
     m_textTable: {fileID: 0}
     m_textTableFieldID: 0
@@ -179,6 +326,32 @@ MonoBehaviour:
     m_textTableFieldID: 0
   m_isNot: 0
   m_requiredState: 2
+--- !u!114 &-1980991535412657722
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb2f2b9c7056cd343a6b11365c05d91a, type: 3}
+  m_Name: QuestNodeStateQuestCondition
+  m_EditorClassIdentifier: 
+  m_alreadyTrue: 0
+  m_requiredQuest: {fileID: 11400000}
+  m_requiredQuestID:
+    m_text: MushroomSalad
+    m_stringAsset: {fileID: 0}
+    m_textTable: {fileID: 0}
+    m_textTableFieldID: 0
+  m_requiredQuestNodeID:
+    m_text: 
+    m_stringAsset: {fileID: 0}
+    m_textTable: {fileID: 0}
+    m_textTableFieldID: 0
+  m_isNot: 0
+  m_requiredState: 2
 --- !u!114 &-1915200619964784708
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -197,6 +370,50 @@ MonoBehaviour:
     m_stringAsset: {fileID: 0}
     m_textTable: {fileID: 0}
     m_textTableFieldID: 0
+--- !u!114 &-1246332873984117204
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0ed0c4e68ee98946bb5016adda42373, type: 3}
+  m_Name: BodyTextQuestContent
+  m_EditorClassIdentifier: 
+  m_contentID: -1
+  m_bodyText:
+    m_text: '{#Firewood}/2 Firewood'
+    m_stringAsset: {fileID: 0}
+    m_textTable: {fileID: 0}
+    m_textTableFieldID: 0
+--- !u!114 &-1121785230263918507
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3130e555dec1b2848b8b35a35d70722b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_inventoryName:
+    m_text: MainPlayerInventory
+    m_stringAsset: {fileID: 0}
+    m_textTable: {fileID: 0}
+    m_textTableFieldID: 0
+  m_itemName:
+    m_text: Mushroom
+    m_stringAsset: {fileID: 0}
+    m_textTable: {fileID: 0}
+    m_textTableFieldID: 0
+  m_amount:
+    m_valueType: 0
+    m_literalValue: 1
+    m_counterIndex: 0
 --- !u!114 &-1068522026375957334
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -215,7 +432,7 @@ MonoBehaviour:
     m_textTable: {fileID: 0}
     m_textTableFieldID: 0
   m_itemName:
-    m_text: HealthPotion1
+    m_text: MushroomCookbook
     m_stringAsset: {fileID: 0}
     m_textTable: {fileID: 0}
     m_textTableFieldID: 0
@@ -252,6 +469,42 @@ MonoBehaviour:
     m_literalValue: 2
     m_counterIndex: 0
   m_counterIndex: 2
+--- !u!114 &-679226723763428638
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f920637d9355194ebe59290ad4f0260, type: 3}
+  m_Name: CompassProPOIQuestAction
+  m_EditorClassIdentifier: 
+  m_poiName:
+    m_text: 
+    m_stringAsset: {fileID: 0}
+    m_textTable: {fileID: 0}
+    m_textTableFieldID: 0
+  m_operation: 3
+--- !u!114 &-522513968912627633
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0ed0c4e68ee98946bb5016adda42373, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_contentID: -1
+  m_bodyText:
+    m_text: Return to {QUESTGIVER}
+    m_stringAsset: {fileID: 0}
+    m_textTable: {fileID: 0}
+    m_textTableFieldID: 0
 --- !u!114 &-480228646385548044
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -309,7 +562,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_contentID: -1
   m_bodyText:
-    m_text: It's around here.
+    m_text: You should be able to find Redcaps around here.
     m_stringAsset: {fileID: 0}
     m_textTable: {fileID: 0}
     m_textTableFieldID: 0
@@ -647,8 +900,8 @@ MonoBehaviour:
     m_childIndexList: 02000000
     m_canvasRect:
       serializedVersion: 2
-      x: 165.33328
-      y: 111.33333
+      x: 122.66661
+      y: 132
       width: 120
       height: 48
   - m_id:
@@ -677,6 +930,7 @@ MonoBehaviour:
       - m_contentList: []
     - m_actionList:
       - {fileID: 6181470412914338434}
+      - {fileID: -4274543377652436531}
       m_categorizedContentList:
       - m_contentList: []
       - m_contentList:
@@ -699,14 +953,14 @@ MonoBehaviour:
       - {fileID: 9069263368839986005}
       - {fileID: -2952653436200399674}
       - {fileID: 1883290304262781494}
-      m_conditionCountMode: 0
+      m_conditionCountMode: 1
       m_minConditionCount: 0
       m_numTrueConditions: 0
     m_childIndexList: 0600000007000000
     m_canvasRect:
       serializedVersion: 2
       x: 309.9999
-      y: 244.66666
+      y: 244
       width: 120
       height: 48
   - m_id:
@@ -751,8 +1005,8 @@ MonoBehaviour:
     m_childIndexList: 
     m_canvasRect:
       serializedVersion: 2
-      x: 95.999985
-      y: 388.00003
+      x: 348.66666
+      y: 598.6667
       width: 120
       height: 48
   - m_id:
@@ -802,8 +1056,8 @@ MonoBehaviour:
     m_childIndexList: 02000000
     m_canvasRect:
       serializedVersion: 2
-      x: 294.66666
-      y: 117
+      x: 289.33334
+      y: 119
       width: 120
       height: 48
   - m_id:
@@ -881,12 +1135,14 @@ MonoBehaviour:
       - m_contentList: []
       - m_contentList: []
       - m_contentList: []
-    - m_actionList: []
+    - m_actionList:
+      - {fileID: -679226723763428638}
       m_categorizedContentList:
       - m_contentList:
         - {fileID: 7161679820060055635}
       - m_contentList: []
-      - m_contentList: []
+      - m_contentList:
+        - {fileID: -9188735262510492312}
     - m_actionList: []
       m_categorizedContentList:
       - m_contentList: []
@@ -897,11 +1153,11 @@ MonoBehaviour:
       m_conditionCountMode: 1
       m_minConditionCount: 0
       m_numTrueConditions: 0
-    m_childIndexList: 
+    m_childIndexList: 08000000
     m_canvasRect:
       serializedVersion: 2
-      x: 226.66669
-      y: 310.6667
+      x: 221.33334
+      y: 322.66666
       width: 120
       height: 48
   - m_id:
@@ -948,11 +1204,11 @@ MonoBehaviour:
       m_conditionCountMode: 1
       m_minConditionCount: 0
       m_numTrueConditions: 0
-    m_childIndexList: 
+    m_childIndexList: 09000000
     m_canvasRect:
       serializedVersion: 2
-      x: 423.3333
-      y: 345.33334
+      x: 424.66666
+      y: 346
       width: 120
       height: 48
   - m_id:
@@ -979,12 +1235,17 @@ MonoBehaviour:
       - m_contentList: []
       - m_contentList: []
       - m_contentList: []
-    - m_actionList: []
+    - m_actionList:
+      - {fileID: 4491455358018964831}
+      - {fileID: -5428376566783436361}
       m_categorizedContentList:
       - m_contentList: []
-      - m_contentList: []
-      - m_contentList: []
-    - m_actionList: []
+      - m_contentList:
+        - {fileID: -8282419450935287244}
+      - m_contentList:
+        - {fileID: -1246332873984117204}
+    - m_actionList:
+      - {fileID: -3630306745453652555}
       m_categorizedContentList:
       - m_contentList: []
       - m_contentList: []
@@ -995,11 +1256,67 @@ MonoBehaviour:
       m_conditionCountMode: 1
       m_minConditionCount: 0
       m_numTrueConditions: 0
-    m_childIndexList: 
+    m_childIndexList: 09000000
     m_canvasRect:
       serializedVersion: 2
-      x: 242
-      y: 383.33334
+      x: 238
+      y: 410
+      width: 120
+      height: 48
+  - m_id:
+      m_text: Return to {QUESTGIVER}.2
+      m_stringAsset: {fileID: 0}
+      m_textTable: {fileID: 0}
+      m_textTableFieldID: 0
+    m_internalName:
+      m_text: 
+      m_stringAsset: {fileID: 0}
+      m_textTable: {fileID: 0}
+      m_textTableFieldID: 0
+    m_nodeType: 4
+    m_isOptional: 0
+    m_state: 0
+    m_speaker:
+      m_text: 
+      m_stringAsset: {fileID: 0}
+      m_textTable: {fileID: 0}
+      m_textTableFieldID: 0
+    m_stateInfoList:
+    - m_actionList: []
+      m_categorizedContentList:
+      - m_contentList: []
+      - m_contentList: []
+      - m_contentList: []
+    - m_actionList:
+      - {fileID: 5711304267118644599}
+      m_categorizedContentList:
+      - m_contentList: []
+      - m_contentList:
+        - {fileID: 7608604103913128992}
+      - m_contentList:
+        - {fileID: -522513968912627633}
+    - m_actionList:
+      - {fileID: -1121785230263918507}
+      - {fileID: -4205331856735895144}
+      - {fileID: 3038803321128470131}
+      m_categorizedContentList:
+      - m_contentList:
+        - {fileID: -3449124325028581128}
+      - m_contentList:
+        - {fileID: -8622390870338568351}
+      - m_contentList: []
+    m_conditionSet:
+      m_conditionList:
+      - {fileID: 3039781396429586622}
+      - {fileID: -1980991535412657722}
+      m_conditionCountMode: 1
+      m_minConditionCount: 0
+      m_numTrueConditions: 0
+    m_childIndexList: 03000000
+    m_canvasRect:
+      serializedVersion: 2
+      x: 335.66672
+      y: 487.66656
       width: 120
       height: 48
   m_textTable: {fileID: 0}
@@ -1089,7 +1406,7 @@ MonoBehaviour:
   m_requiredValueMode: 0
   m_requiredValue:
     m_valueType: 0
-    m_literalValue: 1
+    m_literalValue: 2
     m_counterIndex: 0
   m_counterIndex: 3
 --- !u!114 &1883290304262781494
@@ -1198,6 +1515,50 @@ MonoBehaviour:
     m_textTable: {fileID: 0}
     m_textTableFieldID: 0
   m_headingLevel: 1
+--- !u!114 &3038803321128470131
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e4e25cd4dc7a5b4c859b087bdeb27c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_audioClip: {fileID: 8300000, guid: ea4dfa1a43d804d4b9138c447226ef77, type: 3}
+  m_useAudioSourceOn:
+    m_type: 0
+    m_id: 
+  m_interruptPreviousClip: 0
+  m_audioNameProxy: 
+--- !u!114 &3039781396429586622
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb2f2b9c7056cd343a6b11365c05d91a, type: 3}
+  m_Name: QuestNodeStateQuestCondition
+  m_EditorClassIdentifier: 
+  m_alreadyTrue: 0
+  m_requiredQuest: {fileID: 11400000}
+  m_requiredQuestID:
+    m_text: MushroomSalad
+    m_stringAsset: {fileID: 0}
+    m_textTable: {fileID: 0}
+    m_textTableFieldID: 0
+  m_requiredQuestNodeID:
+    m_text: GotFirewood
+    m_stringAsset: {fileID: 0}
+    m_textTable: {fileID: 0}
+    m_textTableFieldID: 0
+  m_isNot: 0
+  m_requiredState: 2
 --- !u!114 &3616561581063177560
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1215,7 +1576,7 @@ MonoBehaviour:
     m_type: 0
     m_id: 
   m_interruptPreviousClip: 0
-  m_audioNameProxy: 
+  m_audioNameProxy: SFXUI_Inventory_Combine_Set05_002
 --- !u!114 &4180725481865178305
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1242,6 +1603,24 @@ MonoBehaviour:
     m_stringAsset: {fileID: 0}
     m_textTable: {fileID: 0}
     m_textTableFieldID: 0
+--- !u!114 &4491455358018964831
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f920637d9355194ebe59290ad4f0260, type: 3}
+  m_Name: CompassProPOIQuestAction
+  m_EditorClassIdentifier: 
+  m_poiName:
+    m_text: 
+    m_stringAsset: {fileID: 0}
+    m_textTable: {fileID: 0}
+    m_textTableFieldID: 0
+  m_operation: 0
 --- !u!114 &4633096498778870600
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1295,10 +1674,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_contentID: -1
   m_bodyText:
-    m_text: It's around here.
+    m_text: You should be able to find Yellow Frond Mushrooms around here.
     m_stringAsset: {fileID: 0}
     m_textTable: {fileID: 0}
     m_textTableFieldID: 0
+--- !u!114 &5711304267118644599
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b99cc2a156c22e46b4fb74b06a4d1e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_contentList:
+  - {fileID: 7396834620477963184}
+  m_contentListSerializationProxy: []
 --- !u!114 &6005509287083040154
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1360,7 +1754,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_contentList:
   - {fileID: 1973080778312514823}
-  m_contentListSerializationProxy: []
+  m_contentListSerializationProxy:
+  - t: Body
+    s: Return to {QUESTGIVER}
 --- !u!114 &7161679820060055635
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1377,6 +1773,24 @@ MonoBehaviour:
   m_bodyText:
     m_text: Did you happen to get any wood for burning when you came through that
       armory?
+    m_stringAsset: {fileID: 0}
+    m_textTable: {fileID: 0}
+    m_textTableFieldID: 0
+--- !u!114 &7396834620477963184
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0ed0c4e68ee98946bb5016adda42373, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_contentID: -1
+  m_bodyText:
+    m_text: Return to {QUESTGIVER}
     m_stringAsset: {fileID: 0}
     m_textTable: {fileID: 0}
     m_textTableFieldID: 0
@@ -1411,7 +1825,7 @@ MonoBehaviour:
     m_textTable: {fileID: 0}
     m_textTableFieldID: 0
   m_parameter:
-    m_text: MushroomMedley
+    m_text: MushroomCookbook
     m_stringAsset: {fileID: 0}
     m_textTable: {fileID: 0}
     m_textTableFieldID: 0
@@ -1419,6 +1833,24 @@ MonoBehaviour:
     m_valueType: 0
     m_intValue: 0
     m_stringValue: 
+--- !u!114 &7608604103913128992
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0ed0c4e68ee98946bb5016adda42373, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_contentID: -1
+  m_bodyText:
+    m_text: Return to {QUESTGIVER}.
+    m_stringAsset: {fileID: 0}
+    m_textTable: {fileID: 0}
+    m_textTableFieldID: 0
 --- !u!114 &7682027625073176712
 MonoBehaviour:
   m_ObjectHideFlags: 1

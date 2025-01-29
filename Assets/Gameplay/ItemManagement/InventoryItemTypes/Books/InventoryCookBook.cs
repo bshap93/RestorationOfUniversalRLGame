@@ -29,9 +29,6 @@ namespace Project.Gameplay.ItemManagement.InventoryItemTypes.Books
         [Tooltip("The message to send when the book is read.")]
         public string message = "CookbookRead";
         [Tooltip("The message value to send with the message (optional).")]
-        public string messageValue = "";
-
-
         public override bool Use(string playerID)
         {
             var journalManager = FindObjectOfType<JournalPersistenceManager>();
@@ -62,11 +59,9 @@ namespace Project.Gameplay.ItemManagement.InventoryItemTypes.Books
             {
                 // Play feedback for newly learned recipes
                 RecipeLearnedFeedback?.PlayFeedbacks();
-                if (messageValue != "")
-                {
-                    MessageSystem.SendMessage(this, message, messageValue);
-                    Debug.Log($"Message sent: {message} with value: {messageValue}");
-                }
+
+                MessageSystem.SendMessage(this, message, ItemID);
+                Debug.Log($"Message sent: {message} with value: {ItemID}");
             }
             else
                 // Play alternative feedback for no new recipes

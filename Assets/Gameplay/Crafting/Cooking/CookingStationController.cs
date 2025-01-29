@@ -37,7 +37,6 @@ public class CookingStationController : MonoBehaviour, ISelectableTrigger, MMEve
     bool _isCrafting;
 
     bool _isInPlayerRange;
-    
 
 
     void Start()
@@ -59,21 +58,13 @@ public class CookingStationController : MonoBehaviour, ISelectableTrigger, MMEve
                 FuelItemAlreadyAdded.Quantity);
     }
 
-
-    void Update()
-    {
-        // Add null check before accessing playerInventory
-        if (Input.GetKeyDown(KeyCode.F)) TryAddFuel();
-    }
-
-    // Optionally, add OnEnable to reinitialize on scene changes
     void OnEnable()
     {
         InitializeInventories();
-        
+
         this.MMEventStartListening();
     }
-    
+
     void OnDisable()
     {
         this.MMEventStopListening();
@@ -128,6 +119,14 @@ public class CookingStationController : MonoBehaviour, ISelectableTrigger, MMEve
     public void OnUnSelectedItem()
     {
         CookingStationEvent.Trigger("CookingStationDeselected", CookingStationEventType.CookingStationDeselected, this);
+    }
+    public void OnMMEvent(CookingStationEvent mmEvent)
+    {
+        if (mmEvent.EventType == CookingStationEventType.TryAddFuel)
+        {
+            Debug.Log("Received TryAddFuel event");
+            TryAddFuel();
+        }
     }
     public void TryAddFuel()
     {
@@ -235,14 +234,5 @@ public class CookingStationController : MonoBehaviour, ISelectableTrigger, MMEve
         newRecipeSetFeedbacks?.PlayFeedbacks();
         if (_currentRecipe != null)
             Debug.Log("Current recipe set to: " + currentRecipe.recipeName);
-    }
-    public void OnMMEvent(CookingStationEvent mmEvent)
-    {
-        if (mmEvent.EventType == CookingStationEventType.TryAddFuel)
-        {
-            Debug.Log("Received TryAddFuel event");
-            TryAddFuel();
-        }
-        
     }
 }

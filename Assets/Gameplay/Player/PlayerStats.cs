@@ -89,9 +89,9 @@ namespace Project.Gameplay.Player
             LoadStartingClass(playerClass);
             LoadTraits(chosenTraits);
 
-            // Assign attributes directly from creation data
+            // // Assign attributes directly from creation data
             AttributeManager.Initialize(creationData, this);
-            // Set class and base stats
+            // // Set class and base stats
             ApplyBaseStatsFromClass();
             ApplyAttributesToBaseStats();
 
