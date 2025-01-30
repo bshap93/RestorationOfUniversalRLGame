@@ -8,7 +8,6 @@ using Project.Gameplay.Interactivity;
 using Project.Gameplay.Interactivity.Items;
 using Project.Gameplay.ItemManagement;
 using Project.Gameplay.ItemManagement.InventoryTypes.Cooking;
-using Project.Gameplay.Player.Interaction;
 using Project.UI.HUD;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -244,20 +243,6 @@ namespace Gameplay.ItemsInteractions.CraftingStation
                 return;
             }
 
-            var craftingStationPreviewManager = player.GetComponent<CookingStationPreviewManager>();
-            if (craftingStationPreviewManager == null)
-            {
-                Debug.Log("Preview manager not found");
-                return;
-            }
-
-            if (!craftingStationPreviewManager.IsPreviewedCraftingStation(this)) return;
-
-            if (!craftingStationPreviewManager.TryBeginInteraction(this))
-            {
-                Debug.Log("Failed to interact with crafting station");
-                return;
-            }
 
             initialInteractionFeedbacks?.PlayFeedbacks();
 
