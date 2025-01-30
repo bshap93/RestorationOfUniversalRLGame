@@ -96,9 +96,6 @@ namespace Project.UI.Crafting.Cooking
 
             this.fuelInventory = fuelInventory;
 
-            // Set the cooking station ID for the fuel inventory
-            if (cookingStationController != null && cookingStationController.CookingStation != null)
-                this.fuelInventory.cookingStationID = cookingStationController.CookingStation.CraftingStationId;
 
             fuelInventoryDisplay.TargetInventoryName = this.fuelInventory.name;
             fuelInventoryDisplay.ChangeTargetInventory(this.fuelInventory.name);

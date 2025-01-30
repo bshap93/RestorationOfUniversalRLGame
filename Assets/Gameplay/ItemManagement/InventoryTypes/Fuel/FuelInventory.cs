@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using Gameplay.Crafting.Cooking;
 using Gameplay.ItemManagement.InventoryTypes;
 using MoreMountains.Feedbacks;
 using MoreMountains.InventoryEngine;
@@ -11,15 +12,23 @@ namespace Project.Gameplay.ItemManagement.InventoryTypes.Fuel
 {
     public class FuelInventory : MainInventory
     {
-        [FormerlySerializedAs("FuelItemAllowed")]
-        public Inventory primaryPlayerInventory;
         public InventoryItem fuelItemAllowed; // The base inventory item
         public MMFeedbacks fuelStartsFeedback;
         public MMFeedbacks fuelEndsFeedback;
         // Shows what fraction of the top fuel item unit has been burnt
         public bool IsBurning;
-        public string cookingStationID;
         public float updateInterval = 0.1f;
+        CookingStationController _cookingStationController;
+        string _cookingStationID;
+        [FormerlySerializedAs("FuelItemAllowed")]
+        Inventory _primaryPlayerInventory;
+
+        void Start()
+        {
+            _cookingStationController = GetComponentInParent<CookingStationController>();
+            _primaryPlayerInventory = _cookingStationController.playerInventory;
+            _cookingStationID = _cookingStationController.CookingStation.CraftingStationId;
+        }
 
         public override bool AddItem(InventoryItem fuelItem, int quantity)
         {
@@ -32,7 +41,7 @@ namespace Project.Gameplay.ItemManagement.InventoryTypes.Fuel
             }
 
             // Add item to primary inventory if not allowed 
-            if (primaryPlayerInventory.AddItem(fuelItem, quantity)) return true;
+            if (_primaryPlayerInventory.AddItem(fuelItem, quantity)) return true;
 
 
             Debug.Log("FuelInventory.AddItem: Item not allowed");
@@ -54,10 +63,10 @@ namespace Project.Gameplay.ItemManagement.InventoryTypes.Fuel
             IsBurning = true;
             float elapsedTime = 0;
 
-            MMGameEvent.Trigger("BurnFuel", stringParameter: cookingStationID);
+            MMGameEvent.Trigger("BurnFuel", stringParameter: _cookingStationID);
 
             MMGameEvent.Trigger(
-                "UpdateFuelProgressBar", stringParameter: cookingStationID, vector2Parameter: new Vector2(1.0f, 0));
+                "UpdateFuelProgressBar", stringParameter: _cookingStationID, vector2Parameter: new Vector2(1.0f, 0));
 
 
             while (elapsedTime < fuelItem.burnDuration)
@@ -69,7 +78,7 @@ namespace Project.Gameplay.ItemManagement.InventoryTypes.Fuel
                 if (elapsedTime % 1 < updateInterval)
                     MMGameEvent.Trigger(
                         "UpdateFuelProgressBar",
-                        stringParameter: cookingStationID,
+                        stringParameter: _cookingStationID,
                         vector2Parameter: new Vector2(fuelItem.remainingFraction, 0));
                 // fuelBurntProgressBar.BarProgress = fuelItem.remainingFraction;
 
@@ -82,7 +91,7 @@ namespace Project.Gameplay.ItemManagement.InventoryTypes.Fuel
 
             fuelEndsFeedback?.PlayFeedbacks();
 
-            MMGameEvent.Trigger("SpentFuel", stringParameter: cookingStationID);
+            MMGameEvent.Trigger("SpentFuel", stringParameter: _cookingStationID);
             IsBurning = false;
             // fuelItems[0].burnDuration = fuelItems[0].remainingFraction * fuelItems[0].burnDuration;
             // StartCoroutine(BurnFuel(fuelItems[0], 1));
@@ -99,7 +108,7 @@ namespace Project.Gameplay.ItemManagement.InventoryTypes.Fuel
             }
 
             // Add item to primary inventory if not allowed 
-            if (primaryPlayerInventory.AddItem(fuelItem, quantity)) return true;
+            if (_primaryPlayerInventory.AddItem(fuelItem, quantity)) return true;
 
             Debug.Log("FuelInventory.AddItemAt: Item not allowed");
             return false;

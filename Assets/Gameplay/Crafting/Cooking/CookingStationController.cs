@@ -10,15 +10,12 @@ using Project.Gameplay.ItemManagement.InventoryTypes.Fuel;
 using Project.Gameplay.SaveLoad.Triggers;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Gameplay.Crafting.Cooking
 {
     public class CookingStationController : MonoBehaviour, ISelectableTrigger, MMEventListener<CookingStationEvent>
     {
-        CookingQueueInventory _queueInventory; // Uncooked items
-        CookingDepositInventory _depositInventory; // Cooked items
-        FuelInventory _fuelInventory; // Firewood
-
         public CanvasGroup CookingUICanvasGroup;
         public CanvasGroup CookingUIPanelCanvasGroup;
         public GameObject CookingUIPanel;
@@ -37,12 +34,16 @@ namespace Gameplay.Crafting.Cooking
         public MMFeedbacks craftingFeedbacks;
         public MMFeedbacks completionFeedbacks;
         public MMFeedbacks newRecipeSetFeedbacks;
+        [FormerlySerializedAs("_playerInventory")]
+        public Inventory playerInventory; // Reference to the player's inventory
         CookingRecipe _currentRecipe; // The recipe to craft
+        CookingDepositInventory _depositInventory; // Cooked items
+        FuelInventory _fuelInventory; // Firewood
 
         bool _isCrafting;
 
         bool _isInPlayerRange;
-        Inventory _playerInventory; // Reference to the player's inventory
+        CookingQueueInventory _queueInventory; // Uncooked items
 
 
         void Start()
@@ -53,7 +54,8 @@ namespace Gameplay.Crafting.Cooking
             if (_fuelInventory.GetQuantity("Firewood") > 0)
                 FuelItemAlreadyAdded =
                     new FuelMaterial(
-                        _fuelInventory.fuelItemAllowed, _fuelInventory.GetQuantity(_fuelInventory.fuelItemAllowed.ItemID));
+                        _fuelInventory.fuelItemAllowed,
+                        _fuelInventory.GetQuantity(_fuelInventory.fuelItemAllowed.ItemID));
             else
                 FuelItemAlreadyAdded = null;
 
@@ -89,7 +91,8 @@ namespace Gameplay.Crafting.Cooking
                 }
 
 
-                CookingStationEvent.Trigger("CookingStationInRange", CookingStationEventType.CookingStationInRange, this);
+                CookingStationEvent.Trigger(
+                    "CookingStationInRange", CookingStationEventType.CookingStationInRange, this);
 
                 // Display the inventories when interacting.
 
@@ -124,7 +127,8 @@ namespace Gameplay.Crafting.Cooking
         }
         public void OnUnSelectedItem()
         {
-            CookingStationEvent.Trigger("CookingStationDeselected", CookingStationEventType.CookingStationDeselected, this);
+            CookingStationEvent.Trigger(
+                "CookingStationDeselected", CookingStationEventType.CookingStationDeselected, this);
         }
         public void OnMMEvent(CookingStationEvent mmEvent)
         {
@@ -140,10 +144,10 @@ namespace Gameplay.Crafting.Cooking
                 if (!ValidateFuel())
                 {
                     // Reinitialize inventories if reference is lost
-                    if (_playerInventory == null) InitializeInventories();
+                    if (playerInventory == null) InitializeInventories();
 
                     // Only try to transfer if we have a valid inventory
-                    if (_playerInventory != null)
+                    if (playerInventory != null)
                         TransferFuelFromPlayer(_fuelInventory.fuelItemAllowed, 1);
                     else
                         Debug.LogWarning("Cannot transfer fuel - player inventory is null");
@@ -153,24 +157,24 @@ namespace Gameplay.Crafting.Cooking
         // Add this method to reinitialize inventory references
         void InitializeInventories()
         {
-            if (_playerInventory == null)
+            if (playerInventory == null)
             {
-                _playerInventory = Inventory.FindInventory(MainInventory.MainInventoryObjectName, "Player1");
-                if (_playerInventory == null) Debug.LogError("Could not find MainPlayerInventory");
+                playerInventory = Inventory.FindInventory(MainInventory.MainInventoryObjectName, "Player1");
+                if (playerInventory == null) Debug.LogError("Could not find MainPlayerInventory");
             }
-        
+
             if (_fuelInventory == null)
             {
                 _fuelInventory = gameObject.GetComponentInChildren<FuelInventory>();
                 if (_fuelInventory == null) Debug.LogError("Could not find FuelInventory");
             }
-        
+
             if (_depositInventory == null)
             {
                 _depositInventory = gameObject.GetComponentInChildren<CookingDepositInventory>();
                 if (_depositInventory == null) Debug.LogError("Could not find CookingDepositInventory");
             }
-        
+
             if (_queueInventory == null)
             {
                 _queueInventory = gameObject.GetComponentInChildren<CookingQueueInventory>();
@@ -226,18 +230,18 @@ namespace Gameplay.Crafting.Cooking
         public void TransferFuelFromPlayer(InventoryItem fuelItem, int quantity)
         {
             // Add null check at start of method
-            if (_playerInventory == null)
+            if (playerInventory == null)
             {
                 Debug.LogWarning("Cannot transfer fuel - player inventory is null");
                 ShowPreview("Cannot transfer fuel - inventory error");
                 return;
             }
 
-            if (_playerInventory.GetQuantity(fuelItem.ItemID) >= quantity)
+            if (playerInventory.GetQuantity(fuelItem.ItemID) >= quantity)
             {
                 if (_fuelInventory.AddItem(fuelItem, quantity))
                 {
-                    _playerInventory.RemoveItemByID(fuelItem.ItemID, quantity);
+                    playerInventory.RemoveItemByID(fuelItem.ItemID, quantity);
                     ShowPreview($"Added {quantity} fuel to the station.");
                 }
                 else
