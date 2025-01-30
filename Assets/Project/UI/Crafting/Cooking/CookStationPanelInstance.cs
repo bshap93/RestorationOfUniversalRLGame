@@ -51,7 +51,7 @@ namespace Project.UI.Crafting.Cooking
                 _cookableItemsDropDown = recipeDropDown.GetComponent<CookableItemsDropDown>();
                 if (_cookableItemsDropDown != null && cookingStationController != null &&
                     cookingStationController.CookingStation != null)
-                    _cookableItemsDropDown.CraftingStationId =
+                    _cookableItemsDropDown.craftingStationId =
                         cookingStationController.CookingStation.CraftingStationId;
             }
 

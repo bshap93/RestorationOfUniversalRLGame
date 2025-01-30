@@ -44,7 +44,7 @@ namespace Gameplay.Crafting.Cooking
         CookingQueueInventory _queueInventory; // Uncooked items
 
 
-        void Start()
+        void Awake()
         {
             InitializeInventories();
             HideCookingUI();
@@ -167,16 +167,17 @@ namespace Gameplay.Crafting.Cooking
                 if (_fuelInventory == null) Debug.LogError("Could not find FuelInventory");
             }
 
-            if (_depositInventory == null)
-            {
-                _depositInventory = gameObject.GetComponentInChildren<CookingDepositInventory>();
-                if (_depositInventory == null) Debug.LogError("Could not find CookingDepositInventory");
-            }
-
             if (_queueInventory == null)
             {
                 _queueInventory = gameObject.GetComponentInChildren<CookingQueueInventory>();
                 if (_queueInventory == null) Debug.LogError("Could not find CookingQueueInventory");
+            }
+
+
+            if (_depositInventory == null)
+            {
+                _depositInventory = gameObject.GetComponentInChildren<CookingDepositInventory>();
+                if (_depositInventory == null) Debug.LogError("Could not find CookingDepositInventory");
             }
         }
 
