@@ -15,7 +15,6 @@ public class CookingStationController : MonoBehaviour, ISelectableTrigger, MMEve
     public CookingQueueInventory queueInventory; // Uncooked items
     public CookingDepositInventory depositInventory; // Cooked items
     public FuelInventory fuelInventory; // Firewood
-    public Inventory playerInventory; // Reference to the player's inventory
 
 
     [CanBeNull] public FuelMaterial FuelItemAlreadyAdded;
@@ -37,6 +36,7 @@ public class CookingStationController : MonoBehaviour, ISelectableTrigger, MMEve
     bool _isCrafting;
 
     bool _isInPlayerRange;
+    Inventory _playerInventory; // Reference to the player's inventory
 
 
     void Start()
@@ -134,10 +134,10 @@ public class CookingStationController : MonoBehaviour, ISelectableTrigger, MMEve
             if (!ValidateFuel())
             {
                 // Reinitialize inventories if reference is lost
-                if (playerInventory == null) InitializeInventories();
+                if (_playerInventory == null) InitializeInventories();
 
                 // Only try to transfer if we have a valid inventory
-                if (playerInventory != null)
+                if (_playerInventory != null)
                     TransferFuelFromPlayer(fuelInventory.fuelItemAllowed, 1);
                 else
                     Debug.LogWarning("Cannot transfer fuel - player inventory is null");
@@ -147,10 +147,10 @@ public class CookingStationController : MonoBehaviour, ISelectableTrigger, MMEve
     // Add this method to reinitialize inventory references
     void InitializeInventories()
     {
-        if (playerInventory == null)
+        if (_playerInventory == null)
         {
-            playerInventory = Inventory.FindInventory("MainPlayerInventory", "Player1");
-            if (playerInventory == null) Debug.LogError("Could not find MainPlayerInventory");
+            _playerInventory = Inventory.FindInventory("MainPlayerInventory", "Player1");
+            if (_playerInventory == null) Debug.LogError("Could not find MainPlayerInventory");
         }
     }
 
@@ -202,18 +202,18 @@ public class CookingStationController : MonoBehaviour, ISelectableTrigger, MMEve
     public void TransferFuelFromPlayer(InventoryItem fuelItem, int quantity)
     {
         // Add null check at start of method
-        if (playerInventory == null)
+        if (_playerInventory == null)
         {
             Debug.LogWarning("Cannot transfer fuel - player inventory is null");
             ShowPreview("Cannot transfer fuel - inventory error");
             return;
         }
 
-        if (playerInventory.GetQuantity(fuelItem.ItemID) >= quantity)
+        if (_playerInventory.GetQuantity(fuelItem.ItemID) >= quantity)
         {
             if (fuelInventory.AddItem(fuelItem, quantity))
             {
-                playerInventory.RemoveItemByID(fuelItem.ItemID, quantity);
+                _playerInventory.RemoveItemByID(fuelItem.ItemID, quantity);
                 ShowPreview($"Added {quantity} fuel to the station.");
             }
             else

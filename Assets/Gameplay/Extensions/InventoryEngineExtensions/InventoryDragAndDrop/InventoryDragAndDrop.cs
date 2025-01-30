@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-namespace Project.Gameplay.Extensions.InventoryEngineExtensions.InventoryDragAndDrop
+namespace Gameplay.Extensions.InventoryEngineExtensions.InventoryDragAndDrop
 {
     public class InventoryDragAndDrop : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
     {
