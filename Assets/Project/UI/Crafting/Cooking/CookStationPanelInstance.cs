@@ -13,34 +13,39 @@ namespace Project.UI.Crafting.Cooking
 {
     public class CookStationPanelInstance : MonoBehaviour
     {
-        public MMProgressBar fuelBurntProgressBar;
+        [Header("Progress Bars")] public MMProgressBar fuelBurntProgressBar;
         public MMProgressBar cookingProgressBar;
 
-        public CanvasGroup cookStationCanvasGroup;
+        [Header("Cooking Station Controller")] public CookingStationController cookingStationController;
 
-        public GameObject recipeDropDown;
+        [Header("Canvas Groups")] public CanvasGroup cookStationCanvasGroup;
 
+        [Header("MUI Dropdown & Button")] public GameObject recipeDropDown;
         public ButtonManager startCookingButtonManager;
-        public CookingStationController cookingStationController;
 
-        [FormerlySerializedAs("_cookingDepositInventoryDisplay")]
-        public InventoryDisplay cookingDepositInventoryDisplay;
+        [Header("Inventory Displays")] public InventoryDisplay cookingDepositInventoryDisplay;
         [FormerlySerializedAs("_cookingQueueInventoryDisplay")]
         public InventoryDisplay cookingQueueInventoryDisplay;
         [FormerlySerializedAs("_fuelInventoryDisplay")]
         public InventoryDisplay fuelInventoryDisplay;
-        public TMP_Text CookStationIDText;
-
-        [FormerlySerializedAs("_cookingDepositInventory")]
-        public CookingDepositInventory cookingDepositInventory;
-        [FormerlySerializedAs("_cookingQueueInventory")]
-        public CookingQueueInventory cookingQueueInventory;
-        [FormerlySerializedAs("_fuelInventory")]
-        public FuelInventory fuelInventory;
+        [Header("CookStation ID Text")] public TMP_Text CookStationIDText;
         CookableItemsDropDown _cookableItemsDropDown;
+
+        CookingDepositInventory cookingDepositInventory;
+        CookingQueueInventory cookingQueueInventory;
+        FuelInventory fuelInventory;
 
         void Start()
         {
+            if (cookingStationController != null)
+            {
+                cookingDepositInventory = cookingStationController.GetDepositInventory();
+
+                cookingQueueInventory = cookingStationController.GetQueueInventory();
+
+                fuelInventory = cookingStationController.GetFuelInventory();
+            }
+
             if (recipeDropDown != null)
             {
                 _cookableItemsDropDown = recipeDropDown.GetComponent<CookableItemsDropDown>();
@@ -108,6 +113,20 @@ namespace Project.UI.Crafting.Cooking
         public void SetPlayerInventory(Inventory playerInventory)
         {
             throw new NotImplementedException();
+        }
+
+        // Encapsulation Helper Method
+        public void HideCookingUI()
+        {
+            if (cookingStationController != null)
+            {
+                Debug.Log("Hiding Cooking UI");
+                cookingStationController.HideCookingUI();
+            }
+            else
+            {
+                Debug.LogError("Cannot hide cooking UI - controller is null");
+            }
         }
     }
 }
