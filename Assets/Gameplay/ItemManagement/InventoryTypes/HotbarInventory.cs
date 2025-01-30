@@ -6,6 +6,9 @@ namespace Project.Gameplay.ItemManagement
 {
     public class HotbarInventory : Inventory
     {
+        const string PlayerID = "Player1";
+        public const string HotbarInventoryObjectName = "HotbarInventory";
+        public const string HotbarInventoryTag = "HotbarInventory";
         public Inventory MainInventory;
 
         public override bool AddItem(InventoryItem itemToAdd, int quantity)

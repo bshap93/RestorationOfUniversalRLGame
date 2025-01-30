@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using Core.GameInitialization;
+using Gameplay.ItemManagement.InventoryTypes;
 using MoreMountains.Feedbacks;
 using MoreMountains.InventoryEngine;
 using MoreMountains.Tools;
@@ -43,17 +45,17 @@ namespace Gameplay.ItemsInteractions.CraftingStation
                 Debug.LogWarning("InteractPromptUI not found in the PromptManager.");
 
             // Locate PortableSystems and retrieve the appropriate inventory
-            var portableSystems = GameObject.Find("PortableSystems");
+            var portableSystems = GameObject.Find(PortableSystems.PortableSystemsObjectName);
             if (portableSystems != null)
             {
-                if (cookingStation.TargetInventoryName == "MainPlayerInventory")
-                    _targetInventory = GameObject.FindWithTag("MainPlayerInventory")
+                if (cookingStation.TargetInventoryName == MainInventory.MainInventoryObjectName)
+                    _targetInventory = GameObject.FindWithTag(MainInventory.MainInventoryTag)
                         ?.GetComponent<Inventory>();
-                else if (cookingStation.TargetInventoryName == "HotbarInventory")
-                    _targetInventory = GameObject.FindWithTag("HotbarInventory")
+                else if (cookingStation.TargetInventoryName == HotbarInventory.HotbarInventoryObjectName)
+                    _targetInventory = GameObject.FindWithTag(HotbarInventory.HotbarInventoryTag)
                         ?.GetComponent<HotbarInventory>();
                 else
-                    _targetInventory = GameObject.FindWithTag("MainPlayerInventory")
+                    _targetInventory = GameObject.FindWithTag(MainInventory.MainInventoryTag)
                         ?.GetComponent<Inventory>();
 
 
@@ -63,14 +65,14 @@ namespace Gameplay.ItemsInteractions.CraftingStation
                 }
                 else
                 {
-                    if (cookingStation.SourceInventoryName == "MainPlayerInventory")
-                        _sourceInventory = GameObject.FindWithTag("MainPlayerInventory")
+                    if (cookingStation.SourceInventoryName == MainInventory.MainInventoryObjectName)
+                        _sourceInventory = GameObject.FindWithTag(MainInventory.MainInventoryTag)
                             ?.GetComponent<Inventory>();
-                    else if (cookingStation.SourceInventoryName == "HotbarInventory")
-                        _sourceInventory = GameObject.FindWithTag("HotbarInventory")
+                    else if (cookingStation.SourceInventoryName == HotbarInventory.HotbarInventoryObjectName)
+                        _sourceInventory = GameObject.FindWithTag(HotbarInventory.HotbarInventoryTag)
                             ?.GetComponent<HotbarInventory>();
                     else
-                        _sourceInventory = GameObject.FindWithTag("MainPlayerInventory")
+                        _sourceInventory = GameObject.FindWithTag(MainInventory.MainInventoryTag)
                             ?.GetComponent<Inventory>();
                 }
 

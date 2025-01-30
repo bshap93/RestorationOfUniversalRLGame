@@ -1,4 +1,6 @@
 ﻿using System;
+using Core.GameInitialization;
+using Gameplay.ItemManagement.InventoryTypes;
 using MoreMountains.Feedbacks;
 using Plugins.TopDownEngine.ThirdParty.MoreMountains.InentoryEngine.InventoryEngine.Scripts.Items;
 using Project.Gameplay.Events;
@@ -24,6 +26,8 @@ namespace Gameplay.Player.Inventory
 
         [Tooltip("UI Text or TMP Text to display stock amount.")]
         public Text stockText;
+
+        public string PortableSystemObjectName = PortableSystems.PortableSystemsObjectName;
 
         [Header("Dispenser Models")]
         [Tooltip("Model for a full dispenser.")]
@@ -57,9 +61,9 @@ namespace Gameplay.Player.Inventory
             _listPreviewManager = FindFirstObjectByType<ListPreviewManager>();
             if (_promptManager == null) Debug.LogWarning("PromptManager not found in the scene.");
 
-            var portableSystems = GameObject.Find("PortableSystems");
+            var portableSystems = GameObject.Find(PortableSystemObjectName);
             if (portableSystems != null)
-                _targetInventory = GameObject.FindWithTag("MainPlayerInventory")
+                _targetInventory = GameObject.FindWithTag(MainInventory.MainInventoryObjectName)
                     ?.GetComponent<MoreMountains.InventoryEngine.Inventory>();
 
             if (_targetInventory == null) Debug.LogWarning("Target inventory not found in PortableSystems.");

@@ -1,6 +1,8 @@
 using System;
+using Core.GameInitialization;
 using Gameplay.ItemManagement.Cooking;
 using Gameplay.ItemManagement.InventoryItemTypes;
+using Gameplay.ItemManagement.InventoryTypes;
 using MoreMountains.Feedbacks;
 using Plugins.TopDownEngine.ThirdParty.MoreMountains.InentoryEngine.InventoryEngine.Scripts.Items;
 using Project.Gameplay.Events;
@@ -60,17 +62,17 @@ namespace Gameplay.Player.Inventory
 
 
             // Locate PortableSystems and retrieve the appropriate inventory
-            var portableSystems = GameObject.Find("PortableSystems");
+            var portableSystems = GameObject.Find(PortableSystems.PortableSystemsObjectName);
             if (portableSystems != null)
             {
-                if (Item.TargetInventoryName == "MainPlayerInventory")
-                    _targetInventory = GameObject.FindWithTag("MainPlayerInventory")
+                if (Item.TargetInventoryName == MainInventory.MainInventoryObjectName)
+                    _targetInventory = GameObject.FindWithTag(MainInventory.MainInventoryObjectName)
                         ?.GetComponent<MoreMountains.InventoryEngine.Inventory>();
-                else if (Item.TargetInventoryName == "HotbarInventory")
-                    _targetInventory = GameObject.FindWithTag("HotbarInventory")
+                else if (Item.TargetInventoryName == HotbarInventory.HotbarInventoryObjectName)
+                    _targetInventory = GameObject.FindWithTag(HotbarInventory.HotbarInventoryObjectName)
                         ?.GetComponent<HotbarInventory>();
                 else
-                    _targetInventory = GameObject.FindWithTag("MainPlayerInventory")
+                    _targetInventory = GameObject.FindWithTag(MainInventory.MainInventoryObjectName)
                         ?.GetComponent<MoreMountains.InventoryEngine.Inventory>();
             }
 

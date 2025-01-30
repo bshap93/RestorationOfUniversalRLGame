@@ -1,14 +1,17 @@
 ﻿using MoreMountains.InventoryEngine;
-using Project.Gameplay.Interactivity.Items;
 using UnityEngine;
 
 namespace Gameplay.ItemManagement.InventoryTypes
 {
-    public class MainInventory : MoreMountains.InventoryEngine.Inventory
+    public class MainInventory : Inventory
     {
-        public override bool MoveItemToInventory(int startIndex, MoreMountains.InventoryEngine.Inventory targetInventory, int endIndex)
+        const string PlayerID = "Player1";
+        public const string MainInventoryObjectName = "MainPlayerInventory";
+        public const string MainInventoryTag = "MainPlayerInventory";
+
+        public override bool MoveItemToInventory(int startIndex, Inventory targetInventory, int endIndex)
         {
-            InventoryItem itemToMove = Content[startIndex].Copy();
+            var itemToMove = Content[startIndex].Copy();
 
             // Trigger unequip event if the item is equippable
             if (itemToMove.Equippable)
@@ -27,13 +30,9 @@ namespace Gameplay.ItemManagement.InventoryTypes
             }
 
             if (endIndex >= 0)
-            {
                 targetInventory.AddItemAt(itemToMove, itemToMove.Quantity, endIndex);
-            }
             else
-            {
                 targetInventory.AddItem(itemToMove, itemToMove.Quantity);
-            }
 
             // Remove the item from this inventory
             RemoveItem(startIndex, itemToMove.Quantity);

@@ -1,21 +1,25 @@
 using UnityEngine;
 
-public class PortableSystems : MonoBehaviour
+namespace Core.GameInitialization
 {
-    // Singleton pattern
-    public static PortableSystems Instance { get; private set; }
-
-    // Don't destroy this object when loading a new scene
-    void Awake()
+    public class PortableSystems : MonoBehaviour
     {
-        if (Instance == null)
+        public const string PortableSystemsObjectName = "PortableSystemsV2";
+        // Singleton pattern
+        public static PortableSystems Instance { get; private set; }
+
+        // Don't destroy this object when loading a new scene
+        void Awake()
         {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
+            if (Instance == null)
+            {
+                Instance = this;
+                DontDestroyOnLoad(gameObject);
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
         }
     }
 }

@@ -482,6 +482,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9095104630119196803}
   - component: {fileID: 2139587162018087077}
+  - component: {fileID: 4906894688683103752}
   m_Layer: 0
   m_Name: CookingStationFuelInventory01
   m_TagString: Untagged
@@ -521,9 +522,9 @@ MonoBehaviour:
   - {fileID: 0}
   InventoryType: 0
   TargetTransform: {fileID: 0}
-  Persistent: 1
+  Persistent: 0
   ResetThisInventorySaveOnStart: 0
-  DrawContentInInspector: 0
+  DrawContentInInspector: 1
   primaryPlayerInventory: {fileID: 0}
   fuelItemAllowed: {fileID: 11400000, guid: 686e83163144d5040a850536167aff7c, type: 2}
   fuelStartsFeedback: {fileID: 2011938373104173978}
@@ -531,6 +532,21 @@ MonoBehaviour:
   IsBurning: 0
   cookingStationID: CookingStation01
   updateInterval: 0.1
+--- !u!114 &4906894688683103752
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1181497187226557774}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc8279385e242b743b07c77aba578d05, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  initialItems:
+  - {fileID: 11400000, guid: 686e83163144d5040a850536167aff7c, type: 2}
+  itemQuantities: 01000000
 --- !u!1 &3208978458545964448
 GameObject:
   m_ObjectHideFlags: 0
@@ -5918,11 +5934,15 @@ MonoBehaviour:
   addedRawFoodFeedback: {fileID: 0}
   cookingStartsFeedback: {fileID: 0}
   cookingEndsFeedback: {fileID: 0}
+  rawFoodItems:
+  - {fileID: 11400000, guid: 7b3b7cca7c4d743409b27edfc2b93411, type: 2}
   fuelInventory: {fileID: 2139587162018087077}
   cookingDepositInventory: {fileID: 7983999279603739722}
   recipeHeader: {fileID: 0}
   cookableRecipes: []
   CannotCookFeedback: {fileID: 0}
+  cookingStationController: {fileID: 6878976962334548690}
+  _journalPersistenceManager: {fileID: 0}
 --- !u!1 &6040741370612021892
 GameObject:
   m_ObjectHideFlags: 0
@@ -6335,7 +6355,7 @@ MonoBehaviour:
           CooldownDuration: 0
           InterruptsOnStop: 1
           NumberOfRepeats: 0
-          RepeatForever: 1
+          RepeatForever: 0
           DelayBetweenRepeats: 0
           PlayCount: 0
           LimitPlayCount: 0
@@ -6400,8 +6420,8 @@ MonoBehaviour:
         PoolSize: 10
         UseLegacyEventsMode: 0
         StopSoundOnFeedbackStop: 1
-        MinVolume: 1
-        MaxVolume: 1
+        MinVolume: 0.102
+        MaxVolume: 0.141
         MinPitch: 1
         MaxPitch: 1
         SfxAudioMixerGroup: {fileID: 0}
@@ -6604,7 +6624,9 @@ MonoBehaviour:
   queueInventory: {fileID: 9075330060970690083}
   depositInventory: {fileID: 7983999279603739722}
   fuelInventory: {fileID: 2139587162018087077}
-  playerInventory: {fileID: 0}
+  CookingUICanvasGroup: {fileID: 0}
+  CookingUIPanelCanvasGroup: {fileID: 0}
+  CookingUIPanel: {fileID: 0}
   FuelItemAlreadyAdded:
     FuelItem:
       Item: {fileID: 0}
@@ -6614,7 +6636,6 @@ MonoBehaviour:
     Quantity: 0
   CookingStation: {fileID: 11400000, guid: 25af976d02a13764082c305c750d4fd7, type: 2}
   fuelBurnRate: 1
-  previewPanel: {fileID: 0}
   previewText: {fileID: 0}
   interactFeedbacks: {fileID: 8656836791624969570}
   craftingFeedbacks: {fileID: 0}

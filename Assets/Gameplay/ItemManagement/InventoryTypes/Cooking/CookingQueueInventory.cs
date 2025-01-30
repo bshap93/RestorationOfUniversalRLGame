@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using MoreMountains.Feedbacks;
 using MoreMountains.Tools;
+using MoreMountains.TopDownEngine;
 using Project.Core.Events;
 using Project.Gameplay.Interactivity.Food;
 using Project.Gameplay.Interactivity.Items;
@@ -31,7 +32,8 @@ namespace Project.Gameplay.ItemManagement.InventoryTypes.Cooking
         }
     }
 
-    public class CookingQueueInventory : CraftingQueueInventory, MMEventListener<RecipeEvent>
+    public class CookingQueueInventory : CraftingQueueInventory, MMEventListener<RecipeEvent>,
+        MMEventListener<MMCameraEvent>
     {
         public MMFeedbacks addedRawFoodFeedback;
         public MMFeedbacks cookingStartsFeedback;
@@ -68,8 +70,7 @@ namespace Project.Gameplay.ItemManagement.InventoryTypes.Cooking
 
                 recipeHeader = FindObjectOfType<RecipeHeader>();
 
-            foreach (var item in rawFoodItems)
-                AddItem(item, 1);
+            foreach (var item in rawFoodItems) AddItem(item, 1);
 
             if (cookingStationController == null)
                 cookingStationController = gameObject.GetComponentInParent<CookingStationController>();
@@ -79,6 +80,8 @@ namespace Project.Gameplay.ItemManagement.InventoryTypes.Cooking
         {
             base.OnEnable();
             this.MMEventStartListening<RecipeEvent>();
+
+            this.MMEventStartListening<MMCameraEvent>();
         }
 
         protected override void OnDisable()
@@ -86,10 +89,18 @@ namespace Project.Gameplay.ItemManagement.InventoryTypes.Cooking
             base.OnDisable();
             this.MMEventStopListening<RecipeEvent>();
         }
+        public void OnMMEvent(MMCameraEvent mmEvent)
+        {
+            if (mmEvent.EventType == MMCameraEventTypes.SetTargetCharacter)
+                TryDetectRecipeFromIngredientsInQueue(null);
+        }
         public void OnMMEvent(RecipeEvent mmEvent)
         {
             if (mmEvent.EventType == RecipeEventType.ChooseRecipeFromCookable)
                 ChooseRecipeFromCookableRecipes(mmEvent.RecipeParameter);
+
+            if (mmEvent.EventType == RecipeEventType.NewRecipesLearned)
+                TryDetectRecipeFromIngredientsInQueue(null);
         }
 
         public bool CookableRecipesContains(CookingRecipe recipe)
