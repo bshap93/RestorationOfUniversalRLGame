@@ -8,7 +8,6 @@ using Project.Gameplay.Interactivity.Items;
 using Project.Gameplay.ItemManagement.InventoryTypes.Cooking;
 using Project.Gameplay.ItemManagement.InventoryTypes.Fuel;
 using Project.Gameplay.SaveLoad.Triggers;
-using TMPro;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -29,7 +28,6 @@ namespace Gameplay.Crafting.Cooking
         [Header("Fuel & Progress Tracking")] public float fuelBurnRate = 1f; // Time in seconds to burn one unit of fuel
 
 
-        public TextMeshProUGUI previewText;
         public MMFeedbacks interactFeedbacks;
         public MMFeedbacks craftingFeedbacks;
         public MMFeedbacks completionFeedbacks;

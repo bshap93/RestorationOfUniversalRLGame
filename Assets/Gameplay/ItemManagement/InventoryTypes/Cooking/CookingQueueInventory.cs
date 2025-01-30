@@ -40,8 +40,7 @@ namespace Project.Gameplay.ItemManagement.InventoryTypes.Cooking
         public MMFeedbacks cookingStartsFeedback;
         public MMFeedbacks cookingEndsFeedback;
 
-        [Header("Debug")]
-        public List<RawFood> rawFoodItems;
+        [Header("Debug")] public List<RawFood> rawFoodItems;
         public FuelInventory fuelInventory;
         public CookingDepositInventory cookingDepositInventory;
 
@@ -65,7 +64,8 @@ namespace Project.Gameplay.ItemManagement.InventoryTypes.Cooking
         {
             base.Awake();
             _cookingStationController = gameObject.GetComponentInParent<CookingStationController>();
-            fuelInventory = _cookingStationController.GetFuelInventory();
+
+
             _journalPersistenceManager = FindFirstObjectByType<JournalPersistenceManager>();
         }
 
@@ -74,6 +74,13 @@ namespace Project.Gameplay.ItemManagement.InventoryTypes.Cooking
             if (_recipeHeader == null)
 
                 _recipeHeader = FindFirstObjectByType<RecipeHeader>();
+
+            if (_cookingStationController != null)
+            {
+                fuelInventory = _cookingStationController.GetFuelInventory();
+                cookingDepositInventory = _cookingStationController.GetDepositInventory();
+            }
+
 
             foreach (var item in rawFoodItems) AddItem(item, 1);
         }
