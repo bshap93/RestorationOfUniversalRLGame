@@ -39,21 +39,21 @@ namespace Project.Gameplay.ItemManagement.InventoryTypes.Cooking
         [Header("Feedbacks")] public MMFeedbacks addedRawFoodFeedback;
         public MMFeedbacks cookingStartsFeedback;
         public MMFeedbacks cookingEndsFeedback;
+        public MMFeedbacks CannotCookFeedback;
 
         [Header("Debug")] public List<RawFood> rawFoodItems;
-        public FuelInventory fuelInventory;
-        public CookingDepositInventory cookingDepositInventory;
 
 
         [FormerlySerializedAs("_cookableRecipes")] [SerializeField]
         List<CookingRecipe> cookableRecipes = new();
+        CookingDepositInventory _cookingDepositInventory;
 
-        public MMFeedbacks CannotCookFeedback;
 
         [FormerlySerializedAs("_cookingStationController")]
         CookingStationController _cookingStationController;
 
         CookingRecipe _currentRecipe;
+        FuelInventory _fuelInventory;
 
         [FormerlySerializedAs("_journalPersistenceManager")]
         JournalPersistenceManager _journalPersistenceManager;
@@ -77,8 +77,8 @@ namespace Project.Gameplay.ItemManagement.InventoryTypes.Cooking
 
             if (_cookingStationController != null)
             {
-                fuelInventory = _cookingStationController.GetFuelInventory();
-                cookingDepositInventory = _cookingStationController.GetDepositInventory();
+                _fuelInventory = _cookingStationController.GetFuelInventory();
+                _cookingDepositInventory = _cookingStationController.GetDepositInventory();
             }
 
 
@@ -190,7 +190,7 @@ namespace Project.Gameplay.ItemManagement.InventoryTypes.Cooking
                 return;
             }
 
-            if (fuelInventory.IsBurning && _currentRecipe != null)
+            if (_fuelInventory.IsBurning && _currentRecipe != null)
             {
                 var cookingRecipeInProgress = new CookingRecipeInProgress(_currentRecipe);
                 Debug.Log("CookingQueueInventory.StartCookingCurrentRecipe: Cooking " + _currentRecipe.recipeName);
@@ -268,7 +268,7 @@ namespace Project.Gameplay.ItemManagement.InventoryTypes.Cooking
                 yield break;
             }
 
-            if (!fuelInventory.IsBurning) yield break;
+            if (!_fuelInventory.IsBurning) yield break;
             float elapsedTime = 0;
             cookingStartsFeedback?.PlayFeedbacks();
 
@@ -297,7 +297,7 @@ namespace Project.Gameplay.ItemManagement.InventoryTypes.Cooking
                 RemoveItemByID(rawFoodItem.item.ItemID, quantity);
 
 
-            cookingDepositInventory.AddItem(
+            _cookingDepositInventory.AddItem(
                 cookingRecipeInProgress.currentRecipe.finishedFoodItem.FinishedFood, quantity);
 
             _currentRecipe = null;

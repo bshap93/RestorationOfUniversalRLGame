@@ -525,12 +525,10 @@ MonoBehaviour:
   Persistent: 0
   ResetThisInventorySaveOnStart: 0
   DrawContentInInspector: 1
-  primaryPlayerInventory: {fileID: 0}
   fuelItemAllowed: {fileID: 11400000, guid: 686e83163144d5040a850536167aff7c, type: 2}
   fuelStartsFeedback: {fileID: 2011938373104173978}
   fuelEndsFeedback: {fileID: 2238739659940379016}
   IsBurning: 0
-  cookingStationID: CookingStation01
   updateInterval: 0.1
 --- !u!114 &4906894688683103752
 MonoBehaviour:
@@ -5934,15 +5932,10 @@ MonoBehaviour:
   addedRawFoodFeedback: {fileID: 0}
   cookingStartsFeedback: {fileID: 0}
   cookingEndsFeedback: {fileID: 0}
+  CannotCookFeedback: {fileID: 0}
   rawFoodItems:
   - {fileID: 11400000, guid: 7b3b7cca7c4d743409b27edfc2b93411, type: 2}
-  fuelInventory: {fileID: 2139587162018087077}
-  cookingDepositInventory: {fileID: 7983999279603739722}
-  recipeHeader: {fileID: 0}
   cookableRecipes: []
-  CannotCookFeedback: {fileID: 0}
-  cookingStationController: {fileID: 6878976962334548690}
-  _journalPersistenceManager: {fileID: 0}
 --- !u!1 &6040741370612021892
 GameObject:
   m_ObjectHideFlags: 0
@@ -6621,9 +6614,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b16ec4602ff6125448e68e86e04432f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  queueInventory: {fileID: 9075330060970690083}
-  depositInventory: {fileID: 7983999279603739722}
-  fuelInventory: {fileID: 2139587162018087077}
   CookingUICanvasGroup: {fileID: 0}
   CookingUIPanelCanvasGroup: {fileID: 0}
   CookingUIPanel: {fileID: 0}
@@ -6636,11 +6626,11 @@ MonoBehaviour:
     Quantity: 0
   CookingStation: {fileID: 11400000, guid: 25af976d02a13764082c305c750d4fd7, type: 2}
   fuelBurnRate: 1
-  previewText: {fileID: 0}
   interactFeedbacks: {fileID: 8656836791624969570}
   craftingFeedbacks: {fileID: 0}
   completionFeedbacks: {fileID: 2617716973616235134}
   newRecipeSetFeedbacks: {fileID: 0}
+  playerInventory: {fileID: 0}
 --- !u!1 &8488776152871329149
 GameObject:
   m_ObjectHideFlags: 0
