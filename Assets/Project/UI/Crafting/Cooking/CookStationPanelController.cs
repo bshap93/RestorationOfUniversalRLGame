@@ -1,7 +1,9 @@
+using System.Collections.Generic;
 using MoreMountains.InventoryEngine;
 using MoreMountains.Tools;
 using MoreMountains.TopDownEngine;
 using Project.Core.Events;
+using Project.Gameplay.ItemManagement.InventoryTypes.Cooking;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -10,15 +12,26 @@ namespace Project.UI.Crafting.Cooking
     public class CookStationPanelController : MonoBehaviour, MMEventListener<MMInventoryEvent>,
         MMEventListener<CookingStationEvent>, MMEventListener<MMGameEvent>, MMEventListener<TopDownEngineEvent>
     {
-        public GameObject cookingStationPanelPrefab;
-        [FormerlySerializedAs("_cookingStationPanels")] [SerializeField]
-        public GameObject cookingStationPanel;
-        CookStationPanelInstance _cookingStationPanelInstance;
+        [SerializeField] List<GameObject> CookingStationPanels;
+        [SerializeField] List<CookingStation> CookingStations;
 
+        CookStationPanelInstance _cookingStationPanelInstance;
+        GameObject _currentCookingStationPanel;
+        [FormerlySerializedAs("_cookingStationPanels")] [SerializeField]
+        Dictionary<CookingStation, GameObject> CookingStationPanelsDict;
 
         void Start()
         {
-            Initialize();
+            if (CookingStationPanels.Count != CookingStations.Count)
+            {
+                Debug.LogError("Cooking station panels and cooking stations count mismatch");
+                return;
+            }
+
+            CookingStationPanelsDict = new Dictionary<CookingStation, GameObject>();
+            foreach (var cookingStation in CookingStations)
+                CookingStationPanelsDict.Add(
+                    cookingStation, CookingStationPanels[CookingStations.IndexOf(cookingStation)]);
         }
 
         void OnEnable()
@@ -55,8 +68,9 @@ namespace Project.UI.Crafting.Cooking
                 }
 
                 // Instantiate as a child of this object and set position
-                cookingStationPanel = Instantiate(cookingStationPanelPrefab, transform);
-                _cookingStationPanelInstance = cookingStationPanel.GetComponent<CookStationPanelInstance>();
+                // cookingStationPanel = Instantiate(cookingStationPanelPrefab, transform);
+                _currentCookingStationPanel = CookingStationPanelsDict[controller.CookingStation];
+                _cookingStationPanelInstance = _currentCookingStationPanel.GetComponent<CookStationPanelInstance>();
 
                 // Set the controller first since other methods depend on it
                 _cookingStationPanelInstance.cookingStationController = controller;
@@ -78,10 +92,10 @@ namespace Project.UI.Crafting.Cooking
 
             if (mmEvent.EventType == CookingStationEventType.CookingStationOutOfRange)
                 // HidePanel();
-                if (cookingStationPanel != null)
+                if (_currentCookingStationPanel != null)
                 {
-                    Destroy(cookingStationPanel);
-                    cookingStationPanel = null;
+                    HidePanel();
+                    _currentCookingStationPanel = null;
                     _cookingStationPanelInstance = null;
                 }
 
@@ -111,14 +125,10 @@ namespace Project.UI.Crafting.Cooking
             }
         }
 
-        void Initialize()
-        {
-        }
-
 
         void ShowPanel()
         {
-            var canvasGroup = cookingStationPanel.GetComponent<CanvasGroup>();
+            var canvasGroup = _currentCookingStationPanel.GetComponent<CanvasGroup>();
             if (canvasGroup != null)
             {
                 Debug.Log("ShowPanel called, setting canvasGroup.alpha to 1");
@@ -130,7 +140,7 @@ namespace Project.UI.Crafting.Cooking
 
         void HidePanel()
         {
-            var canvasGroup = cookingStationPanel.GetComponent<CanvasGroup>();
+            var canvasGroup = _currentCookingStationPanel.GetComponent<CanvasGroup>();
             if (canvasGroup != null)
             {
                 canvasGroup.alpha = 0;

@@ -4,7 +4,6 @@ using MoreMountains.Tools;
 using MoreMountains.TopDownEngine;
 using Plugins.TopDownEngine.ThirdParty.MoreMountains.InentoryEngine.InventoryEngine.Scripts.Items;
 using Project.Gameplay.Events;
-using Project.Gameplay.Interactivity.Food;
 using Project.Gameplay.SaveLoad.Triggers;
 using UnityEngine;
 
@@ -36,13 +35,6 @@ namespace Gameplay.SaveLoad.Triggers
 
         void Start()
         {
-            if (_selectionFeedbacks == null)
-            {
-                if (Item != null && Item is RawFood)
-                    _selectionFeedbacks = GameObject.Find("FoodPicked").GetComponent<MMFeedbacks>();
-                else
-                    _selectionFeedbacks = GameObject.Find("SelectionFeedbacks").GetComponent<MMFeedbacks>();
-            }
         }
 
         void OnEnable()

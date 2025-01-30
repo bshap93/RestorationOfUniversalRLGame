@@ -22,6 +22,7 @@ namespace Project.Gameplay.ItemManagement.InventoryTypes.Cooking
         public float percentageCompleteFraction;
         public float craftingTime;
 
+
         public CookingRecipeInProgress(CookingRecipe currentRecipe)
         {
             this.currentRecipe = currentRecipe;
@@ -36,6 +37,7 @@ namespace Project.Gameplay.ItemManagement.InventoryTypes.Cooking
         public MMFeedbacks cookingStartsFeedback;
         public MMFeedbacks cookingEndsFeedback;
 
+        public List<RawFood> rawFoodItems;
         public FuelInventory fuelInventory;
         public CookingDepositInventory cookingDepositInventory;
         // public MMProgressBar cookingProgressBar;
@@ -48,11 +50,17 @@ namespace Project.Gameplay.ItemManagement.InventoryTypes.Cooking
 
         public MMFeedbacks CannotCookFeedback;
 
-        CookingStationController _cookingStationController;
+        [FormerlySerializedAs("_cookingStationController")]
+        public CookingStationController cookingStationController;
+
+        public JournalPersistenceManager _journalPersistenceManager;
 
         CookingRecipe _currentRecipe;
-
-        JournalPersistenceManager _journalPersistenceManager;
+        protected override void Awake()
+        {
+            base.Awake();
+            _journalPersistenceManager = FindFirstObjectByType<JournalPersistenceManager>();
+        }
 
         public void Start()
         {
@@ -60,11 +68,11 @@ namespace Project.Gameplay.ItemManagement.InventoryTypes.Cooking
 
                 recipeHeader = FindObjectOfType<RecipeHeader>();
 
-            if (_cookingStationController == null)
-                _cookingStationController = gameObject.GetComponentInParent<CookingStationController>();
+            foreach (var item in rawFoodItems)
+                AddItem(item, 1);
 
-            if (_journalPersistenceManager == null)
-                _journalPersistenceManager = FindObjectOfType<JournalPersistenceManager>();
+            if (cookingStationController == null)
+                cookingStationController = gameObject.GetComponentInParent<CookingStationController>();
         }
 
         protected override void OnEnable()
@@ -107,7 +115,7 @@ namespace Project.Gameplay.ItemManagement.InventoryTypes.Cooking
                 addedRawFoodFeedback?.PlayFeedbacks();
 
 
-                result = base.AddItemAt(item, quantity, index);
+                result = base.AddItem(item, quantity);
 
                 TryDetectRecipeFromIngredientsInQueue(rawFood);
 
@@ -144,7 +152,7 @@ namespace Project.Gameplay.ItemManagement.InventoryTypes.Cooking
             if (cookableRecipes.Contains(recipe))
             {
                 _currentRecipe = recipe;
-                _cookingStationController.SetCurrentRecipe(_currentRecipe);
+                cookingStationController.SetCurrentRecipe(_currentRecipe);
             }
             else
             {
@@ -178,7 +186,7 @@ namespace Project.Gameplay.ItemManagement.InventoryTypes.Cooking
             // Should only update the relevant cooking station's dropdown
             RecipeEvent.Trigger(
                 "ClearCookableRecipes", RecipeEventType.ClearCookableRecipes, null,
-                _cookingStationController.CookingStation.CraftingStationId);
+                cookingStationController.CookingStation.CraftingStationId);
 
             foreach (var recipe in _journalPersistenceManager.JournalData.knownRecipes)
                 if (recipe.CanBeCookedFrom(Content))
@@ -189,7 +197,7 @@ namespace Project.Gameplay.ItemManagement.InventoryTypes.Cooking
                     cookableRecipes.Add(recipe);
                     RecipeEvent.Trigger(
                         "RecipeCookableWithCurrentIngredients", RecipeEventType.RecipeCookableWithCurrentIngredients,
-                        recipe, _cookingStationController.CookingStation.CraftingStationId);
+                        recipe, cookingStationController.CookingStation.CraftingStationId);
 
 
                     Debug.Log("Added recipe to cookableRecipes: " + recipe.recipeName);
@@ -214,7 +222,7 @@ namespace Project.Gameplay.ItemManagement.InventoryTypes.Cooking
             if (cookableRecipes.Contains(recipe))
             {
                 _currentRecipe = recipe;
-                _cookingStationController.SetCurrentRecipe(recipe);
+                cookingStationController.SetCurrentRecipe(recipe);
             }
             else
             {
@@ -252,7 +260,7 @@ namespace Project.Gameplay.ItemManagement.InventoryTypes.Cooking
             {
                 MMGameEvent.Trigger(
                     "UpdateCookingProgressBar",
-                    stringParameter: _cookingStationController.CookingStation.CraftingStationId,
+                    stringParameter: cookingStationController.CookingStation.CraftingStationId,
                     vector2Parameter: new Vector2(elapsedTime / _currentRecipe.CraftingTime, 0));
 
                 // cookingProgressBar.UpdateBar(
@@ -275,7 +283,7 @@ namespace Project.Gameplay.ItemManagement.InventoryTypes.Cooking
             _currentRecipe = null;
             RecipeEvent.Trigger(
                 "FinishedCookingRecipe", RecipeEventType.FinishedCookingRecipe, null,
-                _cookingStationController.CookingStation.CraftingStationId);
+                cookingStationController.CookingStation.CraftingStationId);
 
             cookingEndsFeedback?.PlayFeedbacks();
         }

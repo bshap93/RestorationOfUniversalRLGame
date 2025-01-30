@@ -29,11 +29,14 @@ namespace Project.UI.Crafting.Cooking
         [FormerlySerializedAs("_fuelInventoryDisplay")]
         public InventoryDisplay fuelInventoryDisplay;
         public TMP_Text CookStationIDText;
-        CookableItemsDropDown _cookableItemsDropDown;
 
-        CookingDepositInventory _cookingDepositInventory;
-        CookingQueueInventory _cookingQueueInventory;
-        FuelInventory _fuelInventory;
+        [FormerlySerializedAs("_cookingDepositInventory")]
+        public CookingDepositInventory cookingDepositInventory;
+        [FormerlySerializedAs("_cookingQueueInventory")]
+        public CookingQueueInventory cookingQueueInventory;
+        [FormerlySerializedAs("_fuelInventory")]
+        public FuelInventory fuelInventory;
+        CookableItemsDropDown _cookableItemsDropDown;
 
         void Start()
         {
@@ -53,7 +56,7 @@ namespace Project.UI.Crafting.Cooking
 
         public void StartCooking()
         {
-            _cookingQueueInventory.StartCookingCurrentRecipe();
+            cookingQueueInventory.StartCookingCurrentRecipe();
         }
 
         public void SetCookingDepositInventory(CookingDepositInventory cookingDepositInventory)
@@ -64,9 +67,9 @@ namespace Project.UI.Crafting.Cooking
                 return;
             }
 
-            _cookingDepositInventory = cookingDepositInventory;
-            cookingDepositInventoryDisplay.TargetInventoryName = _cookingDepositInventory.name;
-            cookingDepositInventoryDisplay.ChangeTargetInventory(_cookingDepositInventory.name);
+            this.cookingDepositInventory = cookingDepositInventory;
+            cookingDepositInventoryDisplay.TargetInventoryName = this.cookingDepositInventory.name;
+            cookingDepositInventoryDisplay.ChangeTargetInventory(this.cookingDepositInventory.name);
         }
 
         public void SetCookingQueueInventory(CookingQueueInventory cookingQueueInventory)
@@ -77,9 +80,9 @@ namespace Project.UI.Crafting.Cooking
                 return;
             }
 
-            _cookingQueueInventory = cookingQueueInventory;
-            cookingQueueInventoryDisplay.TargetInventoryName = _cookingQueueInventory.name;
-            cookingQueueInventoryDisplay.ChangeTargetInventory(_cookingQueueInventory.name);
+            this.cookingQueueInventory = cookingQueueInventory;
+            cookingQueueInventoryDisplay.TargetInventoryName = this.cookingQueueInventory.name;
+            cookingQueueInventoryDisplay.ChangeTargetInventory(this.cookingQueueInventory.name);
         }
 
         public void SetFuelInventory(FuelInventory fuelInventory)
@@ -90,14 +93,14 @@ namespace Project.UI.Crafting.Cooking
                 return;
             }
 
-            _fuelInventory = fuelInventory;
+            this.fuelInventory = fuelInventory;
 
             // Set the cooking station ID for the fuel inventory
             if (cookingStationController != null && cookingStationController.CookingStation != null)
-                _fuelInventory.cookingStationID = cookingStationController.CookingStation.CraftingStationId;
+                this.fuelInventory.cookingStationID = cookingStationController.CookingStation.CraftingStationId;
 
-            fuelInventoryDisplay.TargetInventoryName = _fuelInventory.name;
-            fuelInventoryDisplay.ChangeTargetInventory(_fuelInventory.name);
+            fuelInventoryDisplay.TargetInventoryName = this.fuelInventory.name;
+            fuelInventoryDisplay.ChangeTargetInventory(this.fuelInventory.name);
         }
 
         public void SetCookStationIDText(string text)

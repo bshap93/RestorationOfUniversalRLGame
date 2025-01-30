@@ -2,7 +2,7 @@
 using Project.Gameplay.SaveLoad.Triggers;
 using UnityEngine;
 
-namespace Project.Gameplay.Interactivity
+namespace Gameplay.ItemsInteractions
 {
     public class SelectionHighlightEventHandler : MonoBehaviour
     {
@@ -19,7 +19,7 @@ namespace Project.Gameplay.Interactivity
             _selectedObjectController = go.GetComponentInParent<ISelectableTrigger>();
 
             if (_selectedObjectController == null) return false;
-            if (_selectedObjectController is CookingStationController) Debug.Log("CookingStationController selected");
+            if (_selectedObjectController is CookingStationController controller) controller.ShowCookingUI();
 
 
             _selectedObjectController?.OnSelectedItem();
@@ -31,6 +31,9 @@ namespace Project.Gameplay.Interactivity
         {
             if (_selectedObjectController == null)
                 _selectedObjectController = go.GetComponentInParent<ISelectableTrigger>();
+
+            if (_selectedObjectController is CookingStationController controller) controller.HideCookingUI();
+
 
             if (_selectedObjectController != null) _selectedObjectController.OnUnSelectedItem();
 

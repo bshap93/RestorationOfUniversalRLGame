@@ -16,6 +16,9 @@ public class CookingStationController : MonoBehaviour, ISelectableTrigger, MMEve
     public CookingDepositInventory depositInventory; // Cooked items
     public FuelInventory fuelInventory; // Firewood
 
+    public CanvasGroup CookingUICanvasGroup;
+    public GameObject CookingUIPanel;
+
 
     [CanBeNull] public FuelMaterial FuelItemAlreadyAdded;
 
@@ -25,7 +28,6 @@ public class CookingStationController : MonoBehaviour, ISelectableTrigger, MMEve
     [Header("Fuel & Progress Tracking")] public float fuelBurnRate = 1f; // Time in seconds to burn one unit of fuel
 
 
-    [Header("UI & Feedbacks")] public GameObject previewPanel; // UI panel for the station preview
     public TextMeshProUGUI previewText;
     public MMFeedbacks interactFeedbacks;
     public MMFeedbacks craftingFeedbacks;
@@ -42,7 +44,7 @@ public class CookingStationController : MonoBehaviour, ISelectableTrigger, MMEve
     void Start()
     {
         InitializeInventories();
-        if (previewPanel != null) previewPanel.SetActive(false);
+        HideCookingUI();
 
         if (fuelInventory.GetQuantity("Firewood") > 0)
             FuelItemAlreadyAdded =
@@ -180,16 +182,16 @@ public class CookingStationController : MonoBehaviour, ISelectableTrigger, MMEve
 
     void ShowPreview(string message)
     {
-        if (previewPanel != null)
-        {
-            previewPanel.SetActive(true);
-            if (previewText != null) previewText.text = message;
-        }
+        // if (previewPanel != null)
+        // {
+        //     previewPanel.SetActive(true);
+        //     if (previewText != null) previewText.text = message;
+        // }
     }
 
     void HidePreview()
     {
-        if (previewPanel != null) previewPanel.SetActive(false);
+        // if (previewPanel != null) previewPanel.SetActive(false);
     }
 
 
@@ -234,5 +236,18 @@ public class CookingStationController : MonoBehaviour, ISelectableTrigger, MMEve
         newRecipeSetFeedbacks?.PlayFeedbacks();
         if (_currentRecipe != null)
             Debug.Log("Current recipe set to: " + currentRecipe.recipeName);
+    }
+    public void ShowCookingUI()
+    {
+        CookingUICanvasGroup.alpha = 1;
+        CookingUICanvasGroup.interactable = true;
+        CookingUICanvasGroup.blocksRaycasts = true;
+    }
+
+    public void HideCookingUI()
+    {
+        CookingUICanvasGroup.alpha = 0;
+        CookingUICanvasGroup.interactable = false;
+        CookingUICanvasGroup.blocksRaycasts = false;
     }
 }
