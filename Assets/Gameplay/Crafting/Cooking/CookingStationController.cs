@@ -17,6 +17,7 @@ public class CookingStationController : MonoBehaviour, ISelectableTrigger, MMEve
     public FuelInventory fuelInventory; // Firewood
 
     public CanvasGroup CookingUICanvasGroup;
+    public CanvasGroup CookingUIPanelCanvasGroup;
     public GameObject CookingUIPanel;
 
 
@@ -242,6 +243,10 @@ public class CookingStationController : MonoBehaviour, ISelectableTrigger, MMEve
         CookingUICanvasGroup.alpha = 1;
         CookingUICanvasGroup.interactable = true;
         CookingUICanvasGroup.blocksRaycasts = true;
+
+        CookingUIPanelCanvasGroup.alpha = 1;
+        CookingUIPanelCanvasGroup.interactable = true;
+        CookingUIPanelCanvasGroup.blocksRaycasts = true;
     }
 
     public void HideCookingUI()
@@ -249,5 +254,9 @@ public class CookingStationController : MonoBehaviour, ISelectableTrigger, MMEve
         CookingUICanvasGroup.alpha = 0;
         CookingUICanvasGroup.interactable = false;
         CookingUICanvasGroup.blocksRaycasts = false;
+
+        CookingUIPanelCanvasGroup.alpha = 0;
+        CookingUIPanelCanvasGroup.interactable = false;
+        CookingUIPanelCanvasGroup.blocksRaycasts = false;
     }
 }

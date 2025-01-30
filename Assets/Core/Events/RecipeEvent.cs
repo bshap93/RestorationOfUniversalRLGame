@@ -15,7 +15,8 @@ namespace Project.Core.Events
         ShowRecipeDetails,
         Error,
         RecipeAlreadyKnown,
-        NoNewRecipes
+        NoNewRecipes,
+        NewRecipesLearned
     }
 
     /// <summary>

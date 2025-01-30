@@ -60,6 +60,8 @@ namespace Project.Gameplay.ItemManagement.InventoryItemTypes.Books
                 // Play feedback for newly learned recipes
                 RecipeLearnedFeedback?.PlayFeedbacks();
 
+                RecipeEvent.Trigger("NewRecipesLearned", RecipeEventType.NewRecipesLearned, null, null);
+
                 MessageSystem.SendMessage(this, message, ItemID);
                 Debug.Log($"Message sent: {message} with value: {ItemID}");
             }
