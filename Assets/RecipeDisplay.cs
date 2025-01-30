@@ -15,6 +15,9 @@ public class RecipeDisplay : MonoBehaviour, MMEventListener<RecipeEvent>
     {
         this.MMEventStartListening();
 
+        if (journalPersistenceManager == null)
+            journalPersistenceManager = FindFirstObjectByType<JournalPersistenceManager>();
+
 
         // Clear existing UI elements to avoid duplicates
         foreach (Transform child in recipeListParent.transform) Destroy(child.gameObject);
