@@ -228,7 +228,6 @@ namespace Project.Gameplay.Player.Interaction
             {
                 PreviewPanelUI.SetActive(true);
                 if (_craftingStationDetails != null) _craftingStationDetails.DisplayPreview(craftingStation);
-                _previewManager?.ShowCookingStationPreview(craftingStation);
                 Debug.Log($"Showing preview panel for station: {craftingStation.CraftingStationName}");
             }
             else
@@ -243,7 +242,6 @@ namespace Project.Gameplay.Player.Interaction
             {
                 PreviewPanelUI.SetActive(false);
                 if (_craftingStationDetails != null) _craftingStationDetails.Hide();
-                _previewManager?.HideCraftingStationPreviw();
                 Debug.Log("Hiding preview panel");
             }
         }
@@ -254,7 +252,6 @@ namespace Project.Gameplay.Player.Interaction
             if (PreviewPanelUI != null)
             {
                 PreviewPanelUI.SetActive(true);
-                _previewManager?.ShowCookingStationPreview(cookingStation);
                 Debug.Log($"Showing selected preview for station: {cookingStation.CraftingStationName}");
             }
         }
@@ -264,7 +261,6 @@ namespace Project.Gameplay.Player.Interaction
             if (PreviewPanelUI != null)
             {
                 PreviewPanelUI.SetActive(false);
-                _previewManager?.HideCraftingStationPreviw();
                 Debug.Log("Hiding selected preview panel");
             }
         }

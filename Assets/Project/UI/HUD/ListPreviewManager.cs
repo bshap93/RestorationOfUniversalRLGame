@@ -4,22 +4,18 @@ using Gameplay.Player.Inventory;
 using MoreMountains.InventoryEngine;
 using MoreMountains.Tools;
 using Plugins.TopDownEngine.ThirdParty.MoreMountains.InentoryEngine.InventoryEngine.Scripts.Items;
-using Prefabs.UI.PrefabRequiredScripts;
-using Project.Core.Events;
 using Project.Gameplay.Interactivity.CraftingStation;
 using Project.Gameplay.Interactivity.Items;
-using Project.Gameplay.ItemManagement.InventoryTypes.Cooking;
 using UnityEngine;
 using UnityEngine.Serialization;
 
 namespace Project.UI.HUD
 {
-    public class ListPreviewManager : MonoBehaviour, MMEventListener<MMInventoryEvent>,
-        MMEventListener<CookingStationEvent>
+    public class ListPreviewManager : MonoBehaviour, MMEventListener<MMInventoryEvent>
+
     {
         public PickableItemsListPanel PickableItemsListPanel;
         [FormerlySerializedAs("CraftingStationDetails")]
-        public TMPCookingStationDetails CookingStationDetails;
         public DispenserItemPanel DispenserItemPanel;
 
 
@@ -32,23 +28,14 @@ namespace Project.UI.HUD
         }
         void OnEnable()
         {
-            this.MMEventStartListening<MMInventoryEvent>();
-            this.MMEventStartListening<CookingStationEvent>();
+            this.MMEventStartListening();
         }
 
         void OnDisable()
         {
-            this.MMEventStopListening<MMInventoryEvent>();
-
-            this.MMEventStopListening<CookingStationEvent>();
+            this.MMEventStopListening();
         }
-        public void OnMMEvent(CookingStationEvent mmEvent)
-        {
-            if (mmEvent.EventType == CookingStationEventType.CookingStationSelected) HideCraftingStationPreviw();
 
-            if (mmEvent.EventType == CookingStationEventType.CookingStationInRange)
-                ShowCookingStationPreview(mmEvent.CookingStationControllerParameter.CookingStation);
-        }
 
         public void OnMMEvent(MMInventoryEvent mmEvent)
         {
@@ -91,39 +78,6 @@ namespace Project.UI.HUD
         }
 
 
-        public void ShowCookingStationPreview(CookingStation craftingStation)
-        {
-            if (CookingStationDetails != null)
-            {
-                CookingStationDetails.DisplayPreview(craftingStation);
-
-                CurrentPreviewedCraftingStation = craftingStation;
-
-
-                // Make sure CanvasGroup is visible
-                var canvasGroup = CookingStationDetails.GetComponent<CanvasGroup>();
-                if (canvasGroup != null)
-                {
-                    canvasGroup.alpha = 1;
-                    canvasGroup.interactable = true;
-                    canvasGroup.blocksRaycasts = true;
-                }
-            }
-        }
-        public void HideCraftingStationPreviw()
-        {
-            if (CookingStationDetails != null)
-            {
-                var canvasGroup = CookingStationDetails.GetComponent<CanvasGroup>();
-                CurrentPreviewedCraftingStation = null;
-                if (canvasGroup != null)
-                {
-                    canvasGroup.alpha = 0;
-                    canvasGroup.interactable = false;
-                    canvasGroup.blocksRaycasts = false;
-                }
-            }
-        }
         public void AddToItemListPreview(InventoryItem currentPreviewedItem, ManualItemPicker manualItemPicker)
         {
             PickableItemsListPanel.AddItemToItemsList(currentPreviewedItem, manualItemPicker);
