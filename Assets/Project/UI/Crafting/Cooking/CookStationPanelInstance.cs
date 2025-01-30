@@ -1,4 +1,5 @@
 using System;
+using Gameplay.Crafting.Cooking;
 using Michsky.MUIP;
 using MoreMountains.InventoryEngine;
 using MoreMountains.Tools;

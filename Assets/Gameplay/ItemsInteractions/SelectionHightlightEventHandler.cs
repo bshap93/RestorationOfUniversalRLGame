@@ -1,4 +1,5 @@
-﻿using HighlightPlus;
+﻿using Gameplay.Crafting.Cooking;
+using HighlightPlus;
 using Project.Gameplay.SaveLoad.Triggers;
 using UnityEngine;
 

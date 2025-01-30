@@ -1,4 +1,5 @@
 ﻿using System;
+using Gameplay.Crafting.Cooking;
 using JetBrains.Annotations;
 using MoreMountains.Tools;
 using Project.Gameplay.ItemManagement.InventoryTypes.Cooking;
