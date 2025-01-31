@@ -1,18 +1,27 @@
-﻿using MoreMountains.InventoryEngine;
-using MoreMountains.Tools;
-using MoreMountains.TopDownEngine;
+﻿using System.Collections;
+using MoreMountains.InventoryEngine;
 using UnityEngine;
 
 namespace Gameplay.ItemManagement.InventoryDisplays
 {
-    public class MainInventoryDisplay : InventoryDisplay, MMEventListener<MMCameraEvent>
+    public class MainInventoryDisplay : InventoryDisplay
     {
-        public void OnMMEvent(MMCameraEvent eventType)
+        protected virtual void Start()
         {
-            if (eventType.EventType == MMCameraEventTypes.SetTargetCharacter)
+            StartCoroutine(DelayedInventoryRefresh());
+        }
+
+        IEnumerator DelayedInventoryRefresh()
+        {
+            yield return new WaitForSeconds(0.1f); // Allow time for inventory system to initialize
+            if (TargetInventory != null)
             {
-                Debug.Log("MainInventoryDisplay: SetTargetCharacter event received.");
-                Initialization();
+                Debug.Log($"[InventoryDisplay] Refreshing Inventory UI: {TargetInventory.name}");
+                Initialization(true); // Forces UI redraw
+            }
+            else
+            {
+                Debug.LogWarning("[InventoryDisplay] TargetInventory is null after scene load!");
             }
         }
 
