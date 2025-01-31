@@ -615,6 +615,7 @@ GameObject:
   - component: {fileID: 5898168591251914999}
   - component: {fileID: 367851155185981334}
   - component: {fileID: 4486759269892926607}
+  - component: {fileID: 9170951902678396170}
   m_Layer: 0
   m_Name: Slot 0
   m_TagString: Untagged
@@ -746,6 +747,18 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!114 &9170951902678396170
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 256322058494396970}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e9c56b8d6004fb682209ec398125473, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &333204403834319579
 GameObject:
   m_ObjectHideFlags: 0
@@ -1873,7 +1886,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c25709b2ca5b4e34ba10dd4f4f1dba87, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TargetInventoryName: 
+  TargetInventoryName: CookingStationQueue01
   PlayerID: Player1
   NumberOfRows: 1
   NumberOfColumns: 3
@@ -2637,7 +2650,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66dc3d1f961354e49b16adf0289b0b00, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CraftingStationId: CookingStation01
+  craftingStationId: 
 --- !u!1 &3687569796258126887
 GameObject:
   m_ObjectHideFlags: 0
@@ -3319,10 +3332,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 4074212504290897923}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 41fcffebfcf84bd44a683f96d016d1d0, type: 3}
+  m_Script: {fileID: 11500000, guid: 373fca1032904bf89ff7c024e2f356c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TargetInventoryName: 
+  TargetInventoryName: CookingStationDeposit01
   PlayerID: Player1
   NumberOfRows: 1
   NumberOfColumns: 1
@@ -3361,6 +3374,7 @@ MonoBehaviour:
   QtyAlignment: 8
   PreviousInventory: {fileID: 0}
   NextInventory: {fileID: 0}
+  MainInventoryName: MainPlayerInventory
 --- !u!114 &8996205303739691121
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4303,7 +4317,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41fcffebfcf84bd44a683f96d016d1d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TargetInventoryName: 
+  TargetInventoryName: CookingStationFuelInventory01
   PlayerID: Player1
   NumberOfRows: 1
   NumberOfColumns: 1
@@ -5569,7 +5583,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 99674945945117022}
   m_HandleRect: {fileID: 3706548180973571514}
   m_Direction: 2
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
