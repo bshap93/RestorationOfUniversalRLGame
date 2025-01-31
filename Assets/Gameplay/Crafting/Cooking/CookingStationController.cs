@@ -1,4 +1,5 @@
 using Gameplay.ItemManagement.InventoryTypes;
+using Gameplay.ItemManagement.InventoryTypes.Cooking;
 using JetBrains.Annotations;
 using MoreMountains.Feedbacks;
 using MoreMountains.InventoryEngine;
@@ -13,10 +14,13 @@ using UnityEngine.Serialization;
 
 namespace Gameplay.Crafting.Cooking
 {
-    public class CookingStationController : MonoBehaviour, ISelectableTrigger, MMEventListener<CookingStationEvent>
+    public class CookingStationController : MonoBehaviour, ISelectableTrigger, MMEventListener<CookingStationEvent>,
+        MMEventListener<RecipeEvent>
     {
         public CanvasGroup CookingUIPanelCanvasGroup;
 
+        public MMFeedbacks StartCookingFeedbacks;
+        public MMFeedbacks FinishCookingFeedbacks;
 
         [CanBeNull] public FuelMaterial FuelItemAlreadyAdded;
 
@@ -66,12 +70,14 @@ namespace Gameplay.Crafting.Cooking
         {
             InitializeInventories();
 
-            this.MMEventStartListening();
+            this.MMEventStartListening<CookingStationEvent>();
+            this.MMEventStartListening<RecipeEvent>();
         }
 
         void OnDisable()
         {
-            this.MMEventStopListening();
+            this.MMEventStopListening<CookingStationEvent>();
+            this.MMEventStopListening<RecipeEvent>();
         }
 
         void OnTriggerEnter(Collider other)
@@ -133,6 +139,10 @@ namespace Gameplay.Crafting.Cooking
                 Debug.Log("Received TryAddFuel event");
                 TryAddFuel();
             }
+        }
+        public void OnMMEvent(RecipeEvent mmEvent)
+        {
+            if (mmEvent.EventType == RecipeEventType.FinishedCookingRecipe) FinishCookingFeedbacks?.PlayFeedbacks();
         }
         public void TryAddFuel()
         {

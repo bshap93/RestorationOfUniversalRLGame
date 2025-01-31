@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using Project.Gameplay.Interactivity.CraftingStation;
 using Project.Gameplay.Interactivity.Items;
+using Project.Gameplay.ItemManagement.InventoryTypes.Cooking;
 using Project.Gameplay.ItemManagement.InventoryTypes.Materials;
 using UnityEngine;
 
-namespace Project.Gameplay.ItemManagement.InventoryTypes.Cooking
+namespace Gameplay.ItemManagement.InventoryTypes.Cooking
 {
     [CreateAssetMenu(fileName = "Crafting", menuName = "Crafting/CookingRecipe", order = 1)]
     [Serializable]
@@ -15,10 +16,10 @@ namespace Project.Gameplay.ItemManagement.InventoryTypes.Cooking
         public string recipeID;
         public string recipeName;
         public string recipeDescription;
-        public List<CraftingMaterial> requiredMaterials;
         public FinishedFoodItem finishedFoodItem;
-        public List<CraftingMaterial> requiredRawFoodItems;
         public Sprite recipeImage;
+        public List<CraftingMaterial> requiredMaterials;
+        public List<CraftingMaterial> requiredRawFoodItems;
 
         public bool CanBeCookedFrom(InventoryItem[] content)
         {

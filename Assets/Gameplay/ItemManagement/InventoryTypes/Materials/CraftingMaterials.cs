@@ -3,6 +3,7 @@ using Project.Gameplay.Interactivity.Items;
 using UnityEngine;
 
 namespace Project.Gameplay.ItemManagement.InventoryTypes.Materials
+
 {
     [Serializable]
     public class CraftingMaterial

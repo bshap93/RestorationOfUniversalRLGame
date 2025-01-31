@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Linq;
 using Gameplay.Crafting.Cooking;
 using Gameplay.ItemManagement.InventoryTypes;
 using MoreMountains.Feedbacks;
@@ -144,6 +145,33 @@ namespace Project.Gameplay.ItemManagement.InventoryTypes.Fuel
 
             Debug.Log("FuelInventory.RemoveItemByID: Item not removed");
             return false;
+        }
+        public void ToggleIsStationBurning()
+        {
+            if (IsBurning)
+            {
+                StopAllCoroutines();
+                IsBurning = false;
+                fuelEndsFeedback?.PlayFeedbacks();
+                fuelStartsFeedback?.StopFeedbacks();
+            }
+            else
+            {
+                if (Content.First().ItemID == fuelItemAllowed.ItemID)
+                {
+                    if (Content.Length > 1)
+                        Debug.LogError("FuelInventory.ToggleIsStationBurning: More than one fuel item in inventory");
+
+
+                    var fuelItemInstance = new FuelItem(fuelItemAllowed);
+                    fuelStartsFeedback?.PlayFeedbacks();
+                    StartCoroutine(BurnFuel(fuelItemInstance, 1));
+                }
+                else
+                {
+                    Debug.Log("FuelInventory.ToggleIsStationBurning: No fuel item in inventory");
+                }
+            }
         }
     }
 }

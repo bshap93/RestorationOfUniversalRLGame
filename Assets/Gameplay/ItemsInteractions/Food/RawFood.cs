@@ -1,4 +1,5 @@
 ﻿using System;
+using Gameplay.ItemManagement.InventoryTypes.Cooking;
 using Project.Gameplay.ItemManagement.InventoryItemTypes;
 using Project.Gameplay.ItemManagement.InventoryTypes.Cooking;
 using UnityEngine;

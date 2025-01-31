@@ -1,3 +1,4 @@
+using Gameplay.ItemManagement.InventoryTypes.Cooking;
 using Michsky.MUIP;
 using MoreMountains.Tools;
 using Project.Core.Events;

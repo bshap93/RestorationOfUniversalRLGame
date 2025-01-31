@@ -11,6 +11,7 @@ using UnityEngine.Serialization;
 
 namespace Project.UI.Crafting.Cooking
 {
+    [RequireComponent(typeof(CookingDepositInventory))]
     public class CookStationPanelInstance : MonoBehaviour
     {
         [Header("Progress Bars")] public MMProgressBar fuelBurntProgressBar;
@@ -31,19 +32,19 @@ namespace Project.UI.Crafting.Cooking
         [Header("CookStation ID Text")] public TMP_Text CookStationIDText;
         CookableItemsDropDown _cookableItemsDropDown;
 
-        CookingDepositInventory cookingDepositInventory;
-        CookingQueueInventory cookingQueueInventory;
-        FuelInventory fuelInventory;
+        CookingDepositInventory _cookingDepositInventory;
+        CookingQueueInventory _cookingQueueInventory;
+        FuelInventory _fuelInventory;
 
         void Start()
         {
             if (cookingStationController != null)
             {
-                cookingDepositInventory = cookingStationController.GetDepositInventory();
+                _cookingDepositInventory = cookingStationController.GetDepositInventory();
 
-                cookingQueueInventory = cookingStationController.GetQueueInventory();
+                _cookingQueueInventory = cookingStationController.GetQueueInventory();
 
-                fuelInventory = cookingStationController.GetFuelInventory();
+                _fuelInventory = cookingStationController.GetFuelInventory();
             }
 
             if (recipeDropDown != null)
@@ -60,10 +61,6 @@ namespace Project.UI.Crafting.Cooking
                 CookStationIDText.text = cookingStationController.CookingStation.CraftingStationId;
         }
 
-        public void StartCooking()
-        {
-            cookingQueueInventory.StartCookingCurrentRecipe();
-        }
 
         public void SetCookingDepositInventory(CookingDepositInventory cookingDepositInventory)
         {
@@ -73,9 +70,9 @@ namespace Project.UI.Crafting.Cooking
                 return;
             }
 
-            this.cookingDepositInventory = cookingDepositInventory;
-            cookingDepositInventoryDisplay.TargetInventoryName = this.cookingDepositInventory.name;
-            cookingDepositInventoryDisplay.ChangeTargetInventory(this.cookingDepositInventory.name);
+            _cookingDepositInventory = cookingDepositInventory;
+            cookingDepositInventoryDisplay.TargetInventoryName = _cookingDepositInventory.name;
+            cookingDepositInventoryDisplay.ChangeTargetInventory(_cookingDepositInventory.name);
         }
 
         public void SetCookingQueueInventory(CookingQueueInventory cookingQueueInventory)
@@ -86,9 +83,9 @@ namespace Project.UI.Crafting.Cooking
                 return;
             }
 
-            this.cookingQueueInventory = cookingQueueInventory;
-            cookingQueueInventoryDisplay.TargetInventoryName = this.cookingQueueInventory.name;
-            cookingQueueInventoryDisplay.ChangeTargetInventory(this.cookingQueueInventory.name);
+            _cookingQueueInventory = cookingQueueInventory;
+            cookingQueueInventoryDisplay.TargetInventoryName = _cookingQueueInventory.name;
+            cookingQueueInventoryDisplay.ChangeTargetInventory(_cookingQueueInventory.name);
         }
 
         public void SetFuelInventory(FuelInventory fuelInventory)
@@ -99,11 +96,11 @@ namespace Project.UI.Crafting.Cooking
                 return;
             }
 
-            this.fuelInventory = fuelInventory;
+            _fuelInventory = fuelInventory;
 
 
-            fuelInventoryDisplay.TargetInventoryName = this.fuelInventory.name;
-            fuelInventoryDisplay.ChangeTargetInventory(this.fuelInventory.name);
+            fuelInventoryDisplay.TargetInventoryName = _fuelInventory.name;
+            fuelInventoryDisplay.ChangeTargetInventory(_fuelInventory.name);
         }
 
         public void SetCookStationIDText(string text)
@@ -127,6 +124,11 @@ namespace Project.UI.Crafting.Cooking
             {
                 Debug.LogError("Cannot hide cooking UI - controller is null");
             }
+        }
+
+        public void ToggleIsStationBurning()
+        {
+            _fuelInventory.ToggleIsStationBurning();
         }
     }
 }

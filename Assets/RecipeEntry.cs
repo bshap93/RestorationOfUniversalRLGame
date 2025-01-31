@@ -1,3 +1,4 @@
+using Gameplay.ItemManagement.InventoryTypes.Cooking;
 using Project.Core.Events;
 using Project.Gameplay.ItemManagement.InventoryTypes.Cooking;
 using TMPro;

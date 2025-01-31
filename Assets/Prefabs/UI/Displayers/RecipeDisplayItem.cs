@@ -1,3 +1,4 @@
+using Gameplay.ItemManagement.InventoryTypes.Cooking;
 using Project.Gameplay.Interactivity.Items;
 using Project.Gameplay.ItemManagement.InventoryTypes.Cooking;
 using TMPro;
@@ -16,7 +17,7 @@ namespace Prefabs.UI.Displayers
             Name.text = item.ItemName + "!";
         }
 
-        public void Display(CookingRecipe recipe)
+        public void DisplayLearned(CookingRecipe recipe)
         {
             if (recipe.recipeImage != null)
             {
@@ -29,6 +30,34 @@ namespace Prefabs.UI.Displayers
             }
 
             Name.text = $"Learned: {recipe.recipeName}";
+        }
+        public void DisplayFinishedCooking(CookingRecipe recipe)
+        {
+            if (recipe != null)
+            {
+                if (recipe.recipeImage != null)
+                {
+                    Icon.sprite = recipe.recipeImage;
+                    Icon.enabled = true;
+                }
+                else if (recipe.finishedFoodItem != null && recipe.finishedFoodItem.FinishedFood != null &&
+                         recipe.finishedFoodItem.FinishedFood.Icon != null)
+                {
+                    Icon.sprite = recipe.finishedFoodItem.FinishedFood.Icon;
+                    Icon.enabled = true;
+                }
+                else
+                {
+                    Icon.enabled = false; // Hide the icon if none exists
+                }
+
+                Name.text = recipe.recipeName != null ? $"Finished cooking: {recipe.recipeName}!" : "Finished cooking!";
+            }
+            else
+            {
+                Icon.enabled = false;
+                Name.text = "Finished cooking!";
+            }
         }
     }
 }
