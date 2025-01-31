@@ -1,10 +1,22 @@
 ﻿using MoreMountains.InventoryEngine;
+using MoreMountains.Tools;
+using MoreMountains.TopDownEngine;
 using UnityEngine;
 
 namespace Gameplay.ItemManagement.InventoryDisplays
 {
-    public class MainInventoryDisplay : InventoryDisplay
+    public class MainInventoryDisplay : InventoryDisplay, MMEventListener<MMCameraEvent>
     {
+        public void OnMMEvent(MMCameraEvent eventType)
+        {
+            if (eventType.EventType == MMCameraEventTypes.SetTargetCharacter)
+            {
+                Debug.Log("MainInventoryDisplay: SetTargetCharacter event received.");
+                Initialization();
+            }
+        }
+
+
         public override void OnMMEvent(MMInventoryEvent mmEvent)
         {
             base.OnMMEvent(mmEvent);
@@ -28,7 +40,5 @@ namespace Gameplay.ItemManagement.InventoryDisplays
                 Debug.Log($"Unequipped {mmEvent.EventItem.ItemID} when moved to MainInventory.");
             }
         }
-
     }
-    
 }

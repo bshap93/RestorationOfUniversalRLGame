@@ -51,10 +51,7 @@ public class SaveManager : MonoBehaviour
         if (journalLoaded) journalManager.RevertJournalToLastSave();
 
         var hasSave = inventoryLoaded || resourcesLoaded || journalLoaded;
-        Debug.Log(
-            hasSave
-                ? "[SaveManager] Save data loaded successfully."
-                : "[SaveManager] No save data found.");
+
 
         return hasSave;
     }

@@ -8,15 +8,14 @@ public class RecipeDisplay : MonoBehaviour, MMEventListener<RecipeEvent>
     [SerializeField] GameObject recipeEntryPrefab;
     [SerializeField] GameObject recipeListParent;
 
-    [SerializeField] JournalPersistenceManager journalPersistenceManager;
+    [SerializeField] JournalPersistenceManager _journalPersistenceManager;
     readonly List<string> CookingRepiceIds = new();
 
     void OnEnable()
     {
         this.MMEventStartListening();
 
-        if (journalPersistenceManager == null)
-            journalPersistenceManager = FindFirstObjectByType<JournalPersistenceManager>();
+        _journalPersistenceManager = FindFirstObjectByType<JournalPersistenceManager>();
 
 
         // Clear existing UI elements to avoid duplicates
@@ -24,7 +23,7 @@ public class RecipeDisplay : MonoBehaviour, MMEventListener<RecipeEvent>
 
         CookingRepiceIds.Clear(); // Clear the list to rebuild correctly
 
-        foreach (var recipe in journalPersistenceManager.JournalData.knownRecipes)
+        foreach (var recipe in _journalPersistenceManager.JournalData.knownRecipes)
         {
             if (CookingRepiceIds.Contains(recipe.recipeID))
                 continue;

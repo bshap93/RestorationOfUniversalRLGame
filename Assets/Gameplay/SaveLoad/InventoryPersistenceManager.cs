@@ -134,7 +134,6 @@ namespace Project.Gameplay.SaveLoad
             if (animatorEquipHandler != null)
             {
                 animatorEquipHandler.ResetToDefaultAnimator();
-                Debug.Log("Reset animator to default after unequipping items.");
             }
             else
             {

@@ -61,7 +61,6 @@ namespace Project.Animation_Effects.CharacterAnimation.AnimationController.Weapo
                 _defaultOverrideController = new AnimatorOverrideController(_playerAnimator.runtimeAnimatorController);
             
             ResetToDefaultAnimator();
-            Debug.Log("Animator reset to default.");
 
             // Find the WeaponAnimationManager if not already cached
             _weaponAnimationManager ??= FindObjectOfType<WeaponAnimationManager>();
@@ -138,7 +137,6 @@ namespace Project.Animation_Effects.CharacterAnimation.AnimationController.Weapo
             }
 
             _playerAnimator.runtimeAnimatorController = overrideController;
-            Debug.Log("Animator override applied.");
         }
 
 
@@ -155,7 +153,6 @@ namespace Project.Animation_Effects.CharacterAnimation.AnimationController.Weapo
             _customInventoryWeapon = null;
             _weaponAnimationManager?.ClearStoredWeapon();
 
-            Debug.Log("Animator reset to default.");
         }
     }
 }

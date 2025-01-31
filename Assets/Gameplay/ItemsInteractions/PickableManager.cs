@@ -45,7 +45,6 @@ public class PickableManager : MonoBehaviour
         // Clear the in-memory picked items list (if used)
         PickedItems.Clear();
 
-        Debug.Log("[PickableManager] All picked items reset.");
     }
 
     public static bool IsItemPicked(string uniqueID)

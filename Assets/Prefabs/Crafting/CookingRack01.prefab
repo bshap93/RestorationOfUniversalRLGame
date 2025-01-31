@@ -482,7 +482,6 @@ GameObject:
   m_Component:
   - component: {fileID: 9095104630119196803}
   - component: {fileID: 2139587162018087077}
-  - component: {fileID: 4906894688683103752}
   m_Layer: 0
   m_Name: CookingStationFuelInventory01
   m_TagString: Untagged
@@ -522,7 +521,7 @@ MonoBehaviour:
   - {fileID: 0}
   InventoryType: 0
   TargetTransform: {fileID: 0}
-  Persistent: 0
+  Persistent: 1
   ResetThisInventorySaveOnStart: 0
   DrawContentInInspector: 1
   fuelItemAllowed: {fileID: 11400000, guid: 686e83163144d5040a850536167aff7c, type: 2}
@@ -530,21 +529,6 @@ MonoBehaviour:
   fuelEndsFeedback: {fileID: 2238739659940379016}
   IsBurning: 0
   updateInterval: 0.1
---- !u!114 &4906894688683103752
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1181497187226557774}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc8279385e242b743b07c77aba578d05, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  initialItems:
-  - {fileID: 11400000, guid: 686e83163144d5040a850536167aff7c, type: 2}
-  itemQuantities: 01000000
 --- !u!1 &3208978458545964448
 GameObject:
   m_ObjectHideFlags: 0

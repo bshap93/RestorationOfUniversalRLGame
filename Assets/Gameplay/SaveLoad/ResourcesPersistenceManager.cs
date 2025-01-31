@@ -92,7 +92,6 @@ namespace Project.Gameplay.SaveLoad
             // Revert Player Stats (currency, XP, level, etc.)
             RevertPlayerStats();
 
-            Debug.Log("Resources reverted.");
 
             UpdateUI();
         }

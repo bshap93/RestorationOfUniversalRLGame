@@ -41,8 +41,6 @@ namespace Project.Gameplay.ItemManagement.InventoryTypes.Cooking
         public MMFeedbacks cookingEndsFeedback;
         public MMFeedbacks CannotCookFeedback;
 
-        [Header("Debug")] public List<RawFood> rawFoodItems;
-
 
         [FormerlySerializedAs("_cookableRecipes")] [SerializeField]
         List<CookingRecipe> cookableRecipes = new();
@@ -80,9 +78,6 @@ namespace Project.Gameplay.ItemManagement.InventoryTypes.Cooking
                 _fuelInventory = _cookingStationController.GetFuelInventory();
                 _cookingDepositInventory = _cookingStationController.GetDepositInventory();
             }
-
-
-            foreach (var item in rawFoodItems) AddItem(item, 1);
         }
 
         protected override void OnEnable()
