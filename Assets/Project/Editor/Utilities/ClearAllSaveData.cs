@@ -18,6 +18,9 @@ namespace Project.Editor.Utilities
             // Reset Journal Recipes
             JournalPersistenceManager.ResetJournal();
 
+            // Reset Dispenser States
+            DispenserManager.ResetDispenserStates();
+
             // Delete QuestMachine Save File
             if (File.Exists(QuestMachineSavePath))
             {

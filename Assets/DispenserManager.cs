@@ -1,6 +1,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public static class DispenserManagerDebug
+{
+    [ContextMenu("Reset Dispenser States")]
+    public static void ResetDispenserStatesMenu()
+    {
+        DispenserManager.ResetDispenserStates();
+    }
+}
+
 public class DispenserManager : MonoBehaviour
 {
     public static Dictionary<string, int> DispenserStates = new();
@@ -10,6 +19,14 @@ public class DispenserManager : MonoBehaviour
         LoadDispenserStates();
         DontDestroyOnLoad(gameObject); // Keep it across scenes
     }
+
+    public static void ResetDispenserStates()
+    {
+        ES3.DeleteFile("DispenserStates.es3");
+        DispenserStates.Clear();
+        Debug.Log("All dispenser states reset.");
+    }
+
 
     void LoadDispenserStates()
     {
@@ -33,11 +50,5 @@ public class DispenserManager : MonoBehaviour
     public static int GetSavedSupply(string uniqueID)
     {
         return DispenserStates.ContainsKey(uniqueID) ? DispenserStates[uniqueID] : -1;
-    }
-
-    public static void ResetDispenserStates()
-    {
-        ES3.DeleteFile("DispenserStates.es3");
-        DispenserStates.Clear();
     }
 }

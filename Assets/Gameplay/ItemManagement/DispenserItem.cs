@@ -59,7 +59,6 @@ namespace Gameplay.Player.Inventory
         {
             _promptManager = FindFirstObjectByType<PromptManager>();
             _listPreviewManager = FindFirstObjectByType<ListPreviewManager>();
-            if (_promptManager == null) Debug.LogWarning("PromptManager not found in the scene.");
 
             var portableSystems = GameObject.Find(PortableSystemObjectName);
             if (portableSystems != null)
@@ -69,9 +68,18 @@ namespace Gameplay.Player.Inventory
             if (_targetInventory == null) Debug.LogWarning("Target inventory not found in PortableSystems.");
 
             _halfThreshold = TotalSupply / 2;
+
+            // **LOAD Saved State**
+            var savedSupply = DispenserManager.GetSavedSupply(UniqueID);
+            if (savedSupply != -1)
+            {
+                TotalSupply = savedSupply; // Restore saved quantity
+                Debug.Log($"[DispenserItem] Loaded saved supply: {TotalSupply} for {UniqueID}");
+            }
+
             UpdateStockDisplay();
-            // UpdateDispenserModel();
         }
+
 
         void Update()
         {
@@ -138,17 +146,18 @@ namespace Gameplay.Player.Inventory
             _targetInventory.AddItem(DispensedItem, DispenseAmount);
             TotalSupply -= DispenseAmount;
 
+            // **SAVE Dispenser State**
+            DispenserManager.SaveDispenserState(UniqueID, TotalSupply);
+
             dispenseFeedbacks?.PlayFeedbacks();
 
             // **Trigger ItemEvent so PickupDisplayer shows it**
             ItemEvent.Trigger("ItemPickedUp", DispensedItem, transform, DispenseAmount);
 
-            // **Ensure the UI updates even if the player moved slightly out of range**
             if (_listPreviewManager == null)
                 _listPreviewManager = FindFirstObjectByType<ListPreviewManager>();
 
             if (_listPreviewManager != null)
-                // **Update the dispenser UI dynamically**
                 _listPreviewManager.DispenserItemPanel.UpdateStock(TotalSupply);
 
             if (TotalSupply <= 0)

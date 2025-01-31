@@ -85,7 +85,6 @@ namespace Project.UI.HUD
 
         public void RemoveFromItemListPreview(InventoryItem currentPreviewedItem)
         {
-            Debug.Log("Removing: " + currentPreviewedItem.name);
             PickableItemsListPanel.RemoveItemFromItemsList(currentPreviewedItem);
         }
         public void RemoveAllFromItemList()

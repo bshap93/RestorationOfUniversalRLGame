@@ -176,7 +176,6 @@ namespace Gameplay.Player.Inventory
         {
             if (!_itemPickersInRange.ContainsKey(itemPicker.UniqueID))
             {
-                Debug.Log($"Item {itemPicker.UniqueID} was not in range. Skipping removal.");
                 return;
             }
 
