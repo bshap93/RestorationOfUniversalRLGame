@@ -15,9 +15,7 @@ namespace Gameplay.Crafting.Cooking
 {
     public class CookingStationController : MonoBehaviour, ISelectableTrigger, MMEventListener<CookingStationEvent>
     {
-        public CanvasGroup CookingUICanvasGroup;
         public CanvasGroup CookingUIPanelCanvasGroup;
-        public GameObject CookingUIPanel;
 
 
         [CanBeNull] public FuelMaterial FuelItemAlreadyAdded;
@@ -264,10 +262,6 @@ namespace Gameplay.Crafting.Cooking
         }
         public void ShowCookingUI()
         {
-            CookingUICanvasGroup.alpha = 1;
-            CookingUICanvasGroup.interactable = true;
-            CookingUICanvasGroup.blocksRaycasts = true;
-
             CookingUIPanelCanvasGroup.alpha = 1;
             CookingUIPanelCanvasGroup.interactable = true;
             CookingUIPanelCanvasGroup.blocksRaycasts = true;
@@ -275,10 +269,6 @@ namespace Gameplay.Crafting.Cooking
 
         public void HideCookingUI()
         {
-            CookingUICanvasGroup.alpha = 0;
-            CookingUICanvasGroup.interactable = false;
-            CookingUICanvasGroup.blocksRaycasts = false;
-
             CookingUIPanelCanvasGroup.alpha = 0;
             CookingUIPanelCanvasGroup.interactable = false;
             CookingUIPanelCanvasGroup.blocksRaycasts = false;

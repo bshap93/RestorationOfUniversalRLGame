@@ -251,7 +251,6 @@ namespace Gameplay.Player.Inventory
             // Ensure no duplicates by checking the UniqueID
             if (CurrentPreviewedItemPickers.Any(picker => picker.UniqueID == manualItemPicker.UniqueID))
             {
-                Debug.Log($"Item with UniqueID {manualItemPicker.UniqueID} is already in the preview list.");
                 return;
             }
 

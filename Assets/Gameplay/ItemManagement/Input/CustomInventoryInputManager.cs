@@ -1,10 +1,19 @@
 ﻿using MoreMountains.InventoryEngine;
 using MoreMountains.Tools;
+using UnityEngine;
 
 namespace Project.Gameplay.ItemManagement
 {
     public class CustomInventoryInputManager : InventoryInputManager
     {
+        protected override void Start()
+        {
+            base.Start();
+            _canvasGroup.blocksRaycasts = true;
+            _canvasGroup.interactable = true;
+            _canvasGroup.alpha = 1;
+            _canvasGroup = TargetInventoryContainer.GetComponent<CanvasGroup>();
+        }
         public override void OpenInventory()
         {
             if (CloseList.Count > 0)
