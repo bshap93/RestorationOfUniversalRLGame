@@ -10,11 +10,14 @@ using Project.Gameplay.ItemManagement;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-namespace Project.Gameplay.SaveLoad
+namespace Gameplay.SaveLoad
 {
     public class InventoryPersistenceManager : MonoBehaviour, MMEventListener<MMGameEvent>,
         MMEventListener<MMCameraEvent>
     {
+        public static InventoryPersistenceManager Instance;
+
+
         [Header("Inventories")] [SerializeField]
         Inventory mainInventory; // Assign your Main Inventory here
         [SerializeField] Inventory rightHandInventory; // Assign your Right Hand Inventory here
@@ -32,6 +35,14 @@ namespace Project.Gameplay.SaveLoad
         InventoryItem[] _mainInventorySavedState;
 
         InventoryItem[] _rightHandInventorySavedState;
+
+        void Awake()
+        {
+            if (Instance == null)
+                Instance = this;
+            else
+                Destroy(gameObject);
+        }
 
 
         void OnEnable()
@@ -132,13 +143,9 @@ namespace Project.Gameplay.SaveLoad
             // Reset the animator to the default state
             var animatorEquipHandler = FindObjectOfType<AnimatorEquipHandler>();
             if (animatorEquipHandler != null)
-            {
                 animatorEquipHandler.ResetToDefaultAnimator();
-            }
             else
-            {
                 Debug.LogWarning("AnimatorEquipHandler not found during unequipping.");
-            }
         }
 
         void UnEquipInventory(Inventory inventory)
@@ -216,6 +223,20 @@ namespace Project.Gameplay.SaveLoad
         {
             // Replace with actual file or key checks for inventory save data
             return ES3.FileExists("InventorySave.es3");
+        }
+
+        public void ResetInventory()
+        {
+            Debug.Log("[InventoryPersistenceManager] Resetting all inventories to an empty state...");
+
+            mainInventory.EmptyInventory();
+            rightHandInventory.EmptyInventory();
+            leftHandInventory.EmptyInventory();
+            hotbarInventory.EmptyInventory();
+
+            ES3.DeleteFile("InventorySave.es3");
+
+            Debug.Log("All inventories have been reset.");
         }
     }
 }

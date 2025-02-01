@@ -1,6 +1,7 @@
 using System;
-using Project.Gameplay.SaveLoad;
+using Gameplay.SaveLoad;
 using UnityEngine;
+using SaveSystem = PixelCrushers.SaveSystem;
 
 [Serializable]
 public class SaveManager : MonoBehaviour
@@ -38,6 +39,10 @@ public class SaveManager : MonoBehaviour
         inventoryManager?.SaveInventories();
         resourcesManager?.SaveResources();
         journalManager?.SaveJournal();
+
+        // PickableManager.SavePickedItems();
+
+        SaveSystem.SaveToSlotImmediate(0);
     }
 
     public bool LoadAll()
@@ -49,6 +54,8 @@ public class SaveManager : MonoBehaviour
         if (inventoryLoaded) inventoryManager.RevertInventoriesToLastSave();
         if (resourcesLoaded) resourcesManager.RevertResourcesToLastSave();
         if (journalLoaded) journalManager.RevertJournalToLastSave();
+
+        SaveSystem.LoadFromSlot(0);
 
         var hasSave = inventoryLoaded || resourcesLoaded || journalLoaded;
 

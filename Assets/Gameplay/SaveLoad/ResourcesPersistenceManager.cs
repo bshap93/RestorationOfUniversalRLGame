@@ -4,7 +4,7 @@ using Project.Gameplay.Player;
 using Project.Gameplay.Player.Health;
 using UnityEngine;
 
-namespace Project.Gameplay.SaveLoad
+namespace Gameplay.SaveLoad
 {
     public class ResourcesPersistenceManager : MonoBehaviour, MMEventListener<MMGameEvent>
     {
@@ -16,6 +16,7 @@ namespace Project.Gameplay.SaveLoad
         const string XPForNextLevelFileName = "PlayerXPForNextLevel.save";
 
         const string SaveFolderName = "Player";
+        public static ResourcesPersistenceManager Instance;
 
         [Header("Health")] [SerializeField] HealthAlt playerHealth;
 
@@ -23,6 +24,14 @@ namespace Project.Gameplay.SaveLoad
         PlayerStats playerStats;
 
         public Action OnStatsUpdated;
+
+        void Awake()
+        {
+            if (Instance == null)
+                Instance = this;
+            else
+                Destroy(gameObject);
+        }
 
         void OnEnable()
         {
@@ -195,6 +204,37 @@ namespace Project.Gameplay.SaveLoad
                    ES3.KeyExists(XPFileName) ||
                    ES3.KeyExists(LevelFileName) ||
                    ES3.KeyExists(XPForNextLevelFileName);
+        }
+
+        public void ResetResources()
+        {
+            Debug.Log("[ResourcesPersistenceManager] Resetting all resources to default values...");
+
+            // Delete all save files
+            ES3.DeleteFile(HealthFileName);
+            ES3.DeleteFile(MaxHealthFileName);
+            ES3.DeleteFile(CurrentCurrencyFileName);
+            ES3.DeleteFile(XPFileName);
+            ES3.DeleteFile(LevelFileName);
+            ES3.DeleteFile(XPForNextLevelFileName);
+
+            // Reset health to max
+            if (playerHealth != null) playerHealth.SetHealth(playerHealth.MaximumHealth);
+
+            // Reset player stats to initial state
+            if (playerStats != null)
+            {
+                playerStats.playerCurrency = 0;
+                if (playerStats.XpManager != null)
+                {
+                    playerStats.XpManager.playerExperiencePoints = 0;
+                    playerStats.XpManager.playerCurrentLevel = 1;
+                    playerStats.XpManager.playerXpForNextLevel = 20;
+                }
+            }
+
+            NotifyUIOfUpdatedStats();
+            Debug.Log("Resources reset successfully.");
         }
     }
 }

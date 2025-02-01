@@ -44,8 +44,8 @@ public class PickableManager : MonoBehaviour
 
         // Clear the in-memory picked items list (if used)
         PickedItems.Clear();
-
     }
+
 
     public static bool IsItemPicked(string uniqueID)
     {
