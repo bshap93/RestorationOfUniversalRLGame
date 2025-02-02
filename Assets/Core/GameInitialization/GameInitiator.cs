@@ -10,7 +10,7 @@ using Project.Gameplay.Enemy;
 using Project.Gameplay.Player;
 using UnityEngine;
 
-namespace Project.Core.GameInitialization
+namespace Core.GameInitialization
 {
     public class GameInitiator : MonoBehaviour, MMEventListener<MMCameraEvent>
     {
@@ -74,18 +74,13 @@ namespace Project.Core.GameInitialization
 
         async Task InitializeCore()
         {
-            var hasSave = await Task.Run(() => SaveManager.Instance.LoadAll());
-            // var hasSave = await LoadLastGame(); // Attempt to load the last save
-            var saveManager = FindObjectOfType<SaveStateManager>();
+            var hasSave = SaveManager.Instance.LoadAll();
 
+            var saveManager = FindFirstObjectByType<SaveStateManager>();
             if (saveManager == null)
                 Debug.LogWarning("SaveStateManager not found in the scene.");
             else
                 saveManager.IsSaveLoaded = hasSave;
-            // if (SaveStateManager.Instance == null)
-            //     Debug.LogWarning("SaveStateManager not found in the scene.");
-            // else
-            //     SaveStateManager.Instance.IsSaveLoaded = hasSave;
 
             if (!hasSave)
                 await StartNewGame();

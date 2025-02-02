@@ -10,7 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2644987856920788064}
   - component: {fileID: 1961384087294109087}
-  - component: {fileID: 8962206604144417724}
+  - component: {fileID: 7854866265345612372}
+  - component: {fileID: 4979542054591882896}
   m_Layer: 3
   m_Name: QuestDialogueZone
   m_TagString: Untagged
@@ -54,7 +55,7 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 4
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &8962206604144417724
+--- !u!114 &7854866265345612372
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -63,7 +64,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1717090423824874181}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f3d71a80d162eaf46835bdd9e7b84363, type: 3}
+  m_Script: {fileID: 11500000, guid: 0ae647a9322b89d44873b8dc5259537d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   ButtonActivatedRequirement: 2
@@ -94,36 +95,103 @@ MonoBehaviour:
   ButtonPromptText: F
   ButtonPromptColor: {r: 0.4862745, g: 0.9882353, b: 0, a: 1}
   ButtonPromptTextColor: {r: 1, g: 1, b: 1, a: 1}
-  AlwaysShowPrompt: 0
+  AlwaysShowPrompt: 1
   ShowPromptWhenColliding: 1
   HidePromptAfterUse: 0
-  PromptRelativePosition: {x: 0, y: 2.67, z: 0}
-  PromptRotation: {x: 0, y: 180, z: 0}
+  PromptRelativePosition: {x: 0, y: 0, z: 0}
+  PromptRotation: {x: 0, y: 0, z: 0}
   ActivationFeedback: {fileID: 0}
   DeniedFeedback: {fileID: 0}
   EnterFeedback: {fileID: 0}
   ExitFeedback: {fileID: 0}
   OnActivation:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 6000289104378185474}
-        m_TargetAssemblyTypeName: PixelCrushers.QuestMachine.QuestGiver, Assembly-CSharp-firstpass
-        m_MethodName: StartDialogueWithPlayer
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   OnExit:
     m_PersistentCalls:
       m_Calls: []
   OnStay:
     m_PersistentCalls:
       m_Calls: []
+  hidePromptOnlyDuringConversation: 1
+--- !u!114 &4979542054591882896
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1717090423824874181}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c593457cd8105e148906690e1707c592, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  trigger: 32
+  condition:
+    luaConditions: []
+    questConditions: []
+    acceptedTags: []
+    acceptedGameObjects: []
+    luaWizardIndex: -1
+    lastEvaluationValue: 0
+  setQuestState: 0
+  questName: 
+  questState: 0
+  setQuestEntryState: 0
+  questEntryNumber: 1
+  questEntryState: 0
+  setAnotherQuestEntryState: 0
+  anotherQuestEntryNumber: 1
+  anotherQuestEntryState: 0
+  luaCode: 
+  sequence: 
+  sequenceSpeaker: {fileID: 0}
+  sequenceListener: {fileID: 0}
+  waitOneFrameOnStartOrEnable: 1
+  alertMessage: 
+  textTable: {fileID: 0}
+  alertDuration: 0
+  sendMessages: []
+  barkSource: 0
+  barkConversation: 
+  barkEntryID: -1
+  barkEntryTitle: 
+  barkText: 
+  barkTextSequence: 
+  barker: {fileID: 0}
+  barkTarget: {fileID: 0}
+  barkOrder: 0
+  allowBarksDuringConversations: 0
+  skipBarkIfNoValidEntries: 0
+  cacheBarkLines: 0
+  conversation: IntroductionNPC01
+  conversationConversant: {fileID: 613401700708267002}
+  conversationActor: {fileID: 0}
+  startConversationEntryID: -1
+  startConversationEntryTitle: 
+  overrideDialogueUI: {fileID: 0}
+  exclusive: 0
+  replace: 0
+  queue: 0
+  skipIfNoValidEntries: 1
+  preventRestartOnSameFrameEnded: 0
+  stopConversationOnTriggerExit: 0
+  marginToAllowTriggerExit: 0.2
+  stopConversationIfTooFar: 0
+  maxConversationDistance: 5
+  monitorConversationDistanceFrequency: 1
+  showCursorDuringConversation: 0
+  pauseGameDuringConversation: 0
+  setActiveActions: []
+  setEnabledActions: []
+  setAnimatorStateActions: []
+  onExecute:
+    m_PersistentCalls:
+      m_Calls: []
+  useConversationTitlePicker: 1
+  useBarkTitlePicker: 1
+  useQuestNamePicker: 1
+  selectedDatabase: {fileID: 11400000, guid: f1821057944136f4ea34a993b0637ac1, type: 2}
 --- !u!1 &4506375951709357717
 GameObject:
   m_ObjectHideFlags: 0
@@ -469,14 +537,14 @@ MonoBehaviour:
       m_textTable: {fileID: 0}
       m_textTableFieldID: 0
     m_bodyText:
-      m_text: Hello
+      m_text: Welcome, surface dweller. What brings you down yonder?
       m_stringAsset: {fileID: 0}
       m_textTable: {fileID: 0}
       m_textTableFieldID: 0
   m_offerableQuestsUIContents:
     m_icon: {fileID: 0}
     m_headingText:
-      m_text: What's up?
+      m_text: While you're here, I have a favor to ask.
       m_stringAsset: {fileID: 0}
       m_textTable: {fileID: 0}
       m_textTableFieldID: 0
