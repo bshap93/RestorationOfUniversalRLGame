@@ -3,6 +3,7 @@ using Core.GameInitialization;
 using Gameplay.ItemManagement.Cooking;
 using Gameplay.ItemManagement.InventoryItemTypes;
 using Gameplay.ItemManagement.InventoryTypes;
+using Gameplay.ItemsInteractions;
 using MoreMountains.Feedbacks;
 using Plugins.TopDownEngine.ThirdParty.MoreMountains.InentoryEngine.InventoryEngine.Scripts.Items;
 using Project.Gameplay.Events;
@@ -178,6 +179,7 @@ namespace Gameplay.Player.Inventory
         void SavePickedItem(string uniqueID)
         {
             ES3.Save(uniqueID, true, "PickedItems.es3"); // File: PickedItems.es3
+            Debug.Log($"Saved picked item: {uniqueID}");
         }
 
 

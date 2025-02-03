@@ -2,6 +2,7 @@
 
 using System.Threading.Tasks;
 using DunGen;
+using Gameplay.ItemsInteractions;
 using MoreMountains.Tools;
 using MoreMountains.TopDownEngine;
 using Project.Core.SaveSystem;

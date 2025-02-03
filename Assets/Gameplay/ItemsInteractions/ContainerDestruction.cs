@@ -1,43 +1,46 @@
 using MoreMountains.TopDownEngine;
 using UnityEngine;
 
-public class ContainerDestruction : MonoBehaviour
+namespace Gameplay.ItemsInteractions
 {
-    public GameObject brokenBarrelPrefab;
-    public GameObject deathFeedbackPrefab;
-    public float transitionDuration = 0.5f; // Duration for fading effect
-
-    Health _health;
-    Loot _loot; // Reference to the Loot component
-    Renderer _renderer;
-
-
-    void Awake()
+    public class ContainerDestruction : MonoBehaviour
     {
-        _health = GetComponent<Health>();
-        _renderer = GetComponent<Renderer>();
-        _loot = GetComponent<Loot>();
-        _health.OnDeath += OnDeath;
-    }
+        public GameObject brokenBarrelPrefab;
+        public GameObject deathFeedbackPrefab;
+        public float transitionDuration = 0.5f; // Duration for fading effect
 
-    void OnDestroy()
-    {
-        _health.OnDeath -= OnDeath;
-    }
+        Health _health;
+        Loot _loot; // Reference to the Loot component
+        Renderer _renderer;
 
-    void OnDeath()
-    {
-        // Spawn the temporary feedback object at the barrel's position
-        Instantiate(deathFeedbackPrefab, transform.position, transform.rotation);
 
-        // Instantiate the broken barrel at the same position
-        Instantiate(brokenBarrelPrefab, transform.position, transform.rotation);
+        void Awake()
+        {
+            _health = GetComponent<Health>();
+            _renderer = GetComponent<Renderer>();
+            _loot = GetComponent<Loot>();
+            _health.OnDeath += OnDeath;
+        }
 
-        // Spawn loot at the barrel's position
-        if (_loot != null)
-            Instantiate(_loot.GameObjectToLoot, transform.position + new Vector3(0, 0.5f, 0), transform.rotation);
+        void OnDestroy()
+        {
+            _health.OnDeath -= OnDeath;
+        }
 
-        // Destroy the original barrel
-        Destroy(gameObject);
+        void OnDeath()
+        {
+            // Spawn the temporary feedback object at the barrel's position
+            Instantiate(deathFeedbackPrefab, transform.position, transform.rotation);
+
+            // Instantiate the broken barrel at the same position
+            Instantiate(brokenBarrelPrefab, transform.position, transform.rotation);
+
+            // Spawn loot at the barrel's position
+            if (_loot != null)
+                _loot.SpawnLoot();
+
+            // Destroy the original barrel
+            Destroy(gameObject);
+        }
     }
 }
