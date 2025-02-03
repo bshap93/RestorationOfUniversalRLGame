@@ -13,6 +13,8 @@ namespace Project.Gameplay.ItemManagement
             _canvasGroup.interactable = true;
             _canvasGroup.alpha = 1;
             _canvasGroup = TargetInventoryContainer.GetComponent<CanvasGroup>();
+            
+            CloseInventory();
         }
         public override void OpenInventory()
         {
@@ -37,6 +39,8 @@ namespace Project.Gameplay.ItemManagement
             InventoryIsOpen = true;
 
             StartCoroutine(MMFade.FadeCanvasGroup(TargetInventoryContainer, 0.2f, 1f));
+            TargetInventoryContainer.interactable = true;
+            TargetInventoryContainer.blocksRaycasts = true;
             StartCoroutine(MMFade.FadeCanvasGroup(Overlay, 0.2f, OverlayActiveOpacity));
         }
 
@@ -58,6 +62,8 @@ namespace Project.Gameplay.ItemManagement
             InventoryIsOpen = false;
 
             StartCoroutine(MMFade.FadeCanvasGroup(TargetInventoryContainer, 0.2f, 0f));
+            TargetInventoryContainer.interactable = false;
+            TargetInventoryContainer.blocksRaycasts = false;
             StartCoroutine(MMFade.FadeCanvasGroup(Overlay, 0.2f, OverlayInactiveOpacity));
         }
     }
