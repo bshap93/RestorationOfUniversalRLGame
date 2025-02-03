@@ -1520,7 +1520,7 @@ MonoBehaviour:
   CharacterHealth: {fileID: 6106341475462842063}
   SendStateChangeEvents: 1
   AdditionalAbilityNodes: []
-  CharacterBrain: {fileID: 3389815785645608256}
+  CharacterBrain: {fileID: 0}
   OptimizeForMobile: 0
 --- !u!143 &127709507526946717
 CharacterController:
@@ -3425,6 +3425,15 @@ MonoBehaviour:
       - {fileID: 0}
     Transitions:
       array: []
+  - StateName: Detecting
+    Actions:
+      array:
+      - {fileID: 7175564119544302584}
+    Transitions:
+      array:
+      - Decision: {fileID: 2832093937942652453}
+        TrueState: Chasing
+        FalseState: 
   TimeInThisState: 0
   Target: {fileID: 0}
   _lastKnownTargetPosition: {x: 0, y: 0, z: 0}
