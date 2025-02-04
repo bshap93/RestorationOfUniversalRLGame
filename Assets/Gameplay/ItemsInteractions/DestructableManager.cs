@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 #if UNITY_EDITOR
 #endif
@@ -23,7 +24,14 @@ namespace Gameplay.ItemsInteractions
             }
 
             pickableManager.LoadPickedItems(); // Load loot first
-            LoadDestroyedContainers();
+            StartCoroutine(DestroyContainersAfterLoot()); // Delay container destruction
+        }
+
+        IEnumerator DestroyContainersAfterLoot()
+        {
+            yield return new WaitForSeconds(0.5f); // Wait for loot to spawn
+
+            LoadDestroyedContainers(); // Now destroy containers
         }
 
 

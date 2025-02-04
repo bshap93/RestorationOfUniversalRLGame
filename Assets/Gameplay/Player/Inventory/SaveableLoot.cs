@@ -65,6 +65,7 @@ namespace Gameplay.Player.Inventory
 
 
                     _globalSpawnedItemCount++;
+                    ES3.Save("GlobalSpawnedItemCount", _globalSpawnedItemCount); // Save counter immediately
 
                     // Save the position after the object has been properly positioned
                     if (!PickableManager.IsItemPicked(itemPicker.UniqueID))
