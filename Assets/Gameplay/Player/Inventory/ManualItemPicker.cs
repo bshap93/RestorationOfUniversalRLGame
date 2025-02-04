@@ -178,11 +178,10 @@ namespace Gameplay.Player.Inventory
 
         void SavePickedItem(string uniqueID)
         {
-            ES3.Save(uniqueID, true, "PickedItems.es3"); // File: PickedItems.es3
+            // Use the new PickableManager method instead of direct ES3 calls
+            PickableManager.SavePickedItem(uniqueID, true);
             Debug.Log($"Saved picked item: {uniqueID}");
         }
-
-
         public void PickItem()
         {
             if (Item == null || !_isInRange || _isBeingDestroyed)

@@ -1,4 +1,5 @@
 using System;
+using Gameplay.ItemsInteractions;
 using Gameplay.SaveLoad;
 using UnityEngine;
 using SaveSystem = PixelCrushers.SaveSystem;
@@ -6,14 +7,19 @@ using SaveSystem = PixelCrushers.SaveSystem;
 [Serializable]
 public class SaveManager : MonoBehaviour
 {
-    const string SaveFilePrefix = "GameSave_"; // File prefix for save slots
-    const string SaveFileExtension = ".es3"; // File extension
+    const string SaveFilePrefix = "GameSave_";
+    const string SaveFileExtension = ".es3";
 
     [Header("Persistence Managers")] [SerializeField]
     InventoryPersistenceManager inventoryManager;
     [SerializeField] ResourcesPersistenceManager resourcesManager;
     [SerializeField] JournalPersistenceManager journalManager;
-    int currentSlot = 1; // Default slot
+
+    [Header("Item & Container Persistence")]
+    public PickableManager pickableManager;
+    public DestructableManager destructableManager;
+
+    int currentSlot = 1;
 
     public static SaveManager Instance { get; private set; }
 
@@ -27,6 +33,29 @@ public class SaveManager : MonoBehaviour
 
         Instance = this;
         DontDestroyOnLoad(gameObject);
+
+        // Initialize managers if needed
+        if (pickableManager == null)
+        {
+            pickableManager = GetComponentInChildren<PickableManager>(true);
+            if (pickableManager == null)
+            {
+                var pickableGO = new GameObject("PickableManager");
+                pickableManager = pickableGO.AddComponent<PickableManager>();
+                pickableGO.transform.SetParent(transform);
+            }
+        }
+
+        if (destructableManager == null)
+        {
+            destructableManager = GetComponentInChildren<DestructableManager>(true);
+            if (destructableManager == null)
+            {
+                var destructableGO = new GameObject("DestructableManager");
+                destructableManager = destructableGO.AddComponent<DestructableManager>();
+                destructableGO.transform.SetParent(transform);
+            }
+        }
     }
 
     string GetSaveFileName(int slot)
@@ -39,8 +68,6 @@ public class SaveManager : MonoBehaviour
         inventoryManager?.SaveInventories();
         resourcesManager?.SaveResources();
         journalManager?.SaveJournal();
-
-        // PickableManager.SavePickedItems();
 
         SaveSystem.SaveToSlotImmediate(0);
     }
@@ -55,20 +82,23 @@ public class SaveManager : MonoBehaviour
         if (resourcesLoaded) resourcesManager.RevertResourcesToLastSave();
         if (journalLoaded) journalManager.RevertJournalToLastSave();
 
+        // Load pickable items and destroyed containers
+        pickableManager?.LoadPickedItems();
+        destructableManager?.LoadDestroyedContainers();
+
         SaveSystem.LoadFromSlot(0);
 
-        var hasSave = inventoryLoaded || resourcesLoaded || journalLoaded;
-
-
-        return hasSave;
+        return inventoryLoaded || resourcesLoaded || journalLoaded;
     }
-
 
     public void ResetAll()
     {
         Debug.Log("[SaveManager] Resetting all data...");
-        inventoryManager?.RevertInventoriesToLastSave(); // Clear inventories
-        resourcesManager?.RevertResourcesToLastSave(); // Reset health, currency, etc.
-        journalManager?.RevertJournalToLastSave(); // Clear journal entries
+        inventoryManager?.RevertInventoriesToLastSave();
+        resourcesManager?.RevertResourcesToLastSave();
+        journalManager?.RevertJournalToLastSave();
+
+        PickableManager.ResetPickedItems();
+        DestructableManager.ResetDestroyedContainers();
     }
 }

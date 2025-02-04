@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Core.SaveSystem;
 using UnityEngine;
 
 public static class DispenserManagerDebug
@@ -10,14 +11,13 @@ public static class DispenserManagerDebug
     }
 }
 
-public class DispenserManager : MonoBehaviour
+public class DispenserManager : PersistentManager
 {
     public static Dictionary<string, int> DispenserStates = new();
 
-    void Awake()
+    protected override void OnManagerAwake()
     {
         LoadDispenserStates();
-        DontDestroyOnLoad(gameObject); // Keep it across scenes
     }
 
     public static void ResetDispenserStates()

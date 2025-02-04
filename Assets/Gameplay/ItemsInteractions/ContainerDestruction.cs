@@ -1,3 +1,5 @@
+using System;
+using Gameplay.Player.Inventory;
 using MoreMountains.TopDownEngine;
 using UnityEngine;
 
@@ -7,39 +9,57 @@ namespace Gameplay.ItemsInteractions
     {
         public GameObject brokenBarrelPrefab;
         public GameObject deathFeedbackPrefab;
-        public float transitionDuration = 0.5f; // Duration for fading effect
+        public float transitionDuration = 0.5f;
+        public string UniqueID;
 
         Health _health;
-        Loot _loot; // Reference to the Loot component
+        bool _isBeingDestroyed;
+        SaveableLoot _loot;
         Renderer _renderer;
-
 
         void Awake()
         {
+            if (string.IsNullOrEmpty(UniqueID))
+            {
+                UniqueID = Guid.NewGuid().ToString();
+                Debug.Log($"Generated new UniqueID for container {gameObject.name}: {UniqueID}");
+            }
+
             _health = GetComponent<Health>();
             _renderer = GetComponent<Renderer>();
-            _loot = GetComponent<Loot>();
-            _health.OnDeath += OnDeath;
+            _loot = GetComponent<SaveableLoot>();
+
+            if (_health != null) _health.OnDeath += OnDeath;
         }
 
         void OnDestroy()
         {
-            _health.OnDeath -= OnDeath;
+            if (_health != null) _health.OnDeath -= OnDeath;
         }
 
         void OnDeath()
         {
-            // Spawn the temporary feedback object at the barrel's position
-            Instantiate(deathFeedbackPrefab, transform.position, transform.rotation);
+            if (!_isBeingDestroyed) DestroyContainer(true, true);
+        }
 
-            // Instantiate the broken barrel at the same position
-            Instantiate(brokenBarrelPrefab, transform.position, transform.rotation);
+        public void DestroyContainer(bool saveState, bool spawnLoot = false)
+        {
+            if (_isBeingDestroyed) return;
+            _isBeingDestroyed = true;
 
-            // Spawn loot at the barrel's position
-            if (_loot != null)
-                _loot.SpawnLoot();
+            // Save the destroyed state
+            if (saveState) DestructableManager.SaveDestroyedContainer(UniqueID);
 
-            // Destroy the original barrel
+            // Spawn visual feedback
+            if (deathFeedbackPrefab != null) Instantiate(deathFeedbackPrefab, transform.position, transform.rotation);
+
+            // Spawn broken version
+            if (brokenBarrelPrefab != null) Instantiate(brokenBarrelPrefab, transform.position, transform.rotation);
+
+            // Only spawn loot if this is an original destruction, not a reconstruction
+            if (spawnLoot && _loot != null) _loot.SpawnLoot();
+
+            // Destroy the original container
             Destroy(gameObject);
         }
     }

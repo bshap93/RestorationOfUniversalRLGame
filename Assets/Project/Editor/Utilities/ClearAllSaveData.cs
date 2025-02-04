@@ -30,6 +30,8 @@ namespace Project.Editor.Utilities
             // Reset Resources (if applicable)
             ResourcesPersistenceManager.Instance?.ResetResources();
 
+            DestructableManager.ResetDestroyedContainers();
+
 
             // Delete QuestMachine Save File
             if (File.Exists(QuestMachineSavePath))
