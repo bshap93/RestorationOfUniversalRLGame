@@ -34,25 +34,19 @@ namespace Gameplay.ItemsInteractions
 
         public void LoadPickedItems()
         {
-            PickedItems.Clear();
-
             if (!ES3.FileExists("PickedItems.es3"))
                 return;
 
-            if (lootSources.Count == 0)
-            {
-                Debug.LogError("Cannot restore loot: No SaveableLoot components found");
-                return;
-            }
-
             var keys = ES3.GetKeys("PickedItems.es3");
+            if (keys.Length == 0) return; // No items to load
+
+            PickedItems.Clear(); // Clear only after verifying there are saved items
+
             foreach (var key in keys)
-                // Position keys are stored with "_pos" suffix
                 if (key.EndsWith("_pos"))
                 {
-                    var itemId = key.Substring(0, key.Length - 4); // Remove "_pos" suffix
+                    var itemId = key.Substring(0, key.Length - 4);
 
-                    // Skip if this item was picked up
                     if (ES3.KeyExists($"{itemId}_state", "PickedItems.es3") &&
                         ES3.Load<bool>($"{itemId}_state", "PickedItems.es3"))
                     {
@@ -60,7 +54,6 @@ namespace Gameplay.ItemsInteractions
                         continue;
                     }
 
-                    // Get the prefab type from the saved metadata
                     var prefabName = ES3.Load($"{itemId}_type", "PickedItems.es3", "");
                     if (string.IsNullOrEmpty(prefabName) || !lootSources.ContainsKey(prefabName))
                     {
@@ -88,6 +81,7 @@ namespace Gameplay.ItemsInteractions
                     }
                 }
         }
+
 
         public static void SavePickedItem(string uniqueID, bool isPicked)
         {

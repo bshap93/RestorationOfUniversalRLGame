@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using Gameplay.ItemsInteractions;
 using MoreMountains.Tools;
 using MoreMountains.TopDownEngine;
@@ -10,7 +9,19 @@ namespace Gameplay.Player.Inventory
 {
     public class SaveableLoot : Loot
     {
-        int _spawnedItemCount;
+        static int _globalSpawnedItemCount;
+
+        protected override void Awake()
+        {
+            base.Awake();
+            _globalSpawnedItemCount = ES3.Load("GlobalSpawnedItemCount", 0);
+        }
+
+        void OnApplicationQuit()
+        {
+            ES3.Save("GlobalSpawnedItemCount", _globalSpawnedItemCount);
+            Debug.Log($"Saved global loot counter: {_globalSpawnedItemCount}");
+        }
 
         public string GetLootPrefabName()
         {
@@ -50,10 +61,10 @@ namespace Gameplay.Player.Inventory
                 {
                     // Generate unique ID using base name and counter
                     var itemBaseName = itemPicker.Item?.ItemName?.Replace(" ", "") ?? "Item";
-                    itemPicker.UniqueID =
-                        $"{itemBaseName}{_spawnedItemCount:D3}_{Guid.NewGuid().ToString().Substring(0, 8)}";
+                    itemPicker.UniqueID = $"{itemBaseName}_{_globalSpawnedItemCount:D3}";
 
-                    _spawnedItemCount++;
+
+                    _globalSpawnedItemCount++;
 
                     // Save the position after the object has been properly positioned
                     if (!PickableManager.IsItemPicked(itemPicker.UniqueID))
@@ -92,13 +103,15 @@ namespace Gameplay.Player.Inventory
         {
             if (Delay > 0f) yield return new WaitForSeconds(Delay);
 
-            _spawnedItemCount = 0; // Reset counter before spawning batch
+            // _spawnedItemCount = 0; // Reset counter before spawning batch
             var randomQuantity = Random.Range((int)Quantity.x, (int)Quantity.y + 1);
             for (var i = 0; i < randomQuantity; i++)
             {
                 var objectToSpawn = GetObject();
                 if (objectToSpawn != null) Spawn(objectToSpawn);
             }
+
+            ES3.Save("GlobalSpawnedItemCount", _globalSpawnedItemCount);
 
             LootFeedback?.PlayFeedbacks();
         }

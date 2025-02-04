@@ -32,6 +32,8 @@ namespace Project.Editor.Utilities
 
             DestructableManager.ResetDestroyedContainers();
 
+            Debug.Log("Destuctable containers reset.");
+
 
             // Delete QuestMachine Save File
             if (File.Exists(QuestMachineSavePath))

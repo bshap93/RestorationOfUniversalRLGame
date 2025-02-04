@@ -8,11 +8,24 @@ namespace Gameplay.ItemsInteractions
     public class DestructableManager : MonoBehaviour
     {
         public static HashSet<string> DestroyedContainers = new();
+        public PickableManager pickableManager;
 
         void Start()
         {
+            if (pickableManager == null)
+            {
+                pickableManager = FindFirstObjectByType<PickableManager>();
+                if (pickableManager == null)
+                {
+                    Debug.LogError("PickableManager not found in the scene! Loot may not load correctly.");
+                    return;
+                }
+            }
+
+            pickableManager.LoadPickedItems(); // Load loot first
             LoadDestroyedContainers();
         }
+
 
         public void LoadDestroyedContainers()
         {
