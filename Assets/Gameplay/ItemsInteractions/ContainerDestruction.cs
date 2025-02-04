@@ -1,4 +1,5 @@
 using System;
+using Gameplay.ItemManagement.InventoryTypes.Destructables;
 using Gameplay.Player.Inventory;
 using MoreMountains.TopDownEngine;
 using UnityEngine;
@@ -9,8 +10,8 @@ namespace Gameplay.ItemsInteractions
     {
         public GameObject brokenBarrelPrefab;
         public GameObject deathFeedbackPrefab;
-        public float transitionDuration = 0.5f;
         public string UniqueID;
+        public Destructable destructable;
 
         Health _health;
         bool _isBeingDestroyed;
