@@ -46,7 +46,6 @@ namespace Gameplay.ItemsInteractions
                     if (ES3.Load<bool>(key, "DestroyedContainers.es3"))
                     {
                         DestroyedContainers.Add(key);
-                        Debug.Log($"Loaded destroyed container: {key}");
                     }
             }
 

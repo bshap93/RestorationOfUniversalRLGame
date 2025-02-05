@@ -39,7 +39,6 @@ public class ItemInfoPrefab : MonoBehaviour
                 takeItemButton.buttonText = "Take";
         }
 
-        Debug.Log("ManualItemPicker: " + manualItemPickerVar);
     }
 
 

@@ -16,7 +16,6 @@ namespace Gameplay.ItemManagement.InventoryDisplays
             yield return new WaitForSeconds(0.1f); // Allow time for inventory system to initialize
             if (TargetInventory != null)
             {
-                Debug.Log($"[InventoryDisplay] Refreshing Inventory UI: {TargetInventory.name}");
                 Initialization(true); // Forces UI redraw
             }
             else
