@@ -40,6 +40,12 @@ namespace Gameplay.Player.Inventory
             _previewManager = FindFirstObjectByType<ListPreviewManager>();
             _highlightManager = FindFirstObjectByType<HighlightManager>();
 
+            if (CurrentPreviewedItems == null)
+            {
+                CurrentPreviewedItems = new List<InventoryItem>();
+                Debug.Log("INIT'ed CurrentPreviewedItems because it was null.");
+            }
+
             if (_previewManager == null) Debug.LogWarning("PreviewManager not found in the scene.");
             if (_highlightManager == null) Debug.LogWarning("HighlightManager not found in the scene.");
         }
@@ -174,10 +180,7 @@ namespace Gameplay.Player.Inventory
 
         void HandleItemExited(ManualItemPicker itemPicker, Transform itemTransform)
         {
-            if (!_itemPickersInRange.ContainsKey(itemPicker.UniqueID))
-            {
-                return;
-            }
+            if (!_itemPickersInRange.ContainsKey(itemPicker.UniqueID)) return;
 
             _itemPickersInRange.Remove(itemPicker.UniqueID);
             CurrentPreviewedItemPickers.Remove(itemPicker);
@@ -249,10 +252,7 @@ namespace Gameplay.Player.Inventory
             if (item == null || manualItemPicker == null) return;
 
             // Ensure no duplicates by checking the UniqueID
-            if (CurrentPreviewedItemPickers.Any(picker => picker.UniqueID == manualItemPicker.UniqueID))
-            {
-                return;
-            }
+            if (CurrentPreviewedItemPickers.Any(picker => picker.UniqueID == manualItemPicker.UniqueID)) return;
 
             _previewManager.AddToItemListPreview(item, manualItemPicker);
             CurrentPreviewedItemPickers.Add(manualItemPicker);

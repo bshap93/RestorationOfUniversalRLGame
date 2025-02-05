@@ -23,7 +23,7 @@ namespace Gameplay.ItemsInteractions
                 }
             }
 
-            pickableManager.LoadPickedItems(); // Load loot first
+            // pickableManager.LoadPickedItems(); // Load loot first
             StartCoroutine(DestroyContainersAfterLoot()); // Delay container destruction
         }
 
@@ -44,9 +44,7 @@ namespace Gameplay.ItemsInteractions
                 var keys = ES3.GetKeys("DestroyedContainers.es3");
                 foreach (var key in keys)
                     if (ES3.Load<bool>(key, "DestroyedContainers.es3"))
-                    {
                         DestroyedContainers.Add(key);
-                    }
             }
 
             // Find and destroy any containers that should be destroyed

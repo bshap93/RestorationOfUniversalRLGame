@@ -102,7 +102,7 @@ namespace Core.GameInitialization
             if (_dungeonManager != null) await _dungeonManager.GenerateNewDungeon(seed);
 
             // Reset item placements 
-            PickableManager.ResetPickedItems();
+            // PickableManager.ResetPickedItems();
 
             // Spawn the player
             var initialSpawnPoint = FindObjectOfType<SpawnPoint>();
