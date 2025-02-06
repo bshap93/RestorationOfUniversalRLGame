@@ -36,35 +36,12 @@ namespace Project.Gameplay.ItemManagement
                 case MMInventoryEventType.EquipRequest:
                     var item = mmEvent.EventItem;
                     Debug.Log("Item requested equipment: " + item.ItemID);
-                    if (TwoHandedItems.Contains(item))
-                    {
-                        // If a two-handed weapon is equipped, unequip the left hand slot
-                        // For now we use the right hand slot as the two-handed weapon slot
-                        LeftHandSlot.UnEquip();
-                        isTwoHandedWeaponEquipped = true;
-                    }
 
-                    if (LeftHandedItems.Contains(item))
-                        if (isTwoHandedWeaponEquipped)
-                        {
-                            RightHandSlot.UnEquip();
-                            isTwoHandedWeaponEquipped = false;
-                        }
-
-                    if (RightHandedItems.Contains(item))
-                        if (isTwoHandedWeaponEquipped)
-                            isTwoHandedWeaponEquipped = false;
-
-
+                    // Ignore Two-Handed and Left/Right Hand logic since we're using the hotbar
                     break;
-                case MMInventoryEventType.ItemUnEquipped:
-                    if (isTwoHandedWeaponEquipped)
-                    {
-                        LeftHandSlot.UnEquip();
-                        RightHandSlot.UnEquip();
-                        isTwoHandedWeaponEquipped = false;
-                    }
 
+                case MMInventoryEventType.ItemUnEquipped:
+                    // Prevent unnecessary unequip
                     break;
             }
         }

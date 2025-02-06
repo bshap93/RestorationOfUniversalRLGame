@@ -71,44 +71,31 @@ namespace Project.Gameplay.ItemManagement.InventoryDisplays
             if (!InventoryItem.IsNull(TargetInventory.Content[index]))
             {
                 var item = TargetInventory.Content[index];
-                Debug.Log($"Item in slot {index} is {item.ItemID}");
-                if (item.Equippable)
-                {
-                    InventorySlots[index].Equip();
-                    MMInventoryEvent.Trigger(
-                        MMInventoryEventType.ItemEquipped,
-                        null,
-                        TargetInventory.name,
-                        item,
-                        item.Quantity,
-                        index,
-                        PlayerID
-                    );
+                Debug.Log($"Hotbar slot {index} selected: {item.ItemID}");
 
-                    Debug.Log($"Equipped {item.ItemID}");
-                }
-                else
-                {
-                    MMInventoryEvent.Trigger(
-                        MMInventoryEventType.ItemUnEquipped,
-                        null,
-                        TargetInventory.name,
-                        item,
-                        item.Quantity,
-                        index,
-                        PlayerID
-                    );
+                // Unequip current weapon if switching
+                MMInventoryEvent.Trigger(
+                    MMInventoryEventType.ItemUnEquipped,
+                    null,
+                    TargetInventory.name,
+                    item,
+                    item.Quantity,
+                    index,
+                    PlayerID
+                );
 
-                    Debug.Log($"Triggered ItemUnEquipped for {item.ItemID} from inventory {name}.");
-                }
+                // Equip new weapon
+                MMInventoryEvent.Trigger(
+                    MMInventoryEventType.ItemEquipped,
+                    null,
+                    TargetInventory.name,
+                    item,
+                    item.Quantity,
+                    index,
+                    PlayerID
+                );
 
-
-                if (item.Usable)
-                {
-                    // item.Use(PlayerID);
-                    InventorySlots[index].Use();
-                    Debug.Log($"Used {item.ItemID}");
-                }
+                Debug.Log($"Equipped {item.ItemID} from Hotbar.");
             }
         }
 

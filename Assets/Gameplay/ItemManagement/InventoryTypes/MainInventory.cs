@@ -1,4 +1,5 @@
 ﻿using MoreMountains.InventoryEngine;
+using Project.Gameplay.Interactivity.Items;
 using UnityEngine;
 
 namespace Gameplay.ItemManagement.InventoryTypes
@@ -38,6 +39,35 @@ namespace Gameplay.ItemManagement.InventoryTypes
             RemoveItem(startIndex, itemToMove.Quantity);
 
             return true;
+        }
+
+        public override void EquipItem(InventoryItem item, int index, InventorySlot slot = null)
+        {
+            if (InventoryType == InventoryTypes.Main)
+            {
+                if (item == null) return;
+
+                // Ensure item is NOT removed from the Hotbar
+                if (name.Contains("Hotbar")) // Make sure "Hotbar" is in the inventory name
+                {
+                    Debug.Log($"Equipping {item.ItemID} from Hotbar - keeping in inventory.");
+                    MMInventoryEvent.Trigger(MMInventoryEventType.ItemEquipped, slot, name, item, 0, index, PlayerID);
+                    return; // Don't move it to another inventory
+                }
+
+                InventoryItem oldItem = null;
+                if (!InventoryItem.IsNull(item))
+                    // Normal Equip logic if NOT coming from hotbar
+                    if (!item.TargetEquipmentInventory(PlayerID).IsFull)
+                    {
+                        oldItem = item.TargetEquipmentInventory(PlayerID).Content[0];
+                        item.TargetEquipmentInventory(PlayerID).MoveItemToInventory(
+                            index, item.TargetEquipmentInventory(PlayerID));
+                    }
+
+                // Fire Equip Event
+                MMInventoryEvent.Trigger(MMInventoryEventType.ItemEquipped, slot, name, item, 0, index, PlayerID);
+            }
         }
     }
 }

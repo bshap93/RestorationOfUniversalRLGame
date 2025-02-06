@@ -93,55 +93,31 @@ namespace Project.Gameplay.Combat.Weapons
             if (CurrentWeapon != null)
             {
                 CurrentWeapon.TurnWeaponOff();
-
                 if (!combo)
                 {
                     ShootStop();
-
                     if (_weaponAim != null) _weaponAim.RemoveReticle();
-
-                    if (_character._animator != null)
-                    {
-                        var parameters = _character._animator.parameters;
-                        foreach (var parameter in parameters)
-                            if (parameter.name == CurrentWeapon.EquippedAnimationParameter)
-                                MMAnimatorExtensions.UpdateAnimatorBool(
-                                    _animator, CurrentWeapon.EquippedAnimationParameter, false);
-                    }
-
                     Destroy(CurrentWeapon.gameObject);
                 }
             }
 
             if (newWeapon != null)
             {
-                // Fetch WeaponAttachmentType from the WeaponAttachmentTypeComponent
                 var attachmentTypeComponent = newWeapon.GetComponent<WeaponAttachmentTypeComponent>();
                 WeaponAttachmentType = attachmentTypeComponent != null
                     ? attachmentTypeComponent.AttachmentType
                     : WeaponAttachmentType.Other;
 
-                var useWeaponIK = attachmentTypeComponent != null && attachmentTypeComponent.UseWeaponIK;
-
-
-                // Toggle WeaponIK based on WeaponAttachmentTypeComponent
-                ToggleWeaponIK(useWeaponIK);
-
-                // Set WeaponAttachment before instantiating the weapon
+                ToggleWeaponIK(attachmentTypeComponent?.UseWeaponIK ?? false);
                 SetWeaponAttachment();
 
                 InstantiateWeapon(newWeapon, weaponID, combo);
-
-
                 WeaponEquipFeedback?.PlayFeedbacks();
             }
             else
             {
                 CurrentWeapon = null;
                 HandleWeaponModel(null, null);
-
-
-                // Toggle WeaponIK off if no weapon is equipped
                 ToggleWeaponIK(false);
             }
 
