@@ -8,12 +8,13 @@ namespace Gameplay.SaveLoad
 {
     public class ResourcesPersistenceManager : MonoBehaviour, MMEventListener<MMGameEvent>
     {
-        const string HealthFileName = "PlayerHealth.save";
-        const string MaxHealthFileName = "PlayerMaxHealth.save";
-        const string CurrentCurrencyFileName = "PlayerCurrency.save";
-        const string XPFileName = "PlayerXP.save";
-        const string LevelFileName = "PlayerLevel.save";
-        const string XPForNextLevelFileName = "PlayerXPForNextLevel.save";
+        // const string HealthFileName = "PlayerHealth.save";
+        // const string MaxHealthFileName = "PlayerMaxHealth.save";
+        // const string CurrentCurrencyFileName = "PlayerCurrency.save";
+        // const string XPFileName = "PlayerXP.save";
+        // const string LevelFileName = "PlayerLevel.save";
+        // const string XPForNextLevelFileName = "PlayerXPForNextLevel.save";
+
 
         const string SaveFolderName = "Player";
         public static ResourcesPersistenceManager Instance;
@@ -76,15 +77,15 @@ namespace Gameplay.SaveLoad
             }
 
             // Save player currency
-            ES3.Save(CurrentCurrencyFileName, playerStats.playerCurrency);
+            ES3.Save(GetSaveFilePathCurrency(), playerStats.playerCurrency);
 
             // Save XPManager data
             var xpManager = playerStats.XpManager;
             if (xpManager != null)
             {
-                ES3.Save(XPFileName, xpManager.playerExperiencePoints);
-                ES3.Save(LevelFileName, xpManager.playerCurrentLevel);
-                ES3.Save(XPForNextLevelFileName, xpManager.playerXpForNextLevel);
+                ES3.Save(GetSaveFilePathXP(), xpManager.playerExperiencePoints);
+                ES3.Save(GetSaveFilePathLevel(), xpManager.playerCurrentLevel);
+                ES3.Save(GetSaveFilePathXPForNextLevel(), xpManager.playerXpForNextLevel);
             }
             else
             {
@@ -122,9 +123,9 @@ namespace Gameplay.SaveLoad
             }
 
             // Load player currency
-            if (ES3.KeyExists(CurrentCurrencyFileName))
+            if (ES3.KeyExists(GetSaveFilePathCurrency()))
             {
-                playerStats.playerCurrency = ES3.Load<int>(CurrentCurrencyFileName);
+                playerStats.playerCurrency = ES3.Load<int>(GetSaveFilePathCurrency());
             }
             else
             {
@@ -136,10 +137,16 @@ namespace Gameplay.SaveLoad
             var xpManager = playerStats.XpManager;
             if (xpManager != null)
             {
-                xpManager.playerExperiencePoints = ES3.KeyExists(XPFileName) ? ES3.Load<int>(XPFileName) : 0;
-                xpManager.playerCurrentLevel = ES3.KeyExists(LevelFileName) ? ES3.Load<int>(LevelFileName) : 1;
+                xpManager.playerExperiencePoints =
+                    ES3.KeyExists(GetSaveFilePathXP()) ? ES3.Load<int>(GetSaveFilePathXP()) : 0;
+
+                xpManager.playerCurrentLevel =
+                    ES3.KeyExists(GetSaveFilePathLevel()) ? ES3.Load<int>(GetSaveFilePathLevel()) : 1;
+
                 xpManager.playerXpForNextLevel =
-                    ES3.KeyExists(XPForNextLevelFileName) ? ES3.Load<int>(XPForNextLevelFileName) : 20;
+                    ES3.KeyExists(GetSaveFilePathXPForNextLevel())
+                        ? ES3.Load<int>(GetSaveFilePathXPForNextLevel())
+                        : 20;
             }
             else
             {
@@ -166,8 +173,8 @@ namespace Gameplay.SaveLoad
                 }
             }
 
-            ES3.Save(HealthFileName, playerHealth.CurrentHealth);
-            ES3.Save(MaxHealthFileName, playerHealth.MaximumHealth);
+            ES3.Save(GetSaveFilePathHealth(), playerHealth.CurrentHealth);
+            ES3.Save(GetSaveFilePathMaxHealth(), playerHealth.MaximumHealth);
         }
 
 
@@ -183,9 +190,9 @@ namespace Gameplay.SaveLoad
                 }
             }
 
-            if (ES3.KeyExists(HealthFileName))
+            if (ES3.KeyExists(GetSaveFilePathHealth()))
             {
-                playerHealth.SetHealth(ES3.Load<float>(HealthFileName));
+                playerHealth.SetHealth(ES3.Load<float>(GetSaveFilePathHealth()));
             }
             else
             {
@@ -193,17 +200,49 @@ namespace Gameplay.SaveLoad
                 Debug.LogWarning("No save data for health. Defaulting to maximum health.");
             }
 
-            if (ES3.KeyExists(MaxHealthFileName)) playerHealth.SetMaximumHealth(ES3.Load<float>(MaxHealthFileName));
+            if (ES3.KeyExists(GetSaveFilePathMaxHealth()))
+                playerHealth.SetMaximumHealth(ES3.Load<float>(GetSaveFilePathMaxHealth()));
         }
 
         public bool HasSavedData()
         {
-            return ES3.KeyExists(HealthFileName) ||
-                   ES3.KeyExists(MaxHealthFileName) ||
-                   ES3.KeyExists(CurrentCurrencyFileName) ||
-                   ES3.KeyExists(XPFileName) ||
-                   ES3.KeyExists(LevelFileName) ||
-                   ES3.KeyExists(XPForNextLevelFileName);
+            return ES3.KeyExists(GetSaveFilePathHealth()) ||
+                   ES3.KeyExists(GetSaveFilePathMaxHealth()) ||
+                   ES3.KeyExists(GetSaveFilePathCurrency()) ||
+                   ES3.KeyExists(GetSaveFilePathXP()) ||
+                   ES3.KeyExists(GetSaveFilePathLevel()) ||
+                   ES3.KeyExists(GetSaveFilePathXPForNextLevel());
+        }
+
+        static string GetSaveFilePathHealth()
+        {
+            return GetSaveFilePath("PlayerHealth.save");
+        }
+        static string GetSaveFilePathMaxHealth()
+        {
+            return GetSaveFilePath("PlayerMaxHealth.save");
+        }
+        static string GetSaveFilePathCurrency()
+        {
+            return GetSaveFilePath("PlayerCurrency.save");
+        }
+        static string GetSaveFilePathXP()
+        {
+            return GetSaveFilePath("PlayerXP.save");
+        }
+        static string GetSaveFilePathLevel()
+        {
+            return GetSaveFilePath("PlayerLevel.save");
+        }
+        static string GetSaveFilePathXPForNextLevel()
+        {
+            return GetSaveFilePath("PlayerXPForNextLevel.save");
+        }
+
+        static string GetSaveFilePath(string fileName)
+        {
+            var slotPath = ES3SlotManager.selectedSlotPath;
+            return string.IsNullOrEmpty(slotPath) ? fileName : $"{slotPath}/{fileName}";
         }
 
         public void ResetResources()
@@ -211,12 +250,12 @@ namespace Gameplay.SaveLoad
             Debug.Log("[ResourcesPersistenceManager] Resetting all resources to default values...");
 
             // Delete all save files
-            ES3.DeleteFile(HealthFileName);
-            ES3.DeleteFile(MaxHealthFileName);
-            ES3.DeleteFile(CurrentCurrencyFileName);
-            ES3.DeleteFile(XPFileName);
-            ES3.DeleteFile(LevelFileName);
-            ES3.DeleteFile(XPForNextLevelFileName);
+            ES3.DeleteFile(GetSaveFilePathHealth());
+            ES3.DeleteFile(GetSaveFilePathMaxHealth());
+            ES3.DeleteFile(GetSaveFilePathCurrency());
+            ES3.DeleteFile(GetSaveFilePathXP());
+            ES3.DeleteFile(GetSaveFilePathLevel());
+            ES3.DeleteFile(GetSaveFilePathXPForNextLevel());
 
             // Reset health to max
             if (playerHealth != null) playerHealth.SetHealth(playerHealth.MaximumHealth);

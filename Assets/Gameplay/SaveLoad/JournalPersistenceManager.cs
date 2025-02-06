@@ -2,7 +2,6 @@
 using Gameplay.ItemManagement.InventoryTypes.Cooking;
 using MoreMountains.Tools;
 using Project.Core.Events;
-using Project.Gameplay.ItemManagement.InventoryTypes.Cooking;
 using Project.Gameplay.SaveLoad.Journal;
 using UnityEditor;
 using UnityEngine;
@@ -20,7 +19,6 @@ public static class JournalRecipeDebug
 
 public class JournalPersistenceManager : MonoBehaviour, MMEventListener<MMGameEvent>, MMEventListener<RecipeEvent>
 {
-    const string JournalFileName = "PlayerJournal.save";
     const string SaveFolderName = "Player";
 
     public JournalData JournalData;
@@ -56,6 +54,12 @@ public class JournalPersistenceManager : MonoBehaviour, MMEventListener<MMGameEv
             AddRecipeToJournal(mmEvent.RecipeParameter);
     }
 
+    static string GetSaveFilePathJournal()
+    {
+        var slotPath = ES3SlotManager.selectedSlotPath;
+        return string.IsNullOrEmpty(slotPath) ? "PlayerJournal.es3" : $"{slotPath}/PlayerJournal.es3";
+    }
+
     public void AddRecipeToJournal(CookingRecipe recipe)
     {
         if (!JournalData.knownRecipes.Exists(r => r.recipeID == recipe.recipeID))
@@ -70,23 +74,22 @@ public class JournalPersistenceManager : MonoBehaviour, MMEventListener<MMGameEv
     }
 
 
-
     public void SaveJournal()
     {
-        ES3.Save("JournalData", JournalData, "PlayerJournal.save");
+        ES3.Save("JournalData", JournalData, GetSaveFilePathJournal());
     }
 
     public void RevertJournalToLastSave()
     {
-        if (ES3.FileExists("PlayerJournal.save"))
-            JournalData = ES3.Load<JournalData>("JournalData", "PlayerJournal.save");
+        if (ES3.FileExists(GetSaveFilePathJournal()))
+            JournalData = ES3.Load<JournalData>("JournalData", GetSaveFilePathJournal());
         else
             Debug.LogWarning("Save file not found.");
     }
 
     public static void ResetJournal()
     {
-        ES3.DeleteFile("PlayerJournal.save");
+        ES3.DeleteFile(GetSaveFilePathJournal());
 
 
         Debug.Log("Journal reset.");
@@ -100,6 +103,6 @@ public class JournalPersistenceManager : MonoBehaviour, MMEventListener<MMGameEv
     public bool HasSavedData()
     {
         // Check for journal-specific save files
-        return ES3.FileExists("PlayerJournal.save");
+        return ES3.FileExists(GetSaveFilePathJournal());
     }
 }
