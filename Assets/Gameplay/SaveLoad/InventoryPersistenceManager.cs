@@ -36,6 +36,7 @@ namespace Gameplay.SaveLoad
 
         InventoryItem[] _rightHandInventorySavedState;
 
+
         void Awake()
         {
             if (Instance == null)
@@ -76,6 +77,12 @@ namespace Gameplay.SaveLoad
             {
                 RevertInventoriesToLastSave();
             }
+        }
+
+        static string GetSaveFilePath()
+        {
+            var slotPath = ES3SlotManager.selectedSlotPath;
+            return string.IsNullOrEmpty(slotPath) ? "InventorySave.es3" : $"{slotPath}/InventorySave.es3";
         }
 
         public void SaveInventories()
@@ -241,7 +248,7 @@ namespace Gameplay.SaveLoad
         public bool HasSavedData()
         {
             // Replace with actual file or key checks for inventory save data
-            return ES3.FileExists("InventorySave.es3");
+            return ES3.FileExists(GetSaveFilePath());
         }
 
         public void ResetInventory()
@@ -253,7 +260,7 @@ namespace Gameplay.SaveLoad
             leftHandInventory.EmptyInventory();
             hotbarInventory.EmptyInventory();
 
-            ES3.DeleteFile("InventorySave.es3");
+            ES3.DeleteFile(GetSaveFilePath());
 
             Debug.Log("All inventories have been reset.");
         }
