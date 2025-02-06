@@ -87,21 +87,40 @@ namespace Gameplay.SaveLoad
             _rightHandInventorySavedState = SaveInventoryState(rightHandInventory);
             _leftHandInventorySavedState = SaveInventoryState(leftHandInventory);
             _hotbarInventorySavedState = SaveInventoryState(hotbarInventory);
+
+            mainInventory.SaveInventory();
+            rightHandInventory.SaveInventory();
+            leftHandInventory.SaveInventory();
+            hotbarInventory.SaveInventory();
         }
 
         public void RevertInventoriesToLastSave()
         {
             // Revert Main Inventory
-            if (_mainInventorySavedState != null) RevertInventoryState(mainInventory, _mainInventorySavedState);
+            if (_mainInventorySavedState != null)
+            {
+                RevertInventoryState(mainInventory, _mainInventorySavedState);
+                mainInventory.LoadSavedInventory();
+            }
 
             if (_rightHandInventorySavedState != null)
+            {
                 RevertInventoryState(rightHandInventory, _rightHandInventorySavedState);
+                rightHandInventory.LoadSavedInventory();
+            }
 
             if (_leftHandInventorySavedState != null)
+            {
                 RevertInventoryState(leftHandInventory, _leftHandInventorySavedState);
+                leftHandInventory.LoadSavedInventory();
+            }
 
 
-            if (_hotbarInventorySavedState != null) RevertInventoryState(hotbarInventory, _hotbarInventorySavedState);
+            if (_hotbarInventorySavedState != null)
+            {
+                RevertInventoryState(hotbarInventory, _hotbarInventorySavedState);
+                hotbarInventory.LoadSavedInventory();
+            }
 
             UnEquipItemsInEquipmentInventory();
         }
