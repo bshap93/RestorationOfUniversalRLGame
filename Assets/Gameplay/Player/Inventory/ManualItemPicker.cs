@@ -3,7 +3,6 @@ using Core.GameInitialization;
 using Gameplay.ItemManagement.Cooking;
 using Gameplay.ItemManagement.InventoryItemTypes;
 using Gameplay.ItemManagement.InventoryTypes;
-using Gameplay.ItemsInteractions;
 using MoreMountains.Feedbacks;
 using Plugins.TopDownEngine.ThirdParty.MoreMountains.InentoryEngine.InventoryEngine.Scripts.Items;
 using Project.Gameplay.Events;
@@ -180,7 +179,6 @@ namespace Gameplay.Player.Inventory
         {
             // Use the new PickableManager method instead of direct ES3 calls
             PickableManager.SavePickedItem(uniqueID, true);
-            Debug.Log($"Saved picked item: {uniqueID}");
         }
         public void PickItem()
         {
@@ -197,7 +195,6 @@ namespace Gameplay.Player.Inventory
                 return;
             }
 
-            Debug.Log($"Picking up: {Item.ItemName}");
 
             var player = GameObject.FindWithTag("Player");
             if (player == null) return;

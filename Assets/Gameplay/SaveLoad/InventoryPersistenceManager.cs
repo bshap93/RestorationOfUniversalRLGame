@@ -255,10 +255,10 @@ namespace Gameplay.SaveLoad
         {
             Debug.Log("[InventoryPersistenceManager] Resetting all inventories to an empty state...");
 
-            mainInventory.EmptyInventory();
-            rightHandInventory.EmptyInventory();
-            leftHandInventory.EmptyInventory();
-            hotbarInventory.EmptyInventory();
+            mainInventory.ResetSavedInventory();
+            rightHandInventory.ResetSavedInventory();
+            leftHandInventory.ResetSavedInventory();
+            hotbarInventory.ResetSavedInventory();
 
             ES3.DeleteFile(GetSaveFilePath());
 
