@@ -20,8 +20,7 @@ namespace Gameplay.SaveLoad
 
         [Header("Inventories")] [SerializeField]
         Inventory mainInventory; // Assign your Main Inventory here
-        [SerializeField] Inventory rightHandInventory; // Assign your Right Hand Inventory here
-        [SerializeField] Inventory leftHandInventory; // Assign your Left Hand Inventory here
+        [SerializeField] Inventory equipmentInventory; // Assign your Right Hand Inventory here
         [SerializeField] HotbarInventory hotbarInventory; // Assign your Hotbar Inventory here
 
         [FormerlySerializedAs("customInventoryHotbar")] [Header("Inventory Displays")] [SerializeField]
@@ -30,11 +29,11 @@ namespace Gameplay.SaveLoad
         [SerializeField] CharacterHandleTorch _characterHandleTorch;
 
         [SerializeField] string PlayerID = "Player1";
+
+        InventoryItem[] _equipmentInventorySavedState;
         InventoryItem[] _hotbarInventorySavedState;
         InventoryItem[] _leftHandInventorySavedState;
         InventoryItem[] _mainInventorySavedState;
-
-        InventoryItem[] _rightHandInventorySavedState;
 
 
         void Awake()
@@ -91,13 +90,11 @@ namespace Gameplay.SaveLoad
             _mainInventorySavedState = SaveInventoryState(mainInventory);
 
             // Save Equipment Inventory
-            _rightHandInventorySavedState = SaveInventoryState(rightHandInventory);
-            _leftHandInventorySavedState = SaveInventoryState(leftHandInventory);
+            _equipmentInventorySavedState = SaveInventoryState(equipmentInventory);
             _hotbarInventorySavedState = SaveInventoryState(hotbarInventory);
 
             mainInventory.SaveInventory();
-            rightHandInventory.SaveInventory();
-            leftHandInventory.SaveInventory();
+            equipmentInventory.SaveInventory();
             hotbarInventory.SaveInventory();
         }
 
@@ -110,16 +107,10 @@ namespace Gameplay.SaveLoad
                 mainInventory.LoadSavedInventory();
             }
 
-            if (_rightHandInventorySavedState != null)
+            if (_equipmentInventorySavedState != null)
             {
-                RevertInventoryState(rightHandInventory, _rightHandInventorySavedState);
-                rightHandInventory.LoadSavedInventory();
-            }
-
-            if (_leftHandInventorySavedState != null)
-            {
-                RevertInventoryState(leftHandInventory, _leftHandInventorySavedState);
-                leftHandInventory.LoadSavedInventory();
+                RevertInventoryState(equipmentInventory, _equipmentInventorySavedState);
+                equipmentInventory.LoadSavedInventory();
             }
 
 
@@ -163,8 +154,7 @@ namespace Gameplay.SaveLoad
 
         void UnEquipItemsInEquipmentInventory()
         {
-            UnEquipInventory(rightHandInventory);
-            UnEquipInventory(leftHandInventory);
+            UnEquipInventory(equipmentInventory);
 
             // Reset the animator to the default state
             var animatorEquipHandler = FindObjectOfType<AnimatorEquipHandler>();
@@ -256,8 +246,7 @@ namespace Gameplay.SaveLoad
             Debug.Log("[InventoryPersistenceManager] Resetting all inventories to an empty state...");
 
             mainInventory.ResetSavedInventory();
-            rightHandInventory.ResetSavedInventory();
-            leftHandInventory.ResetSavedInventory();
+            equipmentInventory.ResetSavedInventory();
             hotbarInventory.ResetSavedInventory();
 
             ES3.DeleteFile(GetSaveFilePath());
