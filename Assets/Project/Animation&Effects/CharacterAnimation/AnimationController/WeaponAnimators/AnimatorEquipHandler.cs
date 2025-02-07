@@ -33,6 +33,7 @@ namespace Project.Animation_Effects.CharacterAnimation.AnimationController.Weapo
 
         public void OnEnable()
         {
+            Debug.Log("AnimatorEquipHandler ready to receive events");
             this.MMEventStartListening<MMInventoryEvent>();
             this.MMEventStartListening<MMGameEvent>();
             this.MMEventStartListening<MMCameraEvent>();
@@ -59,7 +60,7 @@ namespace Project.Animation_Effects.CharacterAnimation.AnimationController.Weapo
             // Initialize the default override controller if not already set
             if (_defaultOverrideController == null)
                 _defaultOverrideController = new AnimatorOverrideController(_playerAnimator.runtimeAnimatorController);
-            
+
             ResetToDefaultAnimator();
 
             // Find the WeaponAnimationManager if not already cached
@@ -119,7 +120,7 @@ namespace Project.Animation_Effects.CharacterAnimation.AnimationController.Weapo
             _customInventoryWeapon = weaponData;
             _weaponAnimationManager?.StoreCurrentWeapon(weaponData.ItemID, weaponData.runtimeAnimatorController);
 
-            Debug.Log($"Equipped weapon: {weaponData.ItemID}");
+            Debug.Log($"Applied animations for weapon: {weaponData.ItemID}");
         }
 
         void ApplyAnimatorOverride(RuntimeAnimatorController overrideController)
@@ -152,7 +153,6 @@ namespace Project.Animation_Effects.CharacterAnimation.AnimationController.Weapo
 
             _customInventoryWeapon = null;
             _weaponAnimationManager?.ClearStoredWeapon();
-
         }
     }
 }

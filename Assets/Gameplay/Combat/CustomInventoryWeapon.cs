@@ -29,6 +29,8 @@ namespace Project.Gameplay.Combat
         /// </summary>
         public override bool Equip(string playerID)
         {
+            Debug.Log($"CustomInventoryWeapon.Equip started for {ItemID}");
+
             // If a left-hand item is already equipped, unequip it
             if (!string.IsNullOrEmpty(secondaryTargetEquipmentInventoryName))
             {
@@ -42,6 +44,9 @@ namespace Project.Gameplay.Combat
             }
 
             EquipWeapon(EquippableWeapon, playerID);
+
+            Debug.Log($"CustomInventoryWeapon.Equip completed for {ItemID}");
+
 
             if (isTwoHanded && !string.IsNullOrEmpty(secondaryTargetEquipmentInventoryName))
             {

@@ -1,8 +1,8 @@
+using System;
+using System.Collections;
 using Gameplay.ItemManagement.InventoryTypes;
 using MoreMountains.InventoryEngine;
 using MoreMountains.Tools;
-using MoreMountains.TopDownEngine;
-using Project.Animation_Effects.CharacterAnimation.AnimationController.WeaponAnimators;
 using Project.Gameplay.Combat.Shields;
 using Project.Gameplay.Combat.Tools;
 using Project.Gameplay.Combat.Weapons;
@@ -12,9 +12,38 @@ using UnityEngine.Serialization;
 
 namespace Gameplay.SaveLoad
 {
-    public class InventoryPersistenceManager : MonoBehaviour, MMEventListener<MMGameEvent>,
-        MMEventListener<MMCameraEvent>
+    [Serializable]
+    public class SerializedInventoryES3
     {
+        public string[] ItemIDs;
+        public int[] Quantities;
+
+        public SerializedInventoryES3(InventoryItem[] content)
+        {
+            ItemIDs = new string[content.Length];
+            Quantities = new int[content.Length];
+
+            for (var i = 0; i < content.Length; i++)
+                if (!InventoryItem.IsNull(content[i]))
+                {
+                    ItemIDs[i] = content[i].ItemID;
+                    Quantities[i] = content[i].Quantity;
+                }
+                else
+                {
+                    ItemIDs[i] = null;
+                    Quantities[i] = 0;
+                }
+        }
+    }
+
+    public class InventoryPersistenceManager : MonoBehaviour, MMEventListener<MMGameEvent>
+
+    {
+        const string MAIN_INVENTORY_KEY = "MainInventory";
+        const string EQUIPMENT_INVENTORY_KEY = "EquipmentInventory";
+        const string HOTBAR_INVENTORY_KEY = "HotbarInventory";
+        const string RESOURCE_PATH = "Items/";
         public static InventoryPersistenceManager Instance;
 
 
@@ -29,10 +58,9 @@ namespace Gameplay.SaveLoad
         [SerializeField] CharacterHandleTorch _characterHandleTorch;
 
         [SerializeField] string PlayerID = "Player1";
-
         InventoryItem[] _equipmentInventorySavedState;
+
         InventoryItem[] _hotbarInventorySavedState;
-        InventoryItem[] _leftHandInventorySavedState;
         InventoryItem[] _mainInventorySavedState;
 
 
@@ -44,28 +72,29 @@ namespace Gameplay.SaveLoad
                 Destroy(gameObject);
         }
 
+        void Start()
+        {
+            // Add a delay to ensure other systems are initialized
+            StartCoroutine(LoadInventoriesWithDelay());
+        }
+
 
         void OnEnable()
         {
             // Subscribe to global save/load events
-            this.MMEventStartListening<MMGameEvent>();
-            this.MMEventStartListening<MMCameraEvent>();
+            this.MMEventStartListening();
         }
 
         void OnDisable()
         {
             // Unsubscribe to prevent leaks
-            this.MMEventStopListening<MMGameEvent>();
-            this.MMEventStopListening<MMCameraEvent>();
+            this.MMEventStopListening();
         }
-        public void OnMMEvent(MMCameraEvent mmEvent)
+        void OnApplicationQuit()
         {
-            if (mmEvent.EventType == MMCameraEventTypes.SetTargetCharacter)
-            {
-                // Debug.Log("UnEquipping items in equipment inventory...");
-                // UnEquipItemsInEquipmentInventory();
-            }
+            SaveInventories();
         }
+
 
         public void OnMMEvent(MMGameEvent mmEvent)
         {
@@ -77,6 +106,15 @@ namespace Gameplay.SaveLoad
             }
         }
 
+        IEnumerator LoadInventoriesWithDelay()
+        {
+            // Wait for 2 frames to ensure character initialization
+            yield return null;
+            yield return null;
+
+            LoadInventories();
+        }
+
         static string GetSaveFilePath()
         {
             var slotPath = ES3SlotManager.selectedSlotPath;
@@ -85,111 +123,24 @@ namespace Gameplay.SaveLoad
 
         public void SaveInventories()
         {
-            // Save Main Inventory
-            _mainInventorySavedState = SaveInventoryState(mainInventory);
+            var savePath = GetSaveFilePath();
 
-            // Save Equipment Inventory
-            _equipmentInventorySavedState = SaveInventoryState(equipmentInventory);
-            _hotbarInventorySavedState = SaveInventoryState(hotbarInventory);
+            // Save each inventory's state
+            var mainInventoryData = new SerializedInventoryES3(mainInventory.Content);
+            var equipmentInventoryData = new SerializedInventoryES3(equipmentInventory.Content);
+            var hotbarInventoryData = new SerializedInventoryES3(hotbarInventory.Content);
 
-            mainInventory.SaveInventory();
-            equipmentInventory.SaveInventory();
-            hotbarInventory.SaveInventory();
-        }
+            // Save to Easy Save
+            ES3.Save(MAIN_INVENTORY_KEY, mainInventoryData, savePath);
+            ES3.Save(EQUIPMENT_INVENTORY_KEY, equipmentInventoryData, savePath);
+            ES3.Save(HOTBAR_INVENTORY_KEY, hotbarInventoryData, savePath);
 
-
-        InventoryItem[] SaveInventoryState(Inventory inventory)
-        {
-            var savedState = new InventoryItem[inventory.Content.Length];
-            for (var i = 0; i < inventory.Content.Length; i++)
-                if (!InventoryItem.IsNull(inventory.Content[i]))
-                    savedState[i] = inventory.Content[i].Copy();
-
-
-            return savedState;
-        }
-
-        InventoryItem[] SaveInventoryState(HotbarInventory inventory)
-        {
-            if (inventory == null || inventory.Content == null)
-            {
-                Debug.LogWarning("HotbarInventory is null or its Content is null");
-                return new InventoryItem[0];
-            }
-
-            var savedState = new InventoryItem[inventory.Content.Length];
-            for (var i = 0; i < inventory.Content.Length; i++)
-                if (!InventoryItem.IsNull(inventory.Content[i]))
-                    savedState[i] = inventory.Content[i].Copy();
-
-            // Save the hotbar display slots
-
-            return savedState;
-        }
-
-        void UnEquipItemsInEquipmentInventory()
-        {
-            UnEquipInventory(equipmentInventory);
-
-            // Reset the animator to the default state
-            var animatorEquipHandler = FindObjectOfType<AnimatorEquipHandler>();
-            if (animatorEquipHandler != null)
-                animatorEquipHandler.ResetToDefaultAnimator();
-            else
-                Debug.LogWarning("AnimatorEquipHandler not found during unequipping.");
-        }
-
-        void UnEquipInventory(Inventory inventory)
-        {
-            if (inventory == null || inventory.Content == null)
-            {
-                Debug.LogWarning("Inventory or Content is null, skipping...");
-                return;
-            }
-
-            for (var i = 0; i < inventory.Content.Length; i++)
-            {
-                Debug.Log("UnEquipping item at index: " + i + ", item: " + inventory.Content[i]);
-                var item = inventory.Content[i];
-                if (item != null)
-                {
-                    var targetInventoryName = item.TargetInventoryName;
-                    var targetInventory = Inventory.FindInventory(targetInventoryName, PlayerID);
-
-                    Debug.Log("Target Inventory Name: " + targetInventoryName);
-                    var freeIndex = FirstFreeIndex(targetInventory);
-                    if (targetInventory != null && freeIndex != -1)
-                    {
-                        inventory.RemoveItemByID(item.ItemID, item.Quantity);
-                        targetInventory.AddItemAt(item, item.Quantity, freeIndex);
-                        Debug.Log($"Unequipped {item.ItemID} from {inventory.name} and added to {targetInventoryName}");
-                    }
-                    else
-                    {
-                        Debug.LogWarning(
-                            $"Target inventory {targetInventoryName} not found so item was left in equipment inventory");
-                    }
-                }
-                else
-                {
-                    Debug.LogWarning($"Null item found in {inventory.name} at position {i}");
-                }
-            }
-        }
-
-        int FirstFreeIndex(Inventory inventory)
-        {
-            for (var i = 0; i < inventory.Content.Length; i++)
-                if (InventoryItem.IsNull(inventory.Content[i]))
-                    return i;
-
-            return -1;
+            Debug.Log($"Inventories saved successfully to {savePath}");
         }
 
 
         public bool HasSavedData()
         {
-            // Replace with actual file or key checks for inventory save data
             return ES3.FileExists(GetSaveFilePath());
         }
 
@@ -197,19 +148,105 @@ namespace Gameplay.SaveLoad
         {
             Debug.Log("[InventoryPersistenceManager] Resetting all inventories to an empty state...");
 
-            mainInventory.ResetSavedInventory();
-            equipmentInventory.ResetSavedInventory();
-            hotbarInventory.ResetSavedInventory();
-
             ES3.DeleteFile(GetSaveFilePath());
 
             Debug.Log("All inventories have been reset.");
         }
         public void LoadInventories()
         {
-            
-            
-            
+            var savePath = GetSaveFilePath();
+
+            if (!ES3.FileExists(savePath))
+            {
+                Debug.LogWarning($"No save file found at {savePath}");
+                return;
+            }
+
+            try
+            {
+                // Load each inventory's serialized data
+                var mainInventoryData = ES3.Load<SerializedInventoryES3>(MAIN_INVENTORY_KEY, savePath);
+                var equipmentInventoryData = ES3.Load<SerializedInventoryES3>(EQUIPMENT_INVENTORY_KEY, savePath);
+                var hotbarInventoryData = ES3.Load<SerializedInventoryES3>(HOTBAR_INVENTORY_KEY, savePath);
+
+                // Clear current inventories
+                mainInventory.EmptyInventory();
+                equipmentInventory.EmptyInventory();
+                hotbarInventory.EmptyInventory();
+
+                // Restore main inventory
+                RestoreInventory(mainInventory, mainInventoryData);
+                RestoreInventory(equipmentInventory, equipmentInventoryData);
+                RestoreInventory(hotbarInventory, hotbarInventoryData);
+
+                // Trigger events to notify that inventories have been loaded
+                MMInventoryEvent.Trigger(
+                    MMInventoryEventType.InventoryLoaded, null, mainInventory.name, null, 0, 0, PlayerID);
+
+                MMInventoryEvent.Trigger(
+                    MMInventoryEventType.InventoryLoaded, null, equipmentInventory.name, null, 0, 0, PlayerID);
+
+                MMInventoryEvent.Trigger(
+                    MMInventoryEventType.InventoryLoaded, null, hotbarInventory.name, null, 0, 0, PlayerID);
+
+                Debug.Log("Inventories loaded successfully");
+            }
+            catch (Exception e)
+            {
+                Debug.LogError($"Error loading inventories: {e.Message}");
+            }
+        }
+
+        void RestoreInventory(Inventory inventory, SerializedInventoryES3 serializedData)
+        {
+            if (serializedData == null || serializedData.ItemIDs == null) return;
+
+            for (var i = 0; i < serializedData.ItemIDs.Length; i++)
+            {
+                if (string.IsNullOrEmpty(serializedData.ItemIDs[i])) continue;
+
+                Debug.Log($"Attempting to restore item: {serializedData.ItemIDs[i]}");
+
+                // Load the item from Resources
+                var itemPrefab = Resources.Load<InventoryItem>($"{RESOURCE_PATH}{serializedData.ItemIDs[i]}");
+                if (itemPrefab == null)
+                {
+                    Debug.LogError($"Failed to load item: {serializedData.ItemIDs[i]}");
+                    continue;
+                }
+
+                // Create a copy and set its quantity
+                var item = itemPrefab.Copy();
+                item.Quantity = serializedData.Quantities[i];
+
+                // Add to inventory at specific slot
+                inventory.AddItemAt(item, item.Quantity, i);
+
+                // If this is an equipment inventory, we need to actually equip the item
+                if (inventory.InventoryType == Inventory.InventoryTypes.Equipment)
+                {
+                    Debug.Log($"Triggering equip for item {item.ItemID}");
+                    // Trigger Equip on the item itself
+                    item.Equip(PlayerID);
+
+                    // Also trigger the equip event
+                    StartCoroutine(TriggerEquipWithDelay(inventory, item, i));
+                }
+            }
+        }
+
+        IEnumerator TriggerEquipWithDelay(Inventory inventory, InventoryItem item, int index)
+        {
+            yield return new WaitForSeconds(0.5f); // Small delay to ensure systems are ready
+            MMInventoryEvent.Trigger(
+                MMInventoryEventType.ItemEquipped,
+                null,
+                inventory.name,
+                item,
+                item.Quantity,
+                index,
+                PlayerID
+            );
         }
     }
 }

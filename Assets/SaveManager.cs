@@ -94,7 +94,7 @@ public class SaveManager : MonoBehaviour
     public void ResetAll()
     {
         Debug.Log("[SaveManager] Resetting all data...");
-        inventoryManager?.RevertInventoriesToLastSave();
+        inventoryManager?.ResetInventory();
         resourcesManager?.RevertResourcesToLastSave();
         journalManager?.RevertJournalToLastSave();
 
