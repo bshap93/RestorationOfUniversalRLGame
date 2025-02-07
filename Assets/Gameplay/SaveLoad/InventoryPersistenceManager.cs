@@ -1,3 +1,4 @@
+using Gameplay.ItemManagement.InventoryTypes;
 using MoreMountains.InventoryEngine;
 using MoreMountains.Tools;
 using MoreMountains.TopDownEngine;
@@ -6,7 +7,6 @@ using Project.Gameplay.Combat.Shields;
 using Project.Gameplay.Combat.Tools;
 using Project.Gameplay.Combat.Weapons;
 using Project.Gameplay.Interactivity.Items;
-using Project.Gameplay.ItemManagement;
 using UnityEngine;
 using UnityEngine.Serialization;
 

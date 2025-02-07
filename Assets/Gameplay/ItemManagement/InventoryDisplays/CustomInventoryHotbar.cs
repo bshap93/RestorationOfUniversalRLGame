@@ -1,6 +1,5 @@
 using MoreMountains.InventoryEngine;
 using MoreMountains.Tools;
-using Project.Gameplay.Interactivity.Items;
 using UnityEngine;
 
 namespace Project.Gameplay.ItemManagement.InventoryDisplays
@@ -59,56 +58,6 @@ namespace Project.Gameplay.ItemManagement.InventoryDisplays
             {
                 InventorySlots[i] = SlotContainer[i];
                 if (InventorySlots[i] == null) Debug.LogError($"CustomInventoryHotbar: Slot at index {i} is null.");
-            }
-        }
-
-
-        /// <summary>
-        ///     Executed when the key or alt key gets pressed, triggers the specified action
-        /// </summary>
-        public virtual void Action(int index)
-        {
-            if (!InventoryItem.IsNull(TargetInventory.Content[index]))
-            {
-                var item = TargetInventory.Content[index];
-                Debug.Log($"Item in slot {index} is {item.ItemID}");
-                if (item.Equippable)
-                {
-                    InventorySlots[index].Equip();
-                    MMInventoryEvent.Trigger(
-                        MMInventoryEventType.ItemEquipped,
-                        null,
-                        TargetInventory.name,
-                        item,
-                        item.Quantity,
-                        index,
-                        PlayerID
-                    );
-
-                    Debug.Log($"Equipped {item.ItemID}");
-                }
-                else
-                {
-                    MMInventoryEvent.Trigger(
-                        MMInventoryEventType.ItemUnEquipped,
-                        null,
-                        TargetInventory.name,
-                        item,
-                        item.Quantity,
-                        index,
-                        PlayerID
-                    );
-
-                    Debug.Log($"Triggered ItemUnEquipped for {item.ItemID} from inventory {name}.");
-                }
-
-
-                if (item.Usable)
-                {
-                    // item.Use(PlayerID);
-                    InventorySlots[index].Use();
-                    Debug.Log($"Used {item.ItemID}");
-                }
             }
         }
 

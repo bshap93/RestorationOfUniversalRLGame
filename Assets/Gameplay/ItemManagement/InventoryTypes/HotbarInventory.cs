@@ -2,7 +2,7 @@
 using Project.Gameplay.Interactivity.Items;
 using UnityEngine;
 
-namespace Project.Gameplay.ItemManagement
+namespace Gameplay.ItemManagement.InventoryTypes
 {
     public class HotbarInventory : Inventory
     {
