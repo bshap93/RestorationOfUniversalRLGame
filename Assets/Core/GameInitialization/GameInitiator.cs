@@ -2,7 +2,6 @@
 
 using System.Threading.Tasks;
 using DunGen;
-using Gameplay.ItemsInteractions;
 using MoreMountains.Tools;
 using MoreMountains.TopDownEngine;
 using Project.Core.SaveSystem;
@@ -106,7 +105,7 @@ namespace Core.GameInitialization
 
             // Spawn the player
             var initialSpawnPoint = FindObjectOfType<SpawnPoint>();
-            if (initialSpawnPoint == null) Debug.LogError("No CheckPoint found for initial spawn!");
+            if (initialSpawnPoint == null) Debug.LogWarning("No CheckPoint found for initial spawn!");
         }
 
         void ApplyCharacterCreationDataToPlayer(GameObject playerGameObject)
