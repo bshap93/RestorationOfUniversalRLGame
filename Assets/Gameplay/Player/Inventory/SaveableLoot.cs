@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using Gameplay.ItemsInteractions;
 using MoreMountains.Tools;
 using MoreMountains.TopDownEngine;
 using UnityEngine;
@@ -66,19 +65,20 @@ namespace Gameplay.Player.Inventory
 
                     _globalSpawnedItemCount++;
                     ES3.Save("GlobalSpawnedItemCount", _globalSpawnedItemCount); // Save counter immediately
+                    Debug.Log($"Saved global loot counter: {_globalSpawnedItemCount}");
 
                     // Save the position after the object has been properly positioned
-                    if (!PickableManager.IsItemPicked(itemPicker.UniqueID))
-                    {
-                        var prefabName = gameObjectToSpawn.name;
-                        PickableManager.SaveItemPosition(
-                            itemPicker.UniqueID,
-                            _spawnedObject.transform.position,
-                            prefabName);
-
-                        Debug.Log(
-                            $"Saved loot {itemPicker.UniqueID} at actual position: {_spawnedObject.transform.position}");
-                    }
+                    // if (!PickableManager.IsItemPicked(itemPicker.UniqueID))
+                    // {
+                    //     var prefabName = gameObjectToSpawn.name;
+                    //     PickableManager.SaveItemPosition(
+                    //         itemPicker.UniqueID,
+                    //         _spawnedObject.transform.position,
+                    //         prefabName);
+                    //
+                    //     Debug.Log(
+                    //         $"Saved loot {itemPicker.UniqueID} at actual position: {_spawnedObject.transform.position}");
+                    // }
                 }
 
                 _spawnedObject.gameObject.SetActive(true);

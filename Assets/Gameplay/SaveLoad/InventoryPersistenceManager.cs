@@ -103,6 +103,9 @@ namespace Gameplay.SaveLoad
             // We want to reload after the transition is complete
             if (loadingEvent.Status == MMSceneLoadingManager.LoadingStatus.LoadTransitionComplete)
                 StartCoroutine(ReloadInventoriesAfterDelay());
+
+            if (loadingEvent.Status == MMSceneLoadingManager.LoadingStatus.LoadStarted)
+                SaveInventories();
         }
 
 
