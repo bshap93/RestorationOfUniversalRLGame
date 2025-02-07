@@ -37,7 +37,8 @@ namespace Gameplay.SaveLoad
         }
     }
 
-    public class InventoryPersistenceManager : MonoBehaviour, MMEventListener<MMGameEvent>
+    public class InventoryPersistenceManager : MonoBehaviour, MMEventListener<MMGameEvent>,
+        MMEventListener<MMSceneLoadingManager.LoadingSceneEvent>
 
     {
         const string MAIN_INVENTORY_KEY = "MainInventory";
@@ -81,18 +82,27 @@ namespace Gameplay.SaveLoad
 
         void OnEnable()
         {
-            // Subscribe to global save/load events
-            this.MMEventStartListening();
+            // Existing subscriptions
+            this.MMEventStartListening<MMGameEvent>();
+            this.MMEventStartListening<MMSceneLoadingManager.LoadingSceneEvent>();
         }
 
         void OnDisable()
         {
-            // Unsubscribe to prevent leaks
-            this.MMEventStopListening();
+            // Existing unsubscriptions
+            this.MMEventStopListening<MMGameEvent>();
+            this.MMEventStopListening<MMSceneLoadingManager.LoadingSceneEvent>();
         }
         void OnApplicationQuit()
         {
             SaveInventories();
+        }
+
+        public void OnMMEvent(MMSceneLoadingManager.LoadingSceneEvent loadingEvent)
+        {
+            // We want to reload after the transition is complete
+            if (loadingEvent.Status == MMSceneLoadingManager.LoadingStatus.LoadTransitionComplete)
+                StartCoroutine(ReloadInventoriesAfterDelay());
         }
 
 
@@ -104,6 +114,16 @@ namespace Gameplay.SaveLoad
 
                 SaveInventories();
             }
+        }
+
+        IEnumerator ReloadInventoriesAfterDelay()
+        {
+            // Wait for 2 frames to ensure character initialization
+            yield return null;
+            yield return null;
+
+            // Clear and reload inventories
+            LoadInventories();
         }
 
         IEnumerator LoadInventoriesWithDelay()
