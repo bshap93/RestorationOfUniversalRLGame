@@ -9,9 +9,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8296917489465174009}
+  - component: {fileID: 6945109770191120464}
+  - component: {fileID: 298301545068849422}
   - component: {fileID: 4042116380684934101}
   - component: {fileID: 8422737014865723450}
-  - component: {fileID: 298301545068849422}
   m_Layer: 0
   m_Name: ObsidianPickable
   m_TagString: Untagged
@@ -37,41 +38,33 @@ Transform:
   - {fileID: 1944038046105955073}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4042116380684934101
-MonoBehaviour:
+--- !u!54 &6945109770191120464
+Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2773829285234396943}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3beb49fcc5880ec40a513dd74067c683, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  UniqueID: 1a48a4bf-3328-4fa4-bc5d-728b56e8fc47
-  Item: {fileID: 11400000, guid: 8ab1e636e6eea5649a45d4ae86c9fc2d, type: 2}
-  Quantity: 1
-  pickedMmFeedbacks: {fileID: 0}
-  usedMmFeedbacks: {fileID: 0}
-  disappearMmFeedbacks: {fileID: 0}
-  NotPickable: 0
---- !u!114 &8422737014865723450
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2773829285234396943}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0331a9b56ee78c946bb06f9fe3ad3f18, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Item: {fileID: 11400000, guid: 8ab1e636e6eea5649a45d4ae86c9fc2d, type: 2}
-  _selectionFeedbacks: {fileID: 0}
-  _deselectionFeedbacks: {fileID: 0}
-  NotPickable: 0
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!135 &298301545068849422
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -92,7 +85,42 @@ SphereCollider:
   m_Enabled: 1
   serializedVersion: 3
   m_Radius: 2
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: 0.1, z: 0.39}
+--- !u!114 &4042116380684934101
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2773829285234396943}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3beb49fcc5880ec40a513dd74067c683, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  UniqueID: 1a48a4bf-3328-4fa4-bc5d-728b56e8fc47
+  Item: {fileID: 11400000, guid: 6e16c55a4024b9e4fa8e4f7e408e4b20, type: 2}
+  Quantity: 1
+  pickedMmFeedbacks: {fileID: 8238824240731346790}
+  usedMmFeedbacks: {fileID: 0}
+  disappearMmFeedbacks: {fileID: 0}
+  NotPickable: 0
+--- !u!114 &8422737014865723450
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2773829285234396943}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0331a9b56ee78c946bb06f9fe3ad3f18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Item: {fileID: 11400000, guid: 6e16c55a4024b9e4fa8e4f7e408e4b20, type: 2}
+  _selectionFeedbacks: {fileID: 5568735830067546139}
+  _deselectionFeedbacks: {fileID: 0}
+  NotPickable: 0
 --- !u!1 &7584785813410286417
 GameObject:
   m_ObjectHideFlags: 0
@@ -451,6 +479,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 170735946004689978}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &5568735830067546139 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5698897184487210017, guid: 624f4d5c6b994dc4b9fadfeb65a8e2ff,
+    type: 3}
+  m_PrefabInstance: {fileID: 170735946004689978}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6da43522623d4704e979466dc7650b65, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2737527400827745399
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -514,10 +554,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedComponents:
+    - {fileID: 505569644637592733, guid: e84be8a68a579394bb77aa8c5d21953b, type: 3}
+    m_RemovedGameObjects:
+    - {fileID: 1774313408941278383, guid: e84be8a68a579394bb77aa8c5d21953b, type: 3}
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5493530685162059515, guid: e84be8a68a579394bb77aa8c5d21953b,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4916401443956347901}
   m_SourcePrefab: {fileID: 100100000, guid: e84be8a68a579394bb77aa8c5d21953b, type: 3}
 --- !u!4 &4875322375318841468 stripped
 Transform:
@@ -525,3 +571,31 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 2737527400827745399}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &7620468421858591372 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5493530685162059515, guid: e84be8a68a579394bb77aa8c5d21953b,
+    type: 3}
+  m_PrefabInstance: {fileID: 2737527400827745399}
+  m_PrefabAsset: {fileID: 0}
+--- !u!64 &4916401443956347901
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7620468421858591372}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -101477873579465703, guid: ad51559f00f40f744acaf003bfc34b4c, type: 3}

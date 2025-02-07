@@ -78,7 +78,7 @@ public class SaveManager : MonoBehaviour
         var resourcesLoaded = resourcesManager != null && resourcesManager.HasSavedData();
         var journalLoaded = journalManager != null && journalManager.HasSavedData();
 
-        if (inventoryLoaded) inventoryManager.RevertInventoriesToLastSave();
+        if (inventoryLoaded) inventoryManager.LoadInventories();
         if (resourcesLoaded) resourcesManager.RevertResourcesToLastSave();
         if (journalLoaded) journalManager.RevertJournalToLastSave();
 

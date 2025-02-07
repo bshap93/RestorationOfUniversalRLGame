@@ -61,7 +61,10 @@ namespace Gameplay.SaveLoad
         public void OnMMEvent(MMCameraEvent mmEvent)
         {
             if (mmEvent.EventType == MMCameraEventTypes.SetTargetCharacter)
-                UnEquipItemsInEquipmentInventory();
+            {
+                // Debug.Log("UnEquipping items in equipment inventory...");
+                // UnEquipItemsInEquipmentInventory();
+            }
         }
 
         public void OnMMEvent(MMGameEvent mmEvent)
@@ -71,10 +74,6 @@ namespace Gameplay.SaveLoad
                 Debug.Log("Saving inventories...");
 
                 SaveInventories();
-            }
-            else if (mmEvent.EventName == "RevertInventory")
-            {
-                RevertInventoriesToLastSave();
             }
         }
 
@@ -98,30 +97,6 @@ namespace Gameplay.SaveLoad
             hotbarInventory.SaveInventory();
         }
 
-        public void RevertInventoriesToLastSave()
-        {
-            // Revert Main Inventory
-            if (_mainInventorySavedState != null)
-            {
-                RevertInventoryState(mainInventory, _mainInventorySavedState);
-                mainInventory.LoadSavedInventory();
-            }
-
-            if (_equipmentInventorySavedState != null)
-            {
-                RevertInventoryState(equipmentInventory, _equipmentInventorySavedState);
-                equipmentInventory.LoadSavedInventory();
-            }
-
-
-            if (_hotbarInventorySavedState != null)
-            {
-                RevertInventoryState(hotbarInventory, _hotbarInventorySavedState);
-                hotbarInventory.LoadSavedInventory();
-            }
-
-            UnEquipItemsInEquipmentInventory();
-        }
 
         InventoryItem[] SaveInventoryState(Inventory inventory)
         {
@@ -174,6 +149,7 @@ namespace Gameplay.SaveLoad
 
             for (var i = 0; i < inventory.Content.Length; i++)
             {
+                Debug.Log("UnEquipping item at index: " + i + ", item: " + inventory.Content[i]);
                 var item = inventory.Content[i];
                 if (item != null)
                 {
@@ -211,30 +187,6 @@ namespace Gameplay.SaveLoad
         }
 
 
-        void RevertInventoryState(Inventory inventory, InventoryItem[] savedState)
-        {
-            inventory.EmptyInventory();
-            for (var i = 0; i < savedState.Length; i++)
-                if (!InventoryItem.IsNull(savedState[i]))
-                    inventory.AddItem(savedState[i].Copy(), savedState[i].Quantity);
-        }
-
-        void RevertInventoryState(HotbarInventory inventory, InventoryItem[] savedState)
-        {
-            if (inventory == null || savedState == null)
-            {
-                Debug.LogWarning("HotbarInventory or savedState is null");
-                return;
-            }
-
-            inventory.EmptyInventory();
-            for (var i = 0; i < savedState.Length; i++)
-                if (!InventoryItem.IsNull(savedState[i]))
-                {
-                    var success = inventory.AddItem(savedState[i].Copy(), savedState[i].Quantity);
-                    if (!success) Debug.LogWarning($"Failed to add item {savedState[i].ItemID} at index {i}");
-                }
-        }
         public bool HasSavedData()
         {
             // Replace with actual file or key checks for inventory save data
@@ -252,6 +204,12 @@ namespace Gameplay.SaveLoad
             ES3.DeleteFile(GetSaveFilePath());
 
             Debug.Log("All inventories have been reset.");
+        }
+        public void LoadInventories()
+        {
+            
+            
+            
         }
     }
 }
