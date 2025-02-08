@@ -25,7 +25,7 @@ namespace Project.Editor.Utilities
             DispenserManager.ResetDispenserStates();
 
             // Reset Inventory System
-            if (InventoryPersistenceManager.Instance != null) InventoryPersistenceManager.Instance.ResetInventory();
+            InventoryPersistenceManager.Instance?.ResetInventory();
 
             // Reset Resources (if applicable)
             ResourcesPersistenceManager.Instance?.ResetResources();
