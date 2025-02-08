@@ -10,9 +10,20 @@ using UnityEngine;
 public class DestructibleMineableSetupWindow : EditorWindow
 {
     string assetSavePath = "Assets/Prefabs/Destructibles/";
+    string customPrefabName = "";
+    string customScriptableObjectName = "";
     GameObject damageFeedbackPrefab;
+    int mineableLayer;
     string scriptableObjectPath = "Assets/ScriptableObjects/Destructibles/";
     GameObject selectedPrefab;
+
+    void OnEnable()
+    {
+        // Find the "Mineable" layer
+        mineableLayer = LayerMask.NameToLayer("Mineable");
+        if (mineableLayer == -1)
+            Debug.LogWarning("'Mineable' layer not found. Please create it in your project's Layer settings.");
+    }
 
     void OnGUI()
     {
@@ -24,8 +35,27 @@ public class DestructibleMineableSetupWindow : EditorWindow
         damageFeedbackPrefab = EditorGUILayout.ObjectField(
             "Damage Feedback Prefab", damageFeedbackPrefab, typeof(GameObject), false) as GameObject;
 
+        GUILayout.Space(10);
+        GUILayout.Label("Naming", EditorStyles.boldLabel);
+
+        // If a prefab is selected, use its name as default
+        if (selectedPrefab != null && string.IsNullOrEmpty(customPrefabName))
+        {
+            customPrefabName = selectedPrefab.name + "_Destructible";
+            customScriptableObjectName = selectedPrefab.name + "_Destructable";
+        }
+
+        customPrefabName = EditorGUILayout.TextField("New Prefab Name", customPrefabName);
+        customScriptableObjectName = EditorGUILayout.TextField("New ScriptableObject Name", customScriptableObjectName);
+
+        GUILayout.Space(10);
+        GUILayout.Label("Save Paths", EditorStyles.boldLabel);
         assetSavePath = EditorGUILayout.TextField("Prefab Save Path", assetSavePath);
         scriptableObjectPath = EditorGUILayout.TextField("ScriptableObject Save Path", scriptableObjectPath);
+
+        if (mineableLayer == -1)
+            EditorGUILayout.HelpBox(
+                "'Mineable' layer not found. Please create it in your project's Layer settings.", MessageType.Warning);
 
         if (GUILayout.Button("Setup Destructible")) SetupDestructible();
     }
@@ -55,13 +85,23 @@ public class DestructibleMineableSetupWindow : EditorWindow
         var extraChild = instance.transform.Find(instance.name + ".001");
         if (extraChild != null) DestroyImmediate(extraChild.gameObject);
 
-        // Create parent object
-        var parentObject = new GameObject(instance.name + "_Destructible");
+        // Create parent object with custom name
+        var parentObject = new GameObject(
+            string.IsNullOrEmpty(customPrefabName) ? instance.name + "_Destructible" : customPrefabName);
+
         Undo.RegisterCreatedObjectUndo(parentObject, "Create Parent Object");
 
         // Setup parent-child relationship
         parentObject.transform.position = instance.transform.position;
         instance.transform.SetParent(parentObject.transform);
+
+        // Set layer to Mineable
+        if (mineableLayer != -1)
+        {
+            parentObject.layer = mineableLayer;
+            // Optionally set the child's layer as well if needed
+            instance.layer = mineableLayer;
+        }
 
         // Copy MeshCollider to parent
         var originalCollider = instance.GetComponent<MeshCollider>();
@@ -83,7 +123,10 @@ public class DestructibleMineableSetupWindow : EditorWindow
         // Ensure directory exists
         if (!Directory.Exists(scriptableObjectPath)) Directory.CreateDirectory(scriptableObjectPath);
 
-        var scriptableObjectName = $"{instance.name}_Destructable";
+        var scriptableObjectName = string.IsNullOrEmpty(customScriptableObjectName)
+            ? $"{instance.name}_Destructable"
+            : customScriptableObjectName;
+
         AssetDatabase.CreateAsset(destructableData, $"{scriptableObjectPath}{scriptableObjectName}.asset");
         destructable.destructable = destructableData;
 
