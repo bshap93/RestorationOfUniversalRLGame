@@ -1,7 +1,7 @@
 ﻿using HighlightPlus;
 using UnityEngine;
 
-namespace Project.Gameplay.Interactivity
+namespace Gameplay.ItemsInteractions
 {
     public class MouseSelectionHighlight : MonoBehaviour
     {
@@ -16,9 +16,9 @@ namespace Project.Gameplay.Interactivity
 
         void Update()
         {
-            if (UnityEngine.Input.GetKeyDown(KeyCode.Alpha1)) hm.SelectObject(objectToSelect);
-            if (UnityEngine.Input.GetKeyDown(KeyCode.Alpha2)) hm.ToggleObject(objectToSelect);
-            if (UnityEngine.Input.GetKeyDown(KeyCode.Alpha3)) hm.UnselectObject(objectToSelect);
+            if (Input.GetKeyDown(KeyCode.Alpha1)) hm.SelectObject(objectToSelect);
+            if (Input.GetKeyDown(KeyCode.Alpha2)) hm.ToggleObject(objectToSelect);
+            if (Input.GetKeyDown(KeyCode.Alpha3)) hm.UnselectObject(objectToSelect);
         }
     }
 }

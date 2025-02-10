@@ -28,7 +28,7 @@ namespace Project.Gameplay.ItemManagement.InventoryTypes.Fuel
         {
             _cookingStationController = GetComponentInParent<CookingStationController>();
             _primaryPlayerInventory = _cookingStationController.playerInventory;
-            _cookingStationID = _cookingStationController.CookingStation.CraftingStationId;
+            _cookingStationID = _cookingStationController.cookingStation.CraftingStationId;
         }
 
         public override bool AddItem(InventoryItem fuelItem, int quantity)

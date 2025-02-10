@@ -108,7 +108,7 @@ MonoBehaviour:
   OnActivation:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7076688085480639917}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: PixelCrushers.QuestMachine.QuestGiver, Assembly-CSharp-firstpass
         m_MethodName: StartDialogueWithPlayer
         m_Mode: 1
@@ -413,7 +413,6 @@ GameObject:
   - component: {fileID: 6037913432945938450}
   - component: {fileID: 2599606560555484355}
   - component: {fileID: 6000289104378185474}
-  - component: {fileID: 7076688085480639917}
   m_Layer: 3
   m_Name: NPC01
   m_TagString: Untagged
@@ -772,81 +771,6 @@ MonoBehaviour:
   m_completedQuestDialogueMode: 0
   m_questDialogueUI: {fileID: 0}
   m_cooldownCheckFrequency: 0
---- !u!114 &7076688085480639917
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4506375951709357717}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7d4fc2e03e02db34782f002406cfa32c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_key: NPC01Giver
-  m_appendSaverTypeToKey: 0
-  m_saveAcrossSceneChanges: 1
-  m_restoreStateOnStart: 0
-  m_forwardEventsToListeners: 1
-  m_includeInSavedGameData: 1
-  m_addNewQuestsSinceSavedGame: 0
-  m_questList:
-  - {fileID: 11400000, guid: 176d6dfb97428534baf03d9836335446, type: 2}
-  - {fileID: 11400000, guid: 7a562f84f6368dd4eb275a49cb1cf864, type: 2}
-  m_deletedStaticQuests: []
-  m_id:
-    m_text: NPC01
-    m_stringAsset: {fileID: 0}
-    m_textTable: {fileID: 0}
-    m_textTableFieldID: 0
-  m_displayName:
-    m_text: Nameless Hermit
-    m_stringAsset: {fileID: 0}
-    m_textTable: {fileID: 0}
-    m_textTableFieldID: 0
-  m_image: {fileID: 0}
-  m_textTable: {fileID: 0}
-  m_noQuestsUIContents:
-    m_icon: {fileID: 0}
-    m_headingText:
-      m_text: 'Quests Here:'
-      m_stringAsset: {fileID: 0}
-      m_textTable: {fileID: 0}
-      m_textTableFieldID: 0
-    m_bodyText:
-      m_text: Welcome, surface dweller. What brings you down yonder?
-      m_stringAsset: {fileID: 0}
-      m_textTable: {fileID: 0}
-      m_textTableFieldID: 0
-  m_offerableQuestsUIContents:
-    m_icon: {fileID: 0}
-    m_headingText:
-      m_text: While you're here, I have a favor to ask.
-      m_stringAsset: {fileID: 0}
-      m_textTable: {fileID: 0}
-      m_textTableFieldID: 0
-    m_bodyText:
-      m_text: 
-      m_stringAsset: {fileID: 0}
-      m_textTable: {fileID: 0}
-      m_textTableFieldID: 0
-  m_activeQuestsUIContents:
-    m_icon: {fileID: 0}
-    m_headingText:
-      m_text: 
-      m_stringAsset: {fileID: 0}
-      m_textTable: {fileID: 0}
-      m_textTableFieldID: 0
-    m_bodyText:
-      m_text: 
-      m_stringAsset: {fileID: 0}
-      m_textTable: {fileID: 0}
-      m_textTableFieldID: 0
-  m_completedQuestDialogueMode: 0
-  m_questDialogueUI: {fileID: 0}
-  m_cooldownCheckFrequency: 0
-  m_noQuestsConversation: IntroductionNPC01
 --- !u!1 &5123067267534647458
 GameObject:
   m_ObjectHideFlags: 0

@@ -17,14 +17,19 @@ namespace Gameplay.Crafting.Cooking
     public class CookingStationController : MonoBehaviour, ISelectableTrigger, MMEventListener<CookingStationEvent>,
         MMEventListener<RecipeEvent>
     {
-        public CanvasGroup CookingUIPanelCanvasGroup;
+        [FormerlySerializedAs("CookingUIPanelCanvasGroup")]
+        public CanvasGroup cookingUIPanelCanvasGroup;
 
-        public MMFeedbacks StartCookingFeedbacks;
-        public MMFeedbacks FinishCookingFeedbacks;
+        [FormerlySerializedAs("StartCookingFeedbacks")]
+        public MMFeedbacks startCookingFeedbacks;
+        [FormerlySerializedAs("FinishCookingFeedbacks")]
+        public MMFeedbacks finishCookingFeedbacks;
 
-        [CanBeNull] public FuelMaterial FuelItemAlreadyAdded;
+        [FormerlySerializedAs("FuelItemAlreadyAdded")] [CanBeNull]
+        public FuelMaterial fuelItemAlreadyAdded;
 
-        public CookingStation CookingStation;
+        [FormerlySerializedAs("CookingStation")]
+        public CookingStation cookingStation;
 
 
         [Header("Fuel & Progress Tracking")] public float fuelBurnRate = 1f; // Time in seconds to burn one unit of fuel
@@ -52,18 +57,18 @@ namespace Gameplay.Crafting.Cooking
             HideCookingUI();
 
             if (_fuelInventory.GetQuantity("Firewood") > 0)
-                FuelItemAlreadyAdded =
+                fuelItemAlreadyAdded =
                     new FuelMaterial(
                         _fuelInventory.fuelItemAllowed,
                         _fuelInventory.GetQuantity(_fuelInventory.fuelItemAllowed.ItemID));
             else
-                FuelItemAlreadyAdded = null;
+                fuelItemAlreadyAdded = null;
 
 
-            if (FuelItemAlreadyAdded != null)
+            if (fuelItemAlreadyAdded != null)
                 _fuelInventory.TreatAddedItem(
-                    FuelItemAlreadyAdded.FuelItem.Item,
-                    FuelItemAlreadyAdded.Quantity);
+                    fuelItemAlreadyAdded.FuelItem.Item,
+                    fuelItemAlreadyAdded.Quantity);
         }
 
         void OnEnable()
@@ -86,7 +91,7 @@ namespace Gameplay.Crafting.Cooking
             {
                 _isInPlayerRange = true;
 
-                if (CookingStation.CraftingStationId == null)
+                if (cookingStation.CraftingStationId == null)
                 {
                     Debug.LogError("CraftingStationId is null");
                     return;
@@ -142,7 +147,7 @@ namespace Gameplay.Crafting.Cooking
         }
         public void OnMMEvent(RecipeEvent mmEvent)
         {
-            if (mmEvent.EventType == RecipeEventType.FinishedCookingRecipe) FinishCookingFeedbacks?.PlayFeedbacks();
+            if (mmEvent.EventType == RecipeEventType.FinishedCookingRecipe) finishCookingFeedbacks?.PlayFeedbacks();
         }
         public void TryAddFuel()
         {
@@ -272,16 +277,16 @@ namespace Gameplay.Crafting.Cooking
         }
         public void ShowCookingUI()
         {
-            CookingUIPanelCanvasGroup.alpha = 1;
-            CookingUIPanelCanvasGroup.interactable = true;
-            CookingUIPanelCanvasGroup.blocksRaycasts = true;
+            cookingUIPanelCanvasGroup.alpha = 1;
+            cookingUIPanelCanvasGroup.interactable = true;
+            cookingUIPanelCanvasGroup.blocksRaycasts = true;
         }
 
         public void HideCookingUI()
         {
-            CookingUIPanelCanvasGroup.alpha = 0;
-            CookingUIPanelCanvasGroup.interactable = false;
-            CookingUIPanelCanvasGroup.blocksRaycasts = false;
+            cookingUIPanelCanvasGroup.alpha = 0;
+            cookingUIPanelCanvasGroup.interactable = false;
+            cookingUIPanelCanvasGroup.blocksRaycasts = false;
         }
     }
 }

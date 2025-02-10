@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using HighlightPlus;
+using JetBrains.Annotations;
 using MoreMountains.Feedbacks;
 using MoreMountains.Tools;
 using Plugins.TopDownEngine.ThirdParty.MoreMountains.InentoryEngine.InventoryEngine.Scripts.Items;
@@ -8,16 +9,21 @@ using Project.Gameplay.Events;
 using Project.Gameplay.Interactivity.Items;
 using Project.UI.HUD;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Gameplay.Player.Inventory
 {
     public class PlayerItemListPreviewManager : MonoBehaviour, MMEventListener<ItemEvent>
     {
-        public GameObject PreviewPanelUI;
+        [FormerlySerializedAs("PreviewPanelUI")]
+        public GameObject previewPanelUI;
 
-        public MMFeedbacks SelectionFeedbacks;
-        public MMFeedbacks DeselectionFeedbacks;
-        public List<ManualItemPicker> CurrentPreviewedItemPickers = new();
+        [FormerlySerializedAs("SelectionFeedbacks")]
+        public MMFeedbacks selectionFeedbacks;
+        [FormerlySerializedAs("DeselectionFeedbacks")]
+        public MMFeedbacks deselectionFeedbacks;
+        [FormerlySerializedAs("CurrentPreviewedItemPickers")] [CanBeNull]
+        public List<ManualItemPicker> currentPreviewedItemPickers = new();
         readonly Dictionary<string, ManualItemPicker> _itemPickersInRange = new();
         readonly float _pickupCooldown = 0.5f; // Add cooldown to prevent rapid pickups
 
@@ -95,8 +101,8 @@ namespace Gameplay.Player.Inventory
         {
             if (_isPickupLocked) return false;
 
-            var isPreviewed = CurrentPreviewedItemPickers != null && CurrentPreviewedItemPickers.Count != 0 &&
-                              CurrentPreviewedItemPickers.Any(picker => picker.UniqueID == itemPicker.UniqueID);
+            var isPreviewed = currentPreviewedItemPickers != null && currentPreviewedItemPickers.Count != 0 &&
+                              currentPreviewedItemPickers.Any(picker => picker.UniqueID == itemPicker.UniqueID);
 
             return isPreviewed;
         }
@@ -113,8 +119,8 @@ namespace Gameplay.Player.Inventory
 
             if (_isPickingUp || Time.time - _lastPickupTime < _pickupCooldown) return false;
 
-            if (CurrentPreviewedItemPickers == null || CurrentPreviewedItemPickers.Count == 0 ||
-                !CurrentPreviewedItemPickers.Any(picker => picker.UniqueID == itemPicker.UniqueID)) return false;
+            if (currentPreviewedItemPickers == null || currentPreviewedItemPickers.Count == 0 ||
+                !currentPreviewedItemPickers.Any(picker => picker.UniqueID == itemPicker.UniqueID)) return false;
 
             _isPickingUp = true;
             _lastPickupTime = Time.time;
@@ -129,7 +135,7 @@ namespace Gameplay.Player.Inventory
                     if (_itemPickersInRange.Count == 0)
                     {
                         _previewManager.RemoveFromItemListPreview(itemPicker.Item);
-                        CurrentPreviewedItemPickers = new List<ManualItemPicker>();
+                        currentPreviewedItemPickers = new List<ManualItemPicker>();
                         CurrentPreviewedItems = new List<InventoryItem>();
                         _previewManager.HideItemListPreview();
                         HidePreviewPanel();
@@ -137,7 +143,7 @@ namespace Gameplay.Player.Inventory
                     else
                     {
                         // Clear current preview and let UpdateNearestItem handle the next item
-                        CurrentPreviewedItemPickers.Remove(itemPicker);
+                        currentPreviewedItemPickers.Remove(itemPicker);
                         CurrentPreviewedItems.Remove(itemPicker.Item);
                         UpdateNearestItem();
                     }
@@ -164,7 +170,7 @@ namespace Gameplay.Player.Inventory
             }
 
             _itemPickersInRange.Add(itemPicker.UniqueID, itemPicker);
-            CurrentPreviewedItemPickers.Add(itemPicker);
+            currentPreviewedItemPickers.Add(itemPicker);
 
             // Add the item to the preview list, ensuring it's tracked uniquely
             if (itemPicker.Item != null) _previewManager.AddToItemListPreview(itemPicker.Item, itemPicker);
@@ -183,7 +189,7 @@ namespace Gameplay.Player.Inventory
             if (!_itemPickersInRange.ContainsKey(itemPicker.UniqueID)) return;
 
             _itemPickersInRange.Remove(itemPicker.UniqueID);
-            CurrentPreviewedItemPickers.Remove(itemPicker);
+            currentPreviewedItemPickers.Remove(itemPicker);
 
             // Remove the specific item instance from the preview
             if (itemPicker.Item != null) _previewManager.RemoveFromItemListPreview(itemPicker.Item);
@@ -217,10 +223,10 @@ namespace Gameplay.Player.Inventory
 
                 if (_itemPickersInRange.Count == 0)
                 {
-                    if (CurrentPreviewedItemPickers != null)
+                    if (currentPreviewedItemPickers != null)
                     {
                         _previewManager.RemoveAllFromItemList();
-                        CurrentPreviewedItemPickers = new List<ManualItemPicker>();
+                        currentPreviewedItemPickers = new List<ManualItemPicker>();
                         CurrentPreviewedItems = new List<InventoryItem>();
                         _previewManager.HideItemListPreview();
                         HidePreviewPanel();
@@ -234,8 +240,8 @@ namespace Gameplay.Player.Inventory
                     .OrderBy(picker => Vector3.Distance(transform.position, picker.transform.position))
                     .FirstOrDefault();
 
-                if (CurrentPreviewedItemPickers == null || CurrentPreviewedItemPickers.Count == 0 ||
-                    !CurrentPreviewedItemPickers.Any(
+                if (currentPreviewedItemPickers == null || currentPreviewedItemPickers.Count == 0 ||
+                    !currentPreviewedItemPickers.Any(
                         picker => closestPicker != null && picker.UniqueID == closestPicker.UniqueID))
                     // SetPreviewedItem(closestPicker);
                     // _previewManager.AddToItemListPreview(CurrentPreviewedItem);
@@ -252,10 +258,10 @@ namespace Gameplay.Player.Inventory
             if (item == null || manualItemPicker == null) return;
 
             // Ensure no duplicates by checking the UniqueID
-            if (CurrentPreviewedItemPickers.Any(picker => picker.UniqueID == manualItemPicker.UniqueID)) return;
+            if (currentPreviewedItemPickers.Any(picker => picker.UniqueID == manualItemPicker.UniqueID)) return;
 
             _previewManager.AddToItemListPreview(item, manualItemPicker);
-            CurrentPreviewedItemPickers.Add(manualItemPicker);
+            currentPreviewedItemPickers.Add(manualItemPicker);
             RefreshPreviewOrder();
         }
 
@@ -269,24 +275,24 @@ namespace Gameplay.Player.Inventory
 
         public void HidePreviewPanel()
         {
-            if (PreviewPanelUI != null) PreviewPanelUI.SetActive(false);
+            if (previewPanelUI != null) previewPanelUI.SetActive(false);
         }
 
         public void ShowPreviewPanel()
         {
-            if (PreviewPanelUI != null) PreviewPanelUI.SetActive(true);
+            if (previewPanelUI != null) previewPanelUI.SetActive(true);
         }
 
 
         public void ShowSelectedItemPreviewPanel()
         {
-            if (PreviewPanelUI != null) PreviewPanelUI.SetActive(true);
+            if (previewPanelUI != null) previewPanelUI.SetActive(true);
             _previewManager.ShowItemListPreview();
         }
 
         public void HideSelectedItemPreviewPanel(InventoryItem item)
         {
-            if (PreviewPanelUI != null) PreviewPanelUI.SetActive(false);
+            if (previewPanelUI != null) previewPanelUI.SetActive(false);
             _previewManager.HideItemListPreview();
         }
         public void HidePanelIfEmpty(InventoryItem item)

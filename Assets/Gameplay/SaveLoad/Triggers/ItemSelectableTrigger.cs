@@ -134,10 +134,10 @@ namespace Gameplay.SaveLoad.Triggers
                     _playerPreviewManager = FindObjectOfType<PlayerItemListPreviewManager>();
 
                 if (_selectionFeedbacks == null)
-                    _selectionFeedbacks = _playerPreviewManager.SelectionFeedbacks;
+                    _selectionFeedbacks = _playerPreviewManager.selectionFeedbacks;
 
                 if (_deselectionFeedbacks == null)
-                    _deselectionFeedbacks = _playerPreviewManager.DeselectionFeedbacks;
+                    _deselectionFeedbacks = _playerPreviewManager.deselectionFeedbacks;
             }
         }
     }

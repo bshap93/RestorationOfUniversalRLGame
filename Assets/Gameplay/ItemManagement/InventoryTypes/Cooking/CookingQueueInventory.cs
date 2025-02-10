@@ -202,7 +202,7 @@ namespace Project.Gameplay.ItemManagement.InventoryTypes.Cooking
             // Should only update the relevant cooking station's dropdown
             RecipeEvent.Trigger(
                 "ClearCookableRecipes", RecipeEventType.ClearCookableRecipes, null,
-                _cookingStationController.CookingStation.CraftingStationId);
+                _cookingStationController.cookingStation.CraftingStationId);
 
             foreach (var recipe in _journalPersistenceManager.JournalData.knownRecipes)
                 if (recipe.CanBeCookedFrom(Content))
@@ -213,7 +213,7 @@ namespace Project.Gameplay.ItemManagement.InventoryTypes.Cooking
                     cookableRecipes.Add(recipe);
                     RecipeEvent.Trigger(
                         "RecipeCookableWithCurrentIngredients", RecipeEventType.RecipeCookableWithCurrentIngredients,
-                        recipe, _cookingStationController.CookingStation.CraftingStationId);
+                        recipe, _cookingStationController.cookingStation.CraftingStationId);
 
 
                     Debug.Log("Added recipe to cookableRecipes: " + recipe.recipeName);
@@ -276,7 +276,7 @@ namespace Project.Gameplay.ItemManagement.InventoryTypes.Cooking
             {
                 MMGameEvent.Trigger(
                     "UpdateCookingProgressBar",
-                    stringParameter: _cookingStationController.CookingStation.CraftingStationId,
+                    stringParameter: _cookingStationController.cookingStation.CraftingStationId,
                     vector2Parameter: new Vector2(elapsedTime / _currentRecipe.CraftingTime, 0));
 
                 // cookingProgressBar.UpdateBar(
@@ -299,7 +299,7 @@ namespace Project.Gameplay.ItemManagement.InventoryTypes.Cooking
             _currentRecipe = null;
             RecipeEvent.Trigger(
                 "FinishedCookingRecipe", RecipeEventType.FinishedCookingRecipe, null,
-                _cookingStationController.CookingStation.CraftingStationId);
+                _cookingStationController.cookingStation.CraftingStationId);
 
             cookingEndsFeedback?.PlayFeedbacks();
         }

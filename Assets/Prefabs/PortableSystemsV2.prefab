@@ -7517,6 +7517,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8894842963928351548}
   - component: {fileID: 8406380235647212183}
+  - component: {fileID: 2238873618576752784}
   m_Layer: 0
   m_Name: HotbarInventory
   m_TagString: HotbarInventory
@@ -7568,6 +7569,23 @@ MonoBehaviour:
   ResetThisInventorySaveOnStart: 0
   DrawContentInInspector: 1
   MainInventory: {fileID: 2531775199682642741}
+--- !u!114 &2238873618576752784
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5839778660424694457}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bfb67981f24d894ca1228fd030da3cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  updateQuestTracker: 1
+  handleMMSaveLoadEvents: 0
+  onContentChanged:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &5944366916390101841
 GameObject:
   m_ObjectHideFlags: 0
@@ -8844,6 +8862,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2784475818053404149}
   - component: {fileID: 2531775199682642741}
+  - component: {fileID: 2180046799916317058}
   m_Layer: 0
   m_Name: MainPlayerInventory
   m_TagString: MainPlayerInventory
@@ -8905,6 +8924,23 @@ MonoBehaviour:
   Persistent: 0
   ResetThisInventorySaveOnStart: 0
   DrawContentInInspector: 1
+--- !u!114 &2180046799916317058
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6571208413878695012}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bfb67981f24d894ca1228fd030da3cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  updateQuestTracker: 1
+  handleMMSaveLoadEvents: 0
+  onContentChanged:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &6574384124084636064
 GameObject:
   m_ObjectHideFlags: 0
@@ -10890,7 +10926,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0.00076293945}
+  m_AnchoredPosition: {x: 0, y: 0.00035095215}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!222 &1582889287856222070
@@ -12817,6 +12853,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3399043037699076077}
   - component: {fileID: 5579054736708611755}
+  - component: {fileID: 4196564399633952506}
   m_Layer: 0
   m_Name: EquipmentInventory
   m_TagString: Untagged
@@ -12854,11 +12891,29 @@ MonoBehaviour:
   PlayerID: Player1
   Content:
   - {fileID: 0}
+  - {fileID: 0}
   InventoryType: 1
   TargetTransform: {fileID: 4961920442027845916}
   Persistent: 0
   ResetThisInventorySaveOnStart: 0
   DrawContentInInspector: 1
+--- !u!114 &4196564399633952506
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9096885351652698072}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bfb67981f24d894ca1228fd030da3cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  updateQuestTracker: 1
+  handleMMSaveLoadEvents: 0
+  onContentChanged:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1001 &2772471861386362777
 PrefabInstance:
   m_ObjectHideFlags: 0

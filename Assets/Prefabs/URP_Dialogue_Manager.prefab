@@ -18,6 +18,7 @@ GameObject:
   - component: {fileID: 3374335183486378919}
   - component: {fileID: 4395758497180768583}
   - component: {fileID: 5705580828176738218}
+  - component: {fileID: 1725001051637418616}
   m_Layer: 0
   m_Name: URP_Dialogue_Manager
   m_TagString: Untagged
@@ -81,7 +82,7 @@ MonoBehaviour:
       cancelConversation:
         key: 27
         buttonName: 
-    dialogueUI: {fileID: 101180, guid: a5b4dc18ac65b8d4aa58af9b95d65f77, type: 3}
+    dialogueUI: {fileID: 101180, guid: 11409501cac65724caec60854fb58971, type: 3}
     defaultCanvas: {fileID: 1727424881657645459}
     localizationSettings:
       language: 
@@ -179,7 +180,7 @@ MonoBehaviour:
   m_parent: {fileID: 4920831220464887766}
   m_prefabs:
   - {fileID: 168688, guid: a5c98dfcec76e1847a0aa8d7c8a93459, type: 3}
-  - {fileID: 121952, guid: 720348da784b8fa49a7c48365da6f1b1, type: 3}
+  - {fileID: 121952, guid: 41bc21aac720231448a6d45fdb4c8128, type: 3}
   - {fileID: 162630, guid: f40d1072f56eeb04f9c104b7c4a8811f, type: 3}
   m_position: 0
 --- !u!114 &218195303630431590
@@ -312,6 +313,20 @@ MonoBehaviour:
   m_maxSaveSlot: 99999
   m_framesToWaitBeforeApplyData: 0
   m_debug: 0
+--- !u!114 &1725001051637418616
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4833139514134213626}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bcee2903c66ee4b4cafe7d54d6045758, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  initItemCacheOnStart: 1
+  debug: 1
 --- !u!1 &6089878934064513466
 GameObject:
   m_ObjectHideFlags: 0

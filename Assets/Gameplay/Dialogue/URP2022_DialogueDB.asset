@@ -157,7 +157,7 @@ MonoBehaviour:
       type: 2
       typeString: CustomFieldType_Boolean
     - title: Entry Count
-      value: 3
+      value: 4
       type: 1
       typeString: CustomFieldType_Number
     - title: Entry 1 State
@@ -171,11 +171,11 @@ MonoBehaviour:
     - title: Entry 2 State
       value: unassigned
       type: 0
-      typeString: 
+      typeString: CustomFieldType_QuestState
     - title: Entry 2
       value: Look Around for another way down to the underground.
       type: 0
-      typeString: 
+      typeString: CustomFieldType_Text
     - title: 'Entry 2 You hope that way may lead you to the cathedral by another
         path. '
       value: 
@@ -184,37 +184,49 @@ MonoBehaviour:
     - title: Entry 3 State
       value: unassigned
       type: 0
-      typeString: 
+      typeString: CustomFieldType_QuestState
     - title: Entry 3
       value: Press G to Follow Down the Passage
       type: 0
+      typeString: CustomFieldType_Text
+    - title: Entry 4 State
+      value: unassigned
+      type: 0
       typeString: 
+    - title: Entry 4
+      value: Grab Some Supplies and take a Look Around
+      type: 0
+      typeString: 
+    - title: Entry 4 I can see a couple of entrances just from this room...
+      value: 
+      type: 0
+      typeString: CustomFieldType_Text
   - id: 3
     fields:
     - title: Name
-      value: ResupplyInArmoury
+      value: FindSuppliesInArmoury
       type: 0
-      typeString: 
+      typeString: CustomFieldType_Text
     - title: Pictures
       value: '[]'
       type: 3
       typeString: CustomFieldType_Files
     - title: Description
-      value: 
+      value: Self Expl.
       type: 0
-      typeString: 
+      typeString: CustomFieldType_Text
     - title: Success Description
       value: 
       type: 0
-      typeString: 
+      typeString: CustomFieldType_Text
     - title: Failure Description
       value: 
       type: 0
-      typeString: 
+      typeString: CustomFieldType_Text
     - title: State
       value: unassigned
       type: 0
-      typeString: 
+      typeString: CustomFieldType_QuestState
     - title: Is Item
       value: False
       type: 2
@@ -222,7 +234,11 @@ MonoBehaviour:
     - title: Display Name
       value: Find Supplies in the Armoury
       type: 0
-      typeString: 
+      typeString: CustomFieldType_Text
+    - title: Group
+      value: Orientation
+      type: 0
+      typeString: CustomFieldType_Text
     - title: Trackable
       value: True
       type: 2
@@ -232,31 +248,47 @@ MonoBehaviour:
       type: 2
       typeString: CustomFieldType_Boolean
     - title: Entry Count
-      value: 3
+      value: 5
       type: 1
       typeString: CustomFieldType_Number
     - title: Entry 1 State
       value: unassigned
       type: 0
-      typeString: 
+      typeString: CustomFieldType_QuestState
     - title: Entry 1
-      value: Find a Weapon
+      value: Find A Weapon
       type: 0
-      typeString: 
+      typeString: CustomFieldType_Text
     - title: Entry 2 State
       value: unassigned
       type: 0
-      typeString: 
+      typeString: CustomFieldType_QuestState
     - title: Entry 2
-      value: Find some Torches
+      value: 'Find a Local Cook Book '
       type: 0
-      typeString: 
+      typeString: CustomFieldType_Text
     - title: Entry 3 State
       value: unassigned
       type: 0
-      typeString: 
+      typeString: CustomFieldType_QuestState
     - title: Entry 3
-      value: Find a Cookbook
+      value: Find a Torch
+      type: 0
+      typeString: CustomFieldType_Text
+    - title: Entry 4 State
+      value: unassigned
+      type: 0
+      typeString: 
+    - title: Entry 4
+      value: Head through the Ancient Door to whatever lies beyond!
+      type: 0
+      typeString: 
+    - title: Entry 5 State
+      value: unassigned
+      type: 0
+      typeString: 
+    - title: Entry 5
+      value: Speak with the Mysterious Stranger
       type: 0
       typeString: 
   locations:
