@@ -88,6 +88,26 @@ MonoBehaviour:
     m_stringAsset: {fileID: 0}
     m_textTable: {fileID: 0}
     m_textTableFieldID: 0
+--- !u!114 &-7585998651804717745
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c47e1bb9cdd9a474c8d3f5d555d7533a, type: 3}
+  m_Name: HeadingTextQuestContent
+  m_EditorClassIdentifier: 
+  m_contentID: -1
+  m_useQuestTitle: 1
+  m_headingText:
+    m_text: 
+    m_stringAsset: {fileID: 0}
+    m_textTable: {fileID: 0}
+    m_textTableFieldID: 0
+  m_headingLevel: 1
 --- !u!114 &-7160692146945165156
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -427,7 +447,7 @@ MonoBehaviour:
     m_textTableFieldID: 0
   m_labels: []
   m_questGiverID:
-    m_text: PrototypeSign
+    m_text: NPC00
     m_stringAsset: {fileID: 0}
     m_textTable: {fileID: 0}
     m_textTableFieldID: 0
@@ -461,14 +481,16 @@ MonoBehaviour:
   m_stateInfoList:
   - m_actionList: []
     m_categorizedContentList:
-    - m_contentList: []
+    - m_contentList:
+      - {fileID: 5638648149577540168}
     - m_contentList:
       - {fileID: 8162902146875308604}
     - m_contentList:
       - {fileID: 7682027625073176712}
   - m_actionList: []
     m_categorizedContentList:
-    - m_contentList: []
+    - m_contentList:
+      - {fileID: -7585998651804717745}
     - m_contentList:
       - {fileID: 2781591416890397961}
       - {fileID: 3989732098981672464}
@@ -678,8 +700,8 @@ MonoBehaviour:
     m_childIndexList: 01000000
     m_canvasRect:
       serializedVersion: 2
-      x: 199.33334
-      y: 23.333336
+      x: 198.66669
+      y: 22.666672
       width: 120
       height: 48
   - m_id:
@@ -1423,6 +1445,26 @@ MonoBehaviour:
     m_literalValue: 1
     m_counterIndex: 0
   m_counterIndex: 3
+--- !u!114 &5638648149577540168
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c47e1bb9cdd9a474c8d3f5d555d7533a, type: 3}
+  m_Name: HeadingTextQuestContent
+  m_EditorClassIdentifier: 
+  m_contentID: -1
+  m_useQuestTitle: 1
+  m_headingText:
+    m_text: 
+    m_stringAsset: {fileID: 0}
+    m_textTable: {fileID: 0}
+    m_textTableFieldID: 0
+  m_headingLevel: 1
 --- !u!114 &6478185327155842060
 MonoBehaviour:
   m_ObjectHideFlags: 1
