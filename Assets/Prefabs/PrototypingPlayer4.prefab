@@ -42027,10 +42027,8 @@ GameObject:
   - component: {fileID: 6743865684933730453}
   - component: {fileID: 1290245265646136399}
   - component: {fileID: 118613288431853644}
-  - component: {fileID: 5545902511213418861}
   - component: {fileID: 4405931127114056396}
   - component: {fileID: 4024334414935309636}
-  - component: {fileID: 3282341723108424037}
   m_Layer: 10
   m_Name: PrototypingPlayer4
   m_TagString: Player
@@ -42964,44 +42962,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be2f813a3ec342e4d93e5113d8474a97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &5545902511213418861
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4194478886614523176}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1e934de1a262c41478a844f227d499e3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_key: playerJournal
-  m_appendSaverTypeToKey: 0
-  m_saveAcrossSceneChanges: 1
-  m_restoreStateOnStart: 0
-  m_forwardEventsToListeners: 1
-  m_includeInSavedGameData: 1
-  m_addNewQuestsSinceSavedGame: 0
-  m_questList: []
-  m_deletedStaticQuests: []
-  m_id:
-    m_text: Player1
-    m_stringAsset: {fileID: 0}
-    m_textTable: {fileID: 0}
-    m_textTableFieldID: 0
-  m_displayName:
-    m_text: Player Name
-    m_stringAsset: {fileID: 0}
-    m_textTable: {fileID: 0}
-    m_textTableFieldID: 0
-  m_image: {fileID: 21300000, guid: bd4763095ba0de249a4276ea4fd53c42, type: 3}
-  m_questJournalUI: {fileID: 0}
-  m_questHUD: {fileID: 0}
-  m_rememberCompletedQuests: 1
-  m_onlyRememberHandwrittenQuests: 0
-  m_compressCompletedProcgenQuests: 0
-  m_onlyTrackOneQuestAtATime: 0
 --- !u!114 &4405931127114056396
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -43014,10 +42974,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7354e2858724f1c91e4301028ab612c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PreviewPanelUI: {fileID: 0}
-  SelectionFeedbacks: {fileID: 0}
-  DeselectionFeedbacks: {fileID: 0}
-  CurrentPreviewedItemPickers: []
+  previewPanelUI: {fileID: 0}
+  selectionFeedbacks: {fileID: 0}
+  deselectionFeedbacks: {fileID: 0}
+  currentPreviewedItemPickers: []
 --- !u!114 &4024334414935309636
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -43043,26 +43003,6 @@ MonoBehaviour:
   PhysicsInteractionsRaycastLength: 0.05
   PhysicsInteractionsRaycastOffset: {x: 0, y: 0, z: 0}
   PushPower: 1850
---- !u!114 &3282341723108424037
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4194478886614523176}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f17c2218d7ec803498092e955d84ebe3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pauseDuringConversations: 1
-  disableInputDuringConversations: 1
-  floatAnimatorParametersToStop:
-  - Speed
-  boolAnimatorParametersToStop:
-  - Walking
-  - Running
-  - Jumping
 --- !u!1 &4196067256495071556
 GameObject:
   m_ObjectHideFlags: 0

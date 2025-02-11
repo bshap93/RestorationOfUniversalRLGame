@@ -60,7 +60,7 @@ MonoBehaviour:
   - id: 2
     fields:
     - title: Name
-      value: NPC01
+      value: New Actor 2
       type: 0
       typeString: 
     - title: Pictures
@@ -76,6 +76,66 @@ MonoBehaviour:
       type: 2
       typeString: CustomFieldType_Boolean
     portrait: {fileID: 0}
+    spritePortrait: {fileID: 0}
+    alternatePortraits: []
+    spritePortraits: []
+  - id: 3
+    fields:
+    - title: Name
+      value: FacelessHermit
+      type: 0
+      typeString: 
+    - title: Pictures
+      value: '[]'
+      type: 3
+      typeString: CustomFieldType_Files
+    - title: Description
+      value: 
+      type: 0
+      typeString: CustomFieldType_Text
+    - title: IsPlayer
+      value: False
+      type: 2
+      typeString: CustomFieldType_Boolean
+    - title: Display Name
+      value: Midreth Kennest
+      type: 0
+      typeString: 
+    - title: NodeColor
+      value: '#f3f3f3ff'
+      type: 0
+      typeString: 
+    portrait: {fileID: 2800000, guid: b067b3b44a64db546aca25bccefed6d6, type: 3}
+    spritePortrait: {fileID: 0}
+    alternatePortraits: []
+    spritePortraits: []
+  - id: 4
+    fields:
+    - title: Name
+      value: Player
+      type: 0
+      typeString: 
+    - title: Pictures
+      value: '[]'
+      type: 3
+      typeString: CustomFieldType_Files
+    - title: Description
+      value: 
+      type: 0
+      typeString: CustomFieldType_Text
+    - title: IsPlayer
+      value: True
+      type: 2
+      typeString: CustomFieldType_Boolean
+    - title: NodeColor
+      value: Blue
+      type: 0
+      typeString: 
+    - title: Display Name
+      value: Player Name
+      type: 0
+      typeString: 
+    portrait: {fileID: 2800000, guid: bd4763095ba0de249a4276ea4fd53c42, type: 3}
     spritePortrait: {fileID: 0}
     alternatePortraits: []
     spritePortraits: []
@@ -157,7 +217,7 @@ MonoBehaviour:
       type: 2
       typeString: CustomFieldType_Boolean
     - title: Entry Count
-      value: 3
+      value: 4
       type: 1
       typeString: CustomFieldType_Number
     - title: Entry 1 State
@@ -171,11 +231,11 @@ MonoBehaviour:
     - title: Entry 2 State
       value: unassigned
       type: 0
-      typeString: 
+      typeString: CustomFieldType_QuestState
     - title: Entry 2
       value: Look Around for another way down to the underground.
       type: 0
-      typeString: 
+      typeString: CustomFieldType_Text
     - title: 'Entry 2 You hope that way may lead you to the cathedral by another
         path. '
       value: 
@@ -184,37 +244,49 @@ MonoBehaviour:
     - title: Entry 3 State
       value: unassigned
       type: 0
-      typeString: 
+      typeString: CustomFieldType_QuestState
     - title: Entry 3
       value: Press G to Follow Down the Passage
       type: 0
+      typeString: CustomFieldType_Text
+    - title: Entry 4 State
+      value: unassigned
+      type: 0
       typeString: 
+    - title: Entry 4
+      value: Grab Some Supplies and take a Look Around
+      type: 0
+      typeString: 
+    - title: Entry 4 I can see a couple of entrances just from this room...
+      value: 
+      type: 0
+      typeString: CustomFieldType_Text
   - id: 3
     fields:
     - title: Name
-      value: ResupplyInArmoury
+      value: FindSuppliesInArmoury
       type: 0
-      typeString: 
+      typeString: CustomFieldType_Text
     - title: Pictures
       value: '[]'
       type: 3
       typeString: CustomFieldType_Files
     - title: Description
-      value: 
+      value: Self Expl.
       type: 0
-      typeString: 
+      typeString: CustomFieldType_Text
     - title: Success Description
       value: 
       type: 0
-      typeString: 
+      typeString: CustomFieldType_Text
     - title: Failure Description
       value: 
       type: 0
-      typeString: 
+      typeString: CustomFieldType_Text
     - title: State
       value: unassigned
       type: 0
-      typeString: 
+      typeString: CustomFieldType_QuestState
     - title: Is Item
       value: False
       type: 2
@@ -222,7 +294,11 @@ MonoBehaviour:
     - title: Display Name
       value: Find Supplies in the Armoury
       type: 0
-      typeString: 
+      typeString: CustomFieldType_Text
+    - title: Group
+      value: Orientation
+      type: 0
+      typeString: CustomFieldType_Text
     - title: Trackable
       value: True
       type: 2
@@ -232,7 +308,97 @@ MonoBehaviour:
       type: 2
       typeString: CustomFieldType_Boolean
     - title: Entry Count
-      value: 3
+      value: 5
+      type: 1
+      typeString: CustomFieldType_Number
+    - title: Entry 1 State
+      value: unassigned
+      type: 0
+      typeString: CustomFieldType_QuestState
+    - title: Entry 1
+      value: Find A Weapon
+      type: 0
+      typeString: CustomFieldType_Text
+    - title: Entry 2 State
+      value: unassigned
+      type: 0
+      typeString: CustomFieldType_QuestState
+    - title: Entry 2
+      value: 'Find a Local Cook Book '
+      type: 0
+      typeString: CustomFieldType_Text
+    - title: Entry 3 State
+      value: unassigned
+      type: 0
+      typeString: CustomFieldType_QuestState
+    - title: Entry 3
+      value: Find a Torch
+      type: 0
+      typeString: CustomFieldType_Text
+    - title: Entry 4 State
+      value: unassigned
+      type: 0
+      typeString: 
+    - title: Entry 4
+      value: Head through the Ancient Door to whatever lies beyond!
+      type: 0
+      typeString: 
+    - title: Entry 5 State
+      value: unassigned
+      type: 0
+      typeString: 
+    - title: Entry 5
+      value: Speak with the Mysterious Stranger
+      type: 0
+      typeString: 
+  - id: 4
+    fields:
+    - title: Name
+      value: ForagingBasics
+      type: 0
+      typeString: CustomFieldType_Text
+    - title: Pictures
+      value: '[]'
+      type: 3
+      typeString: CustomFieldType_Files
+    - title: Description
+      value: Talk with and learn from resident hermit.
+      type: 0
+      typeString: CustomFieldType_Text
+    - title: Success Description
+      value: Learn vital skills for surviving in the caves below Sheol.
+      type: 0
+      typeString: CustomFieldType_Text
+    - title: Failure Description
+      value: 
+      type: 0
+      typeString: CustomFieldType_Text
+    - title: State
+      value: unassigned
+      type: 0
+      typeString: CustomFieldType_QuestState
+    - title: Is Item
+      value: False
+      type: 2
+      typeString: CustomFieldType_Boolean
+    - title: Display Name
+      value: Foraging Basics
+      type: 0
+      typeString: CustomFieldType_Text
+    - title: Group
+      value: Orientation
+      type: 0
+      typeString: CustomFieldType_Text
+    - title: Trackable
+      value: True
+      type: 2
+      typeString: CustomFieldType_Boolean
+    - title: Track
+      value: True
+      type: 2
+      typeString: CustomFieldType_Boolean
+    - title: Entry Count
+      value: 2
       type: 1
       typeString: CustomFieldType_Number
     - title: Entry 1 State
@@ -240,7 +406,7 @@ MonoBehaviour:
       type: 0
       typeString: 
     - title: Entry 1
-      value: Find a Weapon
+      value: Invesigate the Stranger sitting by the Path.
       type: 0
       typeString: 
     - title: Entry 2 State
@@ -248,26 +414,11 @@ MonoBehaviour:
       type: 0
       typeString: 
     - title: Entry 2
-      value: Find 3 torches.
+      value: Gather Mushrooms
       type: 0
       typeString: 
-    - title: Entry 3 State
-      value: unassigned
-      type: 0
-      typeString: 
-    - title: Entry 3
-      value: Find a Cookbook
-      type: 0
-      typeString: 
-    - title: Entry 1 Find a weapon such as a sword or axe.
-      value: 
-      type: 0
-      typeString: CustomFieldType_Text
-    - title: Entry 2 Find a torch so you can see if the way grows dark.
-      value: 
-      type: 0
-      typeString: CustomFieldType_Text
-    - title: Entry 3 Find a recipe book for local food, as you are hungry from travel.
+    - title: 'Entry 2 Gather Mushrooms: - Red Caps: [var=RedCapsCollected]/2 - Yellow
+        Fronds: [var=YellowFrondsCollected]/2 - Brown Stalks: [var=BrownStalksCollected]/2'
       value: 
       type: 0
       typeString: CustomFieldType_Text
@@ -297,10 +448,38 @@ MonoBehaviour:
       value: 
       type: 0
       typeString: 
-  - id: 2
+  - id: 3
     fields:
     - title: Name
-      value: HermitChat
+      value: YellowFrondsCollected
+      type: 0
+      typeString: 
+    - title: Initial Value
+      value: 0
+      type: 1
+      typeString: CustomFieldType_Number
+    - title: Description
+      value: 
+      type: 0
+      typeString: 
+  - id: 4
+    fields:
+    - title: Name
+      value: RedCapsCollected
+      type: 0
+      typeString: 
+    - title: Initial Value
+      value: 0
+      type: 1
+      typeString: CustomFieldType_Number
+    - title: Description
+      value: 
+      type: 0
+      typeString: 
+  - id: 5
+    fields:
+    - title: Name
+      value: BrownStalksCollected
       type: 0
       typeString: 
     - title: Initial Value
@@ -317,17 +496,17 @@ MonoBehaviour:
     - title: Title
       value: IntroductionNPC01
       type: 0
-      typeString: 
+      typeString: CustomFieldType_Text
     - title: Description
       value: 
       type: 0
-      typeString: 
+      typeString: CustomFieldType_Text
     - title: Actor
       value: 1
       type: 5
       typeString: CustomFieldType_Actor
     - title: Conversant
-      value: 2
+      value: 3
       type: 5
       typeString: CustomFieldType_Actor
     overrideSettings:
@@ -373,7 +552,7 @@ MonoBehaviour:
         type: 5
         typeString: CustomFieldType_Actor
       - title: Conversant
-        value: 2
+        value: 3
         type: 5
         typeString: CustomFieldType_Actor
       - title: Menu Text
@@ -424,7 +603,7 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Actor
-        value: 2
+        value: 3
         type: 5
         typeString: CustomFieldType_Actor
       - title: Conversant
@@ -466,7 +645,7 @@ MonoBehaviour:
       canvasRect:
         serializedVersion: 2
         x: 173.95349
-        y: 148.99222
+        y: 150.897
         width: 160
         height: 30
     - id: 2
@@ -480,7 +659,7 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Actor
-        value: 2
+        value: 3
         type: 5
         typeString: CustomFieldType_Actor
       - title: Conversant
@@ -539,7 +718,7 @@ MonoBehaviour:
         type: 5
         typeString: CustomFieldType_Actor
       - title: Conversant
-        value: 2
+        value: 3
         type: 5
         typeString: CustomFieldType_Actor
       - title: Menu Text
@@ -592,7 +771,7 @@ MonoBehaviour:
         type: 0
         typeString: CustomFieldType_Text
       - title: Actor
-        value: 2
+        value: 3
         type: 5
         typeString: CustomFieldType_Actor
       - title: Conversant
@@ -659,7 +838,7 @@ MonoBehaviour:
         type: 5
         typeString: CustomFieldType_Actor
       - title: Conversant
-        value: 2
+        value: 3
         type: 5
         typeString: CustomFieldType_Actor
       - title: Menu Text
@@ -708,7 +887,7 @@ MonoBehaviour:
         type: 5
         typeString: CustomFieldType_Actor
       - title: Conversant
-        value: 2
+        value: 3
         type: 5
         typeString: CustomFieldType_Actor
       - title: Menu Text
@@ -736,7 +915,7 @@ MonoBehaviour:
       conditionPriority: 2
       outgoingLinks: []
       conditionsString: 
-      userScript: 
+      userScript: SetQuestEntryState("ForagingBasics", 2, "active")
       onExecute:
         m_PersistentCalls:
           m_Calls:
@@ -759,8 +938,8 @@ MonoBehaviour:
         width: 160
         height: 30
     entryGroups: []
-    canvasScrollPosition: {x: 0, y: 0}
-    canvasZoom: 0.50000036
+    canvasScrollPosition: {x: 0, y: 364.34647}
+    canvasZoom: 0.8199999
   - id: 2
     fields:
     - title: Title

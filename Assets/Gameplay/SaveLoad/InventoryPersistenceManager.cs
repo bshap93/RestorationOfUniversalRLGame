@@ -171,7 +171,19 @@ namespace Gameplay.SaveLoad
         {
             Debug.Log("[InventoryPersistenceManager] Resetting all inventories to an empty state...");
 
-            ES3.DeleteFile(GetSaveFilePath());
+
+            ES3.Save(
+                MAIN_INVENTORY_KEY, new SerializedInventoryES3(new InventoryItem[20]),
+                GetSaveFilePath());
+
+            ES3.Save(
+                EQUIPMENT_INVENTORY_KEY, new SerializedInventoryES3(new InventoryItem[1]),
+                GetSaveFilePath());
+
+            ES3.Save(
+                HOTBAR_INVENTORY_KEY, new SerializedInventoryES3(new InventoryItem[10]),
+                GetSaveFilePath());
+
 
             Debug.Log("All inventories have been reset.");
         }
