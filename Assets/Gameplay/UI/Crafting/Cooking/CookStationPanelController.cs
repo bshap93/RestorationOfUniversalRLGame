@@ -15,7 +15,7 @@ namespace Project.UI.Crafting.Cooking
         [SerializeField] List<GameObject> CookingStationPanels;
         [SerializeField] List<CookingStation> CookingStations;
 
-        CookStationPanelInstance _cookingStationPanelInstance;
+        // CookStationPanelInstance _cookingStationPanelInstance;
         GameObject _currentCookingStationPanel;
         [FormerlySerializedAs("_cookingStationPanels")] [SerializeField]
         Dictionary<CookingStation, GameObject> CookingStationPanelsDict;
@@ -70,20 +70,10 @@ namespace Project.UI.Crafting.Cooking
                 // Instantiate as a child of this object and set position
                 // cookingStationPanel = Instantiate(cookingStationPanelPrefab, transform);
                 _currentCookingStationPanel = CookingStationPanelsDict[controller.cookingStation];
-                _cookingStationPanelInstance = _currentCookingStationPanel.GetComponent<CookStationPanelInstance>();
+                // _cookingStationPanelInstance = _currentCookingStationPanel.GetComponent<CookStationPanelInstance>();
 
                 // Set the controller first since other methods depend on it
-                _cookingStationPanelInstance.cookingStationController = controller;
-
-                // Then set the inventories
-                if (controller.GetDepositInventory() != null)
-                    _cookingStationPanelInstance.SetCookingDepositInventory(controller.GetDepositInventory());
-
-                if (controller.GetQueueInventory() != null)
-                    _cookingStationPanelInstance.SetCookingQueueInventory(controller.GetQueueInventory());
-
-                if (controller.GetFuelInventory() != null)
-                    _cookingStationPanelInstance.SetFuelInventory(controller.GetFuelInventory());
+                // _cookingStationPanelInstance.cookingStationController = controller;
 
                 // ShowPanel();
                 HidePanel();
@@ -96,7 +86,7 @@ namespace Project.UI.Crafting.Cooking
                 {
                     HidePanel();
                     _currentCookingStationPanel = null;
-                    _cookingStationPanelInstance = null;
+                    // _cookingStationPanelInstance = null;
                 }
 
             if (mmEvent.EventType == CookingStationEventType.CookingStationSelected) ShowPanel();

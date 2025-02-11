@@ -1527,6 +1527,7 @@ GameObject:
   - component: {fileID: 8816417289201159249}
   - component: {fileID: 1233530788823363058}
   - component: {fileID: 3172141059193676969}
+  - component: {fileID: 5164369185084487012}
   m_Layer: 10
   m_Name: CM vcam1
   m_TagString: MainCamera
@@ -1613,7 +1614,7 @@ MonoBehaviour:
     RotationDamping: {x: 1, y: 1, z: 1}
     QuaternionDamping: 1
   OrbitStyle: 0
-  Radius: 12.1
+  Radius: 11.34
   Orbits:
     Top:
       Radius: 2
@@ -1745,6 +1746,8 @@ MonoBehaviour:
       Owner: {fileID: 406153716954097413}
       Enabled: 1
       Input:
+        InputAction: {fileID: 0}
+        Gain: 1
         LegacyInput: CameraRotate
         LegacyGain: 200
         CancelDeltaTime: 0
@@ -1756,6 +1759,8 @@ MonoBehaviour:
       Owner: {fileID: 406153716954097413}
       Enabled: 0
       Input:
+        InputAction: {fileID: 0}
+        Gain: 1
         LegacyInput: Mouse Y
         LegacyGain: -200
         CancelDeltaTime: 0
@@ -1767,6 +1772,8 @@ MonoBehaviour:
       Owner: {fileID: 406153716954097413}
       Enabled: 0
       Input:
+        InputAction: {fileID: 0}
+        Gain: 1
         LegacyInput: CameraZoom
         LegacyGain: 200
         CancelDeltaTime: 0
@@ -1774,6 +1781,38 @@ MonoBehaviour:
       Driver:
         AccelTime: 1
         DecelTime: 1
+  PlayerIndex: -1
+  AutoEnableInputs: 1
+--- !u!114 &5164369185084487012
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3225667484527836946}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca7de3aefa901374ba29464584a3109a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CameraRadius: 0.4
+  Decollision:
+    Enabled: 1
+    ObstacleLayers:
+      serializedVersion: 2
+      m_Bits: 769
+    UseFollowTarget:
+      Enabled: 1
+      YOffset: 0
+    Damping: 1.71
+    SmoothingTime: 0.265
+  TerrainResolution:
+    Enabled: 1
+    TerrainLayers:
+      serializedVersion: 2
+      m_Bits: 513
+    MaximumRaycast: 10
+    Damping: 1.59
 --- !u!1 &3478517342423869979
 GameObject:
   m_ObjectHideFlags: 0
@@ -4595,6 +4634,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40dc8607b0f84494a8afb58d6c907d71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  parameter: 
 --- !u!1 &6974078390790385297
 GameObject:
   m_ObjectHideFlags: 0

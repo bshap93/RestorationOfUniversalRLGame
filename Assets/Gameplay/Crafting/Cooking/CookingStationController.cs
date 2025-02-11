@@ -41,34 +41,22 @@ namespace Gameplay.Crafting.Cooking
         public MMFeedbacks newRecipeSetFeedbacks;
         [FormerlySerializedAs("_playerInventory")]
         public Inventory playerInventory; // Reference to the player's inventory
-        CookingRecipe _currentRecipe; // The recipe to craft
-        CookingDepositInventory _depositInventory; // Cooked items
-        FuelInventory _fuelInventory; // Firewood
+
+        CookingRecipe _currentRecipe;
+
+        FuelQueue _fuelQueue;
+
+        bool _isBurningFuel;
 
         bool _isCrafting;
 
         bool _isInPlayerRange;
-        CookingQueueInventory _queueInventory; // Uncooked items
 
 
         void Awake()
         {
             InitializeInventories();
             HideCookingUI();
-
-            if (_fuelInventory.GetQuantity("Firewood") > 0)
-                fuelItemAlreadyAdded =
-                    new FuelMaterial(
-                        _fuelInventory.fuelItemAllowed,
-                        _fuelInventory.GetQuantity(_fuelInventory.fuelItemAllowed.ItemID));
-            else
-                fuelItemAlreadyAdded = null;
-
-
-            if (fuelItemAlreadyAdded != null)
-                _fuelInventory.TreatAddedItem(
-                    fuelItemAlreadyAdded.FuelItem.Item,
-                    fuelItemAlreadyAdded.Quantity);
         }
 
         void OnEnable()
@@ -144,6 +132,14 @@ namespace Gameplay.Crafting.Cooking
                 Debug.Log("Received TryAddFuel event");
                 TryAddFuel();
             }
+
+            if (mmEvent.EventType == CookingStationEventType.StartCooking) Debug.Log("Received StartCooking event");
+
+            if (mmEvent.EventType == CookingStationEventType.ToggleFire)
+            {
+                Debug.Log("Received ToggleFire event");
+                _isBurningFuel = !_isBurningFuel;
+            }
         }
         public void OnMMEvent(RecipeEvent mmEvent)
         {
@@ -153,16 +149,9 @@ namespace Gameplay.Crafting.Cooking
         {
             if (_isInPlayerRange)
                 if (!ValidateFuel())
-                {
                     // Reinitialize inventories if reference is lost
-                    if (playerInventory == null) InitializeInventories();
-
-                    // Only try to transfer if we have a valid inventory
-                    if (playerInventory != null)
-                        TransferFuelFromPlayer(_fuelInventory.fuelItemAllowed, 1);
-                    else
-                        Debug.LogWarning("Cannot transfer fuel - player inventory is null");
-                }
+                    if (playerInventory == null)
+                        InitializeInventories();
         }
 
         // Add this method to reinitialize inventory references
@@ -173,43 +162,11 @@ namespace Gameplay.Crafting.Cooking
                 playerInventory = Inventory.FindInventory(MainInventory.MainInventoryObjectName, "Player1");
                 if (playerInventory == null) Debug.LogError("Could not find MainPlayerInventory");
             }
-
-            if (_fuelInventory == null)
-            {
-                _fuelInventory = gameObject.GetComponentInChildren<FuelInventory>();
-                if (_fuelInventory == null) Debug.LogError("Could not find FuelInventory");
-            }
-
-            if (_queueInventory == null)
-            {
-                _queueInventory = gameObject.GetComponentInChildren<CookingQueueInventory>();
-                if (_queueInventory == null) Debug.LogError("Could not find CookingQueueInventory");
-            }
-
-
-            if (_depositInventory == null)
-            {
-                _depositInventory = gameObject.GetComponentInChildren<CookingDepositInventory>();
-                if (_depositInventory == null) Debug.LogError("Could not find CookingDepositInventory");
-            }
         }
 
         public bool IsPlayerInRange()
         {
             return _isInPlayerRange;
-        }
-
-        public CookingQueueInventory GetQueueInventory()
-        {
-            return _queueInventory;
-        }
-        public CookingDepositInventory GetDepositInventory()
-        {
-            return _depositInventory;
-        }
-        public FuelInventory GetFuelInventory()
-        {
-            return _fuelInventory;
         }
 
 
@@ -235,7 +192,7 @@ namespace Gameplay.Crafting.Cooking
 
         bool ValidateFuel()
         {
-            return _fuelInventory.GetQuantity(_fuelInventory.fuelItemAllowed.ItemID) > 0;
+            return _fuelQueue.hasValidFuel();
         }
 
 
@@ -251,16 +208,9 @@ namespace Gameplay.Crafting.Cooking
 
             if (playerInventory.GetQuantity(fuelItem.ItemID) >= quantity)
             {
-                if (_fuelInventory.AddItem(fuelItem, quantity))
-                {
-                    playerInventory.RemoveItemByID(fuelItem.ItemID, quantity);
-                    ShowPreview($"Added {quantity} fuel to the station.");
-                }
-                else
-                {
-                    Debug.Log("Fuel inventory is full!");
-                    ShowPreview("Fuel inventory is full!");
-                }
+                playerInventory.RemoveItemByID(fuelItem.ItemID, quantity);
+                _fuelQueue.AddFuelItem(fuelItem);
+                ShowPreview("Fuel added to the queue.");
             }
             else
             {

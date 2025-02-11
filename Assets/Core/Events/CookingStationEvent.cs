@@ -14,7 +14,9 @@ namespace Project.Core.Events
         CookingStationSelected,
         CookingStationDeselected,
         FuelBurntUpdate,
-        TryAddFuel
+        TryAddFuel,
+        StartCooking,
+        ToggleFire
     }
 
     /// <summary>

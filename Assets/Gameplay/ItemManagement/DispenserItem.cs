@@ -1,11 +1,14 @@
 ﻿using System;
 using Core.GameInitialization;
 using Gameplay.ItemManagement.InventoryTypes;
+using JetBrains.Annotations;
 using MoreMountains.Feedbacks;
+using PixelCrushers.DialogueSystem.Wrappers;
 using Plugins.TopDownEngine.ThirdParty.MoreMountains.InentoryEngine.InventoryEngine.Scripts.Items;
 using Project.Gameplay.Events;
 using Project.UI.HUD;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace Gameplay.Player.Inventory
@@ -39,6 +42,8 @@ namespace Gameplay.Player.Inventory
         [Header("Feedbacks")]
         public MMFeedbacks dispenseFeedbacks;
         public MMFeedbacks emptyFeedbacks;
+        [FormerlySerializedAs("_dialogueSystemTrigger")] [Header("Optional")] [CanBeNull]
+        public DialogueSystemTrigger dialogueSystemTrigger;
         int _halfThreshold;
 
         bool _isInRange;
@@ -66,6 +71,9 @@ namespace Gameplay.Player.Inventory
                     ?.GetComponent<MoreMountains.InventoryEngine.Inventory>();
 
             if (_targetInventory == null) Debug.LogWarning("Target inventory not found in PortableSystems.");
+
+            dialogueSystemTrigger = GetComponent<DialogueSystemTrigger>();
+
 
             _halfThreshold = TotalSupply / 2;
 
@@ -125,8 +133,8 @@ namespace Gameplay.Player.Inventory
             }
         }
 
-
-        void DispenseItem()
+        public
+            void DispenseItem()
         {
             if (TotalSupply <= 0)
             {
@@ -150,6 +158,14 @@ namespace Gameplay.Player.Inventory
             DispenserManager.SaveDispenserState(UniqueID, TotalSupply);
 
             dispenseFeedbacks?.PlayFeedbacks();
+
+            if (dialogueSystemTrigger != null)
+            {
+                dialogueSystemTrigger.OnUse();
+                Debug.Log("DialogueSystemTrigger.OnUse() called.");
+            }
+
+            dialogueSystemTrigger?.OnUse();
 
             // **Trigger ItemEvent so PickupDisplayer shows it**
             ItemEvent.Trigger("ItemPickedUp", DispensedItem, transform, DispenseAmount);

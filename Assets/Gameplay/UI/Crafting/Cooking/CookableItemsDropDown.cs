@@ -14,8 +14,8 @@ namespace Project.UI.Crafting.Cooking
 
         void Awake()
         {
-            craftingStationId = GetComponentInParent<CookStationPanelInstance>().cookingStationController.cookingStation
-                .CraftingStationId;
+            // craftingStationId = GetComponentInParent<CookStationPanelInstance>().cookingStationController.cookingStation
+            //     .CraftingStationId;
         }
 
         void Start()
