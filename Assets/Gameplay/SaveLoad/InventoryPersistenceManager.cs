@@ -174,7 +174,7 @@ namespace Gameplay.SaveLoad
 
             ES3.Save(
                 MAIN_INVENTORY_KEY, new SerializedInventoryES3(new InventoryItem[20]),
-                GetSaveFilePath())d .;
+                GetSaveFilePath());
 
             ES3.Save(
                 EQUIPMENT_INVENTORY_KEY, new SerializedInventoryES3(new InventoryItem[1]),
