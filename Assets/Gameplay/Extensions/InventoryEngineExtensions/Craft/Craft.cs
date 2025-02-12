@@ -13,6 +13,7 @@ namespace Gameplay.Extensions.InventoryEngineExtensions.Craft
         public InventoryItem Item;
         public int Quantity;
 
+
         public void OnBeforeSerialize()
         {
             Name = ToString();
@@ -39,6 +40,7 @@ namespace Gameplay.Extensions.InventoryEngineExtensions.Craft
     {
         public static bool ContainsIngredientsForRecipe(this Inventory inventory, Recipe recipe)
         {
+            if (inventory == null) return false;
             return !recipe.Ingredients.Any(
                 ingredient =>
                     inventory.InventoryContains(ingredient.Item.ItemID)
@@ -47,20 +49,52 @@ namespace Gameplay.Extensions.InventoryEngineExtensions.Craft
 
         public static void Craft(this Inventory inventory, Recipe recipe)
         {
-            if (!inventory.ContainsIngredientsForRecipe(recipe)) return;
-            foreach (var ingredient in recipe.Ingredients)
-                inventory.RemoveItemByID(ingredient.Item.ItemID, ingredient.Quantity);
-
-            if (inventory.AddItem(recipe.Item, recipe.Quantity))
+            if (inventory == null)
             {
-                MMInventoryEvent.Trigger(
-                    MMInventoryEventType.Pick, null, string.Empty, recipe.Item, recipe.Quantity, 0, "Player1");
-
+                Debug.LogError("Cannot craft: inventory is null");
                 return;
             }
 
-            foreach (var ingredient in recipe.Ingredients)
-                inventory.AddItem(ingredient.Item, ingredient.Quantity);
+            if (!inventory.ContainsIngredientsForRecipe(recipe))
+            {
+                Debug.Log("Missing required ingredients for recipe");
+                return;
+            }
+
+            try
+            {
+                // Remove ingredients first
+                foreach (var ingredient in recipe.Ingredients)
+                    if (!inventory.RemoveItemByID(ingredient.Item.ItemID, ingredient.Quantity))
+                    {
+                        Debug.LogError($"Failed to remove ingredient: {ingredient.Item.ItemID}");
+                        // Try to restore removed ingredients
+                        foreach (var ing in recipe.Ingredients)
+                            inventory.AddItem(ing.Item, ing.Quantity);
+
+                        return;
+                    }
+
+                // Add the crafted item
+                if (inventory.AddItem(recipe.Item, recipe.Quantity))
+                {
+                    MMInventoryEvent.Trigger(
+                        MMInventoryEventType.Pick, null, string.Empty, recipe.Item, recipe.Quantity, 0, "Player1");
+
+                    Debug.Log($"Successfully crafted: {recipe.Item.ItemName}");
+                }
+                else
+                {
+                    Debug.LogError("Failed to add crafted item");
+                    // Restore ingredients if we couldn't add the result
+                    foreach (var ingredient in recipe.Ingredients)
+                        inventory.AddItem(ingredient.Item, ingredient.Quantity);
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.LogError($"Error during crafting: {e.Message}");
+            }
         }
     }
 

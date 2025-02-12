@@ -20,7 +20,7 @@ namespace Gameplay.ItemsInteractions
             _selectedObjectController = go.GetComponentInParent<ISelectableTrigger>();
 
             if (_selectedObjectController == null) return false;
-            if (_selectedObjectController is CookingStationController controller) controller.ShowCookingUI();
+            if (_selectedObjectController is CookingStationController controller) controller.ShowStation();
 
 
             _selectedObjectController?.OnSelectedItem();
@@ -33,7 +33,7 @@ namespace Gameplay.ItemsInteractions
             if (_selectedObjectController == null)
                 _selectedObjectController = go.GetComponentInParent<ISelectableTrigger>();
 
-            if (_selectedObjectController is CookingStationController controller) controller.HideCookingUI();
+            if (_selectedObjectController is CookingStationController controller) controller.HideStation();
 
 
             if (_selectedObjectController != null) _selectedObjectController.OnUnSelectedItem();
