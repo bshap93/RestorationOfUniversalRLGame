@@ -1,76 +1,84 @@
-using Gameplay.ItemManagement.InventoryTypes;
-using Gameplay.ItemManagement.InventoryTypes.Cooking;
-using JetBrains.Annotations;
+using Gameplay.Extensions.InventoryEngineExtensions.Craft;
+using Michsky.MUIP;
 using MoreMountains.Feedbacks;
 using MoreMountains.InventoryEngine;
-using MoreMountains.Tools;
-using Project.Core.Events;
-using Project.Gameplay.Interactivity.Items;
-using Project.Gameplay.ItemManagement.InventoryTypes.Cooking;
-using Project.Gameplay.ItemManagement.InventoryTypes.Fuel;
 using Project.Gameplay.SaveLoad.Triggers;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Gameplay.Crafting.Cooking
 {
-    public class CookingStationController : MonoBehaviour, ISelectableTrigger, MMEventListener<CookingStationEvent>,
-        MMEventListener<RecipeEvent>
+    public class CookingStationController : MonoBehaviour, ISelectableTrigger
     {
-        [FormerlySerializedAs("CookingUIPanelCanvasGroup")]
-        public CanvasGroup cookingUIPanelCanvasGroup;
+        [Header("Station Setup")] [Tooltip("Assign your Craft ScriptableObject with cooking recipes here")]
+        public Craft stationRecipes;
+        public Inventory playerInventory;
 
-        [FormerlySerializedAs("StartCookingFeedbacks")]
-        public MMFeedbacks startCookingFeedbacks;
-        [FormerlySerializedAs("FinishCookingFeedbacks")]
+        [Header("UI References")] [Tooltip("The Canvas containing all UI elements for this station")]
+        public Canvas stationCanvas;
+        public CanvasGroup cookingUIPanel;
+
+        [Header("Feedbacks")] public MMFeedbacks startCookingFeedbacks;
         public MMFeedbacks finishCookingFeedbacks;
-
-        [FormerlySerializedAs("FuelItemAlreadyAdded")] [CanBeNull]
-        public FuelMaterial fuelItemAlreadyAdded;
-
-        [FormerlySerializedAs("CookingStation")]
-        public CookingStation cookingStation;
-
-
-        [Header("Fuel & Progress Tracking")] public float fuelBurnRate = 1f; // Time in seconds to burn one unit of fuel
-
-
         public MMFeedbacks interactFeedbacks;
-        public MMFeedbacks craftingFeedbacks;
-        public MMFeedbacks completionFeedbacks;
-        public MMFeedbacks newRecipeSetFeedbacks;
-        [FormerlySerializedAs("_playerInventory")]
-        public Inventory playerInventory; // Reference to the player's inventory
 
-        CookingRecipe _currentRecipe;
-
-        FuelQueue _fuelQueue;
-
-        bool _isBurningFuel;
-
-        bool _isCrafting;
+        [Header("Cooking Settings")] public float cookingTime = 5f;
+        public FuelQueue fuelQueue;
+        public CraftingButtons craftingButtons;
+        [Header("UI References")] public ProgressBar fuelProgressBar; // Reference to your UI progress bar
+        float _currentCookingTime;
+        bool _isCooking;
 
         bool _isInPlayerRange;
 
-
         void Awake()
         {
-            InitializeInventories();
+            // Make sure canvas starts hidden
+            if (stationCanvas != null) stationCanvas.enabled = false;
             HideCookingUI();
+
+            // Set up crafting buttons
+            if (craftingButtons != null)
+            {
+                // Assign the recipes to the crafting buttons
+                craftingButtons.craftRecipes = stationRecipes;
+                craftingButtons.gameObject.SetActive(false);
+            }
+
+            InitializeInventoryReference();
+
+            // Set up fuel progress bar
+            if (fuelProgressBar != null && fuelQueue != null)
+            {
+                // Initialize progress bar
+                fuelProgressBar.minValue = 0;
+                fuelProgressBar.maxValue = 100;
+                fuelProgressBar.suffix = "%";
+
+                // Update initial value
+                fuelProgressBar.SetValue(fuelQueue.GetFuelPercentage());
+
+                // Subscribe to fuel changes
+                fuelQueue.OnFuelChanged += UpdateFuelDisplay;
+            }
         }
 
-        void OnEnable()
+        void Update()
         {
-            InitializeInventories();
-
-            this.MMEventStartListening<CookingStationEvent>();
-            this.MMEventStartListening<RecipeEvent>();
+            if (_isCooking)
+            {
+                _currentCookingTime += Time.deltaTime;
+                if (_currentCookingTime >= cookingTime)
+                {
+                    _isCooking = false;
+                    finishCookingFeedbacks?.PlayFeedbacks();
+                }
+            }
         }
 
-        void OnDisable()
+
+        void OnDestroy()
         {
-            this.MMEventStopListening<CookingStationEvent>();
-            this.MMEventStopListening<RecipeEvent>();
+            if (fuelQueue != null) fuelQueue.OnFuelChanged -= UpdateFuelDisplay;
         }
 
         void OnTriggerEnter(Collider other)
@@ -79,164 +87,139 @@ namespace Gameplay.Crafting.Cooking
             {
                 _isInPlayerRange = true;
 
-                if (cookingStation.CraftingStationId == null)
+                if (!HasEnoughFuel())
                 {
-                    Debug.LogError("CraftingStationId is null");
+                    ShowPreview("Need fuel to cook. Add fuel first.");
                     return;
                 }
 
-
-                CookingStationEvent.Trigger(
-                    "CookingStationInRange", CookingStationEventType.CookingStationInRange, this);
-
-                // Display the inventories when interacting.
-
-                if (!ValidateFuel())
-                {
-                    ShowPreview("No fuel available. Deposit fuel to start cooking.");
-                    // Prompt the player to deposit fuel
-                    PromptFuelDeposit();
-                }
-
-                ShowPreview("Press F to interact with the Cooking Station");
+                ShowPreview("Press F to interact");
             }
         }
-
 
         void OnTriggerExit(Collider other)
         {
             if (other.CompareTag("Player"))
             {
                 _isInPlayerRange = false;
-                CookingStationEvent.Trigger(
-                    "CookingStationOutOfRange",
-                    CookingStationEventType.CookingStationOutOfRange,
-                    this);
-
+                if (stationCanvas != null) stationCanvas.enabled = false;
+                if (craftingButtons != null) craftingButtons.gameObject.SetActive(false);
+                HideCookingUI();
                 HidePreview();
             }
         }
+
+        void OnValidate()
+        {
+            // Help catch setup issues in the editor
+            if (stationRecipes == null)
+                Debug.LogWarning($"CookingStation '{gameObject.name}': No recipes assigned!", this);
+
+            if (stationCanvas == null)
+                Debug.LogWarning($"CookingStation '{gameObject.name}': No canvas assigned!", this);
+
+            if (craftingButtons == null)
+                Debug.LogWarning($"CookingStation '{gameObject.name}': No crafting buttons assigned!", this);
+        }
+
         public void OnSelectedItem()
         {
-            CookingStationEvent.Trigger("CookingStationSelected", CookingStationEventType.CookingStationSelected, this);
+            if (_isInPlayerRange)
+            {
+                if (!HasEnoughFuel())
+                {
+                    ShowPreview("Add fuel before cooking");
+                    return;
+                }
+
+                // Show the station's canvas
+                if (stationCanvas != null) stationCanvas.enabled = true;
+                ShowCookingUI();
+                if (craftingButtons != null) craftingButtons.gameObject.SetActive(true);
+                interactFeedbacks?.PlayFeedbacks();
+            }
         }
+
         public void OnUnSelectedItem()
         {
-            CookingStationEvent.Trigger(
-                "CookingStationDeselected", CookingStationEventType.CookingStationDeselected, this);
-        }
-        public void OnMMEvent(CookingStationEvent mmEvent)
-        {
-            if (mmEvent.EventType == CookingStationEventType.TryAddFuel)
-            {
-                Debug.Log("Received TryAddFuel event");
-                TryAddFuel();
-            }
-
-            if (mmEvent.EventType == CookingStationEventType.StartCooking) Debug.Log("Received StartCooking event");
-
-            if (mmEvent.EventType == CookingStationEventType.ToggleFire)
-            {
-                Debug.Log("Received ToggleFire event");
-                _isBurningFuel = !_isBurningFuel;
-            }
-        }
-        public void OnMMEvent(RecipeEvent mmEvent)
-        {
-            if (mmEvent.EventType == RecipeEventType.FinishedCookingRecipe) finishCookingFeedbacks?.PlayFeedbacks();
-        }
-        public void TryAddFuel()
-        {
-            if (_isInPlayerRange)
-                if (!ValidateFuel())
-                    // Reinitialize inventories if reference is lost
-                    if (playerInventory == null)
-                        InitializeInventories();
+            if (stationCanvas != null) stationCanvas.enabled = false;
+            if (craftingButtons != null) craftingButtons.gameObject.SetActive(false);
+            HideCookingUI();
         }
 
-        // Add this method to reinitialize inventory references
-        void InitializeInventories()
+        void UpdateFuelDisplay(float fuelPercentage)
+        {
+            if (fuelProgressBar != null) fuelProgressBar.SetValue(fuelPercentage);
+        }
+
+        void InitializeInventoryReference()
         {
             if (playerInventory == null)
             {
-                playerInventory = Inventory.FindInventory(MainInventory.MainInventoryObjectName, "Player1");
-                if (playerInventory == null) Debug.LogError("Could not find MainPlayerInventory");
+                playerInventory = Inventory.FindInventory("MainInventory", "Player1");
+                if (playerInventory == null)
+                {
+                    Debug.LogError($"CookingStation '{gameObject.name}': Could not find MainInventory");
+                    return;
+                }
+
+                // Assign inventory to crafting buttons
+                if (craftingButtons != null) craftingButtons.CraftingInventory = playerInventory;
             }
         }
 
-        public bool IsPlayerInRange()
+        // Updated TryAddFuel to show progress bar changes
+        public void TryAddFuel(int fuelItemIndex)
         {
-            return _isInPlayerRange;
-        }
+            if (!_isInPlayerRange) return;
 
-
-        public void PromptFuelDeposit()
-        {
-            // Example: Show UI to deposit fuel
-        }
-
-        void ShowPreview(string message)
-        {
-            // if (previewPanel != null)
-            // {
-            //     previewPanel.SetActive(true);
-            //     if (previewText != null) previewText.text = message;
-            // }
-        }
-
-        void HidePreview()
-        {
-            // if (previewPanel != null) previewPanel.SetActive(false);
-        }
-
-
-        bool ValidateFuel()
-        {
-            return _fuelQueue.hasValidFuel();
-        }
-
-
-        public void TransferFuelFromPlayer(InventoryItem fuelItem, int quantity)
-        {
-            // Add null check at start of method
-            if (playerInventory == null)
+            var fuelItem = playerInventory.Content[fuelItemIndex];
+            if (fuelItem.ItemID == fuelQueue.requiredFuelItemID)
             {
-                Debug.LogWarning("Cannot transfer fuel - player inventory is null");
-                ShowPreview("Cannot transfer fuel - inventory error");
-                return;
-            }
-
-            if (playerInventory.GetQuantity(fuelItem.ItemID) >= quantity)
-            {
-                playerInventory.RemoveItemByID(fuelItem.ItemID, quantity);
-                _fuelQueue.AddFuelItem(fuelItem);
-                ShowPreview("Fuel added to the queue.");
+                playerInventory.RemoveItem(fuelItemIndex, 1);
+                fuelQueue.AddFuelItem(fuelItem);
+                ShowPreview($"Fuel added successfully ({fuelQueue.GetFuelPercentage():F0}% full)");
             }
             else
             {
-                Debug.Log("Not enough fuel in player inventory.");
-                ShowPreview("Not enough fuel in your inventory.");
+                ShowPreview("This item cannot be used as fuel");
             }
         }
-        public void SetCurrentRecipe(CookingRecipe currentRecipe)
+
+        bool HasEnoughFuel()
         {
-            _currentRecipe = currentRecipe;
-            newRecipeSetFeedbacks?.PlayFeedbacks();
-            if (_currentRecipe != null)
-                Debug.Log("Current recipe set to: " + currentRecipe.recipeName);
+            return fuelQueue.hasValidFuel();
         }
+
         public void ShowCookingUI()
         {
-            cookingUIPanelCanvasGroup.alpha = 1;
-            cookingUIPanelCanvasGroup.interactable = true;
-            cookingUIPanelCanvasGroup.blocksRaycasts = true;
+            if (cookingUIPanel != null)
+            {
+                cookingUIPanel.alpha = 1;
+                cookingUIPanel.interactable = true;
+                cookingUIPanel.blocksRaycasts = true;
+            }
         }
 
         public void HideCookingUI()
         {
-            cookingUIPanelCanvasGroup.alpha = 0;
-            cookingUIPanelCanvasGroup.interactable = false;
-            cookingUIPanelCanvasGroup.blocksRaycasts = false;
+            if (cookingUIPanel != null)
+            {
+                cookingUIPanel.alpha = 0;
+                cookingUIPanel.interactable = false;
+                cookingUIPanel.blocksRaycasts = false;
+            }
+        }
+
+        void ShowPreview(string message)
+        {
+            // Implement your UI preview system here
+            Debug.Log($"Station '{gameObject.name}': {message}");
+        }
+
+        void HidePreview()
+        {
+            // Implement your UI preview system here
         }
     }
 }

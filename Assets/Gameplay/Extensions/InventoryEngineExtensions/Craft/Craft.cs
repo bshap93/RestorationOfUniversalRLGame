@@ -4,7 +4,7 @@ using MoreMountains.InventoryEngine;
 using Project.Gameplay.Interactivity.Items;
 using UnityEngine;
 
-namespace Craft
+namespace Gameplay.Extensions.InventoryEngineExtensions.Craft
 {
     [Serializable]
     public class Ingredient : ISerializationCallbackReceiver
@@ -19,6 +19,7 @@ namespace Craft
         }
         public void OnAfterDeserialize()
         {
+            Name = ToString();
         }
         public override string ToString()
         {
