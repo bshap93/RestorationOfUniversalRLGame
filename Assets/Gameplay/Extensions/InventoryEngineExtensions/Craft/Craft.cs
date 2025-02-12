@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using MoreMountains.Feedbacks;
 using MoreMountains.InventoryEngine;
 using Project.Gameplay.Interactivity.Items;
 using UnityEngine;
@@ -47,7 +48,8 @@ namespace Gameplay.Extensions.InventoryEngineExtensions.Craft
                         .Sum(index => inventory.Content[index].Quantity) < ingredient.Quantity);
         }
 
-        public static void Craft(this Inventory inventory, Recipe recipe)
+        public static void Craft(this Inventory inventory, Recipe recipe, MMFeedbacks craftFeedback = null,
+            MMFeedbacks deniedFeedback = null)
         {
             if (inventory == null)
             {
@@ -57,6 +59,7 @@ namespace Gameplay.Extensions.InventoryEngineExtensions.Craft
 
             if (!inventory.ContainsIngredientsForRecipe(recipe))
             {
+                deniedFeedback?.PlayFeedbacks();
                 Debug.Log("Missing required ingredients for recipe");
                 return;
             }
@@ -67,6 +70,7 @@ namespace Gameplay.Extensions.InventoryEngineExtensions.Craft
                 foreach (var ingredient in recipe.Ingredients)
                     if (!inventory.RemoveItemByID(ingredient.Item.ItemID, ingredient.Quantity))
                     {
+                        deniedFeedback?.PlayFeedbacks();
                         Debug.LogError($"Failed to remove ingredient: {ingredient.Item.ItemID}");
                         // Try to restore removed ingredients
                         foreach (var ing in recipe.Ingredients)
@@ -78,6 +82,7 @@ namespace Gameplay.Extensions.InventoryEngineExtensions.Craft
                 // Add the crafted item
                 if (inventory.AddItem(recipe.Item, recipe.Quantity))
                 {
+                    craftFeedback?.PlayFeedbacks();
                     MMInventoryEvent.Trigger(
                         MMInventoryEventType.Pick, null, string.Empty, recipe.Item, recipe.Quantity, 0, "Player1");
 
@@ -85,6 +90,7 @@ namespace Gameplay.Extensions.InventoryEngineExtensions.Craft
                 }
                 else
                 {
+                    deniedFeedback?.PlayFeedbacks();
                     Debug.LogError("Failed to add crafted item");
                     // Restore ingredients if we couldn't add the result
                     foreach (var ingredient in recipe.Ingredients)
@@ -93,6 +99,7 @@ namespace Gameplay.Extensions.InventoryEngineExtensions.Craft
             }
             catch (Exception e)
             {
+                deniedFeedback?.PlayFeedbacks();
                 Debug.LogError($"Error during crafting: {e.Message}");
             }
         }

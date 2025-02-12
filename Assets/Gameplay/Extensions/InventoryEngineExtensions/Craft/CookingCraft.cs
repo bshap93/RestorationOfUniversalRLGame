@@ -9,16 +9,13 @@ namespace Gameplay.Extensions.InventoryEngineExtensions.Craft
             this Inventory inventory,
             Recipe recipe,
             MMFeedbacks startCookingFeedback = null,
-            MMFeedbacks finishCookingFeedback = null)
+            MMFeedbacks negateFeedback = null)
         {
             // Play start cooking feedback
             startCookingFeedback?.PlayFeedbacks();
 
             // Do the actual crafting
-            inventory.Craft(recipe);
-
-            // Play finish cooking feedback
-            finishCookingFeedback?.PlayFeedbacks();
+            inventory.Craft(recipe, startCookingFeedback, negateFeedback);
         }
     }
 }

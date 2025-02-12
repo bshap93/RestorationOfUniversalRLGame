@@ -1,7 +1,6 @@
 ﻿using Gameplay.ItemManagement.InventoryTypes;
 using MoreMountains.Feedbacks;
 using MoreMountains.InventoryEngine;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -38,7 +37,7 @@ namespace Gameplay.Extensions.InventoryEngineExtensions.Craft
             if (_inventory != null)
             {
                 if (isCookingStation)
-                    _inventory.CookRecipe(recipe, startCookingFeedback, finishCookingFeedback);
+                    _inventory.CookRecipe(recipe, startCookingFeedback);
                 else
                     _inventory.Craft(recipe);
             }
