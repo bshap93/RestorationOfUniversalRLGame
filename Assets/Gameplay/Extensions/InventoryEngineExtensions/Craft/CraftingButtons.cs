@@ -49,7 +49,10 @@ namespace Gameplay.Extensions.InventoryEngineExtensions.Craft
 
         void CreateButtons()
         {
-            // Clear old buttons
+            // Deactivate template first
+            _craftingButton.SetActive(false);
+
+            // Clear old buttons except template
             for (var i = transform.childCount - 1; i > 0; i--) Destroy(transform.GetChild(i).gameObject);
 
             if (craftRecipes?.Recipes == null) return;
@@ -73,24 +76,7 @@ namespace Gameplay.Extensions.InventoryEngineExtensions.Craft
                 craftingButton.transform.GetChild(3).GetComponent<Text>().text = recipe.IngredientsText;
 
                 var localRecipe = recipe;
-                craftingButton.GetComponent<Button>().onClick.AddListener(
-                    () =>
-                    {
-                        if (_inventory != null)
-                        {
-                            _inventory.Craft(localRecipe);
-                        }
-                        else
-                        {
-                            _inventory = Inventory.FindInventory(inventoryName, playerID);
-                            if (_inventory != null)
-                                _inventory.Craft(localRecipe);
-                            else
-                                Debug.LogError("Cannot craft: inventory not found");
-                        }
-                    });
-
-                // Change the onClick to use HandleCrafting
+                // Only one onClick listener
                 craftingButton.GetComponent<Button>().onClick.AddListener(() => HandleCrafting(localRecipe));
             }
         }
