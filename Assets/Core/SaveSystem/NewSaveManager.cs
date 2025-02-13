@@ -18,14 +18,11 @@ namespace Project.Core.SaveSystem
         // Track level transitions for save/load
         readonly Dictionary<string, LevelTransitionData> levelTransitions = new();
 
-        SpawnPointManager _spawnPointManager;
         public static NewSaveManager Instance { get; private set; }
         public SaveData CurrentSave { get; private set; }
 
         void Awake()
         {
-            _spawnPointManager = FindObjectOfType<SpawnPointManager>();
-
             if (Instance == null)
             {
                 Instance = this;
@@ -38,11 +35,6 @@ namespace Project.Core.SaveSystem
             }
         }
 
-
-        Gameplay.DungeonGeneration.Spawning.SpawnPoint FindSpawnPoint(string spawnPointId)
-        {
-            return _spawnPointManager.GetSpawnPointById(spawnPointId);
-        }
 
         public void SetLastTransitionPoint(string levelId, string spawnPointId, SpawnDirection direction)
         {

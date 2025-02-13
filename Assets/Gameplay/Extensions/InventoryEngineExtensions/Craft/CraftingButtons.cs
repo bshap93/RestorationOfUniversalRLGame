@@ -45,14 +45,16 @@ namespace Gameplay.Extensions.InventoryEngineExtensions.Craft
             {
                 Debug.LogError("Cannot craft: inventory not found");
             }
+
+            _craftingButton.SetActive(false);
         }
 
         void CreateButtons()
         {
-            // Deactivate template first
+            // Deactivate the template button
             _craftingButton.SetActive(false);
 
-            // Clear old buttons except template
+            // Clear old buttons except the template (child at index 0)
             for (var i = transform.childCount - 1; i > 0; i--) Destroy(transform.GetChild(i).gameObject);
 
             if (craftRecipes?.Recipes == null) return;
@@ -76,7 +78,8 @@ namespace Gameplay.Extensions.InventoryEngineExtensions.Craft
                 craftingButton.transform.GetChild(3).GetComponent<Text>().text = recipe.IngredientsText;
 
                 var localRecipe = recipe;
-                // Only one onClick listener
+                // Ensure only one onClick listener
+                craftingButton.GetComponent<Button>().onClick.RemoveAllListeners();
                 craftingButton.GetComponent<Button>().onClick.AddListener(() => HandleCrafting(localRecipe));
             }
         }
