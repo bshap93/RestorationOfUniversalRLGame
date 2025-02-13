@@ -19,8 +19,17 @@ namespace Gameplay.ItemsInteractions
         {
             _selectedObjectController = go.GetComponentInParent<ISelectableTrigger>();
 
-            if (_selectedObjectController == null) return false;
-            if (_selectedObjectController is CookingStationController controller) controller.ShowStation();
+            if (_selectedObjectController == null)
+            {
+                Debug.Log("No selectable trigger found");
+                return false;
+            }
+
+            if (_selectedObjectController is CookingStationController controller)
+            {
+                Debug.Log("ShowStation");
+                controller.ShowStation();
+            }
 
 
             _selectedObjectController?.OnSelectedItem();

@@ -1,5 +1,4 @@
 ﻿#if UNITY_EDITOR
-using System.IO;
 using Gameplay.ItemsInteractions;
 using Gameplay.SaveLoad;
 using UnityEditor;
@@ -10,8 +9,6 @@ namespace Project.Editor.Utilities
 {
     public static class DebugMenu
     {
-        const string QuestMachineSavePath = "Assets/MMData/PixelCrushers/QuestMachineURP.data";
-
         [MenuItem("Debug/Clear All Save Data")]
         public static void ClearAllSaveData()
         {
@@ -34,17 +31,6 @@ namespace Project.Editor.Utilities
 
             Debug.Log("Destuctable containers reset.");
 
-
-            // Delete QuestMachine Save File
-            if (File.Exists(QuestMachineSavePath))
-            {
-                File.Delete(QuestMachineSavePath);
-                Debug.Log($"Deleted QuestMachine save file: {QuestMachineSavePath}");
-            }
-            else
-            {
-                Debug.LogWarning($"QuestMachine save file not found: {QuestMachineSavePath}");
-            }
 
             // Delete Dialogue System PlayerPrefs
             PlayerPrefs.DeleteAll();

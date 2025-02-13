@@ -1,9 +1,10 @@
 using Gameplay.Extensions.InventoryEngineExtensions.Craft;
+using Project.Gameplay.SaveLoad.Triggers;
 using UnityEngine;
 
 namespace Gameplay.Crafting.Cooking
 {
-    public class CookingStationController : MonoBehaviour
+    public class CookingStationController : MonoBehaviour, ISelectableTrigger
     {
         [Header("Station Setup")] public Craft stationRecipes;
         public CraftingButtons craftingButtons;
@@ -54,6 +55,14 @@ namespace Gameplay.Crafting.Cooking
 
             if (craftingButtons == null)
                 Debug.LogWarning($"CookingStation '{gameObject.name}': No crafting buttons assigned!", this);
+        }
+        public void OnSelectedItem()
+        {
+            ShowStation();
+        }
+        public void OnUnSelectedItem()
+        {
+            HideStation();
         }
 
         public void ShowStation()

@@ -6,7 +6,6 @@ using Gameplay.ItemManagement.InventoryTypes;
 using MoreMountains.Feedbacks;
 using Plugins.TopDownEngine.ThirdParty.MoreMountains.InentoryEngine.InventoryEngine.Scripts.Items;
 using Project.Gameplay.Events;
-using Project.Gameplay.ItemManagement;
 using Project.Gameplay.ItemManagement.InventoryItemTypes.Books;
 using Project.Gameplay.Player;
 using Project.UI.HUD;
