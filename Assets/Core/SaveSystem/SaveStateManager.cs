@@ -1,8 +1,8 @@
 using MoreMountains.Tools;
-using TopDownEngine.Common.Scripts.Spawn;
+using MoreMountains.TopDownEngine;
 using UnityEngine;
 
-namespace Project.Core.SaveSystem
+namespace Core.SaveSystem
 {
     public class SaveStateManager : MonoBehaviour, MMEventListener<CheckPointEvent>
     {

@@ -1,6 +1,6 @@
-﻿using MoreMountains.Tools;
+﻿using Gameplay.Player;
+using MoreMountains.Tools;
 using MoreMountains.TopDownEngine;
-using Project.Gameplay.Player;
 using TMPro;
 using UnityEngine;
 

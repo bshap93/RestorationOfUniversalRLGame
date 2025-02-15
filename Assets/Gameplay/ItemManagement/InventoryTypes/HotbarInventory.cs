@@ -1,5 +1,4 @@
 ﻿using MoreMountains.InventoryEngine;
-using Project.Gameplay.Interactivity.Items;
 using UnityEngine;
 
 namespace Gameplay.ItemManagement.InventoryTypes

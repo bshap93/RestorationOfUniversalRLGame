@@ -1,6 +1,6 @@
-﻿using Project.Gameplay.Interactivity.Items;
+﻿using MoreMountains.InventoryEngine;
 
-namespace Project.Gameplay.ItemManagement.InventoryTypes.Cooking
+namespace Gameplay.ItemManagement.InventoryTypes.Cooking
 {
     public class RawFoodItem
     {

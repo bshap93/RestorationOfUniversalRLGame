@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using Gameplay.Combat.Shields;
 using MoreMountains.Tools;
 using MoreMountains.TopDownEngine;
 using Project.Gameplay.Combat.Shields;

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using MoreMountains.InventoryEngine;
 using MoreMountains.Tools;
-using Project.Gameplay.Interactivity.Items;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 

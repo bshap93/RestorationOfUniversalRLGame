@@ -1,10 +1,10 @@
 ﻿using System;
+using MoreMountains.InventoryEngine;
 using MoreMountains.TopDownEngine;
-using Project.Gameplay.Interactivity.Items;
 using Project.Gameplay.Magic;
 using UnityEngine;
 
-namespace Project.Gameplay.ItemManagement.InventoryItemTypes.Consumables
+namespace Gameplay.ItemManagement.InventoryItemTypes.Consumables
 {
     [CreateAssetMenu(
         fileName = "InventoryKinemaPotion", menuName = "Roguelike/Items/KinemaPotion", order = 1)]

@@ -1,8 +1,8 @@
 using System;
-using Plugins.TopDownEngine.ThirdParty.MoreMountains.InentoryEngine.InventoryEngine.Scripts.Items;
+using MoreMountains.InventoryEngine;
 using UnityEngine;
 
-namespace Project.Gameplay.ItemManagement.InventoryItemTypes
+namespace Gameplay.ItemManagement.InventoryItemTypes
 {
     [CreateAssetMenu(
         fileName = "InventoryCollectable", menuName = "Roguelike/Items/InventoryCollectable", order = 1)]

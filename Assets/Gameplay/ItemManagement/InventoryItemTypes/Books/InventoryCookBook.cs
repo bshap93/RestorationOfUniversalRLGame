@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using Gameplay.ItemManagement.InventoryItemTypes.Books;
 using Gameplay.ItemManagement.InventoryTypes.Cooking;
 using MoreMountains.Feedbacks;
 using PixelCrushers;
 using Project.Core.Events;
-using Project.Gameplay.ItemManagement.InventoryTypes.Cooking;
 using UnityEngine;
 
 namespace Project.Gameplay.ItemManagement.InventoryItemTypes.Books

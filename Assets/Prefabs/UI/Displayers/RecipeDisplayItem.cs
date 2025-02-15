@@ -1,6 +1,5 @@
 using Gameplay.ItemManagement.InventoryTypes.Cooking;
-using Project.Gameplay.Interactivity.Items;
-using Project.Gameplay.ItemManagement.InventoryTypes.Cooking;
+using MoreMountains.InventoryEngine;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;

@@ -1,7 +1,7 @@
-﻿using Gameplay.SaveLoad;
+﻿using Gameplay.Player;
+using Gameplay.SaveLoad;
 using MoreMountains.Tools;
 using MoreMountains.TopDownEngine;
-using Project.Gameplay.Player;
 using TMPro;
 using UnityEngine;
 

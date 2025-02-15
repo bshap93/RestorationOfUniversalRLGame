@@ -1,16 +1,19 @@
-using Project.Gameplay.Interactivity.Items;
+using MoreMountains.InventoryEngine;
 using UnityEngine;
 
-public class LogShortDescriptionEquipComponent : InventoryItem
+namespace Gameplay.Extensions.InventoryEngineExtensions.ComposedItem.Demo.Scripts
 {
-    public override bool Equip(string playerID)
+    public class LogShortDescriptionEquipComponent : InventoryItem
     {
-        Debug.Log("+" + ShortDescription);
-        return true;
-    }
-    public override bool UnEquip(string playerID)
-    {
-        Debug.Log("-" + ShortDescription);
-        return true;
+        public override bool Equip(string playerID)
+        {
+            Debug.Log("+" + ShortDescription);
+            return true;
+        }
+        public override bool UnEquip(string playerID)
+        {
+            Debug.Log("-" + ShortDescription);
+            return true;
+        }
     }
 }

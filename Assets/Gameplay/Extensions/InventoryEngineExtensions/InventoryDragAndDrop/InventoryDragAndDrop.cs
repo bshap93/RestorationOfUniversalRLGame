@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using Gameplay.ItemManagement.InventoryTypes;
 using MoreMountains.InventoryEngine;
-using Project.Gameplay.Interactivity.Items;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;

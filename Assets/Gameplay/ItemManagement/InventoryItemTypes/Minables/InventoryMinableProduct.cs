@@ -1,4 +1,4 @@
-﻿using Plugins.TopDownEngine.ThirdParty.MoreMountains.InentoryEngine.InventoryEngine.Scripts.Items;
+﻿using MoreMountains.InventoryEngine;
 
 namespace Gameplay.ItemManagement.InventoryItemTypes.Minables
 {

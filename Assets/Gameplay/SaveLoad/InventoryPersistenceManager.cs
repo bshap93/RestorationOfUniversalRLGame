@@ -6,7 +6,6 @@ using MoreMountains.Tools;
 using Project.Gameplay.Combat.Shields;
 using Project.Gameplay.Combat.Tools;
 using Project.Gameplay.Combat.Weapons;
-using Project.Gameplay.Interactivity.Items;
 using UnityEngine;
 using UnityEngine.Serialization;
 

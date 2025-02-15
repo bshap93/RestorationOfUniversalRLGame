@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using MoreMountains.InventoryEngine;
 using Project.Gameplay.Interactivity.CraftingStation;
-using Project.Gameplay.Interactivity.Items;
-using Project.Gameplay.ItemManagement.InventoryTypes.Cooking;
 using Project.Gameplay.ItemManagement.InventoryTypes.Materials;
 using UnityEngine;
 

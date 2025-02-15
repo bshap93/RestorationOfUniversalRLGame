@@ -1,10 +1,9 @@
 using System;
 using System.Collections.Generic;
 using MoreMountains.InventoryEngine;
-using Project.Gameplay.Interactivity.Items;
 using UnityEngine;
 
-namespace Project.Gameplay.ItemsInteractions
+namespace Gameplay.ItemsInteractions
 {
     [Serializable]
     public class StarterItemsForAnInventory

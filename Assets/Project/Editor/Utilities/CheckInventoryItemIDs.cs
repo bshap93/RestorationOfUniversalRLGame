@@ -1,5 +1,5 @@
 ﻿using System.IO;
-using Project.Gameplay.Interactivity.Items;
+using MoreMountains.InventoryEngine;
 using UnityEditor;
 using UnityEngine;
 

@@ -2,7 +2,6 @@
 using System.Linq;
 using MoreMountains.Feedbacks;
 using MoreMountains.InventoryEngine;
-using Project.Gameplay.Interactivity.Items;
 using UnityEngine;
 
 namespace Gameplay.Extensions.InventoryEngineExtensions.Craft

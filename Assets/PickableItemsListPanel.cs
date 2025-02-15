@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using Gameplay.Player.Inventory;
-using Project.Gameplay.Interactivity.Items;
+using MoreMountains.InventoryEngine;
 using UnityEngine;
 
 public class PickableItemsListPanel : MonoBehaviour

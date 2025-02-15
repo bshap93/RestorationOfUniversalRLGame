@@ -1,6 +1,6 @@
 using Gameplay.Player.Inventory;
 using Michsky.MUIP;
-using Project.Gameplay.Interactivity.Items;
+using MoreMountains.InventoryEngine;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -38,7 +38,6 @@ public class ItemInfoPrefab : MonoBehaviour
             else
                 takeItemButton.buttonText = "Take";
         }
-
     }
 
 

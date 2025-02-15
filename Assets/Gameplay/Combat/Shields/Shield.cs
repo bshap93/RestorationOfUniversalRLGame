@@ -1,10 +1,10 @@
 ﻿using System;
 using MoreMountains.Feedbacks;
 using MoreMountains.TopDownEngine;
-using TopDownEngine.Common.Scripts.Characters.CharacterAbilities;
+using Project.Gameplay.Combat.Shields;
 using UnityEngine;
 
-namespace Project.Gameplay.Combat.Shields
+namespace Gameplay.Combat.Shields
 {
     [Serializable]
     public class Shield : MonoBehaviour

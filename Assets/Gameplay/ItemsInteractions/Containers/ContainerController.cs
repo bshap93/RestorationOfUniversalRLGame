@@ -4,7 +4,6 @@ using Gameplay.ItemManagement.InventoryTypes;
 using Gameplay.ItemManagement.InventoryTypes.Storage;
 using MoreMountains.Feedbacks;
 using MoreMountains.InventoryEngine;
-using Project.Gameplay.Interactivity.Items;
 using UnityEngine;
 
 public class ContainerController : MonoBehaviour

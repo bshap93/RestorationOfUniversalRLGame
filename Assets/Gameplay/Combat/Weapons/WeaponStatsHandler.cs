@@ -1,5 +1,5 @@
+using Gameplay.Player;
 using MoreMountains.TopDownEngine;
-using Project.Gameplay.Player;
 using UnityEngine;
 
 namespace Project.Gameplay.Combat.Weapons

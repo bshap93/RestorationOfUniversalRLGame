@@ -1,5 +1,6 @@
 ﻿using System;
-using Project.Gameplay.Interactivity.Items;
+using Gameplay.ItemManagement.InventoryTypes.Fuel;
+using MoreMountains.InventoryEngine;
 
 namespace Project.Gameplay.ItemManagement.InventoryTypes.Fuel
 {

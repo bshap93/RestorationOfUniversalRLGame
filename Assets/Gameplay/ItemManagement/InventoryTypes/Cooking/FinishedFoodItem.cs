@@ -2,7 +2,7 @@
 using Project.Gameplay.Interactivity.Food;
 using UnityEngine;
 
-namespace Project.Gameplay.ItemManagement.InventoryTypes.Cooking
+namespace Gameplay.ItemManagement.InventoryTypes.Cooking
 {
     [Serializable]
     public class FinishedFoodItem

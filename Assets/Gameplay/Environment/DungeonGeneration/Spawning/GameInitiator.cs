@@ -1,11 +1,12 @@
 ﻿// GameInitiator.cs
 
 using System.Threading.Tasks;
+using Core.SaveSystem;
+using Gameplay.Player;
 using MoreMountains.Tools;
 using MoreMountains.TopDownEngine;
 using Project.Core.SaveSystem;
 using Project.Gameplay.Enemy;
-using Project.Gameplay.Player;
 using UnityEngine;
 
 namespace Core.GameInitialization

@@ -1,8 +1,8 @@
 ﻿using System;
-using Plugins.TopDownEngine.ThirdParty.MoreMountains.InentoryEngine.InventoryEngine.Scripts.Items;
+using MoreMountains.InventoryEngine;
 using UnityEngine;
 
-namespace Project.Gameplay.ItemManagement.InventoryItemTypes
+namespace Gameplay.ItemManagement.InventoryItemTypes
 {
     [CreateAssetMenu(
         fileName = "InventoryConsumable", menuName = "Roguelike/Items/InventoryTool", order = 2)]

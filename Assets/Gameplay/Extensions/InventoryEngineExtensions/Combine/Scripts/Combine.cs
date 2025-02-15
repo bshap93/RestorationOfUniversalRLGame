@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using MoreMountains.InventoryEngine;
-using Project.Gameplay.Interactivity.Items;
 using UnityEngine;
 
 namespace Combine

@@ -1,11 +1,11 @@
 ﻿using MoreMountains.InventoryEngine;
 using MoreMountains.Tools;
-using TopDownEngine.Common.Scripts.GUI;
+using MoreMountains.TopDownEngine;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 
-namespace Project.Gameplay.Combat
+namespace Gameplay.Combat
 {
     public class CustomAmmoDisplay : AmmoDisplay, MMEventListener<MMInventoryEvent>, MMEventListener<MMGameEvent>
     {

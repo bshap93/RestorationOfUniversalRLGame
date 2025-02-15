@@ -3,13 +3,11 @@ using Gameplay.Extensions.InventoryEngineExtensions.PickupDisplayer;
 using Gameplay.Player.Inventory;
 using MoreMountains.InventoryEngine;
 using MoreMountains.Tools;
-using Plugins.TopDownEngine.ThirdParty.MoreMountains.InentoryEngine.InventoryEngine.Scripts.Items;
 using Project.Gameplay.Interactivity.CraftingStation;
-using Project.Gameplay.Interactivity.Items;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-namespace Project.UI.HUD
+namespace Gameplay.UI.HUD
 {
     public class ListPreviewManager : MonoBehaviour, MMEventListener<MMInventoryEvent>
 

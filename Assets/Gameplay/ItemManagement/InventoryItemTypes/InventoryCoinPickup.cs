@@ -1,5 +1,5 @@
-﻿using Plugins.TopDownEngine.ThirdParty.MoreMountains.InentoryEngine.InventoryEngine.Scripts.Items;
-using Project.Gameplay.Player;
+﻿using Gameplay.Player;
+using MoreMountains.InventoryEngine;
 using UnityEngine;
 
 namespace Gameplay.ItemManagement.InventoryItemTypes

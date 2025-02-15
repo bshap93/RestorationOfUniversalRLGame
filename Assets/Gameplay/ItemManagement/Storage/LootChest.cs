@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using Gameplay.Player.Inventory;
 using Gameplay.SaveLoad.Triggers;
 using MoreMountains.Feedbacks;
-using Plugins.TopDownEngine.ThirdParty.MoreMountains.InentoryEngine.InventoryEngine.Scripts.Items;
+using MoreMountains.InventoryEngine;
 using Project.UI.HUD;
 using UnityEngine;
 

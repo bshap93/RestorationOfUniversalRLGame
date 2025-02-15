@@ -1,5 +1,4 @@
 ﻿using MoreMountains.TopDownEngine;
-using TopDownEngine.Common.Scripts.Characters.CharacterAbilities;
 
 namespace Project.Gameplay.AI
 {

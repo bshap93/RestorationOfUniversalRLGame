@@ -1,9 +1,9 @@
 ﻿using System;
+using MoreMountains.InventoryEngine;
 using MoreMountains.TopDownEngine;
-using Project.Gameplay.Interactivity.Items;
 using UnityEngine;
 
-namespace Project.Gameplay.ItemManagement.InventoryItemTypes.Consumables
+namespace Gameplay.ItemManagement.InventoryItemTypes.Consumables
 {
     [CreateAssetMenu(
         fileName = "InventoryHealthPotion", menuName = "Roguelike/Items/HealthPotion", order = 1)]

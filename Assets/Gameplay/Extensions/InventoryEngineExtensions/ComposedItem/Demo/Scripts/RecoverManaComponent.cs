@@ -1,40 +1,43 @@
 using System;
-using Project.Gameplay.Interactivity.Items;
+using MoreMountains.InventoryEngine;
 using UnityEngine;
 
-public class RecoverManaComponent : InventoryItem, IOverridable
+namespace Gameplay.Extensions.InventoryEngineExtensions.ComposedItem.Demo.Scripts
 {
-    [SerializeField] float Mana;
-    IOverride IOverridable.NewOverride()
-    {
-        return new SerializedComponent(this);
-    }
-    public override bool Use(string playerID)
-    {
-        Debug.Log("Recovered " + (int)Mana + " MP");
-        return true;
-    }
-
-    [Serializable]
-    class SerializedComponent : IOverride
+    public class RecoverManaComponent : InventoryItem, IOverridable
     {
         [SerializeField] float Mana;
-        public SerializedComponent(RecoverManaComponent component)
+        IOverride IOverridable.NewOverride()
         {
-            Save(component);
+            return new SerializedComponent(this);
         }
-        IOverridable IOverride.Apply(IOverridable overridable)
+        public override bool Use(string playerID)
         {
-            Load((RecoverManaComponent)overridable);
-            return overridable;
+            Debug.Log("Recovered " + (int)Mana + " MP");
+            return true;
         }
-        public void Save(RecoverManaComponent component)
+
+        [Serializable]
+        class SerializedComponent : IOverride
         {
-            Mana = component.Mana;
-        }
-        public void Load(RecoverManaComponent component)
-        {
-            component.Mana = Mana;
+            [SerializeField] float Mana;
+            public SerializedComponent(RecoverManaComponent component)
+            {
+                Save(component);
+            }
+            IOverridable IOverride.Apply(IOverridable overridable)
+            {
+                Load((RecoverManaComponent)overridable);
+                return overridable;
+            }
+            public void Save(RecoverManaComponent component)
+            {
+                Mana = component.Mana;
+            }
+            public void Load(RecoverManaComponent component)
+            {
+                component.Mana = Mana;
+            }
         }
     }
 }

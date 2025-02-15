@@ -1,4 +1,4 @@
-﻿using Project.Gameplay.ItemManagement.InventoryItemTypes;
+﻿using Gameplay.ItemManagement.InventoryItemTypes;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;

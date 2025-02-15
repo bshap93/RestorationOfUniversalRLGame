@@ -1,4 +1,4 @@
-using Project.Gameplay.Interactivity.Items;
+using MoreMountains.InventoryEngine;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;

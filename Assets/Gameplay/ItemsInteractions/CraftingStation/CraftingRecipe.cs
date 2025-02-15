@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
+using Gameplay.ItemManagement.InventoryItemTypes;
 using MoreMountains.Feedbacks;
-using Project.Gameplay.ItemManagement.InventoryItemTypes;
 using UnityEngine;
 
 namespace Project.Gameplay.Interactivity.CraftingStation

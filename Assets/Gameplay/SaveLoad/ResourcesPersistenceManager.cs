@@ -1,6 +1,6 @@
 ﻿using System;
+using Gameplay.Player;
 using MoreMountains.Tools;
-using Project.Gameplay.Player;
 using Project.Gameplay.Player.Health;
 using UnityEngine;
 

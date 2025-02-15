@@ -1,5 +1,5 @@
 ﻿using System;
-using Plugins.TopDownEngine.ThirdParty.MoreMountains.InentoryEngine.InventoryEngine.Scripts.Items;
+using MoreMountains.InventoryEngine;
 using UnityEngine;
 
 namespace Gameplay.Combat.Tools

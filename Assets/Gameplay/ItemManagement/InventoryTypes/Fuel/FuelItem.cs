@@ -1,8 +1,8 @@
 ﻿using System;
-using Project.Gameplay.Interactivity.Items;
+using MoreMountains.InventoryEngine;
 using UnityEngine.Serialization;
 
-namespace Project.Gameplay.ItemManagement.InventoryTypes.Fuel
+namespace Gameplay.ItemManagement.InventoryTypes.Fuel
 {
     [Serializable]
     public class FuelItem

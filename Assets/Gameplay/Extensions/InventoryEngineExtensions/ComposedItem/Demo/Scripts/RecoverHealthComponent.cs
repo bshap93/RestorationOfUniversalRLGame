@@ -1,40 +1,43 @@
 using System;
-using Project.Gameplay.Interactivity.Items;
+using MoreMountains.InventoryEngine;
 using UnityEngine;
 
-public class RecoverHealthComponent : InventoryItem, IOverridable
+namespace Gameplay.Extensions.InventoryEngineExtensions.ComposedItem.Demo.Scripts
 {
-    [SerializeField] float Health;
-    IOverride IOverridable.NewOverride()
-    {
-        return new SerializedComponent(this);
-    }
-    public override bool Use(string playerID)
-    {
-        Debug.Log("Recovered " + (int)Health + " HP");
-        return true;
-    }
-
-    [Serializable]
-    class SerializedComponent : IOverride
+    public class RecoverHealthComponent : InventoryItem, IOverridable
     {
         [SerializeField] float Health;
-        public SerializedComponent(RecoverHealthComponent component)
+        IOverride IOverridable.NewOverride()
         {
-            Save(component);
+            return new SerializedComponent(this);
         }
-        IOverridable IOverride.Apply(IOverridable overridable)
+        public override bool Use(string playerID)
         {
-            Load((RecoverHealthComponent)overridable);
-            return overridable;
+            Debug.Log("Recovered " + (int)Health + " HP");
+            return true;
         }
-        public void Save(RecoverHealthComponent component)
+
+        [Serializable]
+        class SerializedComponent : IOverride
         {
-            Health = component.Health;
-        }
-        public void Load(RecoverHealthComponent component)
-        {
-            component.Health = Health;
+            [SerializeField] float Health;
+            public SerializedComponent(RecoverHealthComponent component)
+            {
+                Save(component);
+            }
+            IOverridable IOverride.Apply(IOverridable overridable)
+            {
+                Load((RecoverHealthComponent)overridable);
+                return overridable;
+            }
+            public void Save(RecoverHealthComponent component)
+            {
+                Health = component.Health;
+            }
+            public void Load(RecoverHealthComponent component)
+            {
+                component.Health = Health;
+            }
         }
     }
 }

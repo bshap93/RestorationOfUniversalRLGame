@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Gameplay.Combat.Shields;
 using MoreMountains.TopDownEngine;
 using Project.Gameplay.Combat.Shields;
 using UnityEngine;

@@ -7,11 +7,10 @@ using MoreMountains.TopDownEngine;
 using Project.Core.CharacterCreation;
 using Project.Gameplay.Player.Health;
 using Project.Gameplay.Player.Stats;
-using TopDownEngine.Common.Scripts.Characters.CharacterAbilities;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-namespace Project.Gameplay.Player
+namespace Gameplay.Player
 {
     [Serializable]
     public class PlayerStats : MonoBehaviour, MMEventListener<MMGameEvent>

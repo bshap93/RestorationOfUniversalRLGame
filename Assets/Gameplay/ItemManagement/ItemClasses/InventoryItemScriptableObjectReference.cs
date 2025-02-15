@@ -1,7 +1,10 @@
-using Project.Gameplay.Interactivity.Items;
+using MoreMountains.InventoryEngine;
 using UnityEngine;
 
-public class InventoryItemScriptableObjectReference : MonoBehaviour
+namespace Gameplay.ItemManagement.ItemClasses
 {
-    public InventoryItem inventoryItem;
+    public class InventoryItemScriptableObjectReference : MonoBehaviour
+    {
+        public InventoryItem inventoryItem;
+    }
 }

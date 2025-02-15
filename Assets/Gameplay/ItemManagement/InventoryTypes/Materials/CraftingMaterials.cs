@@ -1,5 +1,5 @@
 ﻿using System;
-using Project.Gameplay.Interactivity.Items;
+using MoreMountains.InventoryEngine;
 using UnityEngine;
 
 namespace Project.Gameplay.ItemManagement.InventoryTypes.Materials

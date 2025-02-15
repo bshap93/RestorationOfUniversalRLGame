@@ -1,8 +1,8 @@
 ﻿using System;
-using Plugins.TopDownEngine.ThirdParty.MoreMountains.InentoryEngine.InventoryEngine.Scripts.Items;
+using MoreMountains.InventoryEngine;
 using UnityEngine;
 
-namespace Project.Gameplay.ItemManagement.InventoryItemTypes.Books
+namespace Gameplay.ItemManagement.InventoryItemTypes.Books
 {
     [CreateAssetMenu(
         fileName = "InventoryBook", menuName = "Crafting/Book", order = 1)]

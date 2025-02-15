@@ -1,4 +1,5 @@
-﻿using MoreMountains.Tools;
+﻿using Gameplay.Combat.Shields;
+using MoreMountains.Tools;
 using MoreMountains.TopDownEngine;
 using Project.Gameplay.Combat.Weapons;
 using UnityEngine;

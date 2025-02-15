@@ -1,10 +1,11 @@
 ﻿using System;
 using Core.GameInitialization;
 using Gameplay.ItemManagement.InventoryTypes;
+using Gameplay.UI.HUD;
 using JetBrains.Annotations;
 using MoreMountains.Feedbacks;
+using MoreMountains.InventoryEngine;
 using PixelCrushers.DialogueSystem.Wrappers;
-using Plugins.TopDownEngine.ThirdParty.MoreMountains.InentoryEngine.InventoryEngine.Scripts.Items;
 using Project.Gameplay.Events;
 using Project.UI.HUD;
 using UnityEngine;

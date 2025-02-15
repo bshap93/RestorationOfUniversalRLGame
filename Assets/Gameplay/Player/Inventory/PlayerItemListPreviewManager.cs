@@ -1,13 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Gameplay.UI.HUD;
 using HighlightPlus;
 using JetBrains.Annotations;
 using MoreMountains.Feedbacks;
+using MoreMountains.InventoryEngine;
 using MoreMountains.Tools;
-using Plugins.TopDownEngine.ThirdParty.MoreMountains.InentoryEngine.InventoryEngine.Scripts.Items;
 using Project.Gameplay.Events;
-using Project.Gameplay.Interactivity.Items;
-using Project.UI.HUD;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -111,11 +110,6 @@ namespace Gameplay.Player.Inventory
         {
             if (_isPickingUp || Time.time - _lastPickupTime < _pickupCooldown) return false;
 
-            if (itemPicker.Item.UsageType == ItemUsageType.Usable)
-            {
-                Debug.Log($"Cannot pick up {itemPicker.Item.ItemName} because it is not pickable.");
-                return false;
-            }
 
             if (_isPickingUp || Time.time - _lastPickupTime < _pickupCooldown) return false;
 

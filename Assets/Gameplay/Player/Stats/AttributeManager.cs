@@ -1,4 +1,5 @@
-﻿using MoreMountains.Tools;
+﻿using Gameplay.Player;
+using MoreMountains.Tools;
 using Project.Core.CharacterCreation;
 using UnityEngine;
 

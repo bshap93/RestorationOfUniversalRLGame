@@ -1,7 +1,6 @@
-﻿using Gameplay.ItemManagement.InventoryTypes;
-using Project.Gameplay.Interactivity.Items;
+﻿using MoreMountains.InventoryEngine;
 
-namespace Project.Gameplay.ItemManagement.InventoryTypes
+namespace Gameplay.ItemManagement.InventoryTypes
 {
     public class PrimaryInventory : MainInventory
     {

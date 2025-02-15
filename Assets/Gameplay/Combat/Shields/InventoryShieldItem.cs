@@ -1,6 +1,6 @@
-﻿using MoreMountains.InventoryEngine;
+﻿using Gameplay.Combat.Shields;
+using MoreMountains.InventoryEngine;
 using MoreMountains.TopDownEngine;
-using Plugins.TopDownEngine.ThirdParty.MoreMountains.InentoryEngine.InventoryEngine.Scripts.Items;
 using UnityEngine;
 
 namespace Project.Gameplay.Combat.Shields

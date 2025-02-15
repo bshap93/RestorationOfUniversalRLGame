@@ -5,8 +5,6 @@ using MoreMountains.Feedbacks;
 using MoreMountains.InventoryEngine;
 using MoreMountains.Tools;
 using Project.Gameplay.Interactivity;
-using Project.Gameplay.Interactivity.Items;
-using Project.Gameplay.ItemManagement;
 using Project.Gameplay.ItemManagement.InventoryTypes.Cooking;
 using Project.UI.HUD;
 using UnityEngine;
