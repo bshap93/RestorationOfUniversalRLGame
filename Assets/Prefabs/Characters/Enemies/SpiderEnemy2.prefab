@@ -175,7 +175,7 @@ MonoBehaviour:
     OnResume:
       m_PersistentCalls:
         m_Calls: []
-    OnRevert:
+    OnChangeDirection:
       m_PersistentCalls:
         m_Calls: []
     OnComplete:
@@ -197,11 +197,13 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls: []
   DebugActive: 0
+  InScriptDrivenPause: 0
   FeedbacksList:
   - rid: 0
   - rid: 1
   KeepPlayModeChanges: 0
   PerformanceMode: 0
+  RestoreInitialValuesOnDisable: 0
   StopFeedbacksOnDisable: 0
   PlayCount: 0
   references:
@@ -213,11 +215,11 @@ MonoBehaviour:
         Active: 1
         UniqueID: -1058458761
         Label: Particles Play
+        OriginalLabel: 
         ChannelMode: 0
         Channel: 0
         MMChannelDefinition: {fileID: 0}
         Chance: 100
-        DisplayColor: {r: 0, g: 0, b: 0, a: 1}
         Timing:
           TimescaleMode: 0
           ExcludeFromHoldingPauses: 0
@@ -299,11 +301,11 @@ MonoBehaviour:
         Active: 1
         UniqueID: -1929796972
         Label: Sound
+        OriginalLabel: 
         ChannelMode: 0
         Channel: 0
         MMChannelDefinition: {fileID: 0}
         Chance: 100
-        DisplayColor: {r: 0, g: 0, b: 0, a: 1}
         Timing:
           TimescaleMode: 0
           ExcludeFromHoldingPauses: 0
@@ -1469,7 +1471,6 @@ GameObject:
   - component: {fileID: 6475337626014966857}
   - component: {fileID: 6924445214908498405}
   - component: {fileID: 378902694477253470}
-  - component: {fileID: 4180191537751379002}
   - component: {fileID: 4951604382980242586}
   m_Layer: 3
   m_Name: SpiderEnemy2
@@ -2257,6 +2258,7 @@ MonoBehaviour:
   BlockingConditionStates: 
   BlockingWeaponStates: 
   Target: {fileID: 0}
+  ShouldMoveToTarget: 1
   AreaMask: -1
   DistanceToWaypointThreshold: 1
   ClosestPointThreshold: 3
@@ -2266,9 +2268,17 @@ MonoBehaviour:
   RefreshInterval: 2
   DebugDrawPath: 0
   Waypoints: []
+  TargetPositionSet: 0
+  TargetPosition: {x: 0, y: 0, z: 0}
   NextWaypointIndex: 0
   NextWaypointDirection: {x: 0, y: 0, z: 0}
   DistanceToNextWaypoint: 0
+  DebugTargetTransform: {fileID: 0}
+  DebugSetTargetTransformAsDestinationBtn: 0
+  DebugTargetPosition: {x: 0, y: 0, z: 0}
+  DebugSetTargetPositionAsDestinationBtn: 0
+  StopPathfindingBtn: 0
+  CleanTargetBtn: 0
 --- !u!114 &378902694477253470
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2312,51 +2322,6 @@ MonoBehaviour:
     onConditionMet:
       m_PersistentCalls:
         m_Calls: []
---- !u!114 &4180191537751379002
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2246649116668966876}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 01754710d9f92ec4d9a21b81f5682667, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Model: {fileID: 0}
-  CurrentHealth: 0
-  Invulnerable: 0
-  InitialHealth: 10
-  MaximumHealth: 10
-  ResetHealthOnEnable: 1
-  ImmuneToDamage: 0
-  DamageMMFeedbacks: {fileID: 0}
-  FeedbackIsProportionalToDamage: 0
-  PreventTakeSelfDamage: 0
-  ImmuneToKnockback: 0
-  ImmuneToKnockbackIfZeroDamage: 0
-  KnockbackForceMultiplier: 1
-  DestroyOnDeath: 1
-  DelayBeforeDestruction: 0
-  PointsWhenDestroyed: 0
-  RespawnAtInitialLocation: 0
-  DisableControllerOnDeath: 1
-  DisableModelOnDeath: 1
-  DisableCollisionsOnDeath: 1
-  DisableChildCollisionsOnDeath: 0
-  ChangeLayerOnDeath: 0
-  ChangeLayersRecursivelyOnDeath: 0
-  LayerOnDeath:
-    _layerIndex: 0
-  DeathMMFeedbacks: {fileID: 0}
-  ResetColorOnRevive: 1
-  ColorMaterialPropertyName: _Color
-  UseMaterialPropertyBlocks: 0
-  MasterHealth: {fileID: 0}
-  TargetDamageResistanceProcessor: {fileID: 0}
-  TargetAnimator: {fileID: 0}
-  DisableAnimatorLogs: 1
 --- !u!114 &4951604382980242586
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3402,30 +3367,29 @@ MonoBehaviour:
       - Decision: {fileID: 2275448068239518886}
         TrueState: 
         FalseState: Chasing
-  - StateName: Hunting
+  - StateName: Chasing
     Actions:
       array:
-      - {fileID: 0}
+      - {fileID: 6501021708775872252}
+      - {fileID: 5342944781321965414}
     Transitions:
       array:
-      - Decision: {fileID: 0}
+      - Decision: {fileID: 2275448068239518886}
+        TrueState: Attacking
+        FalseState: 
+      - Decision: {fileID: 2832093937942652453}
         TrueState: 
         FalseState: Detecting
-  - StateName: Watching
-    Actions:
-      array:
-      - {fileID: 0}
-      - {fileID: 0}
-    Transitions:
-      array: []
-  - StateName: Watching
-    Actions:
-      array:
-      - {fileID: 0}
-      - {fileID: 0}
-    Transitions:
-      array: []
   - StateName: Detecting
+    Actions:
+      array:
+      - {fileID: 7175564119544302584}
+    Transitions:
+      array:
+      - Decision: {fileID: 2832093937942652453}
+        TrueState: Chasing
+        FalseState: 
+  - StateName: Wandering
     Actions:
       array:
       - {fileID: 7175564119544302584}
@@ -3565,7 +3529,7 @@ MonoBehaviour:
   InitializationMode: 0
   Label: 
   TargetHandleWeaponAbility: {fileID: 3058443226444650515}
-  AimAtTarget: 1
+  AimAtTarget: 0
   AimOrigin: 0
   ShootOffset: {x: 0, y: 0, z: 0}
   LockVerticalAim: 0
@@ -3751,7 +3715,7 @@ MonoBehaviour:
     OnResume:
       m_PersistentCalls:
         m_Calls: []
-    OnRevert:
+    OnChangeDirection:
       m_PersistentCalls:
         m_Calls: []
     OnComplete:
@@ -3773,11 +3737,13 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls: []
   DebugActive: 0
+  InScriptDrivenPause: 0
   FeedbacksList:
   - rid: 4950072048953851904
   - rid: 509909688221696030
   KeepPlayModeChanges: 0
   PerformanceMode: 0
+  RestoreInitialValuesOnDisable: 0
   StopFeedbacksOnDisable: 0
   PlayCount: 0
   references:
@@ -3789,11 +3755,11 @@ MonoBehaviour:
         Active: 1
         UniqueID: 1302111362
         Label: Particles Instantiation
+        OriginalLabel: 
         ChannelMode: 0
         Channel: 0
         MMChannelDefinition: {fileID: 0}
         Chance: 100
-        DisplayColor: {r: 0, g: 0, b: 0, a: 1}
         Timing:
           TimescaleMode: 0
           ExcludeFromHoldingPauses: 0
@@ -3883,11 +3849,11 @@ MonoBehaviour:
         Active: 1
         UniqueID: 1113854849
         Label: Sound
+        OriginalLabel: 
         ChannelMode: 0
         Channel: 0
         MMChannelDefinition: {fileID: 0}
         Chance: 100
-        DisplayColor: {r: 0, g: 0, b: 0, a: 1}
         Timing:
           TimescaleMode: 0
           ExcludeFromHoldingPauses: 0
@@ -4442,7 +4408,7 @@ MonoBehaviour:
     OnResume:
       m_PersistentCalls:
         m_Calls: []
-    OnRevert:
+    OnChangeDirection:
       m_PersistentCalls:
         m_Calls: []
     OnComplete:
@@ -4464,12 +4430,14 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls: []
   DebugActive: 0
+  InScriptDrivenPause: 0
   FeedbacksList:
   - rid: 509909688221696024
   - rid: 509909688221696028
   - rid: 509909688221696031
   KeepPlayModeChanges: 0
   PerformanceMode: 0
+  RestoreInitialValuesOnDisable: 0
   StopFeedbacksOnDisable: 0
   PlayCount: 0
   references:
@@ -4481,11 +4449,11 @@ MonoBehaviour:
         Active: 1
         UniqueID: -1680667344
         Label: Sound
+        OriginalLabel: 
         ChannelMode: 0
         Channel: 0
         MMChannelDefinition: {fileID: 0}
         Chance: 100
-        DisplayColor: {r: 0, g: 0, b: 0, a: 1}
         Timing:
           TimescaleMode: 0
           ExcludeFromHoldingPauses: 0
@@ -4630,11 +4598,11 @@ MonoBehaviour:
         Active: 1
         UniqueID: -357433567
         Label: Particles Instantiation
+        OriginalLabel: 
         ChannelMode: 0
         Channel: 0
         MMChannelDefinition: {fileID: 0}
         Chance: 100
-        DisplayColor: {r: 0, g: 0, b: 0, a: 1}
         Timing:
           TimescaleMode: 0
           ExcludeFromHoldingPauses: 0
@@ -4724,11 +4692,11 @@ MonoBehaviour:
         Active: 1
         UniqueID: 281809071
         Label: Sound
+        OriginalLabel: 
         ChannelMode: 0
         Channel: 0
         MMChannelDefinition: {fileID: 0}
         Chance: 100
-        DisplayColor: {r: 0, g: 0, b: 0, a: 1}
         Timing:
           TimescaleMode: 0
           ExcludeFromHoldingPauses: 0
