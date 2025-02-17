@@ -57,88 +57,6 @@ MonoBehaviour:
     spritePortrait: {fileID: 0}
     alternatePortraits: []
     spritePortraits: []
-  - id: 2
-    fields:
-    - title: Name
-      value: New Actor 2
-      type: 0
-      typeString: 
-    - title: Pictures
-      value: '[]'
-      type: 3
-      typeString: CustomFieldType_Files
-    - title: Description
-      value: 
-      type: 0
-      typeString: CustomFieldType_Text
-    - title: IsPlayer
-      value: False
-      type: 2
-      typeString: CustomFieldType_Boolean
-    portrait: {fileID: 0}
-    spritePortrait: {fileID: 0}
-    alternatePortraits: []
-    spritePortraits: []
-  - id: 3
-    fields:
-    - title: Name
-      value: FacelessHermit
-      type: 0
-      typeString: 
-    - title: Pictures
-      value: '[]'
-      type: 3
-      typeString: CustomFieldType_Files
-    - title: Description
-      value: 
-      type: 0
-      typeString: CustomFieldType_Text
-    - title: IsPlayer
-      value: False
-      type: 2
-      typeString: CustomFieldType_Boolean
-    - title: Display Name
-      value: Midreth Kennest
-      type: 0
-      typeString: 
-    - title: NodeColor
-      value: '#f3f3f3ff'
-      type: 0
-      typeString: 
-    portrait: {fileID: 2800000, guid: b067b3b44a64db546aca25bccefed6d6, type: 3}
-    spritePortrait: {fileID: 0}
-    alternatePortraits: []
-    spritePortraits: []
-  - id: 4
-    fields:
-    - title: Name
-      value: Player
-      type: 0
-      typeString: 
-    - title: Pictures
-      value: '[]'
-      type: 3
-      typeString: CustomFieldType_Files
-    - title: Description
-      value: 
-      type: 0
-      typeString: CustomFieldType_Text
-    - title: IsPlayer
-      value: True
-      type: 2
-      typeString: CustomFieldType_Boolean
-    - title: NodeColor
-      value: Blue
-      type: 0
-      typeString: 
-    - title: Display Name
-      value: Player Name
-      type: 0
-      typeString: 
-    portrait: {fileID: 2800000, guid: bd4763095ba0de249a4276ea4fd53c42, type: 3}
-    spritePortrait: {fileID: 0}
-    alternatePortraits: []
-    spritePortraits: []
   items:
   - id: 1
     fields:
@@ -699,13 +617,15 @@ MonoBehaviour:
         priority: 2
       conditionsString: CurrentQuestEntryState("ForagingBasics", 2) ~= "success"
         and (Variable["SpokenWithMidreth"] == false)
-      userScript: Variable["SpokenWithMidreth"] = true
+      userScript: 'Variable["SpokenWithMidreth"] = true;
+
+'
       onExecute:
         m_PersistentCalls:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 173.95349
+        x: 166.66182
         y: 150.897
         width: 160
         height: 30
@@ -1191,8 +1111,8 @@ MonoBehaviour:
         width: 160
         height: 30
     entryGroups: []
-    canvasScrollPosition: {x: 0, y: 7.484848}
-    canvasZoom: 0.64000005
+    canvasScrollPosition: {x: 0, y: 0}
+    canvasZoom: 0.40000015
   - id: 2
     fields:
     - title: Title
