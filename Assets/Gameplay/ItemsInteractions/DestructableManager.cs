@@ -8,7 +8,8 @@ namespace Gameplay.ItemsInteractions
 {
     public class DestructableManager : MonoBehaviour
     {
-        public static HashSet<string> DestroyedContainers = new();
+        public string SaveFileName = "DestroyedDestructable.es3";
+        public static HashSet<string> DestroyedDestructables = new();
         public PickableManager pickableManager;
 
         void Start()
@@ -24,10 +25,10 @@ namespace Gameplay.ItemsInteractions
             }
 
             // pickableManager.LoadPickedItems(); // Load loot first
-            StartCoroutine(DestroyContainersAfterLoot()); // Delay container destruction
+            StartCoroutine(DestroyDestructablesAfterLoot()); // Delay container destruction
         }
 
-        IEnumerator DestroyContainersAfterLoot()
+        IEnumerator DestroyDestructablesAfterLoot()
         {
             yield return new WaitForSeconds(0.5f); // Wait for loot to spawn
 
@@ -37,23 +38,23 @@ namespace Gameplay.ItemsInteractions
 
         public void LoadDestroyedContainers()
         {
-            DestroyedContainers.Clear();
+            DestroyedDestructables.Clear();
 
             if (ES3.FileExists("DestroyedContainers.es3"))
             {
                 var keys = ES3.GetKeys("DestroyedContainers.es3");
                 foreach (var key in keys)
                     if (ES3.Load<bool>(key, "DestroyedContainers.es3"))
-                        DestroyedContainers.Add(key);
+                        DestroyedDestructables.Add(key);
             }
 
             // Find and destroy any containers that should be destroyed
-            var containers = FindObjectsByType<ContainerDestruction>(FindObjectsSortMode.None);
-            foreach (var container in containers)
-                if (IsContainerDestroyed(container.UniqueID))
+            var destructables = FindObjectsByType<BaseDestructable>(FindObjectsSortMode.None);
+            foreach (var destructable in destructables)
+                if (IsContainerDestroyed(destructable.UniqueID))
                 {
-                    Debug.Log($"Destroying container {container.UniqueID} on load");
-                    container.DestroyContainer(false);
+                    Debug.Log($"Destroying container {destructable.UniqueID} on load");
+                    destructable.DestroyDestructableObject(false);
                 }
         }
 
@@ -66,19 +67,19 @@ namespace Gameplay.ItemsInteractions
             }
 
             ES3.Save(uniqueID, true, "DestroyedContainers.es3");
-            DestroyedContainers.Add(uniqueID);
+            DestroyedDestructables.Add(uniqueID);
             Debug.Log($"Saved destroyed container: {uniqueID}");
         }
 
         public static bool IsContainerDestroyed(string uniqueID)
         {
-            return !string.IsNullOrEmpty(uniqueID) && DestroyedContainers.Contains(uniqueID);
+            return !string.IsNullOrEmpty(uniqueID) && DestroyedDestructables.Contains(uniqueID);
         }
 
         public static void ResetDestroyedContainers()
         {
             ES3.DeleteFile("DestroyedContainers.es3");
-            DestroyedContainers.Clear();
+            DestroyedDestructables.Clear();
         }
     }
 }

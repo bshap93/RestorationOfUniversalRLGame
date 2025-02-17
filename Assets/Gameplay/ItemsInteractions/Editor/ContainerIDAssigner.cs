@@ -9,35 +9,26 @@ namespace Gameplay.ItemsInteractions.Editor
         [MenuItem("Debug/Assign Unique IDs to Destructables")]
         static void AssignUniqueIDs()
         {
-            var allContainers = FindObjectsOfType<ContainerDestruction>();
-            var allDestructableMineables = FindObjectsOfType<DestructableMineable>();
+            var allDestructables = FindObjectsOfType<BaseDestructable>();
 
-            if (allContainers.Length == 0) Debug.LogWarning("No ContainerDestruction components found in the scene.");
-
-            if (allDestructableMineables.Length == 0)
-                Debug.LogWarning("No DestructableMineable components found in the scene.");
-
-            if (allContainers.Length == 0 && allDestructableMineables.Length == 0) return;
+            if (allDestructables.Length == 0)
+                Debug.LogWarning("No ContainerDestruction components found in the scene.");
 
 
-            foreach (var container in allContainers)
-                if (container != null && string.IsNullOrEmpty(container.UniqueID))
+            if (allDestructables.Length == 0) return;
+
+
+            foreach (var destructable in allDestructables)
+                if (destructable != null && string.IsNullOrEmpty(destructable.UniqueID))
                 {
-                    container.UniqueID = Guid.NewGuid().ToString();
-                    EditorUtility.SetDirty(container);
+                    destructable.UniqueID = Guid.NewGuid().ToString();
+                    EditorUtility.SetDirty(destructable);
                 }
 
-
-            foreach (var mineable in allDestructableMineables)
-                if (mineable != null && string.IsNullOrEmpty(mineable.UniqueID))
-                {
-                    mineable.UniqueID = Guid.NewGuid().ToString();
-                    EditorUtility.SetDirty(mineable);
-                }
 
             AssetDatabase.SaveAssets();
             Debug.Log(
-                $"Assigned unique IDs to {allContainers.Length} containers and {allDestructableMineables.Length} mineables.");
+                $"Assigned unique IDs to {allDestructables.Length} destructables");
         }
     }
 }

@@ -11,7 +11,6 @@ namespace Gameplay.ItemManagement.InventoryTypes.Destructables
     public class Destructable : Interactable
     {
         [Header("Prefabs")] public List<GameObject> destroyedPrefabs; // List of possible destroyed prefabs
-        public GameObject prefabIntact;
         public List<GameObject> intermediatePrefabs;
 
         [Header("Health")] public float maxHealth = 30f;

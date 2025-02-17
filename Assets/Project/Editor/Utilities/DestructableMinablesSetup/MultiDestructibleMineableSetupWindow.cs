@@ -14,6 +14,7 @@ namespace Project.Editor.Utilities.DestructableMinablesSetup
 {
     public class MultiDestructibleMineableSetupWindow : EditorWindow
     {
+        readonly List<GameObject> selectedObjects = new();
         string assetSavePath = "Assets/Prefabs/Destructibles/";
         GameObject damageFeedbackPrefab;
         int mineableLayer;
@@ -21,7 +22,6 @@ namespace Project.Editor.Utilities.DestructableMinablesSetup
         bool processCurrentSelection;
         string scriptableObjectPath = "Assets/ScriptableObjects/Destructibles/";
         Vector2 scrollPosition;
-        readonly List<GameObject> selectedObjects = new();
         string suffixForPrefabs = "_Destructible";
         string suffixForScriptableObjects = "_Destructable";
 
@@ -231,7 +231,6 @@ namespace Project.Editor.Utilities.DestructableMinablesSetup
                 originalPrefab = originalObject;
             }
 
-            destructableData.prefabIntact = originalPrefab;
 
             // Save ScriptableObject
             EnsureDirectoryExists(scriptableObjectPath);

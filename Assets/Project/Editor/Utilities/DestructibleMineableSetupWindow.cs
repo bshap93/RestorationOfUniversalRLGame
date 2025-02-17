@@ -162,7 +162,6 @@ namespace Project.Editor.Utilities
                 originalPrefab = selectedObject;
             }
 
-            destructableData.prefabIntact = originalPrefab;
 
             // Ensure directories exist
             if (!Directory.Exists(scriptableObjectPath)) Directory.CreateDirectory(scriptableObjectPath);
