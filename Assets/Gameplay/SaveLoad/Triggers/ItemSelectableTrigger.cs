@@ -6,17 +6,20 @@ using MoreMountains.TopDownEngine;
 using Project.Gameplay.Events;
 using Project.Gameplay.SaveLoad.Triggers;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Gameplay.SaveLoad.Triggers
 {
     public class ItemSelectableTrigger : MonoBehaviour, MMEventListener<MMCameraEvent>, ISelectableTrigger
     {
-        public BaseItem Item;
+        public InventoryItem Item;
 
-        [SerializeField] MMFeedbacks _selectionFeedbacks;
-        [SerializeField] MMFeedbacks _deselectionFeedbacks;
+        [FormerlySerializedAs("_selectionFeedbacks")] [SerializeField]
+        MMFeedbacks selectionFeedbacks;
+        [FormerlySerializedAs("_deselectionFeedbacks")] [SerializeField]
+        MMFeedbacks deselectionFeedbacks;
 
-        public bool NotPickable;
+        [FormerlySerializedAs("NotPickable")] public bool notPickable;
         ManualItemPicker _itemPicker;
 
         PlayerItemListPreviewManager _playerPreviewManager;
@@ -58,12 +61,12 @@ namespace Gameplay.SaveLoad.Triggers
                     if (!_playerPreviewManager.CurrentPreviewedItems.Contains(Item))
                     {
                         _playerPreviewManager.AddToItemListPreview(
-                            Item, NotPickable ? null : GetComponent<ManualItemPicker>());
+                            Item, notPickable ? null : GetComponent<ManualItemPicker>());
 
                         _playerPreviewManager.ShowSelectedItemPreviewPanel();
                     }
 
-                if (!NotPickable)
+                if (!notPickable)
                 {
                     // Handle normal pickable logic
                     var itemPicker = GetComponent<ManualItemPicker>();
@@ -91,7 +94,7 @@ namespace Gameplay.SaveLoad.Triggers
                     _playerPreviewManager.HidePanelIfEmpty(Item);
                 }
 
-                if (!NotPickable)
+                if (!notPickable)
                 {
                     // Handle normal pickable logic
                     var itemPicker = GetComponent<ManualItemPicker>();
@@ -111,7 +114,7 @@ namespace Gameplay.SaveLoad.Triggers
 
             var manualItemPicker = GetComponent<ManualItemPicker>();
 
-            _selectionFeedbacks?.PlayFeedbacks();
+            selectionFeedbacks?.PlayFeedbacks();
             _playerPreviewManager.AddToItemListPreview(Item, manualItemPicker);
             _playerPreviewManager.ShowSelectedItemPreviewPanel();
         }
@@ -121,7 +124,7 @@ namespace Gameplay.SaveLoad.Triggers
             if (_playerPreviewManager == null)
                 _playerPreviewManager = FindFirstObjectByType<PlayerItemListPreviewManager>();
 
-            _deselectionFeedbacks?.PlayFeedbacks();
+            deselectionFeedbacks?.PlayFeedbacks();
             _playerPreviewManager.RemoveFromItemListPreview(Item);
             _playerPreviewManager.HidePanelIfEmpty(Item);
         }
@@ -133,11 +136,11 @@ namespace Gameplay.SaveLoad.Triggers
                 if (_playerPreviewManager == null)
                     _playerPreviewManager = FindObjectOfType<PlayerItemListPreviewManager>();
 
-                if (_selectionFeedbacks == null)
-                    _selectionFeedbacks = _playerPreviewManager.selectionFeedbacks;
+                if (selectionFeedbacks == null)
+                    selectionFeedbacks = _playerPreviewManager.selectionFeedbacks;
 
-                if (_deselectionFeedbacks == null)
-                    _deselectionFeedbacks = _playerPreviewManager.deselectionFeedbacks;
+                if (deselectionFeedbacks == null)
+                    deselectionFeedbacks = _playerPreviewManager.deselectionFeedbacks;
             }
         }
     }

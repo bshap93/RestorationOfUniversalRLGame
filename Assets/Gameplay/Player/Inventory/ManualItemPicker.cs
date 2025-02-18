@@ -7,7 +7,6 @@ using MoreMountains.Feedbacks;
 using MoreMountains.InventoryEngine;
 using Project.Gameplay.Events;
 using Project.Gameplay.ItemManagement.InventoryItemTypes.Books;
-using Project.Gameplay.Player;
 using Project.UI.HUD;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -19,7 +18,7 @@ namespace Gameplay.Player.Inventory
     {
         [Tooltip("Unique identifier for this item, ensure it is unique per scene.")]
         public string UniqueID;
-        public BaseItem Item; // The item to be picked up
+        public InventoryItem Item; // The item to be picked up
         public int Quantity = 1;
 
 
@@ -31,6 +30,8 @@ namespace Gameplay.Player.Inventory
         public MMFeedbacks usedMmFeedbacks; // Feedbacks to play when the item is used
         public MMFeedbacks disappearMmFeedbacks; // Feedbacks to play when the item disappears
         public bool NotPickable; // If true, the item cannot be picked up
+
+        public bool disappearAfterUse; // If true, the item will disappear after use
 
         bool _isBeingDestroyed;
 
@@ -231,7 +232,7 @@ namespace Gameplay.Player.Inventory
             if (Item is InventoryCookBook cookbook) DisplayLearnedRecipes(cookbook);
 
             // Optional: Destroy the item if it should disappear after use
-            if (Item?.DisappearAfterUse == true)
+            if (disappearAfterUse)
             {
                 disappearMmFeedbacks?.PlayFeedbacks();
                 Destroy(gameObject, 0.1f);

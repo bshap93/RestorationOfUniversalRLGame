@@ -1,8 +1,10 @@
 using System;
-using Gameplay.Combat;
+using System.Collections.Generic;
 using MoreMountains.InventoryEngine;
 using MoreMountains.Tools;
 using MoreMountains.TopDownEngine;
+using Project.Animation_Effects.CharacterAnimation.Scripts;
+using UnityEditor.Animations;
 using UnityEngine;
 
 namespace Project.Animation_Effects.CharacterAnimation.AnimationController.WeaponAnimators
@@ -11,13 +13,16 @@ namespace Project.Animation_Effects.CharacterAnimation.AnimationController.Weapo
         MMEventListener<MMCameraEvent>
     {
         static readonly int ShieldUp = Animator.StringToHash("ShieldUp");
-        [Header("Weapon Data")] public CustomInventoryWeapon[]
+        [Header("Weapon Data")] public InventoryItem[]
             weaponDataArray; // Array of ScriptableObjects holding each weapon's override controller
-        CustomInventoryWeapon _customInventoryWeapon; // Store current weapon's data
+        public AnimatorController[] WeaponAnimatorControllers; // Array of override controllers for each weapon
+        InventoryItem _customInventoryWeapon; // Store current weapon's data
         AnimatorOverrideController _defaultOverrideController; // Store current override
 
         Animator _playerAnimator;
         WeaponAnimationManager _weaponAnimationManager; // Reference to the WeaponAnimationManager
+
+        readonly Dictionary<string, AnimatorController> animatorEquipmentDict = new();
 
         public void Awake()
         {
@@ -28,6 +33,9 @@ namespace Project.Animation_Effects.CharacterAnimation.AnimationController.Weapo
             _weaponAnimationManager = FindObjectOfType<WeaponAnimationManager>();
             if (_weaponAnimationManager == null)
                 Debug.LogWarning("No WeaponAnimationManager found in the scene. This may cause issues.");
+
+            for (var i = 0; i < weaponDataArray.Length; i++)
+                animatorEquipmentDict.Add(weaponDataArray[i].ItemID, WeaponAnimatorControllers[i]);
         }
 
         public void OnEnable()
@@ -112,12 +120,21 @@ namespace Project.Animation_Effects.CharacterAnimation.AnimationController.Weapo
                 return;
             }
 
+            var animatorController = animatorEquipmentDict[item.ItemID];
+
+            // if (animatorController == null)
+            // {
+            //     Debug.LogWarning($"No animator controller found for weapon: {item.ItemID}");
+            //     return;
+            // }
+            //
+
             // Update animator controller
-            ApplyAnimatorOverride(weaponData.runtimeAnimatorController);
+            ApplyAnimatorOverride(animatorController);
 
             // Store current weapon data for persistence
             _customInventoryWeapon = weaponData;
-            _weaponAnimationManager?.StoreCurrentWeapon(weaponData.ItemID, weaponData.runtimeAnimatorController);
+            _weaponAnimationManager?.StoreCurrentWeapon(weaponData.ItemID, animatorController);
 
             Debug.Log($"Applied animations for weapon: {weaponData.ItemID}");
         }

@@ -194,7 +194,7 @@ MonoBehaviour:
     OnResume:
       m_PersistentCalls:
         m_Calls: []
-    OnRevert:
+    OnChangeDirection:
       m_PersistentCalls:
         m_Calls: []
     OnComplete:
@@ -216,10 +216,12 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls: []
   DebugActive: 0
+  InScriptDrivenPause: 0
   FeedbacksList:
   - rid: 4950072057459113985
   KeepPlayModeChanges: 0
   PerformanceMode: 0
+  RestoreInitialValuesOnDisable: 0
   StopFeedbacksOnDisable: 0
   PlayCount: 0
   references:
@@ -231,11 +233,11 @@ MonoBehaviour:
         Active: 1
         UniqueID: -185820963
         Label: Sound
+        OriginalLabel: 
         ChannelMode: 0
         Channel: 0
         MMChannelDefinition: {fileID: 0}
         Chance: 100
-        DisplayColor: {r: 0, g: 0, b: 0, a: 1}
         Timing:
           TimescaleMode: 0
           ExcludeFromHoldingPauses: 0
@@ -403,6 +405,9 @@ MonoBehaviour:
   Item: {fileID: 11400000, guid: 5ed20433d8fdf7b4ea9d2d926cd066e8, type: 2}
   Quantity: 1
   pickedMmFeedbacks: {fileID: 5717723087469268477}
+  usedMmFeedbacks: {fileID: 0}
+  disappearMmFeedbacks: {fileID: 0}
+  NotPickable: 0
 --- !u!135 &7776381494010870125
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -439,6 +444,7 @@ MonoBehaviour:
   Item: {fileID: 11400000, guid: 5ed20433d8fdf7b4ea9d2d926cd066e8, type: 2}
   _selectionFeedbacks: {fileID: 7210536512350496219}
   _deselectionFeedbacks: {fileID: 0}
+  NotPickable: 0
 --- !u!1001 &3100292983387838970
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -2,7 +2,7 @@
 
 using UnityEngine;
 
-namespace Project.Animation_Effects.CharacterAnimation
+namespace Project.Animation_Effects.CharacterAnimation.Scripts
 {
     public class WeaponAnimationManager : MonoBehaviour
     {
