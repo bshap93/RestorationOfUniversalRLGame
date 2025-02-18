@@ -16,7 +16,9 @@ GameObject:
   - component: {fileID: 7098282455318759041}
   - component: {fileID: 7199301379767778474}
   - component: {fileID: 5665182076124800382}
-  - component: {fileID: 1793848669281715334}
+  - component: {fileID: 6427245087226631882}
+  - component: {fileID: 7456777527924918672}
+  - component: {fileID: 2424068070292514089}
   m_Layer: 25
   m_Name: Barrel3Unbroken
   m_TagString: Untagged
@@ -183,7 +185,42 @@ MonoBehaviour:
   m_destroyMode: 0
   m_destroyedVersionPrefab: {fileID: 100000, guid: 19c17c6ae041e574eb9bda1c54433f28,
     type: 3}
---- !u!114 &1793848669281715334
+--- !u!114 &6427245087226631882
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2756500272332709449}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1981088f45054349954e84366b8a2a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  recordOn: 1
+  variableName: BarrelBroken001
+  spawnWhenDestroyed: {fileID: 100000, guid: 19c17c6ae041e574eb9bda1c54433f28, type: 3}
+--- !u!114 &7456777527924918672
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2756500272332709449}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03526e258566dc247a4eb8525aeeb667, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_key: BarrelBroken001
+  m_appendSaverTypeToKey: 0
+  m_saveAcrossSceneChanges: 1
+  m_restoreStateOnStart: 1
+  m_mode: 1
+  m_destroyMode: 0
+  m_destroyedVersionPrefab: {fileID: 100000, guid: 19c17c6ae041e574eb9bda1c54433f28,
+    type: 3}
+--- !u!114 &2424068070292514089
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

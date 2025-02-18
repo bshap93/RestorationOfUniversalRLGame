@@ -1,32 +1,34 @@
 ﻿using MoreMountains.TopDownEngine;
-using PixelCrushers;
+using PixelCrushers.DialogueSystem;
 using UnityEngine;
 
 namespace Gameplay.Environment
 {
     public class DestructibleHealth : Health
     {
-        DestructibleSaver _destructibleSaver;
+        PersistentDestructible _persistentDestructible;
         protected override void Awake()
         {
             base.Awake();
 
-            _destructibleSaver = GetComponent<DestructibleSaver>();
+            _persistentDestructible = GetComponent<PersistentDestructible>();
         }
 
         protected override void DestroyObject()
         {
             // If we have save components, make sure to record destruction before deactivating
-            if (_destructibleSaver != null)
+            if (_persistentDestructible != null)
             {
                 Debug.Log("DestructibleHealth.DestroyObject: Recording destruction");
-                _destructibleSaver.RecordDestruction();
+                _persistentDestructible.OnDestroy();
             }
 
             if (_autoRespawn == null)
             {
+                Debug.Log("Reached autospawn true");
                 if (DestroyOnDeath)
                 {
+                    Debug.Log("Reached destroy on death true");
                     if (_character != null)
                         Destroy(_character.gameObject);
                     else
