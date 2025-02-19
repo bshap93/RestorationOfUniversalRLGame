@@ -110,7 +110,6 @@ namespace Core.Events
                 player.LinkedInputManager.RunButton.TriggerButtonUp();
                 var characterRun = player.GetComponent<CharacterRun>();
                 if (characterRun != null) characterRun.RunStop();
-                player.GetComponent<CharacterMovement>().ResetSpeed();
                 player.MovementState.ChangeState(CharacterStates.MovementStates.Idle);
 
                 var characterMovement = player.GetComponent<CharacterMovement>();
@@ -135,7 +134,6 @@ namespace Core.Events
                 var animator = player.GetComponent<Character>()._animator;
                 foreach (var floatParameter in floatAnimatorParametersToStop) animator.SetFloat(floatParameter, 0);
                 foreach (var boolParameter in boolAnimatorParametersToStop) animator.SetBool(boolParameter, false);
-                foreach (var ps in player.GetComponent<CharacterMovement>().WalkParticles) ps.Stop();
             }
         }
     }

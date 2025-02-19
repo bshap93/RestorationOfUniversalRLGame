@@ -19,7 +19,7 @@ public class SaveManager : MonoBehaviour
     public PickableManager pickableManager;
     public DestructibleManager destructibleManager;
 
-    int currentSlot = 1;
+    public int currentSlot;
 
     public static SaveManager Instance { get; private set; }
 
@@ -69,7 +69,10 @@ public class SaveManager : MonoBehaviour
         resourcesManager?.SaveResources();
         journalManager?.SaveJournal();
 
+
         SaveSystem.SaveToSlotImmediate(0);
+
+        SaveSystem.SaveToSlot(currentSlot);
     }
 
     public bool LoadAll()
@@ -89,16 +92,5 @@ public class SaveManager : MonoBehaviour
         SaveSystem.LoadFromSlot(0);
 
         return inventoryLoaded || resourcesLoaded || journalLoaded;
-    }
-
-    public void ResetAll()
-    {
-        Debug.Log("[SaveManager] Resetting all data...");
-        inventoryManager?.ResetInventory();
-        resourcesManager?.RevertResourcesToLastSave();
-        journalManager?.RevertJournalToLastSave();
-
-        PickableManager.ResetPickedItems();
-        DestructibleManager.ResetDestroyedObjects();
     }
 }

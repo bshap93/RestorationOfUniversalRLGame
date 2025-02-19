@@ -1,5 +1,6 @@
 using System;
 using Gameplay.Extensions.InventoryEngineExtensions.PickupDisplayer;
+using Gameplay.ItemManagement;
 using Gameplay.Player.Inventory;
 using MoreMountains.InventoryEngine;
 using MoreMountains.Tools;

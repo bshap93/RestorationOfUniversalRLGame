@@ -118,6 +118,7 @@ namespace Gameplay.ItemsInteractions
         void SaveDestroyedObject(string uniqueID)
         {
             DestructibleManager.SaveDestroyedObject(uniqueID, true);
+            Debug.Log("Saved destroyed object: " + uniqueID);
         }
     }
 }

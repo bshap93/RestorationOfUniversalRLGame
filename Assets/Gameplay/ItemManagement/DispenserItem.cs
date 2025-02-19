@@ -12,7 +12,7 @@ using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 
-namespace Gameplay.Player.Inventory
+namespace Gameplay.ItemManagement
 {
     public class DispenserItem : MonoBehaviour
     {
@@ -50,7 +50,7 @@ namespace Gameplay.Player.Inventory
         bool _isInRange;
         ListPreviewManager _listPreviewManager;
         PromptManager _promptManager;
-        MoreMountains.InventoryEngine.Inventory _targetInventory;
+        Inventory _targetInventory;
 
         void Awake()
         {
@@ -69,7 +69,7 @@ namespace Gameplay.Player.Inventory
             var portableSystems = GameObject.Find(PortableSystemObjectName);
             if (portableSystems != null)
                 _targetInventory = GameObject.FindWithTag(MainInventory.MainInventoryObjectName)
-                    ?.GetComponent<MoreMountains.InventoryEngine.Inventory>();
+                    ?.GetComponent<Inventory>();
 
             if (_targetInventory == null) Debug.LogWarning("Target inventory not found in PortableSystems.");
 

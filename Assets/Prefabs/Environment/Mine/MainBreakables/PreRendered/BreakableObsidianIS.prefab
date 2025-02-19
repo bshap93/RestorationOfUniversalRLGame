@@ -65,6 +65,14 @@ MonoBehaviour:
   destructible: {fileID: 11400000, guid: ed6f3d75e502acd43b66e151211128f8, type: 2}
   _loot: {fileID: 1179122001380176135}
   ShouldDestroy: 0
+  colliders:
+  - {fileID: 5535808228804659717}
+  - {fileID: 8247257816845123339}
+  renderers:
+  - {fileID: 4313081736243192394}
+  - {fileID: 1895059438780142008}
+  - {fileID: 7651478307961447822}
+  - {fileID: 6536817041390831982}
 --- !u!23 &4313081736243192394
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -167,7 +175,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01754710d9f92ec4d9a21b81f5682667, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Model: {fileID: 272564517905977949}
+  Model: {fileID: 0}
   CurrentHealth: 0
   Invulnerable: 0
   InitialHealth: 40
@@ -184,9 +192,9 @@ MonoBehaviour:
   DelayBeforeDestruction: 0
   PointsWhenDestroyed: 0
   RespawnAtInitialLocation: 0
-  DisableControllerOnDeath: 1
-  DisableModelOnDeath: 1
-  DisableCollisionsOnDeath: 1
+  DisableControllerOnDeath: 0
+  DisableModelOnDeath: 0
+  DisableCollisionsOnDeath: 0
   DisableChildCollisionsOnDeath: 0
   ChangeLayerOnDeath: 0
   ChangeLayersRecursivelyOnDeath: 0
@@ -218,7 +226,7 @@ MonoBehaviour:
     ObjectsToLoot: []
     WeightsTotal: 0
   LootTableSO: {fileID: 11400000, guid: 838411de9aeecf94dbca382ac1f69411, type: 2}
-  SpawnLootOnDeath: 0
+  SpawnLootOnDeath: 1
   SpawnLootOnDamage: 0
   PoolLoot: 0
   PoolSize: 20
