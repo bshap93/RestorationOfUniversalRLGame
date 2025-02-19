@@ -11,8 +11,6 @@ namespace Project.Gameplay.Transitions
         void Start()
         {
             _floorManager = FindObjectOfType<FloorManager>();
-
-            if (_floorManager == null) Debug.LogWarning("FloorManager not found in the scene");
         }
 
         void OnTriggerEnter(Collider other)

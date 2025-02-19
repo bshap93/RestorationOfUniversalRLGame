@@ -2,7 +2,7 @@
 using MoreMountains.Tools;
 using UnityEngine;
 
-namespace Project.Gameplay.Events
+namespace Gameplay.Events
 {
     public struct ItemEvent
     {

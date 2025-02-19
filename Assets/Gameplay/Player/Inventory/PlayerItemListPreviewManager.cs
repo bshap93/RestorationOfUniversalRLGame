@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Gameplay.Events;
 using Gameplay.UI.HUD;
 using HighlightPlus;
 using JetBrains.Annotations;
 using MoreMountains.Feedbacks;
 using MoreMountains.InventoryEngine;
 using MoreMountains.Tools;
-using Project.Gameplay.Events;
 using UnityEngine;
 using UnityEngine.Serialization;
 

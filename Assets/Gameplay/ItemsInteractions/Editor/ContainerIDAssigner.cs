@@ -9,7 +9,7 @@ namespace Gameplay.ItemsInteractions.Editor
         [MenuItem("Debug/Assign Unique IDs to Destructables")]
         static void AssignUniqueIDs()
         {
-            var allDestructables = FindObjectsOfType<BaseDestructable>();
+            var allDestructables = FindObjectsOfType<BaseDestructible>();
 
             if (allDestructables.Length == 0)
                 Debug.LogWarning("No ContainerDestruction components found in the scene.");

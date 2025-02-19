@@ -120,7 +120,6 @@ namespace Gameplay.Player
         void LoadStartingClass(string className)
         {
             startingClass = Resources.Load<StartingClass>($"Classes/{className}");
-            if (startingClass == null) Debug.LogWarning($"Class {className} not found in Resources.");
         }
 
         void LoadTraits(List<string> traitNames)
@@ -139,11 +138,7 @@ namespace Gameplay.Player
 
         void ApplyBaseStatsFromClass()
         {
-            if (startingClass == null)
-            {
-                Debug.LogWarning("Starting class is null; cannot apply base stats.");
-                return;
-            }
+            if (startingClass == null) return;
 
             var playerHealth = gameObject.GetComponent<HealthAlt>();
             // Apply base stats from the class

@@ -1,12 +1,12 @@
 ﻿using System;
 using Core.GameInitialization;
+using Gameplay.Events;
 using Gameplay.ItemManagement.InventoryTypes;
 using Gameplay.UI.HUD;
 using JetBrains.Annotations;
 using MoreMountains.Feedbacks;
 using MoreMountains.InventoryEngine;
 using PixelCrushers.DialogueSystem.Wrappers;
-using Project.Gameplay.Events;
 using Project.UI.HUD;
 using UnityEngine;
 using UnityEngine.Serialization;

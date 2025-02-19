@@ -1,9 +1,9 @@
-﻿using Gameplay.Player.Inventory;
+﻿using Gameplay.Events;
+using Gameplay.Player.Inventory;
 using MoreMountains.Feedbacks;
 using MoreMountains.InventoryEngine;
 using MoreMountains.Tools;
 using MoreMountains.TopDownEngine;
-using Project.Gameplay.Events;
 using Project.Gameplay.SaveLoad.Triggers;
 using UnityEngine;
 using UnityEngine.Serialization;

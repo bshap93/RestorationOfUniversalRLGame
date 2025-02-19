@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using Gameplay.Events;
 using MoreMountains.Tools;
-using Project.Gameplay.Events;
 using UnityEngine;
 
 namespace Gameplay.Extensions.InventoryEngineExtensions.PickupDisplayer

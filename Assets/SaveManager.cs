@@ -17,7 +17,7 @@ public class SaveManager : MonoBehaviour
 
     [Header("Item & Container Persistence")]
     public PickableManager pickableManager;
-    public DestructableManager destructableManager;
+    public DestructibleManager destructibleManager;
 
     int currentSlot = 1;
 
@@ -46,13 +46,13 @@ public class SaveManager : MonoBehaviour
             }
         }
 
-        if (destructableManager == null)
+        if (destructibleManager == null)
         {
-            destructableManager = GetComponentInChildren<DestructableManager>(true);
-            if (destructableManager == null)
+            destructibleManager = GetComponentInChildren<DestructibleManager>(true);
+            if (destructibleManager == null)
             {
                 var destructableGO = new GameObject("DestructableManager");
-                destructableManager = destructableGO.AddComponent<DestructableManager>();
+                destructibleManager = destructableGO.AddComponent<DestructibleManager>();
                 destructableGO.transform.SetParent(transform);
             }
         }
@@ -84,7 +84,7 @@ public class SaveManager : MonoBehaviour
 
         // Load pickable items and destroyed containers
         pickableManager?.LoadPickedItems();
-        destructableManager?.LoadDestroyedContainers();
+        destructibleManager?.LoadDestroyedObjects();
 
         SaveSystem.LoadFromSlot(0);
 
@@ -99,6 +99,6 @@ public class SaveManager : MonoBehaviour
         journalManager?.RevertJournalToLastSave();
 
         PickableManager.ResetPickedItems();
-        DestructableManager.ResetDestroyedContainers();
+        DestructibleManager.ResetDestroyedObjects();
     }
 }

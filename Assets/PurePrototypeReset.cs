@@ -33,7 +33,7 @@ public class PurePrototypeReset : MonoBehaviour
         // Reset Resources (if applicable)
         ResourcesPersistenceManager.Instance?.ResetResources();
 
-        DestructableManager.ResetDestroyedContainers();
+        DestructibleManager.ResetDestroyedObjects();
 
         Debug.Log("Destuctable containers reset.");
 

@@ -26,7 +26,6 @@ namespace Project.Core.SaveSystem
             if (Instance == null)
             {
                 Instance = this;
-                DontDestroyOnLoad(gameObject);
                 CurrentSave = new SaveData();
             }
             else

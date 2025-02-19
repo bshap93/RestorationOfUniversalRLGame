@@ -1,11 +1,12 @@
 using System;
 using Core.GameInitialization;
+using Gameplay.Events;
 using Gameplay.ItemManagement.Cooking;
 using Gameplay.ItemManagement.InventoryItemTypes;
 using Gameplay.ItemManagement.InventoryTypes;
+using Gameplay.ItemsInteractions;
 using MoreMountains.Feedbacks;
 using MoreMountains.InventoryEngine;
-using Project.Gameplay.Events;
 using Project.Gameplay.ItemManagement.InventoryItemTypes.Books;
 using Project.UI.HUD;
 using UnityEngine;
@@ -116,12 +117,6 @@ namespace Gameplay.Player.Inventory
                 _promptManager?.HidePickupPrompt();
                 ItemEvent.Trigger("ItemPickupRangeExited", Item, transform);
             }
-        }
-
-        bool HasItemBeenPicked(string uniqueID)
-        {
-            // Use Easy Save to check if the item was picked
-            return ES3.KeyExists(uniqueID, "PickedItems.es3") && ES3.Load<bool>(uniqueID, "PickedItems.es3");
         }
 
         public void SetInRange(bool inRange)
