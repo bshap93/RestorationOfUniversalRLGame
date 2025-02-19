@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Gameplay.Events;
 using Gameplay.ItemManagement.InventoryTypes.Destructables;
 using MoreMountains.TopDownEngine;
@@ -11,9 +12,15 @@ namespace Gameplay.ItemsInteractions
     {
         public string UniqueID;
         [FormerlySerializedAs("destructable")] public Destructible destructible;
+        [SerializeField] Loot _loot;
+
+        public bool ShouldDestroy;
+        [FormerlySerializedAs("_colliders")] [SerializeField]
+        List<Collider> colliders;
+        [FormerlySerializedAs("_renderers")] [SerializeField]
+        List<Renderer> renderers;
         GameObject _brokenPrefab;
         bool _isBeingDestroyed;
-        Loot _loot;
         int dropAmountMax;
         int dropAmountMin;
         protected Health Health;
@@ -29,12 +36,17 @@ namespace Gameplay.ItemsInteractions
 
             Health = GetComponent<Health>();
 
+            // colliders = GetComponents<Collider>().ToList();
+            // renderers = GetComponents<Renderer>().ToList();
+            //
+            // colliders.Add(GetComponentInChildren<Collider>());
+            // renderers.Add(GetComponentInChildren<Renderer>());
+
             // On death
             Health.OnDeath += OnDeath;
 
 
             if (destructible.destroyedPrefab != null) _brokenPrefab = destructible.destroyedPrefab;
-            _loot = GetComponent<Loot>();
             dropAmountMin = destructible.dropAmountRange.x;
             dropAmountMax = destructible.dropAmountRange.y;
         }
@@ -59,13 +71,12 @@ namespace Gameplay.ItemsInteractions
             broken.transform.rotation = transform.rotation;
             broken.transform.position = transform.position;
             broken.SetActive(true);
-            
-            
         }
 
 
         void OnDeath()
         {
+            // drop any loot
             enabled = false;
             Debug.Log("Destructible object destroyed: " + gameObject.name);
             FinishDestroying();
@@ -78,7 +89,30 @@ namespace Gameplay.ItemsInteractions
 
             DestructibleManager.DestroyedObjects.Add(UniqueID);
             InitializeDestroyedStateObject();
-            Destroy(gameObject, 0.1f);
+
+            if (ShouldDestroy)
+                Destroy(gameObject, 0.1f);
+            else
+                DisableRendererAndCollider();
+        }
+
+        void DisableRendererAndCollider()
+        {
+            if (colliders != null)
+            {
+                foreach (var collider1 in colliders)
+                    collider1.enabled = false;
+
+                Debug.Log("Collider disabled");
+            }
+
+            if (renderers != null)
+            {
+                foreach (var renderer1 in renderers)
+                    renderer1.enabled = false;
+
+                Debug.Log("Renderer disabled");
+            }
         }
 
         void SaveDestroyedObject(string uniqueID)

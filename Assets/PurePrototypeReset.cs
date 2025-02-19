@@ -10,12 +10,6 @@ public class PurePrototypeReset : MonoBehaviour
         Debug.Log("PurePrototypeReset: Awake() called.");
         ClearAllSaveData();
     }
-    void OnApplicationQuit()
-    {
-        Debug.Log("PurePrototypeReset: OnApplicationQuit() called.");
-        ClearAllSaveData();
-    }
-
     public static void ClearAllSaveData()
     {
         // Reset Pickables
