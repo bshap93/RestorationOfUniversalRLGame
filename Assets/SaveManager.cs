@@ -10,8 +10,7 @@ public class SaveManager : MonoBehaviour
     const string SaveFilePrefix = "GameSave_";
     const string SaveFileExtension = ".es3";
 
-    [Header("Persistence Managers")] [SerializeField]
-    InventoryPersistenceManager inventoryManager;
+    [Header("Persistence Managers")] 
     [SerializeField] ResourcesPersistenceManager resourcesManager;
     [SerializeField] JournalPersistenceManager journalManager;
 
@@ -65,7 +64,6 @@ public class SaveManager : MonoBehaviour
 
     public void SaveAll()
     {
-        inventoryManager?.SaveInventories();
         resourcesManager?.SaveResources();
         journalManager?.SaveJournal();
 
@@ -74,11 +72,9 @@ public class SaveManager : MonoBehaviour
 
     public bool LoadAll()
     {
-        var inventoryLoaded = inventoryManager != null && inventoryManager.HasSavedData();
         var resourcesLoaded = resourcesManager != null && resourcesManager.HasSavedData();
         var journalLoaded = journalManager != null && journalManager.HasSavedData();
 
-        if (inventoryLoaded) inventoryManager.LoadInventories();
         if (resourcesLoaded) resourcesManager.RevertResourcesToLastSave();
         if (journalLoaded) journalManager.RevertJournalToLastSave();
 
@@ -88,7 +84,7 @@ public class SaveManager : MonoBehaviour
 
         SaveSystem.LoadFromSlot(0);
 
-        return inventoryLoaded || resourcesLoaded || journalLoaded;
+        return resourcesLoaded || journalLoaded;
     }
 
     public void ResetAll()
