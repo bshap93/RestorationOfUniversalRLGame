@@ -11,12 +11,14 @@ public class SaveManager : MonoBehaviour
     const string SaveFileExtension = ".es3";
 
     [Header("Persistence Managers")] 
+    // [SerializeField]
+    // InventoryPersistenceManager inventoryManager;
     [SerializeField] ResourcesPersistenceManager resourcesManager;
     [SerializeField] JournalPersistenceManager journalManager;
 
     [Header("Item & Container Persistence")]
     public PickableManager pickableManager;
-    public DestructibleManager destructibleManager;
+    public DestructibleManager DestructibleManager;
 
     int currentSlot = 1;
 
@@ -45,13 +47,13 @@ public class SaveManager : MonoBehaviour
             }
         }
 
-        if (destructibleManager == null)
+        if (DestructibleManager == null)
         {
-            destructibleManager = GetComponentInChildren<DestructibleManager>(true);
-            if (destructibleManager == null)
+            DestructibleManager = GetComponentInChildren<DestructibleManager>(true);
+            if (DestructibleManager == null)
             {
                 var destructableGO = new GameObject("DestructableManager");
-                destructibleManager = destructableGO.AddComponent<DestructibleManager>();
+                DestructibleManager = destructableGO.AddComponent<DestructibleManager>();
                 destructableGO.transform.SetParent(transform);
             }
         }
@@ -64,6 +66,7 @@ public class SaveManager : MonoBehaviour
 
     public void SaveAll()
     {
+        // inventoryManager?.SaveInventories();
         resourcesManager?.SaveResources();
         journalManager?.SaveJournal();
 
@@ -72,25 +75,28 @@ public class SaveManager : MonoBehaviour
 
     public bool LoadAll()
     {
+        // var inventoryLoaded = inventoryManager != null && inventoryManager.HasSavedData();
         var resourcesLoaded = resourcesManager != null && resourcesManager.HasSavedData();
         var journalLoaded = journalManager != null && journalManager.HasSavedData();
 
+        // if (inventoryLoaded) inventoryManager.LoadInventories();
         if (resourcesLoaded) resourcesManager.RevertResourcesToLastSave();
         if (journalLoaded) journalManager.RevertJournalToLastSave();
 
         // Load pickable items and destroyed containers
         pickableManager?.LoadPickedItems();
-        destructibleManager?.LoadDestroyedObjects();
+        DestructibleManager?.LoadDestroyedObjects();
 
         SaveSystem.LoadFromSlot(0);
 
+        // return inventoryLoaded || resourcesLoaded || journalLoaded;
         return resourcesLoaded || journalLoaded;
     }
 
     public void ResetAll()
     {
         Debug.Log("[SaveManager] Resetting all data...");
-        inventoryManager?.ResetInventory();
+        // inventoryManager?.ResetInventory();
         resourcesManager?.RevertResourcesToLastSave();
         journalManager?.RevertJournalToLastSave();
 

@@ -28,7 +28,7 @@ public class PurePrototypeReset : MonoBehaviour
         DispenserManager.ResetDispenserStates();
 
         // Reset Inventory System
-        InventoryPersistenceManager.Instance?.ResetInventory();
+        // InventoryPersistenceManager.Instance?.ResetInventory();
 
         // Reset Resources (if applicable)
         ResourcesPersistenceManager.Instance?.ResetResources();
