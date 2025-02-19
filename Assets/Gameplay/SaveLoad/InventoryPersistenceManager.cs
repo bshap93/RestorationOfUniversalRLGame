@@ -3,9 +3,9 @@ using System.Collections;
 using Gameplay.ItemManagement.InventoryTypes;
 using MoreMountains.InventoryEngine;
 using MoreMountains.Tools;
+using MoreMountains.TopDownEngine;
 using Project.Gameplay.Combat.Shields;
 using Project.Gameplay.Combat.Tools;
-using Project.Gameplay.Combat.Weapons;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -52,8 +52,11 @@ namespace Gameplay.SaveLoad
         [SerializeField] Inventory equipmentInventory; // Assign your Right Hand Inventory here
         [SerializeField] HotbarInventory hotbarInventory; // Assign your Hotbar Inventory here
 
-        [FormerlySerializedAs("customInventoryHotbar")] [Header("Inventory Displays")] [SerializeField]
-        AltCharacterHandleWeapon _altCharacterHandleWeapon;
+        [FormerlySerializedAs("_altCharacterHandleWeapon")]
+        [FormerlySerializedAs("customInventoryHotbar")]
+        [Header("Inventory Displays")]
+        [SerializeField]
+        CharacterHandleWeapon _characterHandleWeapon;
         [SerializeField] CharacterHandleShield _characterHandleShield;
         [SerializeField] CharacterHandleTorch _characterHandleTorch;
 
@@ -67,9 +70,18 @@ namespace Gameplay.SaveLoad
         void Awake()
         {
             if (Instance == null)
+            {
                 Instance = this;
+                Debug.Log(
+                    "[InventoryPersistenceManager] Initialized with components:\n" +
+                    $"CharacterHandleTorch: {(_characterHandleTorch != null ? "Assigned" : "Not Assigned")}\n" +
+                    $"CharacterHandleWeapon: {(_characterHandleWeapon != null ? "Assigned" : "Not Assigned")}\n" +
+                    $"CharacterHandleShield: {(_characterHandleShield != null ? "Assigned" : "Not Assigned")}");
+            }
             else
+            {
                 Destroy(gameObject);
+            }
         }
 
         void Start()
@@ -128,15 +140,6 @@ namespace Gameplay.SaveLoad
             LoadInventories();
         }
 
-        IEnumerator LoadInventoriesWithDelay()
-        {
-            // Wait for 2 frames to ensure character initialization
-            yield return null;
-            yield return null;
-
-            LoadInventories();
-        }
-
         static string GetSaveFilePath()
         {
             var slotPath = ES3SlotManager.selectedSlotPath;
@@ -185,6 +188,77 @@ namespace Gameplay.SaveLoad
 
 
             Debug.Log("All inventories have been reset.");
+        }
+
+        bool FindHandleComponents()
+        {
+            if (_characterHandleTorch == null)
+            {
+                _characterHandleTorch = FindObjectOfType<CharacterHandleTorch>();
+                Debug.Log(
+                    $"Attempting to find CharacterHandleTorch: {(_characterHandleTorch != null ? "Found" : "Not Found")}");
+            }
+
+            if (_characterHandleWeapon == null)
+                _characterHandleWeapon = FindObjectOfType<CharacterHandleWeapon>();
+
+            if (_characterHandleShield == null) _characterHandleShield = FindObjectOfType<CharacterHandleShield>();
+            return AreHandleComponentsReady();
+        }
+
+        bool AreHandleComponentsReady()
+        {
+            if (_characterHandleTorch == null)
+            {
+                Debug.LogWarning("CharacterHandleTorch is null");
+                return false;
+            }
+
+            if (_characterHandleWeapon == null)
+            {
+                Debug.LogWarning("CharacterHandleWeapon is null");
+                return false;
+            }
+
+            if (_characterHandleShield == null)
+            {
+                Debug.LogWarning("CharacterHandleShield is null");
+                return false;
+            }
+
+            return true;
+        }
+
+        IEnumerator LoadInventoriesWithDelay()
+        {
+            var timeoutDuration = 5f;
+            var elapsedTime = 0f;
+            var checkInterval = 0.5f; // Check every half second
+
+            // First wait for scene to settle
+            yield return new WaitForSeconds(1f);
+
+            while (elapsedTime < timeoutDuration)
+            {
+                if (FindHandleComponents())
+                {
+                    Debug.Log("All handle components found successfully");
+                    LoadInventories();
+                    yield break;
+                }
+
+                elapsedTime += checkInterval;
+                yield return new WaitForSeconds(checkInterval);
+            }
+
+            Debug.LogError("Timed out waiting for handle components to initialize");
+
+            // Log the state of all components for debugging
+            Debug.LogError(
+                "Final component state: \n" +
+                $"CharacterHandleTorch: {(_characterHandleTorch != null ? "Found" : "Missing")}\n" +
+                $"CharacterHandleWeapon: {(_characterHandleWeapon != null ? "Found" : "Missing")}\n" +
+                $"CharacterHandleShield: {(_characterHandleShield != null ? "Found" : "Missing")}");
         }
         public void LoadInventories()
         {
@@ -239,7 +313,6 @@ namespace Gameplay.SaveLoad
             {
                 if (string.IsNullOrEmpty(serializedData.ItemIDs[i])) continue;
 
-
                 // Load the item from Resources
                 var itemPrefab = Resources.Load<InventoryItem>($"{RESOURCE_PATH}{serializedData.ItemIDs[i]}");
                 if (itemPrefab == null)
@@ -258,19 +331,36 @@ namespace Gameplay.SaveLoad
                 // If this is an equipment inventory, we need to actually equip the item
                 if (inventory.InventoryType == Inventory.InventoryTypes.Equipment)
                 {
-                    Debug.Log($"Triggering equip for item {item.ItemID}");
-                    // Trigger Equip on the item itself
-                    item.Equip(PlayerID);
+                    if (!AreHandleComponentsReady())
+                    {
+                        Debug.LogError($"Cannot equip {item.ItemID} - handle components not ready");
+                        continue;
+                    }
 
-                    // Also trigger the equip event
-                    StartCoroutine(TriggerEquipWithDelay(inventory, item, i));
+                    Debug.Log($"Triggering equip for item {item.ItemID}");
+                    try
+                    {
+                        item.Equip(PlayerID);
+                        StartCoroutine(TriggerEquipWithDelay(inventory, item, i));
+                    }
+                    catch (Exception e)
+                    {
+                        Debug.LogError($"Failed to equip {item.ItemID}: {e.Message}");
+                    }
                 }
             }
         }
 
         IEnumerator TriggerEquipWithDelay(Inventory inventory, InventoryItem item, int index)
         {
-            yield return new WaitForSeconds(0.5f); // Small delay to ensure systems are ready
+            yield return new WaitForSeconds(0.5f);
+
+            if (item == null || inventory == null)
+            {
+                Debug.LogError("Item or inventory became null during equip delay");
+                yield break;
+            }
+
             MMInventoryEvent.Trigger(
                 MMInventoryEventType.ItemEquipped,
                 null,
