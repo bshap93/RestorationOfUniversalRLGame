@@ -132,12 +132,32 @@ namespace Gameplay.SaveLoad
 
         IEnumerator ReloadInventoriesAfterDelay()
         {
-            // Wait for 2 frames to ensure character initialization
-            yield return null;
-            yield return null;
+            var timeoutDuration = 5f;
+            var elapsedTime = 0f;
+            var checkInterval = 0.5f;
 
-            // Clear and reload inventories
-            LoadInventories();
+            // First wait for scene to settle
+            yield return new WaitForSeconds(1f);
+
+            while (elapsedTime < timeoutDuration)
+            {
+                if (FindHandleComponents())
+                {
+                    Debug.Log("All handle components found successfully during reload");
+                    LoadInventories();
+                    yield break;
+                }
+
+                elapsedTime += checkInterval;
+                yield return new WaitForSeconds(checkInterval);
+            }
+
+            Debug.LogError("Timed out waiting for handle components to initialize during reload");
+            Debug.LogError(
+                "Final component state during reload: \n" +
+                $"CharacterHandleTorch: {(_characterHandleTorch != null ? "Found" : "Missing")}\n" +
+                $"CharacterHandleWeapon: {(_characterHandleWeapon != null ? "Found" : "Missing")}\n" +
+                $"CharacterHandleShield: {(_characterHandleShield != null ? "Found" : "Missing")}");
         }
 
         static string GetSaveFilePath()
@@ -340,17 +360,39 @@ namespace Gameplay.SaveLoad
                     Debug.Log($"Triggering equip for item {item.ItemID}");
                     try
                     {
-                        item.Equip(PlayerID);
+                        // Check which handler we should use based on the item type
+                        if (item.ItemID.Contains("Torch"))
+                        {
+                            Debug.Log($"Equipping torch: {item.ItemID}");
+                            if (_characterHandleTorch != null && _characterHandleTorch.currentTorch == null)
+                            {
+                                item.Equip(PlayerID);
+                                // Verify weapon was equipped
+                                if (_characterHandleTorch.currentTorch == null)
+                                    Debug.LogError(
+                                        "Failed to equip torch to CharacterHandleTorch - CurrentWeapon is still null after equip");
+                            }
+                        }
+                        else if (item.ItemID.Contains("Shield"))
+                        {
+                            Debug.Log($"Equipping shield: {item.ItemID}");
+                            if (_characterHandleShield != null) item.Equip(PlayerID);
+                        }
+                        else // Weapon
+                        {
+                            Debug.Log($"Equipping weapon: {item.ItemID}");
+                            if (_characterHandleWeapon != null) item.Equip(PlayerID);
+                        }
+
                         StartCoroutine(TriggerEquipWithDelay(inventory, item, i));
                     }
                     catch (Exception e)
                     {
-                        Debug.LogError($"Failed to equip {item.ItemID}: {e.Message}");
+                        Debug.LogError($"Failed to equip {item.ItemID}: {e.Message}\n{e.StackTrace}");
                     }
                 }
             }
         }
-
         IEnumerator TriggerEquipWithDelay(Inventory inventory, InventoryItem item, int index)
         {
             yield return new WaitForSeconds(0.5f);
