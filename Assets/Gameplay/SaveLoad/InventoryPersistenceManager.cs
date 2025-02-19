@@ -239,7 +239,6 @@ namespace Gameplay.SaveLoad
             {
                 if (string.IsNullOrEmpty(serializedData.ItemIDs[i])) continue;
 
-                Debug.Log($"Attempting to restore item: {serializedData.ItemIDs[i]}");
 
                 // Load the item from Resources
                 var itemPrefab = Resources.Load<InventoryItem>($"{RESOURCE_PATH}{serializedData.ItemIDs[i]}");

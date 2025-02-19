@@ -35,8 +35,24 @@ namespace Gameplay.ItemsInteractions
 
         void Start()
         {
-            if (DestructibleManager.IsObjectDestroyed(UniqueID)) Destroy(gameObject);
-            if (destructible.destroyedPrefabs.Count > 0) _brokenPrefab = destructible.destroyedPrefabs[0];
+            if (DestructibleManager.IsObjectDestroyed(UniqueID))
+            {
+                Destroy(gameObject);
+                InitializeDestroyedStateObject();
+            }
+
+            if (destructible.destroyedPrefab != null) _brokenPrefab = destructible.destroyedPrefab;
+        }
+        void InitializeDestroyedStateObject()
+        {
+            if (_brokenPrefab == null) return;
+
+            var broken = Instantiate(_brokenPrefab, transform.position, transform.rotation);
+            broken.transform.parent = transform.parent;
+            broken.transform.localScale = transform.localScale;
+            broken.transform.rotation = transform.rotation;
+            broken.transform.position = transform.position;
+            broken.SetActive(true);
         }
 
 
@@ -53,6 +69,7 @@ namespace Gameplay.ItemsInteractions
             DestructibleEvent.Trigger("DestructibleDestroyed", destructible, transform);
 
             DestructibleManager.DestroyedObjects.Add(UniqueID);
+            InitializeDestroyedStateObject();
             Destroy(gameObject, 0.1f);
         }
 

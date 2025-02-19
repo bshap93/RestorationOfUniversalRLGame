@@ -10,7 +10,7 @@ namespace Gameplay.ItemManagement.InventoryTypes.Destructables
         fileName = "Crafting", menuName = "Crafting/Destructable", order = 1)]
     public class Destructible : Interactable
     {
-        [Header("Prefabs")] public List<GameObject> destroyedPrefabs; // List of possible destroyed prefabs
+        [Header("Prefabs")] public GameObject destroyedPrefab; // List of possible destroyed prefabs
         public List<GameObject> intermediatePrefabs;
 
         [Header("Health")] public float maxHealth = 30f;
