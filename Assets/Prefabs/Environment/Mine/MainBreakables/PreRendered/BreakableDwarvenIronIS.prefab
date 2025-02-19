@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5651808451861898151}
   - component: {fileID: 7101386968673828799}
   - component: {fileID: 8408712664216711415}
-  m_Layer: 24
+  m_Layer: 25
   m_Name: Metal_Cluster_A1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -118,12 +118,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5911335241066819814}
+  - component: {fileID: 2393016306351898974}
   - component: {fileID: 7358101215886988230}
   - component: {fileID: 3639470873130198991}
   - component: {fileID: 8974581273065073706}
-  - component: {fileID: 7578973204389927180}
   - component: {fileID: 8447915931890839478}
-  m_Layer: 24
+  m_Layer: 25
   m_Name: BreakableDwarvenIronIS
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -138,7 +138,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8679229251232656611}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -4.122203, y: 1.2036017, z: -1.0110661}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -147,6 +147,21 @@ Transform:
   - {fileID: 5521834266850531135}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2393016306351898974
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8679229251232656611}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bdd2b41c6aa677442bbf88c84b1ebbd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  UniqueID: 93b81686-c983-4e39-92ce-129161f84196
+  destructible: {fileID: 11400000, guid: fcc57809271fa814b8da1aa9f02cedfb, type: 2}
+  _brokenPrefab: {fileID: 0}
 --- !u!33 &7358101215886988230
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -222,20 +237,6 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 8535110681611097927, guid: ad51559f00f40f744acaf003bfc34b4c, type: 3}
---- !u!114 &7578973204389927180
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8679229251232656611}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 87872e9a9dc94544b6950111f761d18e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  UniqueID: 7de54ef4-ce17-415f-a624-a1cf1fbcdb38
-  destructable: {fileID: 11400000, guid: fcc57809271fa814b8da1aa9f02cedfb, type: 2}
 --- !u!114 &8447915931890839478
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -352,7 +353,7 @@ PrefabInstance:
     - target: {fileID: 6516047439338894411, guid: 04a08c9599251934880b293debebfc7a,
         type: 3}
       propertyPath: m_Layer
-      value: 24
+      value: 25
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

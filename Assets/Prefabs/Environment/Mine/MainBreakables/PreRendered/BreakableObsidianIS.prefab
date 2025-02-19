@@ -10,12 +10,12 @@ GameObject:
   m_Component:
   - component: {fileID: 4810874072313825764}
   - component: {fileID: 743604953263947886}
+  - component: {fileID: 5946150923449525954}
   - component: {fileID: 4313081736243192394}
   - component: {fileID: 5535808228804659717}
   - component: {fileID: 7820557855145283142}
-  - component: {fileID: 8140141435267546552}
   - component: {fileID: 7148682440342203283}
-  m_Layer: 24
+  m_Layer: 25
   m_Name: BreakableObsidianIS
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -48,6 +48,21 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 272564517905977949}
   m_Mesh: {fileID: -8375519895363902236, guid: ad51559f00f40f744acaf003bfc34b4c, type: 3}
+--- !u!114 &5946150923449525954
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 272564517905977949}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bdd2b41c6aa677442bbf88c84b1ebbd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  UniqueID: 69f09e34-da8c-4ba4-9407-d921e9a2713e
+  destructible: {fileID: 11400000, guid: ed6f3d75e502acd43b66e151211128f8, type: 2}
+  _brokenPrefab: {fileID: 0}
 --- !u!23 &4313081736243192394
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -138,20 +153,6 @@ LODGroup:
     renderers:
     - renderer: {fileID: 1895059438780142008}
   m_Enabled: 1
---- !u!114 &8140141435267546552
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 272564517905977949}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 87872e9a9dc94544b6950111f761d18e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  UniqueID: 9cb4a766-d219-478b-95d7-2cb659296e3e
-  destructable: {fileID: 11400000, guid: ed6f3d75e502acd43b66e151211128f8, type: 2}
 --- !u!114 &7148682440342203283
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -208,7 +209,7 @@ GameObject:
   - component: {fileID: 8053225836099323810}
   - component: {fileID: 2147006223252597712}
   - component: {fileID: 1895059438780142008}
-  m_Layer: 24
+  m_Layer: 25
   m_Name: Obsidian_Rock_A2.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -296,7 +297,7 @@ GameObject:
   - component: {fileID: 7651478307961447822}
   - component: {fileID: 8247257816845123339}
   - component: {fileID: 8553322680681517220}
-  m_Layer: 24
+  m_Layer: 25
   m_Name: Obsidian_Crystal_Cluster_A2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -426,7 +427,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1419926372273120738}
-  m_Layer: 30
+  m_Layer: 25
   m_Name: Feedbacks
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -460,7 +461,7 @@ GameObject:
   - component: {fileID: 2982320131090936995}
   - component: {fileID: 1428217762458968200}
   - component: {fileID: 6536817041390831982}
-  m_Layer: 24
+  m_Layer: 25
   m_Name: Obsidian_Crystal_Cluster_A2.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -597,6 +598,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: DamageFeedbacks
+      objectReference: {fileID: 0}
+    - target: {fileID: 6516047439338894411, guid: 04a08c9599251934880b293debebfc7a,
+        type: 3}
+      propertyPath: m_Layer
+      value: 25
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

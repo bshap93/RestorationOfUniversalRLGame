@@ -19444,7 +19444,6 @@ Transform:
   - {fileID: 7594346945704805491}
   - {fileID: 7767771782492737122}
   - {fileID: 2379415471432024951}
-  - {fileID: 773709212791927733}
   m_Father: {fileID: 145866661030460284}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &4791915246984123127
@@ -42037,8 +42036,8 @@ GameObject:
   - component: {fileID: 4405931127114056396}
   - component: {fileID: 4024334414935309636}
   - component: {fileID: 5657679216733539692}
-  - component: {fileID: 6600143422730557462}
   - component: {fileID: -6355272541105008178}
+  - component: {fileID: 414732419322321752}
   m_Layer: 10
   m_Name: PrototypingPlayer4
   m_TagString: Player
@@ -42059,6 +42058,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:
+  - {fileID: 773709212791927733}
   - {fileID: 1468280491109615757}
   - {fileID: 1571460652576475118}
   - {fileID: 5537624061897635138}
@@ -42287,7 +42287,7 @@ MonoBehaviour:
   BlockingWeaponStates: 
   PlayerID: Player1
   MainInventoryName: MainPlayerInventory
-  WeaponInventoryName: RightHandInventory
+  WeaponInventoryName: EquipmentInventory
   HotbarInventoryName: HotbarInventory
   InventoryTransform: {fileID: 0}
   WeaponRotationMode: 0
@@ -42395,7 +42395,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4194478886614523176}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6a07c6668aa55403790d27b575279549, type: 3}
+  m_Script: {fileID: 11500000, guid: 22606ad8f7b9a3d4c95d4708f29b49ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   AbilityStartSfx: {fileID: 0}
@@ -42426,6 +42426,15 @@ MonoBehaviour:
   MaximumBufferDuration: 0.25
   RequiresPerfectTile: 0
   CurrentWeapon: {fileID: 0}
+  WeaponAttachmentType: 0
+  AttachmentPointList:
+  - Type: 0
+    Attachment: {fileID: 5810737014136237662}
+  - Type: 1
+    Attachment: {fileID: 3647690175896495036}
+  weaponAttachment: {fileID: 5810737014136237662}
+  WeaponIK: {fileID: 0}
+  WeaponEquipFeedback: {fileID: 0}
 --- !u!114 &5831126372535588822
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -42959,26 +42968,6 @@ MonoBehaviour:
   OnUnpause:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &6600143422730557462
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4194478886614523176}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f17c2218d7ec803498092e955d84ebe3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pauseDuringConversations: 0
-  disableInputDuringConversations: 1
-  floatAnimatorParametersToStop:
-  - Speed
-  boolAnimatorParametersToStop:
-  - Walking
-  - Running
-  - Jumping
 --- !u!114 &-6355272541105008178
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -43013,6 +43002,22 @@ MonoBehaviour:
     prependActorNameSeparator: ': '
     prependActorNameFormat: '{0}{1}'
     subtitleColor: {r: 1, g: 1, b: 1, a: 1}
+--- !u!114 &414732419322321752
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4194478886614523176}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f17c2218d7ec803498092e955d84ebe3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pauseDuringConversations: 0
+  disableInputDuringConversations: 1
+  floatAnimatorParametersToStop: []
+  boolAnimatorParametersToStop: []
 --- !u!1 &4196067256495071556
 GameObject:
   m_ObjectHideFlags: 0
@@ -76145,7 +76150,7 @@ MonoBehaviour:
   CooldownDuration: 0
   InitialDelay: 0
   CanPlay: 1
-  CanPlayWhileAlreadyPlaying: 1
+  CanPlayWhileAlreadyPlaying: 0
   ChanceToPlay: 100
   FeedbacksIntensity: 1
   Events:
@@ -76200,7 +76205,7 @@ MonoBehaviour:
         Active: 1
         UniqueID: -1058458761
         Label: Particles Play
-        OriginalLabel: 
+        OriginalLabel: Particles Play
         ChannelMode: 0
         Channel: 0
         MMChannelDefinition: {fileID: 0}
@@ -76286,7 +76291,7 @@ MonoBehaviour:
         Active: 1
         UniqueID: -1929796972
         Label: Sound
-        OriginalLabel: 
+        OriginalLabel: Sound
         ChannelMode: 0
         Channel: 0
         MMChannelDefinition: {fileID: 0}
@@ -92843,7 +92848,7 @@ Transform:
   - {fileID: 1063028157753476305}
   - {fileID: 8004254773570705866}
   - {fileID: 8106909519606481746}
-  m_Father: {fileID: 1468280491109615757}
+  m_Father: {fileID: 145866661030460284}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8246016532056588784
 GameObject:
