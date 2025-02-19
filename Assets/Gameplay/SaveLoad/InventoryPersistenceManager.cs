@@ -4,8 +4,6 @@ using Gameplay.ItemManagement.InventoryTypes;
 using MoreMountains.InventoryEngine;
 using MoreMountains.Tools;
 using MoreMountains.TopDownEngine;
-using Project.Gameplay.Combat.Shields;
-using Project.Gameplay.Combat.Tools;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -57,8 +55,6 @@ namespace Gameplay.SaveLoad
         [Header("Inventory Displays")]
         [SerializeField]
         CharacterHandleWeapon _characterHandleWeapon;
-        [SerializeField] CharacterHandleShield _characterHandleShield;
-        [SerializeField] CharacterHandleTorch _characterHandleTorch;
 
         [SerializeField] string PlayerID = "Player1";
         InventoryItem[] _equipmentInventorySavedState;
@@ -74,9 +70,7 @@ namespace Gameplay.SaveLoad
                 Instance = this;
                 Debug.Log(
                     "[InventoryPersistenceManager] Initialized with components:\n" +
-                    $"CharacterHandleTorch: {(_characterHandleTorch != null ? "Assigned" : "Not Assigned")}\n" +
-                    $"CharacterHandleWeapon: {(_characterHandleWeapon != null ? "Assigned" : "Not Assigned")}\n" +
-                    $"CharacterHandleShield: {(_characterHandleShield != null ? "Assigned" : "Not Assigned")}");
+                    $"CharacterHandleWeapon: {(_characterHandleWeapon != null ? "Assigned" : "Not Assigned")}\n");
             }
             else
             {
@@ -155,9 +149,7 @@ namespace Gameplay.SaveLoad
             Debug.LogError("Timed out waiting for handle components to initialize during reload");
             Debug.LogError(
                 "Final component state during reload: \n" +
-                $"CharacterHandleTorch: {(_characterHandleTorch != null ? "Found" : "Missing")}\n" +
-                $"CharacterHandleWeapon: {(_characterHandleWeapon != null ? "Found" : "Missing")}\n" +
-                $"CharacterHandleShield: {(_characterHandleShield != null ? "Found" : "Missing")}");
+                $"CharacterHandleWeapon: {(_characterHandleWeapon != null ? "Found" : "Missing")}\n");
         }
 
         static string GetSaveFilePath()
@@ -212,39 +204,20 @@ namespace Gameplay.SaveLoad
 
         bool FindHandleComponents()
         {
-            if (_characterHandleTorch == null)
-            {
-                _characterHandleTorch = FindObjectOfType<CharacterHandleTorch>();
-                Debug.Log(
-                    $"Attempting to find CharacterHandleTorch: {(_characterHandleTorch != null ? "Found" : "Not Found")}");
-            }
-
             if (_characterHandleWeapon == null)
                 _characterHandleWeapon = FindObjectOfType<CharacterHandleWeapon>();
 
-            if (_characterHandleShield == null) _characterHandleShield = FindObjectOfType<CharacterHandleShield>();
             return AreHandleComponentsReady();
         }
 
         bool AreHandleComponentsReady()
         {
-            if (_characterHandleTorch == null)
-            {
-                Debug.LogWarning("CharacterHandleTorch is null");
-                return false;
-            }
-
             if (_characterHandleWeapon == null)
             {
                 Debug.LogWarning("CharacterHandleWeapon is null");
                 return false;
             }
 
-            if (_characterHandleShield == null)
-            {
-                Debug.LogWarning("CharacterHandleShield is null");
-                return false;
-            }
 
             return true;
         }
@@ -274,11 +247,11 @@ namespace Gameplay.SaveLoad
             Debug.LogError("Timed out waiting for handle components to initialize");
 
             // Log the state of all components for debugging
-            Debug.LogError(
-                "Final component state: \n" +
-                $"CharacterHandleTorch: {(_characterHandleTorch != null ? "Found" : "Missing")}\n" +
-                $"CharacterHandleWeapon: {(_characterHandleWeapon != null ? "Found" : "Missing")}\n" +
-                $"CharacterHandleShield: {(_characterHandleShield != null ? "Found" : "Missing")}");
+            // Debug.LogError(
+            //     "Final component state: \n" +
+            //     $"CharacterHandleTorch: {(_characterHandleTorch != null ? "Found" : "Missing")}\n" +
+            //     $"CharacterHandleWeapon: {(_characterHandleWeapon != null ? "Found" : "Missing")}\n" +
+            //     $"CharacterHandleShield: {(_characterHandleShield != null ? "Found" : "Missing")}");
         }
         public void LoadInventories()
         {
@@ -361,27 +334,15 @@ namespace Gameplay.SaveLoad
                     try
                     {
                         // Check which handler we should use based on the item type
-                        if (item.ItemID.Contains("Torch"))
-                        {
-                            Debug.Log($"Equipping torch: {item.ItemID}");
-                            if (_characterHandleTorch != null && _characterHandleTorch.currentTorch == null)
-                            {
-                                item.Equip(PlayerID);
-                                // Verify weapon was equipped
-                                if (_characterHandleTorch.currentTorch == null)
-                                    Debug.LogError(
-                                        "Failed to equip torch to CharacterHandleTorch - CurrentWeapon is still null after equip");
-                            }
-                        }
-                        else if (item.ItemID.Contains("Shield"))
-                        {
-                            Debug.Log($"Equipping shield: {item.ItemID}");
-                            if (_characterHandleShield != null) item.Equip(PlayerID);
-                        }
-                        else // Weapon
+
+                        if (item is InventoryWeapon) // Weapon
                         {
                             Debug.Log($"Equipping weapon: {item.ItemID}");
                             if (_characterHandleWeapon != null) item.Equip(PlayerID);
+                        }
+                        else
+                        {
+                            Debug.LogWarning($"Item {item.ItemID} is not a weapon");
                         }
 
                         StartCoroutine(TriggerEquipWithDelay(inventory, item, i));
