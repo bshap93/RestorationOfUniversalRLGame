@@ -1,33 +1,64 @@
+using Gameplay.Events;
 using Gameplay.Extensions.InventoryEngineExtensions.Craft;
+using MoreMountains.Feedbacks;
+using MoreMountains.Tools;
 using Project.Gameplay.SaveLoad.Triggers;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Gameplay.Crafting.Cooking
 {
-    public class CookingStationController : MonoBehaviour, ISelectableTrigger
+    public class CookingStationController : MonoBehaviour, ISelectableTrigger, ICraftingStation,
+        MMEventListener<CraftingEvent>
     {
         [Header("Station Setup")] public Craft stationRecipes;
         public CraftingButtons craftingButtons;
 
         [Header("UI")] public Canvas stationCanvas;
-        public CanvasGroup cookingUIPanel;
+        [FormerlySerializedAs("cookingUIPanel")]
+        public CanvasGroup cookingChoiceUIPanel;
+        public CanvasGroup cookingProgressUIDisplayler;
+        public MMFeedbacks lightFireFeedback;
 
         [Header("Input")] public KeyCode interactionKey = KeyCode.F;
 
+        bool _isCookStaionLit;
+
         bool _isInPlayerRange;
+
 
         void Awake()
         {
             // Start with UI hidden
-            HideStation();
+            HideStationChoicePanel();
+            HideCookingProgressDisplay();
 
             // Setup crafting buttons
-            if (craftingButtons != null) craftingButtons.craftRecipes = stationRecipes;
+            if (craftingButtons != null) craftingButtons.SetCraftRecipes(stationRecipes);
+        }
+        void HideCookingProgressDisplay()
+        {
+            throw new System.NotImplementedException();
+        }
+        
+        void ShowCookingProgressDisplay()
+        {
+            throw new System.NotImplementedException();
         }
 
         void Update()
         {
-            if (_isInPlayerRange && Input.GetKeyDown(interactionKey)) ShowStation();
+            if (_isInPlayerRange && Input.GetKeyDown(interactionKey)) ShowStationChoicePanel();
+        }
+
+        void OnEnable()
+        {
+            this.MMEventStartListening();
+        }
+
+        void OnDisable()
+        {
+            this.MMEventStopListening();
         }
 
         void OnTriggerEnter(Collider other)
@@ -44,11 +75,11 @@ namespace Gameplay.Crafting.Cooking
             if (other.CompareTag("Player"))
             {
                 _isInPlayerRange = false;
-                HideStation();
+                HideStationChoicePanel();
             }
         }
 
-        void OnValidate()
+        public void OnValidate()
         {
             if (stationRecipes == null)
                 Debug.LogWarning($"CookingStation '{gameObject.name}': No recipes assigned!", this);
@@ -56,39 +87,51 @@ namespace Gameplay.Crafting.Cooking
             if (craftingButtons == null)
                 Debug.LogWarning($"CookingStation '{gameObject.name}': No crafting buttons assigned!", this);
         }
-        public void OnSelectedItem()
-        {
-            ShowStation();
-        }
-        public void OnUnSelectedItem()
-        {
-            HideStation();
-        }
 
-        public void ShowStation()
+        public void ShowStationChoicePanel()
         {
             if (stationCanvas != null) stationCanvas.enabled = true;
-            if (cookingUIPanel != null)
+            if (cookingChoiceUIPanel != null)
             {
-                cookingUIPanel.alpha = 1;
-                cookingUIPanel.interactable = true;
-                cookingUIPanel.blocksRaycasts = true;
+                cookingChoiceUIPanel.alpha = 1;
+                cookingChoiceUIPanel.interactable = true;
+                cookingChoiceUIPanel.blocksRaycasts = true;
             }
 
             if (craftingButtons != null) craftingButtons.gameObject.SetActive(true);
         }
 
-        public void HideStation()
+        public void HideStationChoicePanel()
         {
             if (stationCanvas != null) stationCanvas.enabled = false;
-            if (cookingUIPanel != null)
+            if (cookingChoiceUIPanel != null)
             {
-                cookingUIPanel.alpha = 0;
-                cookingUIPanel.interactable = false;
-                cookingUIPanel.blocksRaycasts = false;
+                cookingChoiceUIPanel.alpha = 0;
+                cookingChoiceUIPanel.interactable = false;
+                cookingChoiceUIPanel.blocksRaycasts = false;
             }
 
             if (craftingButtons != null) craftingButtons.gameObject.SetActive(false);
+        }
+        public void OnSelectedItem()
+        {
+            ShowStationChoicePanel();
+        }
+        public void OnUnSelectedItem()
+        {
+            HideStationChoicePanel();
+        }
+
+        public void OnMMEvent(CraftingEvent eventType)
+        {
+            if (eventType.EventType == CraftingEventType.CraftingStarted)
+                if (!_isCookStaionLit)
+                {
+                    lightFireFeedback?.PlayFeedbacks();
+                    _isCookStaionLit = true;
+                }
+
+            if (eventType.EventType == CraftingEventType.CraftingFinished) HideStationChoicePanel();
         }
     }
 }

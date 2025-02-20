@@ -18,7 +18,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &8334748982129332328
 RectTransform:
   m_ObjectHideFlags: 0
@@ -38,10 +38,10 @@ RectTransform:
   - {fileID: 2326975214547494553}
   m_Father: {fileID: 8364919489676918155}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 63.085266}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 87.85, y: -61.542633}
+  m_SizeDelta: {x: 115.7, y: 63.085266}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3154491526542314005
 CanvasRenderer:
@@ -1605,7 +1605,7 @@ MonoBehaviour:
           ButtonText: Automatic Shaker Setup
         Owner: {fileID: 1844014943620011286}
         DebugActive: 0
-        Sfx: {fileID: 8300000, guid: 0eabb5de3691bb140b268f0da23ac355, type: 3}
+        Sfx: {fileID: 0}
         RandomSfx:
         - {fileID: 8300000, guid: 233059047c51ddb4ea5ed6e113b91e31, type: 3}
         - {fileID: 8300000, guid: b8e1a3216f47cef4fa41225e2e6fdca0, type: 3}
@@ -2003,7 +2003,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.0011750412, y: 1.2443675}
+  m_AnchoredPosition: {x: 0.0011750412, y: -1.2445387}
   m_SizeDelta: {x: 175.7, y: 335.00143}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1484835671854569708
@@ -2056,8 +2056,8 @@ MonoBehaviour:
   playerID: Player1
   craftRecipes: {fileID: 11400000, guid: 7295533590f200a42b6e2b3a49e85dde, type: 2}
   isCookingStation: 1
-  startCookingFeedback: {fileID: 8322529294981332947}
-  finishCookingFeedback: {fileID: 1844014943620011286}
+  startCookingFeedback: {fileID: 1844014943620011286}
+  finishCookingFeedback: {fileID: 0}
 --- !u!1 &4738647675913178599
 GameObject:
   m_ObjectHideFlags: 0
@@ -7010,7 +7010,7 @@ MonoBehaviour:
   m_BlockingObjects: 0
   m_BlockingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 16777015
 --- !u!1 &5027677637723199042
 GameObject:
   m_ObjectHideFlags: 0
@@ -14473,7 +14473,7 @@ PrefabInstance:
     - target: {fileID: 617768771042559695, guid: 4548e16893826954ba5b89c5654ca85c,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: HideStation
+      value: HideStationChoicePanel
       objectReference: {fileID: 0}
     - target: {fileID: 617768771042559695, guid: 4548e16893826954ba5b89c5654ca85c,
         type: 3}

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using Gameplay.Events;
 using MoreMountains.Feedbacks;
 using MoreMountains.InventoryEngine;
 using UnityEngine;
@@ -82,6 +83,7 @@ namespace Gameplay.Extensions.InventoryEngineExtensions.Craft
                 if (inventory.AddItem(recipe.Item, recipe.Quantity))
                 {
                     craftFeedback?.PlayFeedbacks();
+                    CraftingEvent.Trigger("CraftingFinished", CraftingEventType.CraftingFinished, recipe);
                     MMInventoryEvent.Trigger(
                         MMInventoryEventType.Pick, null, string.Empty, recipe.Item, recipe.Quantity, 0, "Player1");
 

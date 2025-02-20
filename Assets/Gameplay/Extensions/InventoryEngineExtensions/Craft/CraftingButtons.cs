@@ -10,13 +10,13 @@ namespace Gameplay.Extensions.InventoryEngineExtensions.Craft
     {
         [SerializeField] string inventoryName = "MainPlayerInventory";
         [SerializeField] string playerID = "Player1";
-        public Craft craftRecipes;
 
         [Header("Cooking Feedbacks")] public bool isCookingStation;
         public MMFeedbacks startCookingFeedback;
         public MMFeedbacks finishCookingFeedback;
 
         GameObject _craftingButton;
+        Craft _craftRecipes;
         Inventory _inventory;
 
         void Awake()
@@ -53,7 +53,7 @@ namespace Gameplay.Extensions.InventoryEngineExtensions.Craft
 
         void RefreshButtons()
         {
-            foreach (var recipe in craftRecipes.Recipes)
+            foreach (var recipe in _craftRecipes.Recipes)
                 if (!_inventory.ContainsIngredientsForRecipe(recipe))
                 {
                     var craftingButton = transform.Find(recipe.Name).gameObject;
@@ -70,7 +70,7 @@ namespace Gameplay.Extensions.InventoryEngineExtensions.Craft
             // Clear old buttons except the template (child at index 0)
             for (var i = transform.childCount - 1; i > 0; i--) Destroy(transform.GetChild(i).gameObject);
 
-            if (craftRecipes?.Recipes == null) return;
+            if (_craftRecipes?.Recipes == null) return;
 
             _inventory = FindFirstObjectByType<MainInventory>();
             if (_inventory == null)
@@ -80,7 +80,7 @@ namespace Gameplay.Extensions.InventoryEngineExtensions.Craft
             }
 
 
-            foreach (var recipe in craftRecipes.Recipes)
+            foreach (var recipe in _craftRecipes.Recipes)
             {
                 var craftingButton = Instantiate(_craftingButton, transform);
                 craftingButton.SetActive(true);
@@ -112,6 +112,10 @@ namespace Gameplay.Extensions.InventoryEngineExtensions.Craft
                 craftingButton.GetComponent<Button>().onClick.RemoveAllListeners();
                 craftingButton.GetComponent<Button>().onClick.AddListener(() => HandleCrafting(localRecipe));
             }
+        }
+        public void SetCraftRecipes(Craft stationRecipes)
+        {
+            _craftRecipes = stationRecipes;
         }
     }
 }
