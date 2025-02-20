@@ -1,16 +1,17 @@
-using System.Collections;
 using MoreMountains.InventoryEngine;
 using MoreMountains.TopDownEngine;
-using PixelCrushers;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-namespace Core.Events
+namespace PixelCrushers.TopDownEngineSupport
 {
-    public static class TdePauseUtility
+
+    public static class TDEPauseUtility
     {
-        static int pauseDepth;
-        static bool prevSendNavEvents;
+
+        private static int pauseDepth = 0;
+        private static bool prevSendNavEvents = false;
 
 #if UNITY_EDITOR
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
@@ -33,12 +34,16 @@ namespace Core.Events
                     GameManager.Instance.Pause(PauseMethods.PauseMenu, false);
                     GUIManager.Instance.PauseScreen.SetActive(false);
                 }
-
-                if (disableInput) prevSendNavEvents = EventSystem.current.sendNavigationEvents;
+                if (disableInput)
+                {
+                    prevSendNavEvents = EventSystem.current.sendNavigationEvents;
+                }
             }
-
             pauseDepth++;
-            if (disableInput) SetTopDownInput(false);
+            if (disableInput)
+            {
+                SetTopDownInput(false);
+            }
             SetPlayerControl(false, floatAnimatorParametersToStop, boolAnimatorParametersToStop);
             EventSystem.current.sendNavigationEvents = true;
         }
@@ -49,49 +54,49 @@ namespace Core.Events
         {
             pauseDepth--;
             if (pauseDepth == 0)
-                GameManager.Instance.StartCoroutine(
-                    UnpauseAtEndOfFrame(
-                        pause, disableInput, floatAnimatorParametersToStop, boolAnimatorParametersToStop));
+            {
+                GameManager.Instance.StartCoroutine(UnpauseAtEndOfFrame(pause, disableInput, floatAnimatorParametersToStop, boolAnimatorParametersToStop));
+            }
         }
 
-        static IEnumerator UnpauseAtEndOfFrame(bool pause, bool disableInput,
+        private static IEnumerator UnpauseAtEndOfFrame(bool pause, bool disableInput,
             string[] floatAnimatorParametersToStop,
             string[] boolAnimatorParametersToStop)
         {
             yield return new WaitForEndOfFrame();
             if (pause)
             {
-                GameManager.Instance.UnPause();
+                GameManager.Instance.UnPause(PauseMethods.PauseMenu);
                 GUIManager.Instance.PauseScreen.SetActive(false);
             }
-
             if (disableInput)
             {
                 SetTopDownInput(true);
                 EventSystem.current.sendNavigationEvents = prevSendNavEvents;
             }
-
             SetPlayerControl(true, floatAnimatorParametersToStop, boolAnimatorParametersToStop);
         }
 
-        static void SetTopDownInput(bool value)
+        private static void SetTopDownInput(bool value)
         {
             SetAllInputManagers(value);
         }
 
-        static void SetAllInputManagers(bool value)
+        private static void SetAllInputManagers(bool value)
         {
             // Enable/disable the TDE input managers:
             foreach (var inputManager in GameObjectUtility.FindObjectsByType<InputManager>())
+            {
                 inputManager.InputDetectionActive = value;
-
+            }
             // Enable/disable the Inventory Engine input managers:
             foreach (var inputManager in GameObjectUtility.FindObjectsByType<InventoryInputManager>())
+            {
                 inputManager.enabled = value;
+            }
         }
 
-        static void SetPlayerControl(bool value, string[] floatAnimatorParametersToStop,
-            string[] boolAnimatorParametersToStop)
+        private static void SetPlayerControl(bool value, string[] floatAnimatorParametersToStop, string[] boolAnimatorParametersToStop)
         {
             // Freeze or unfreeze characters, including stopping movements, shooting, and walk particles.
             if (value)
@@ -101,15 +106,14 @@ namespace Core.Events
             else
             {
                 LevelManager.Instance.FreezeCharacters();
-                GameManager.Instance.StartCoroutine(
-                    StopAnimators(floatAnimatorParametersToStop, boolAnimatorParametersToStop));
+                GameManager.Instance.StartCoroutine(StopAnimators(floatAnimatorParametersToStop, boolAnimatorParametersToStop));
             }
-
-            foreach (var player in LevelManager.Instance.Players)
+            foreach (Character player in LevelManager.Instance.Players)
             {
                 player.LinkedInputManager.RunButton.TriggerButtonUp();
                 var characterRun = player.GetComponent<CharacterRun>();
                 if (characterRun != null) characterRun.RunStop();
+                player.GetComponent<CharacterMovement>().ResetSpeed();
                 player.MovementState.ChangeState(CharacterStates.MovementStates.Idle);
 
                 var characterMovement = player.GetComponent<CharacterMovement>();
@@ -118,22 +122,33 @@ namespace Core.Events
                     characterMovement.PermitAbility(value);
                     characterMovement.MovementForbidden = !value;
                 }
-
-                foreach (var characterHandleWeapon in player.GetComponents<CharacterHandleWeapon>())
+                foreach (CharacterHandleWeapon characterHandleWeapon in player.GetComponents<CharacterHandleWeapon>())
+                {
                     characterHandleWeapon.ShootStop();
+                }
             }
         }
 
-        static IEnumerator StopAnimators
-        (string[] floatAnimatorParametersToStop,
+        private static IEnumerator StopAnimators
+            (string[] floatAnimatorParametersToStop,
             string[] boolAnimatorParametersToStop)
         {
             yield return null;
-            foreach (var player in LevelManager.Instance.Players)
+            foreach (Character player in LevelManager.Instance.Players)
             {
                 var animator = player.GetComponent<Character>()._animator;
-                foreach (var floatParameter in floatAnimatorParametersToStop) animator.SetFloat(floatParameter, 0);
-                foreach (var boolParameter in boolAnimatorParametersToStop) animator.SetBool(boolParameter, false);
+                foreach (var floatParameter in floatAnimatorParametersToStop)
+                {
+                    animator.SetFloat(floatParameter, 0);
+                }
+                foreach (var boolParameter in boolAnimatorParametersToStop)
+                {
+                    animator.SetBool(boolParameter, false);
+                }
+                foreach (var ps in player.GetComponent<CharacterMovement>().WalkParticles)
+                {
+                    ps.Stop();
+                }
             }
         }
     }
