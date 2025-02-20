@@ -1295,6 +1295,54 @@ MonoBehaviour:
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
   m_SoftShadowQuality: 1
+--- !u!1 &3495747869461489756
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6116728793011625141}
+  - component: {fileID: 4995925131967173070}
+  m_Layer: 0
+  m_Name: CookingProgressUIDisplayer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &6116728793011625141
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3495747869461489756}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2828442636829098181}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!225 &4995925131967173070
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3495747869461489756}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &3774716407630566735
 GameObject:
   m_ObjectHideFlags: 0
@@ -2054,7 +2102,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inventoryName: MainPlayerInventory
   playerID: Player1
-  craftRecipes: {fileID: 11400000, guid: 7295533590f200a42b6e2b3a49e85dde, type: 2}
   isCookingStation: 1
   startCookingFeedback: {fileID: 1844014943620011286}
   finishCookingFeedback: {fileID: 0}
@@ -6940,6 +6987,7 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 6116728793011625141}
   - {fileID: 1868628495610922713}
   m_Father: {fileID: 6949903623140450724}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -7288,7 +7336,7 @@ GameObject:
   - component: {fileID: 1868628495610922713}
   - component: {fileID: 2253033489597422231}
   m_Layer: 0
-  m_Name: CookingUIPanel
+  m_Name: CookingChoiceUIPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8016,7 +8064,7 @@ MonoBehaviour:
         Active: 1
         UniqueID: -2147219289
         Label: Sound
-        OriginalLabel: 
+        OriginalLabel: Sound
         ChannelMode: 0
         Channel: 0
         MMChannelDefinition: {fileID: 0}
@@ -8141,7 +8189,7 @@ MonoBehaviour:
         Active: 1
         UniqueID: 588171460
         Label: Set Active
-        OriginalLabel: 
+        OriginalLabel: Set Active
         ChannelMode: 0
         Channel: 0
         MMChannelDefinition: {fileID: 0}
@@ -8615,8 +8663,9 @@ GameObject:
   - component: {fileID: 4814657958007977160}
   - component: {fileID: 6130056714140960295}
   - component: {fileID: 2957446082310549655}
+  - component: {fileID: 6672935917955060174}
   m_Layer: 0
-  m_Name: Panel
+  m_Name: CraftingChoicePanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8682,6 +8731,18 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &6672935917955060174
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7105611469487151231}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 93b0be7e17b92ca409f014bf728c5ef9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7748513532486416739
 GameObject:
   m_ObjectHideFlags: 0
@@ -8755,7 +8816,9 @@ MonoBehaviour:
   stationRecipes: {fileID: 11400000, guid: 7295533590f200a42b6e2b3a49e85dde, type: 2}
   craftingButtons: {fileID: 2881648370302249159}
   stationCanvas: {fileID: 7798006257284043542}
-  cookingUIPanel: {fileID: 2253033489597422231}
+  cookingChoiceUIPanel: {fileID: 2253033489597422231}
+  cookingProgressUIDisplayler: {fileID: 0}
+  lightFireFeedback: {fileID: 2011938373104173978}
   interactionKey: 102
 --- !u!1 &8101098027994949528
 GameObject:

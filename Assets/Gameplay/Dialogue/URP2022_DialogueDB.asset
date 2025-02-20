@@ -1409,8 +1409,8 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 160
-        y: 30
+        x: 392
+        y: 50
         width: 160
         height: 30
     - id: 1
@@ -1471,6 +1471,12 @@ MonoBehaviour:
         destinationDialogueID: 5
         isConnector: 0
         priority: 2
+      - originConversationID: 3
+        originDialogueID: 1
+        destinationConversationID: 3
+        destinationDialogueID: 6
+        isConnector: 0
+        priority: 2
       conditionsString: 
       userScript: 
       onExecute:
@@ -1478,8 +1484,8 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 156.66667
-        y: 137.33333
+        x: 392
+        y: 134
         width: 160
         height: 30
     - id: 2
@@ -1505,7 +1511,9 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: '[Trade]'
+        value: '[Give Midreth Mushroom Stew]
+
+'
         type: 0
         typeString: 
       - title: Sequence
@@ -1520,15 +1528,15 @@ MonoBehaviour:
       falseConditionAction: Block
       conditionPriority: 2
       outgoingLinks: []
-      conditionsString: 
+      conditionsString: mmGetQuantity("MainPlayerInventory", "MushroomStew") >= 1
       userScript: 
       onExecute:
         m_PersistentCalls:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 29.926743
-        y: 223.23076
+        x: 80
+        y: 218
         width: 160
         height: 30
     - id: 3
@@ -1582,8 +1590,8 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 308.31503
-        y: 212.97435
+        x: 288
+        y: 218
         width: 160
         height: 30
     - id: 4
@@ -1631,8 +1639,8 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 305.3846
-        y: 314.989
+        x: 288
+        y: 302
         width: 160
         height: 30
     - id: 5
@@ -1680,13 +1688,62 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 498.7912
-        y: 210.04396
+        x: 496
+        y: 218
+        width: 160
+        height: 30
+    - id: 6
+      fields:
+      - title: Title
+        value: 
+        type: 0
+        typeString: 
+      - title: Description
+        value: 
+        type: 0
+        typeString: 
+      - title: Actor
+        value: 1
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Conversant
+        value: 2
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Menu Text
+        value: 
+        type: 0
+        typeString: 
+      - title: Dialogue Text
+        value: '[em#]Goodbye[/em#]'
+        type: 0
+        typeString: 
+      - title: Sequence
+        value: 
+        type: 0
+        typeString: 
+      conversationID: 3
+      isRoot: 0
+      isGroup: 0
+      nodeColor: 
+      delaySimStatus: 0
+      falseConditionAction: Block
+      conditionPriority: 2
+      outgoingLinks: []
+      conditionsString: 
+      userScript: 
+      onExecute:
+        m_PersistentCalls:
+          m_Calls: []
+      canvasRect:
+        serializedVersion: 2
+        x: 704
+        y: 218
         width: 160
         height: 30
     entryGroups: []
-    canvasScrollPosition: {x: 0, y: 14.468378}
-    canvasZoom: 0.9100001
+    canvasScrollPosition: {x: 0, y: 81.65543}
+    canvasZoom: 0.67000026
   syncInfo:
     syncActors: 1
     syncItems: 0

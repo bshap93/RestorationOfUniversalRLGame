@@ -36,15 +36,6 @@ namespace Gameplay.Crafting.Cooking
             // Setup crafting buttons
             if (craftingButtons != null) craftingButtons.SetCraftRecipes(stationRecipes);
         }
-        void HideCookingProgressDisplay()
-        {
-            throw new System.NotImplementedException();
-        }
-        
-        void ShowCookingProgressDisplay()
-        {
-            throw new System.NotImplementedException();
-        }
 
         void Update()
         {
@@ -132,6 +123,15 @@ namespace Gameplay.Crafting.Cooking
                 }
 
             if (eventType.EventType == CraftingEventType.CraftingFinished) HideStationChoicePanel();
+        }
+        void HideCookingProgressDisplay()
+        {
+            Debug.Log("Hide Cooking Progress Display");
+        }
+
+        void ShowCookingProgressDisplay()
+        {
+            Debug.Log("Show Cooking Progress Display");
         }
     }
 }
