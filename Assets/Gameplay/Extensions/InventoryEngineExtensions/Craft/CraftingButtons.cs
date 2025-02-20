@@ -47,6 +47,19 @@ namespace Gameplay.Extensions.InventoryEngineExtensions.Craft
             }
 
             _craftingButton.SetActive(false);
+
+            RefreshButtons();
+        }
+
+        void RefreshButtons()
+        {
+            foreach (var recipe in craftRecipes.Recipes)
+                if (!_inventory.ContainsIngredientsForRecipe(recipe))
+                {
+                    var craftingButton = transform.Find(recipe.Name).gameObject;
+                    craftingButton.GetComponent<Button>().interactable = false;
+                    craftingButton.transform.GetChild(4).gameObject.SetActive(true);
+                }
         }
 
         void CreateButtons()
@@ -66,16 +79,33 @@ namespace Gameplay.Extensions.InventoryEngineExtensions.Craft
                 return;
             }
 
+
             foreach (var recipe in craftRecipes.Recipes)
             {
                 var craftingButton = Instantiate(_craftingButton, transform);
                 craftingButton.SetActive(true);
+
+                craftingButton.name = recipe.Name;
 
                 // Setup button UI
                 craftingButton.transform.GetChild(0).GetComponent<Text>().text = recipe.Name;
                 craftingButton.transform.GetChild(1).GetComponent<Text>().text = recipe.Item.ShortDescription;
                 craftingButton.transform.GetChild(2).GetComponent<Image>().sprite = recipe.Item.Icon;
                 craftingButton.transform.GetChild(3).GetComponent<Text>().text = recipe.IngredientsText;
+
+                var greyOverlay = craftingButton.transform.GetChild(4).gameObject;
+
+
+                if (!_inventory.ContainsIngredientsForRecipe(recipe))
+                {
+                    craftingButton.GetComponent<Button>().interactable = false;
+                    greyOverlay.SetActive(true);
+                }
+                else
+                {
+                    craftingButton.GetComponent<Button>().interactable = true;
+                    greyOverlay.SetActive(false);
+                }
 
                 var localRecipe = recipe;
                 // Ensure only one onClick listener

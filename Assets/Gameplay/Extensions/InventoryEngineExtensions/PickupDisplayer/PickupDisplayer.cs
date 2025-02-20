@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Gameplay.Events;
+using MoreMountains.InventoryEngine;
 using MoreMountains.Tools;
 using UnityEngine;
 
@@ -10,7 +11,7 @@ namespace Gameplay.Extensions.InventoryEngineExtensions.PickupDisplayer
     ///     A class used to display the picked up items on screen.
     ///     The PickupDisplayItems will be parented to it, so it's better if it has a LayoutGroup (Vertical or Horizontal) too.
     ///     </summadry>
-    public class PickupDisplayer : MonoBehaviour, MMEventListener<ItemEvent>
+    public class PickupDisplayer : MonoBehaviour, MMEventListener<ItemEvent>, MMEventListener<MMInventoryEvent>
     {
         [Tooltip("the prefab to use to display achievements")]
         public PickupDisplayItem PickupDisplayPrefab;
@@ -21,12 +22,17 @@ namespace Gameplay.Extensions.InventoryEngineExtensions.PickupDisplayer
         WaitForSeconds _pickupDisplayWfs;
         void OnEnable()
         {
-            this.MMEventStartListening();
+            this.MMEventStartListening<ItemEvent>();
+
+            this.MMEventStartListening<MMInventoryEvent>();
+
             OnValidate();
         }
         void OnDisable()
         {
-            this.MMEventStopListening();
+            this.MMEventStopListening<ItemEvent>();
+
+            this.MMEventStopListening<MMInventoryEvent>();
         }
         void OnValidate()
         {
@@ -38,6 +44,17 @@ namespace Gameplay.Extensions.InventoryEngineExtensions.PickupDisplayer
             if (mmEvent.EventName != "ItemPickedUp") return;
             var item = mmEvent.Item;
             var quantity = mmEvent.Amount;
+            DisplayPickedItem(item, quantity);
+        }
+        public void OnMMEvent(MMInventoryEvent eventType)
+        {
+            if (eventType.InventoryEventType == MMInventoryEventType.Pick)
+                DisplayPickedItem(eventType.EventItem, eventType.Quantity);
+            
+            
+        }
+        void DisplayPickedItem(InventoryItem item, int quantity)
+        {
             if (_displays.TryGetValue(item.ItemID, out var display))
             {
                 display.AddQuantity(quantity);
