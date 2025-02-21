@@ -31,6 +31,7 @@ namespace Gameplay.Extensions.InventoryEngineExtensions.Craft
     }
 
     [Serializable]
+    [ES3Serializable]
     public class Recipe : Ingredient
     {
         public Ingredient[] Ingredients;
@@ -109,6 +110,7 @@ namespace Gameplay.Extensions.InventoryEngineExtensions.Craft
     [CreateAssetMenu]
     public class Craft : ScriptableObject
     {
+        public string UniqueID;
         public Recipe[] Recipes;
     }
 }
