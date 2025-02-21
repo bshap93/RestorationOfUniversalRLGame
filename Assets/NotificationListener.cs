@@ -1,16 +1,52 @@
+using Gameplay.Events;
+using MoreMountains.Tools;
 using UnityEngine;
+using UnityEngine.Serialization;
 
-public class NotificationListener : MonoBehaviour
+public class NotificationListener : MonoBehaviour, MMEventListener<CraftingEvent>
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    [FormerlySerializedAs("craftedNewItemNotification")] [SerializeField]
+    CanvasGroup craftedNewItemNotificationCanvasGroup;
+    [FormerlySerializedAs("_craftedNewItemNotification")] [SerializeField]
+    CraftedNewItemNotification craftedNewItemNotification;
+
     void Start()
     {
-        
+        Debug.Log("NotificationListener disabled craftedNewItemNotification");
+        DisableCanvasGroup(craftedNewItemNotificationCanvasGroup, craftedNewItemNotification);
     }
 
-    // Update is called once per frame
-    void Update()
+    void OnEnable()
     {
-        
+        this.MMEventStartListening();
+    }
+
+    void OnDisable()
+    {
+        this.MMEventStopListening();
+    }
+
+
+    public void OnMMEvent(CraftingEvent craftingEvent)
+    {
+        if (craftingEvent.EventType == CraftingEventType.CraftingFinished)
+            EnableCanvasGroup(craftedNewItemNotificationCanvasGroup, craftingEvent);
+    }
+    void DisableCanvasGroup(CanvasGroup canvasGroup, CraftedNewItemNotification craftedNewItemNotification1)
+    {
+        canvasGroup.alpha = 0;
+        canvasGroup.interactable = false;
+        canvasGroup.blocksRaycasts = false;
+
+        craftedNewItemNotification1.Hide();
+    }
+
+    void EnableCanvasGroup(CanvasGroup canvasGroup, CraftingEvent craftingEvent)
+    {
+        canvasGroup.alpha = 1;
+        canvasGroup.interactable = true;
+        canvasGroup.blocksRaycasts = true;
+
+        craftedNewItemNotification.RestartWithNewItem(craftingEvent.Recipe.Item);
     }
 }

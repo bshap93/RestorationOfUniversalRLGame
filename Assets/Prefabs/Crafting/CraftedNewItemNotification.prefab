@@ -162,7 +162,7 @@ MonoBehaviour:
   animationType: 2
   targetType: 11
   forcedTargetType: 0
-  autoPlay: 1
+  autoPlay: 0
   useTargetAsV3: 0
   endValueFloat: 0
   endValueV3: {x: 0, y: -1, z: 0}
@@ -232,7 +232,7 @@ GameObject:
   - component: {fileID: 8817156353039433405}
   - component: {fileID: 277641378897145238}
   m_Layer: 0
-  m_Name: Panel
+  m_Name: BackgroundPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -308,6 +308,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6359124939814123139}
   - component: {fileID: 5329954553099435000}
+  - component: {fileID: 5440514357620957756}
   m_Layer: 0
   m_Name: CraftedNewItemNotification
   m_TagString: Untagged
@@ -347,6 +348,21 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!114 &5440514357620957756
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4332953461528887914}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 388b1a2ab2235894f9d8e3e16dcee816, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  headerDotweenAnimation: {fileID: 3650112253281857939}
+  itemImage: {fileID: 8831012002557626883}
+  itemImageDotweenAnimation: {fileID: 6229672425131720067}
 --- !u!1 &6144751762871682021
 GameObject:
   m_ObjectHideFlags: 0
@@ -817,7 +833,7 @@ MonoBehaviour:
   animationType: 8
   targetType: 15
   forcedTargetType: 0
-  autoPlay: 1
+  autoPlay: 0
   useTargetAsV3: 0
   endValueFloat: 1
   endValueV3: {x: 0, y: 0, z: 0}

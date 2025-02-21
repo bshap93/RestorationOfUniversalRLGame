@@ -17,7 +17,7 @@ namespace Project.Editor.Utilities
 
         static void CheckMeshes()
         {
-            var allObjects = FindObjectsOfType<GameObject>();
+            var allObjects = FindObjectsByType<GameObject>(FindObjectsSortMode.None);
 
             Debug.Log("=== Static Meshes ===");
             foreach (var obj in allObjects)
