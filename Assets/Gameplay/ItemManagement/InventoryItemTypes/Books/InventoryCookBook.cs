@@ -1,77 +1,58 @@
 ﻿using System;
-using System.Collections.Generic;
-using Gameplay.ItemManagement.InventoryItemTypes.Books;
-using Gameplay.ItemManagement.InventoryTypes.Cooking;
+using Core.Events;
+using Gameplay.Extensions.InventoryEngineExtensions.Craft;
+using Gameplay.ItemsInteractions;
 using MoreMountains.Feedbacks;
-using PixelCrushers;
-using Project.Core.Events;
 using UnityEngine;
+using UnityEngine.Serialization;
 
-namespace Project.Gameplay.ItemManagement.InventoryItemTypes.Books
+namespace Gameplay.ItemManagement.InventoryItemTypes.Books
 {
-    public enum CookingType
+    public enum RecipeType
     {
-        BasicHumanCooking,
-        SheoliteCooking
+        Cooking
     }
 
+
     [CreateAssetMenu(
-        fileName = "InventoryCookBook", menuName = "Crafting/Books/InventoryCookBook", order = 1)]
+        fileName = "InventoryRecipeBook", menuName = "Crafting/Books/InventoryRecipeBook", order = 1)]
     [Serializable]
     public class InventoryCookBook : InventoryBook
     {
         public string AuthorName = "Unknown";
-        public int CookingSkillLevelNeeded = 1;
-        public CookingType CookingType;
+        public RecipeType RecipeType;
 
-        public List<CookingRecipe> CookingRecipes;
-        public MMFeedbacks RecipeLearnedFeedback;
+        [FormerlySerializedAs("RecipesGroup")] public RecipeGroup recipesGroup;
+        [FormerlySerializedAs("RecipeLearnedFeedback")]
+        public MMFeedbacks recipeLearnedFeedback;
 
         [Tooltip("The message to send when the book is read.")]
         public string message = "CookbookRead";
         [Tooltip("The message value to send with the message (optional).")]
         public override bool Use(string playerID)
         {
-            var journalManager = FindObjectOfType<JournalPersistenceManager>();
-            if (journalManager == null)
-            {
-                Debug.LogWarning("JournalPersistenceManager not found in the scene.");
-                return false;
-            }
+            var recipeManager = FindObjectOfType<CraftingRecipeManager>();
+            if (recipeManager == null) Debug.LogWarning("JournalPersistenceManager not found in the scene.");
 
             var hasLearnedNewRecipes = false;
 
-            foreach (var recipe in CookingRecipes)
-                if (journalManager.JournalData.knownRecipes.Exists(r => r.recipeID == recipe.recipeID))
-                {
-                    Debug.Log($"Recipe {recipe.recipeName} is already known.");
-                    // Optionally play feedback for already-known recipes
-                    RecipeEvent.Trigger("RecipeAlreadyKnown", RecipeEventType.RecipeAlreadyKnown, recipe, null);
-                }
-                else
-                {
-                    Debug.Log($"Learning new recipe: {recipe.recipeName}");
-                    journalManager.AddRecipeToJournal(recipe);
-                    RecipeEvent.Trigger("RecipeLearned", RecipeEventType.RecipeLearned, recipe, null);
-                    hasLearnedNewRecipes = true;
-                }
-
-            if (hasLearnedNewRecipes)
+            if (CraftingRecipeManager.IsCraftGroupLearned(recipesGroup.UniqueID))
             {
-                // Play feedback for newly learned recipes
-                RecipeLearnedFeedback?.PlayFeedbacks();
-
-                RecipeEvent.Trigger("NewRecipesLearned", RecipeEventType.NewRecipesLearned, null, null);
-
-                MessageSystem.SendMessage(this, message, ItemID);
-                Debug.Log($"Message sent: {message} with value: {ItemID}");
+                Debug.Log("Already knew these recipes.");
+                RecipeGroupEvent.Trigger(
+                    "RecipesAlreadyKnown", RecipeGroupEventType.RecipeGroupAlreadyKnown, recipesGroup);
             }
             else
-                // Play alternative feedback for no new recipes
-
             {
-                RecipeEvent.Trigger("NoNewRecipes", RecipeEventType.NoNewRecipes, null, null);
+                Debug.Log("Learning new recipes.");
+                CraftingRecipeManager.SaveLearnedCraftGroup(recipesGroup.UniqueID, true);
+                RecipeGroupEvent.Trigger(
+                    "RecipesLearned", RecipeGroupEventType.RecipeGroupLearned, recipesGroup);
+
+                // Play feedback for newly learned recipes
+                recipeLearnedFeedback?.PlayFeedbacks();
             }
+
 
             return true;
         }

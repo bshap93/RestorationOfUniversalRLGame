@@ -1,4 +1,4 @@
-﻿using Gameplay.Events;
+﻿using Core.Events;
 using MoreMountains.Feedbacks;
 using MoreMountains.InventoryEngine;
 
@@ -12,7 +12,9 @@ namespace Gameplay.Extensions.InventoryEngineExtensions.Craft
             MMFeedbacks startCookingFeedback = null,
             MMFeedbacks negateFeedback = null)
         {
-            CraftingEvent.Trigger("StartCooking", CraftingEventType.CraftingStarted, recipe);
+            RecipeEvent.Trigger(
+                "StartCooking", RecipeEventType.CraftingStarted, recipe);
+
             // Play start cooking feedback
             startCookingFeedback?.PlayFeedbacks();
 

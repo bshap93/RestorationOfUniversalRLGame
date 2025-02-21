@@ -1,66 +1,74 @@
 using System.Collections.Generic;
+using Core.Events;
+using Gameplay.ItemsInteractions;
 using MoreMountains.Tools;
-using Project.Core.Events;
 using UnityEngine;
+using UnityEngine.Serialization;
 
-public class RecipeDisplay : MonoBehaviour, MMEventListener<RecipeEvent>
+namespace Gameplay.Crafting.Cooking.Recipes
 {
-    [SerializeField] GameObject recipeEntryPrefab;
-    [SerializeField] GameObject recipeListParent;
-
-    [SerializeField] JournalPersistenceManager _journalPersistenceManager;
-    readonly List<string> CookingRepiceIds = new();
-
-    void OnEnable()
+    public class RecipeDisplay : MonoBehaviour, MMEventListener<RecipeEvent>
     {
-        this.MMEventStartListening();
+        [SerializeField] GameObject recipeEntryPrefab;
+        [SerializeField] GameObject recipeListParent;
 
-        _journalPersistenceManager = FindFirstObjectByType<JournalPersistenceManager>();
+        [FormerlySerializedAs("journalPersistenceManager")]
+        [FormerlySerializedAs("_journalPersistenceManager")]
+        [SerializeField]
+        CraftingRecipeManager craftingRecipeManager;
+        readonly List<string> RecipeIds = new();
 
-
-        // Clear existing UI elements to avoid duplicates
-        foreach (Transform child in recipeListParent.transform) Destroy(child.gameObject);
-
-        CookingRepiceIds.Clear(); // Clear the list to rebuild correctly
-
-        foreach (var recipe in _journalPersistenceManager.JournalData.knownRecipes)
+        void OnEnable()
         {
-            if (CookingRepiceIds.Contains(recipe.recipeID))
-                continue;
+            this.MMEventStartListening();
 
-            var recipeEntry = Instantiate(recipeEntryPrefab, recipeListParent.transform);
-
-            CookingRepiceIds.Add(recipe.recipeID);
-
-            var recipeEntryScript = recipeEntry.GetComponent<RecipeEntry>();
-            if (recipeEntryScript != null)
-                recipeEntryScript.SetRecipe(recipe);
-        }
-    }
+            craftingRecipeManager = FindFirstObjectByType<CraftingRecipeManager>();
 
 
-    void OnDisable()
-    {
-        this.MMEventStopListening();
-    }
+            // Clear existing UI elements to avoid duplicates
+            foreach (Transform child in recipeListParent.transform) Destroy(child.gameObject);
 
-    public void OnMMEvent(RecipeEvent mmEvent)
-    {
-        if (mmEvent.EventType == RecipeEventType.RecipeLearned)
-        {
-            if (CookingRepiceIds.Contains(mmEvent.RecipeParameter.recipeID))
+            RecipeIds.Clear(); // Clear the list to rebuild correctly
+
+            foreach (var recipe in CraftingRecipeManager.GetAllKnownRecipes())
             {
-                Debug.LogWarning($"Duplicate recipe ignored: {mmEvent.RecipeParameter.recipeName}");
-                return;
+                if (RecipeIds.Contains(recipe.Item.ItemID))
+                    continue;
+
+                var recipeEntry = Instantiate(recipeEntryPrefab, recipeListParent.transform);
+
+                RecipeIds.Add(recipe.Item.ItemID);
+
+                var recipeEntryScript = recipeEntry.GetComponent<RecipeEntry>();
+                if (recipeEntryScript != null)
+                    recipeEntryScript.SetRecipe(recipe);
             }
+        }
 
-            var recipeEntry = Instantiate(recipeEntryPrefab, recipeListParent.transform);
 
-            CookingRepiceIds.Add(mmEvent.RecipeParameter.recipeID);
+        void OnDisable()
+        {
+            this.MMEventStopListening();
+        }
 
-            var recipeEntryScript = recipeEntry.GetComponent<RecipeEntry>();
-            if (recipeEntryScript != null)
-                recipeEntryScript.SetRecipe(mmEvent.RecipeParameter);
+        public void OnMMEvent(RecipeEvent mmEvent)
+        {
+            if (mmEvent.EventType == RecipeEventType.RecipeLearned)
+            {
+                if (RecipeIds.Contains(mmEvent.RecipeParameter.Item.ItemID))
+                {
+                    Debug.LogWarning($"Duplicate recipe ignored: {mmEvent.RecipeParameter.Item.ItemID}");
+                    return;
+                }
+
+                var recipeEntry = Instantiate(recipeEntryPrefab, recipeListParent.transform);
+
+                RecipeIds.Add(mmEvent.RecipeParameter.Item.ItemID);
+
+                var recipeEntryScript = recipeEntry.GetComponent<RecipeEntry>();
+                if (recipeEntryScript != null)
+                    recipeEntryScript.SetRecipe(mmEvent.RecipeParameter);
+            }
         }
     }
 }

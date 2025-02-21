@@ -1,4 +1,4 @@
-using Gameplay.ItemManagement.InventoryTypes.Cooking;
+using Gameplay.Extensions.InventoryEngineExtensions.Craft;
 using MoreMountains.InventoryEngine;
 using TMPro;
 using UnityEngine;
@@ -16,11 +16,11 @@ namespace Prefabs.UI.Displayers
             Name.text = item.ItemName + "!";
         }
 
-        public void DisplayLearned(CookingRecipe recipe)
+        public void DisplayLearned(Recipe recipe)
         {
-            if (recipe.recipeImage != null)
+            if (recipe.Item.Icon != null)
             {
-                Icon.sprite = recipe.recipeImage;
+                Icon.sprite = recipe.Item.Icon;
                 Icon.enabled = true;
             }
             else
@@ -28,29 +28,26 @@ namespace Prefabs.UI.Displayers
                 Icon.enabled = false; // Hide the icon if none exists
             }
 
-            Name.text = $"Learned: {recipe.recipeName}";
+            Name.text = $"Learned: {recipe.Item.ItemName}!";
         }
-        public void DisplayFinishedCooking(CookingRecipe recipe)
+        public void DisplayFinishedCooking(Recipe recipe)
         {
             if (recipe != null)
             {
-                if (recipe.recipeImage != null)
+                if (recipe.Item.Icon != null)
                 {
-                    Icon.sprite = recipe.recipeImage;
+                    Icon.sprite = recipe.Item.Icon;
                     Icon.enabled = true;
                 }
-                else if (recipe.finishedFoodItem != null && recipe.finishedFoodItem.FinishedFood != null &&
-                         recipe.finishedFoodItem.FinishedFood.Icon != null)
-                {
-                    Icon.sprite = recipe.finishedFoodItem.FinishedFood.Icon;
-                    Icon.enabled = true;
-                }
+
                 else
                 {
                     Icon.enabled = false; // Hide the icon if none exists
                 }
 
-                Name.text = recipe.recipeName != null ? $"Finished cooking: {recipe.recipeName}!" : "Finished cooking!";
+                Name.text = recipe.Item.ItemName != null
+                    ? $"Finished cooking: {recipe.Item.ItemName}!"
+                    : "Finished cooking!";
             }
             else
             {

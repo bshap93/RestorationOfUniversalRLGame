@@ -1,12 +1,12 @@
 ﻿using System;
-using Gameplay.ItemManagement.InventoryTypes.Cooking;
+using Core.Events;
+using Gameplay.ItemsInteractions;
 using MoreMountains.Tools;
-using Project.Core.Events;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 
-namespace Project.Gameplay.ItemManagement.InventoryTypes.Cooking
+namespace Gameplay.ItemManagement.InventoryTypes.Cooking
 {
     public class RecipeDetails : MonoBehaviour, MMEventListener<RecipeEvent>
     {
@@ -47,7 +47,8 @@ namespace Project.Gameplay.ItemManagement.InventoryTypes.Cooking
         public Text ShortDescription;
 
 
-        public JournalPersistenceManager journalPersistenceManager;
+        [FormerlySerializedAs("journalPersistenceManager")]
+        public CraftingRecipeManager craftingRecipeManager;
         protected CanvasGroup _canvasGroup;
 
 
@@ -80,42 +81,6 @@ namespace Project.Gameplay.ItemManagement.InventoryTypes.Cooking
             this.MMEventStopListening();
         }
         public void OnMMEvent(RecipeEvent mmEvent)
-        {
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        ///     Fills all the detail fields with the specified recipe's values
-        /// </summary>
-        /// <param name="cookingRecipe"></param>
-        public virtual void DisplayDetails(CookingRecipe cookingRecipe)
-        {
-            if (journalPersistenceManager.JournalData.knownRecipes.Contains(cookingRecipe))
-            {
-                if (!Hidden)
-                {
-                    StartCoroutine(MMFade.FadeCanvasGroup(_canvasGroup, _fadeDelay, 0f));
-                    Hidden = true;
-                }
-
-                StartCoroutine(FillDetailFieldsWithDefaults(0));
-            }
-            else
-            {
-                StartCoroutine(FillDetailFields(cookingRecipe, 0f));
-
-                if (Hidden)
-                {
-                    StartCoroutine(MMFade.FadeCanvasGroup(_canvasGroup, _fadeDelay, 1f));
-                    Hidden = false;
-                }
-            }
-        }
-        string FillDetailFields(CookingRecipe cookingRecipe, float f)
-        {
-            throw new NotImplementedException();
-        }
-        string FillDetailFieldsWithDefaults(int i)
         {
             throw new NotImplementedException();
         }

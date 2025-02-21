@@ -16,7 +16,7 @@ namespace Project.Editor.Utilities
             PickableManager.ResetPickedItems();
 
             // Reset Journal Recipes
-            JournalPersistenceManager.ResetJournal();
+            CraftingRecipeManager.ResetLearnedCraftingGroups();
 
             // Reset Dispenser States
             DispenserManager.ResetDispenserStates();

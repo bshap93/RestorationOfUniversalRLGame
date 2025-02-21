@@ -1,10 +1,8 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
-using Gameplay.ItemManagement.InventoryTypes.Cooking;
+using Core.Events;
+using Gameplay.Extensions.InventoryEngineExtensions.Craft;
 using MoreMountains.Tools;
 using Prefabs.UI.Displayers;
-using Project.Core.Events;
-using Project.Gameplay.ItemManagement.InventoryTypes.Cooking;
 using TMPro;
 using UnityEngine;
 
@@ -30,11 +28,11 @@ namespace Gameplay.ItemManagement.Cooking
         }
         public void OnMMEvent(RecipeEvent mmEvent)
         {
-            if (mmEvent.EventType == RecipeEventType.FinishedCookingRecipe)
+            if (mmEvent.EventType == RecipeEventType.CraftingFinished)
                 DisplayFinishedRecipe(mmEvent.RecipeParameter);
         }
 
-        public void DisplayLearnedRecipes(List<CookingRecipe> recipes, bool areNew = true)
+        public void DisplayLearnedRecipes(Recipe[] recipes, bool areNew = true)
         {
             foreach (var recipe in recipes)
             {
@@ -45,14 +43,15 @@ namespace Gameplay.ItemManagement.Cooking
                 display.DisplayLearned(recipe);
 
                 // Optionally customize for already-known recipes
-                if (!areNew) display.GetComponentInChildren<TMP_Text>().text = $"Already Known: {recipe.recipeName}";
+                if (!areNew)
+                    display.GetComponentInChildren<TMP_Text>().text = $"Already Known: {recipe.Item.ItemName}!";
 
                 // Fade out and destroy the display
                 StartCoroutine(FadeOutAndDestroy(display.gameObject));
             }
         }
 
-        public void DisplayFinishedRecipe(CookingRecipe recipe)
+        public void DisplayFinishedRecipe(Recipe recipe)
         {
             // Instantiate the display item
             var display = Instantiate(RecipeDisplayPrefab, transform);

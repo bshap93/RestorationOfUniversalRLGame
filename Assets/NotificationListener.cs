@@ -1,9 +1,9 @@
-using Gameplay.Events;
+using Core.Events;
 using MoreMountains.Tools;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-public class NotificationListener : MonoBehaviour, MMEventListener<CraftingEvent>
+public class NotificationListener : MonoBehaviour, MMEventListener<RecipeEvent>
 {
     [FormerlySerializedAs("craftedNewItemNotification")] [SerializeField]
     CanvasGroup craftedNewItemNotificationCanvasGroup;
@@ -30,11 +30,17 @@ public class NotificationListener : MonoBehaviour, MMEventListener<CraftingEvent
     }
 
 
-    public void OnMMEvent(CraftingEvent craftingEvent)
+    public void OnMMEvent(RecipeEvent recipeEvent)
     {
-        if (craftingEvent.EventType == CraftingEventType.CraftingFinished)
-            EnableCanvasGroup(craftedNewItemNotificationCanvasGroup, craftingEvent);
+        if (recipeEvent.EventType == RecipeEventType.CraftingFinished)
+            EnableCanvasGroup(craftedNewItemNotificationCanvasGroup, recipeEvent);
     }
+    public void DisableAllNotifications()
+    {
+        DisableCanvasGroup(craftedNewItemNotificationCanvasGroup, craftedNewItemNotification);
+    }
+
+
     void DisableCanvasGroup(CanvasGroup canvasGroup, CraftedNewItemNotification craftedNewItemNotification1)
     {
         canvasGroup.alpha = 0;
@@ -44,12 +50,12 @@ public class NotificationListener : MonoBehaviour, MMEventListener<CraftingEvent
         craftedNewItemNotification1.Hide();
     }
 
-    void EnableCanvasGroup(CanvasGroup canvasGroup, CraftingEvent craftingEvent)
+    void EnableCanvasGroup(CanvasGroup canvasGroup, RecipeEvent craftingEvent)
     {
         canvasGroup.alpha = 1;
         canvasGroup.interactable = true;
         canvasGroup.blocksRaycasts = true;
 
-        craftedNewItemNotification.RestartWithNewItem(craftingEvent.Recipe.Item);
+        craftedNewItemNotification.RestartWithNewItem(craftingEvent.RecipeParameter.Item);
     }
 }

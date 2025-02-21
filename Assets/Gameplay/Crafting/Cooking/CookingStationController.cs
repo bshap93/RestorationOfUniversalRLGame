@@ -1,5 +1,6 @@
-using Gameplay.Events;
+using Core.Events;
 using Gameplay.Extensions.InventoryEngineExtensions.Craft;
+using Gameplay.ItemsInteractions;
 using MoreMountains.Feedbacks;
 using MoreMountains.Tools;
 using Project.Gameplay.SaveLoad.Triggers;
@@ -9,9 +10,8 @@ using UnityEngine.Serialization;
 namespace Gameplay.Crafting.Cooking
 {
     public class CookingStationController : MonoBehaviour, ISelectableTrigger, ICraftingStation,
-        MMEventListener<CraftingEvent>
+        MMEventListener<RecipeEvent>
     {
-        [Header("Station Setup")] public Craft stationRecipes;
         public CraftingButtons craftingButtons;
 
         [Header("UI")] public Canvas stationCanvas;
@@ -21,11 +21,18 @@ namespace Gameplay.Crafting.Cooking
         public MMFeedbacks lightFireFeedback;
 
         [Header("Input")] public KeyCode interactionKey = KeyCode.F;
+        [FormerlySerializedAs("stationRecipes")]
+        [FormerlySerializedAs("_stationRecipes")]
+        [Header("Station Setup")]
+        [SerializeField]
+        RecipeGroup stationSetRecipes;
+
+        [FormerlySerializedAs("StationHasSetRecipes")]
+        public bool stationHasSetRecipes;
 
         bool _isCookStaionLit;
 
         bool _isInPlayerRange;
-
 
         void Awake()
         {
@@ -34,7 +41,21 @@ namespace Gameplay.Crafting.Cooking
             HideCookingProgressDisplay();
 
             // Setup crafting buttons
-            if (craftingButtons != null) craftingButtons.SetCraftRecipes(stationRecipes);
+            if (craftingButtons != null) craftingButtons.SetCraftRecipes(stationSetRecipes);
+        }
+
+        void Start()
+        {
+            if (!stationHasSetRecipes)
+            {
+                var craftableRecipesGroup = CraftingRecipeManager.ConvertToRecipeGroup(
+                    CraftingRecipeManager.GetAllKnownTTypeRecipes(RecipeType.Cooking).ToArray(), "AllKnownRecipes");
+
+                stationSetRecipes = craftableRecipesGroup;
+                craftingButtons.SetCraftRecipes(stationSetRecipes);
+
+                craftingButtons.CreateButtons();
+            }
         }
 
         void Update()
@@ -72,7 +93,7 @@ namespace Gameplay.Crafting.Cooking
 
         public void OnValidate()
         {
-            if (stationRecipes == null)
+            if (stationSetRecipes == null)
                 Debug.LogWarning($"CookingStation '{gameObject.name}': No recipes assigned!", this);
 
             if (craftingButtons == null)
@@ -113,16 +134,16 @@ namespace Gameplay.Crafting.Cooking
             HideStationChoicePanel();
         }
 
-        public void OnMMEvent(CraftingEvent eventType)
+        public void OnMMEvent(RecipeEvent eventType)
         {
-            if (eventType.EventType == CraftingEventType.CraftingStarted)
+            if (eventType.EventType == RecipeEventType.CraftingStarted)
                 if (!_isCookStaionLit)
                 {
                     lightFireFeedback?.PlayFeedbacks();
                     _isCookStaionLit = true;
                 }
 
-            if (eventType.EventType == CraftingEventType.CraftingFinished) HideStationChoicePanel();
+            if (eventType.EventType == RecipeEventType.CraftingFinished) HideStationChoicePanel();
         }
         void HideCookingProgressDisplay()
         {

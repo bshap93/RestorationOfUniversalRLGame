@@ -1,5 +1,6 @@
-﻿using MoreMountains.Tools;
-using Project.Core.Events;
+﻿using Core.Events;
+using Gameplay.Crafting.Cooking.Recipes;
+using MoreMountains.Tools;
 using UnityEngine;
 
 [RequireComponent(typeof(RecipeDisplay))]

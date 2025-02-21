@@ -16,7 +16,7 @@ public class PurePrototypeReset : MonoBehaviour
         PickableManager.ResetPickedItems();
 
         // Reset Journal Recipes
-        JournalPersistenceManager.ResetJournal();
+        CraftingRecipeManager.ResetLearnedCraftingGroups();
 
         // Reset Dispenser States
         DispenserManager.ResetDispenserStates();

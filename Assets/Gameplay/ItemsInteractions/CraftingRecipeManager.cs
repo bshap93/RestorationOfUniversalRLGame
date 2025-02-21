@@ -1,5 +1,6 @@
 #if UNITY_EDITOR
 using System.Collections.Generic;
+using Gameplay.Extensions.InventoryEngineExtensions.Craft;
 using UnityEditor;
 using UnityEngine;
 
@@ -17,6 +18,7 @@ namespace Gameplay.ItemsInteractions
     public class CraftingRecipeManager : MonoBehaviour
     {
         public static HashSet<string> LearnedCraftGroups = new();
+        public string[] InitialCraftGroups;
 
         string _savePath;
 
@@ -28,6 +30,13 @@ namespace Gameplay.ItemsInteractions
         void Start()
         {
             _savePath = GetSaveFilePath();
+            foreach (var craftGroup in InitialCraftGroups)
+            {
+                LearnedCraftGroups.Add(craftGroup);
+                SaveLearnedCraftGroup(craftGroup, true);
+                Debug.Log("CraftingRecipeManager: Added initial craft group: " + craftGroup);
+            }
+
             LoadLearnedCraftingGroups();
         }
 
@@ -59,6 +68,44 @@ namespace Gameplay.ItemsInteractions
             LearnedCraftGroups.Clear();
         }
 
+        // Convert List of Recipes to RecipeGroup
+        public static RecipeGroup ConvertToRecipeGroup(Recipe[] recipes, string uniqueID)
+        {
+            var recipeGroup = ScriptableObject.CreateInstance<RecipeGroup>();
+            recipeGroup.UniqueID = uniqueID;
+            recipeGroup.name = uniqueID;
+            recipeGroup.Recipes = recipes;
+            return recipeGroup;
+        }
+
+
+        public static List<Recipe> GetAllKnownRecipes()
+        {
+            var recipes = new List<Recipe>();
+            foreach (var recipeGroupIndex in LearnedCraftGroups)
+            {
+                var recipeGroup = RecipeGroup.RetrieveCraftGroup(recipeGroupIndex);
+                if (recipeGroup == null) continue;
+                recipes.AddRange(recipeGroup.Recipes);
+            }
+
+            return recipes;
+        }
+
+        public static List<Recipe> GetAllKnownTTypeRecipes(RecipeType recipeType)
+        {
+            var recipes = new List<Recipe>();
+            foreach (var recipeGroupIndex in LearnedCraftGroups)
+            {
+                var recipeGroup = RecipeGroup.RetrieveCraftGroup(recipeGroupIndex);
+                if (recipeGroup == null) continue;
+                if (recipeGroup.RecipeType == recipeType)
+                    recipes.AddRange(recipeGroup.Recipes);
+            }
+
+            return recipes;
+        }
+
         public static bool IsCraftGroupLearned(string uniqueID)
         {
             return LearnedCraftGroups.Contains(uniqueID);
@@ -67,6 +114,10 @@ namespace Gameplay.ItemsInteractions
         public static void SaveLearnedCraftGroup(string uniqueID, bool b)
         {
             ES3.Save(uniqueID, b, GetSaveFilePath());
+        }
+        public bool HasSavedData()
+        {
+            return ES3.KeyExists(_savePath);
         }
     }
 }

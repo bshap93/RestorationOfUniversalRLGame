@@ -1337,7 +1337,6 @@ GameObject:
   - component: {fileID: 6931061356279053892}
   - component: {fileID: 4442664477369183104}
   - component: {fileID: 3249959687936518116}
-  - component: {fileID: 8967769099182888030}
   - component: {fileID: 8974534509594648420}
   m_Layer: 0
   m_Name: PortableSystemsV2
@@ -1411,20 +1410,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerHealth: {fileID: 0}
   playerStats: {fileID: 0}
---- !u!114 &8967769099182888030
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 942439668395684749}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 56a4c8f3d93b47f0ac32d2b2125d83c9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  JournalData:
-    knownRecipes: []
 --- !u!114 &8974534509594648420
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1439,7 +1424,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inventoryManager: {fileID: 0}
   resourcesManager: {fileID: 0}
-  journalManager: {fileID: 0}
+  craftingRecipeManager: {fileID: 0}
   pickableManager: {fileID: 5328299190378525611}
   destructibleManager: {fileID: 5385003795177522174}
   currentSlot: 0
@@ -4055,6 +4040,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 2270248721112768040}
+        m_TargetAssemblyTypeName: NotificationListener, Assembly-CSharp
+        m_MethodName: DisableAllNotifications
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &5122538667854726712
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4342,6 +4339,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b6a68e173285e3478ecb165b201147f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  InitialCraftGroups:
+  - BasicCookingRecipes
+  - BasicCookingRecipes0
 --- !u!1 &2818588387227140667
 GameObject:
   m_ObjectHideFlags: 0
@@ -11500,7 +11500,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0.00032043457}
+  m_AnchoredPosition: {x: 0, y: 0.0005187988}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!222 &1582889287856222070
@@ -14898,7 +14898,7 @@ PrefabInstance:
     - target: {fileID: 1057003449150634115, guid: 3667ca2a9a96613449f2ecde33f65173,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.000076293945
+      value: 0.00015258789
       objectReference: {fileID: 0}
     - target: {fileID: 1076898876683549916, guid: 3667ca2a9a96613449f2ecde33f65173,
         type: 3}
@@ -15215,16 +15215,6 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1874556510022892670, guid: 3667ca2a9a96613449f2ecde33f65173,
-        type: 3}
-      propertyPath: m_Size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1874556510022892670, guid: 3667ca2a9a96613449f2ecde33f65173,
-        type: 3}
-      propertyPath: m_Value
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 1886441745228611230, guid: 3667ca2a9a96613449f2ecde33f65173,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -15290,16 +15280,6 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 3318814748964447452}
-    - target: {fileID: 2259857527776594052, guid: 3667ca2a9a96613449f2ecde33f65173,
-        type: 3}
-      propertyPath: m_Size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2259857527776594052, guid: 3667ca2a9a96613449f2ecde33f65173,
-        type: 3}
-      propertyPath: m_Value
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 2628486705932297762, guid: 3667ca2a9a96613449f2ecde33f65173,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -15329,26 +15309,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -25
-      objectReference: {fileID: 0}
-    - target: {fileID: 2649344949327904535, guid: 3667ca2a9a96613449f2ecde33f65173,
-        type: 3}
-      propertyPath: m_Size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2649344949327904535, guid: 3667ca2a9a96613449f2ecde33f65173,
-        type: 3}
-      propertyPath: m_Value
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2660227892440011748, guid: 3667ca2a9a96613449f2ecde33f65173,
-        type: 3}
-      propertyPath: m_Size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2660227892440011748, guid: 3667ca2a9a96613449f2ecde33f65173,
-        type: 3}
-      propertyPath: m_Value
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2693658363258638520, guid: 3667ca2a9a96613449f2ecde33f65173,
         type: 3}
@@ -16408,7 +16368,7 @@ PrefabInstance:
     - target: {fileID: 7733619694960562114, guid: 3667ca2a9a96613449f2ecde33f65173,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.000015258789
+      value: 0.000030517578
       objectReference: {fileID: 0}
     - target: {fileID: 7805118732657966601, guid: 3667ca2a9a96613449f2ecde33f65173,
         type: 3}
@@ -16488,16 +16448,6 @@ PrefabInstance:
     - target: {fileID: 8420030186656711261, guid: 3667ca2a9a96613449f2ecde33f65173,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8438320880326145811, guid: 3667ca2a9a96613449f2ecde33f65173,
-        type: 3}
-      propertyPath: m_Size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8438320880326145811, guid: 3667ca2a9a96613449f2ecde33f65173,
-        type: 3}
-      propertyPath: m_Value
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8556017660338797589, guid: 3667ca2a9a96613449f2ecde33f65173,

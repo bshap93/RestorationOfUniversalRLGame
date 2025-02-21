@@ -2,6 +2,7 @@ using System;
 using Gameplay.ItemsInteractions;
 using Gameplay.SaveLoad;
 using UnityEngine;
+using UnityEngine.Serialization;
 using SaveSystem = PixelCrushers.SaveSystem;
 
 [Serializable]
@@ -13,7 +14,8 @@ public class SaveManager : MonoBehaviour
     [Header("Persistence Managers")] [SerializeField]
     InventoryPersistenceManager inventoryManager;
     [SerializeField] ResourcesPersistenceManager resourcesManager;
-    [SerializeField] JournalPersistenceManager journalManager;
+    [FormerlySerializedAs("journalManager")] [SerializeField]
+    CraftingRecipeManager craftingRecipeManager;
 
     [Header("Item & Container Persistence")]
     public PickableManager pickableManager;
@@ -67,7 +69,7 @@ public class SaveManager : MonoBehaviour
     {
         inventoryManager?.SaveInventories();
         resourcesManager?.SaveResources();
-        journalManager?.SaveJournal();
+        // craftingRecipeManager?.SaveJournal();
 
 
         SaveSystem.SaveToSlotImmediate(0);
@@ -79,11 +81,11 @@ public class SaveManager : MonoBehaviour
     {
         var inventoryLoaded = inventoryManager != null && inventoryManager.HasSavedData();
         var resourcesLoaded = resourcesManager != null && resourcesManager.HasSavedData();
-        var journalLoaded = journalManager != null && journalManager.HasSavedData();
+        var journalLoaded = craftingRecipeManager != null && craftingRecipeManager.HasSavedData();
 
         if (inventoryLoaded) inventoryManager.LoadInventories();
         if (resourcesLoaded) resourcesManager.RevertResourcesToLastSave();
-        if (journalLoaded) journalManager.RevertJournalToLastSave();
+        if (journalLoaded) CraftingRecipeManager.ResetLearnedCraftingGroups();
 
         // Load pickable items and destroyed containers
         pickableManager?.LoadPickedItems();

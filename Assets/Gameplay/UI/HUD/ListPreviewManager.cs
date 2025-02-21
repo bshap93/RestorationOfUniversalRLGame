@@ -4,7 +4,6 @@ using Gameplay.ItemManagement;
 using Gameplay.Player.Inventory;
 using MoreMountains.InventoryEngine;
 using MoreMountains.Tools;
-using Project.Gameplay.Interactivity.CraftingStation;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -17,8 +16,6 @@ namespace Gameplay.UI.HUD
         [FormerlySerializedAs("CraftingStationDetails")]
         public DispenserItemPanel DispenserItemPanel;
 
-
-        public CraftingStation CurrentPreviewedCraftingStation { get; set; }
 
         void Start()
         {

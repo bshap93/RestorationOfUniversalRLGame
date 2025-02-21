@@ -1,23 +1,17 @@
 ﻿using System;
-using Gameplay.ItemManagement.InventoryTypes.Cooking;
+using Gameplay.Extensions.InventoryEngineExtensions.Craft;
 using MoreMountains.Tools;
-using Project.Gameplay.ItemManagement.InventoryTypes.Cooking;
 
-namespace Project.Core.Events
+namespace Core.Events
 {
     [Serializable]
     public enum RecipeEventType
     {
         RecipeLearned,
-        RecipeCookableWithCurrentIngredients,
-        ChooseRecipeFromCookable,
-        ClearCookableRecipes,
-        FinishedCookingRecipe,
+        CraftingStarted,
+        CraftingFinished,
         ShowRecipeDetails,
-        Error,
-        RecipeAlreadyKnown,
-        NoNewRecipes,
-        NewRecipesLearned
+        Error
     }
 
     /// <summary>
@@ -29,16 +23,42 @@ namespace Project.Core.Events
 
         public string EventName;
         public RecipeEventType EventType;
-        public CookingRecipe RecipeParameter;
-        public string CraftingStationID;
+        public Recipe RecipeParameter;
 
-        public static void Trigger(string eventName, RecipeEventType recipeEventType, CookingRecipe recipe,
-            string craftingStationID)
+        public static void Trigger(string eventName, RecipeEventType recipeEventType, Recipe recipe
+        )
         {
             e.EventName = eventName;
             e.RecipeParameter = recipe;
             e.EventType = recipeEventType;
-            e.CraftingStationID = craftingStationID;
+            MMEventManager.TriggerEvent(e);
+        }
+    }
+
+    [Serializable]
+    public enum RecipeGroupEventType
+    {
+        RecipeGroupLearned,
+        RecipeGroupAlreadyKnown
+    }
+
+    /// <summary>
+    ///     Used to reason about Craft.cs objects.
+    /// </summary>
+    public struct RecipeGroupEvent
+    {
+        static RecipeGroupEvent e;
+
+        public string EventName;
+        public RecipeGroupEventType EventType;
+        public RecipeGroup RecipeGroup;
+
+        public static void Trigger(string eventName, RecipeGroupEventType recipeEventType, RecipeGroup recipeGroup
+        )
+        {
+            e.EventName = eventName;
+            e.RecipeGroup = recipeGroup;
+            e.EventType = recipeEventType;
             MMEventManager.TriggerEvent(e);
         }
     }

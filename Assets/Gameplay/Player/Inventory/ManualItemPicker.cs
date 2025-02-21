@@ -3,11 +3,11 @@ using Core.GameInitialization;
 using Gameplay.Events;
 using Gameplay.ItemManagement.Cooking;
 using Gameplay.ItemManagement.InventoryItemTypes;
+using Gameplay.ItemManagement.InventoryItemTypes.Books;
 using Gameplay.ItemManagement.InventoryTypes;
 using Gameplay.ItemsInteractions;
 using MoreMountains.Feedbacks;
 using MoreMountains.InventoryEngine;
-using Project.Gameplay.ItemManagement.InventoryItemTypes.Books;
 using Project.UI.HUD;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -239,7 +239,7 @@ namespace Gameplay.Player.Inventory
             // Show a recipe learning display similar to the PickupDisplayer
             var displayer = FindFirstObjectByType<RecipeDisplayer>();
             if (displayer != null)
-                displayer.DisplayLearnedRecipes(cookbook.CookingRecipes);
+                displayer.DisplayLearnedRecipes(cookbook.recipesGroup.Recipes);
             else
                 Debug.LogWarning("No RecipeDisplayer found in the scene.");
         }

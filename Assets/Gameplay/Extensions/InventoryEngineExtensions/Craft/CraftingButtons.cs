@@ -16,8 +16,8 @@ namespace Gameplay.Extensions.InventoryEngineExtensions.Craft
         public MMFeedbacks finishCookingFeedback;
 
         GameObject _craftingButton;
-        Craft _craftRecipes;
         Inventory _inventory;
+        RecipeGroup _recipeGroupRecipes;
 
         void Awake()
         {
@@ -51,9 +51,15 @@ namespace Gameplay.Extensions.InventoryEngineExtensions.Craft
             RefreshButtons();
         }
 
-        void RefreshButtons()
+        public void SetRecipeGroup(RecipeGroup recipeGroup)
         {
-            foreach (var recipe in _craftRecipes.Recipes)
+            _recipeGroupRecipes = recipeGroup;
+            Debug.Log("Set recipe group: " + _recipeGroupRecipes.UniqueID);
+        }
+
+        public void RefreshButtons()
+        {
+            foreach (var recipe in _recipeGroupRecipes.Recipes)
                 if (!_inventory.ContainsIngredientsForRecipe(recipe))
                 {
                     var craftingButton = transform.Find(recipe.Name).gameObject;
@@ -62,7 +68,7 @@ namespace Gameplay.Extensions.InventoryEngineExtensions.Craft
                 }
         }
 
-        void CreateButtons()
+        public void CreateButtons()
         {
             // Deactivate the template button
             _craftingButton.SetActive(false);
@@ -70,7 +76,7 @@ namespace Gameplay.Extensions.InventoryEngineExtensions.Craft
             // Clear old buttons except the template (child at index 0)
             for (var i = transform.childCount - 1; i > 0; i--) Destroy(transform.GetChild(i).gameObject);
 
-            if (_craftRecipes?.Recipes == null) return;
+            if (_recipeGroupRecipes?.Recipes == null) return;
 
             _inventory = FindFirstObjectByType<MainInventory>();
             if (_inventory == null)
@@ -80,7 +86,7 @@ namespace Gameplay.Extensions.InventoryEngineExtensions.Craft
             }
 
 
-            foreach (var recipe in _craftRecipes.Recipes)
+            foreach (var recipe in _recipeGroupRecipes.Recipes)
             {
                 var craftingButton = Instantiate(_craftingButton, transform);
                 craftingButton.SetActive(true);
@@ -113,9 +119,9 @@ namespace Gameplay.Extensions.InventoryEngineExtensions.Craft
                 craftingButton.GetComponent<Button>().onClick.AddListener(() => HandleCrafting(localRecipe));
             }
         }
-        public void SetCraftRecipes(Craft stationRecipes)
+        public void SetCraftRecipes(RecipeGroup stationRecipes)
         {
-            _craftRecipes = stationRecipes;
+            _recipeGroupRecipes = stationRecipes;
         }
     }
 }

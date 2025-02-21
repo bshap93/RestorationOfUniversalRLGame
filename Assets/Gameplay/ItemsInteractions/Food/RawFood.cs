@@ -1,7 +1,5 @@
 ﻿using System;
-using Gameplay.ItemManagement.InventoryTypes.Cooking;
 using Project.Gameplay.ItemManagement.InventoryItemTypes;
-using Project.Gameplay.ItemManagement.InventoryTypes.Cooking;
 using UnityEngine;
 
 namespace Project.Gameplay.Interactivity.Food
@@ -11,6 +9,5 @@ namespace Project.Gameplay.Interactivity.Food
     [Serializable]
     public class RawFood : InventoryConsumable
     {
-        public CookingRecipe CookedSingleRawFoodRecipe; // The recipe to cook a single raw food item
     }
 }
