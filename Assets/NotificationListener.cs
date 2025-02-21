@@ -12,6 +12,9 @@ public class NotificationListener : MonoBehaviour, MMEventListener<CraftingEvent
 
     void Start()
     {
+        if (craftedNewItemNotificationCanvasGroup == null)
+            craftedNewItemNotificationCanvasGroup = craftedNewItemNotification.gameObject.GetComponent<CanvasGroup>();
+
         Debug.Log("NotificationListener disabled craftedNewItemNotification");
         DisableCanvasGroup(craftedNewItemNotificationCanvasGroup, craftedNewItemNotification);
     }
