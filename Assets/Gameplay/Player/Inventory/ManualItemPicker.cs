@@ -224,7 +224,7 @@ namespace Gameplay.Player.Inventory
             Item?.Use("Player1");
 
             // If it's a cookbook, show the recipe learning displayer
-            if (Item is InventoryCookBook cookbook) DisplayLearnedRecipes(cookbook);
+            if (Item is InventoryRecipeBook cookbook) DisplayLearnedRecipes(cookbook);
 
             // Optional: Destroy the item if it should disappear after use
             if (disappearAfterUse)
@@ -234,12 +234,12 @@ namespace Gameplay.Player.Inventory
             }
         }
 
-        void DisplayLearnedRecipes(InventoryCookBook cookbook)
+        void DisplayLearnedRecipes(InventoryRecipeBook cookbook)
         {
             // Show a recipe learning display similar to the PickupDisplayer
             var displayer = FindFirstObjectByType<RecipeDisplayer>();
             if (displayer != null)
-                displayer.DisplayLearnedRecipes(cookbook.recipesGroup.Recipes);
+                displayer.DisplayLearnedRecipes(cookbook.recipesGroupLearned.Recipes);
             else
                 Debug.LogWarning("No RecipeDisplayer found in the scene.");
         }

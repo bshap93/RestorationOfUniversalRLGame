@@ -114,6 +114,7 @@ namespace Gameplay.ItemsInteractions
         public static void SaveLearnedCraftGroup(string uniqueID, bool b)
         {
             ES3.Save(uniqueID, b, GetSaveFilePath());
+            LearnedCraftGroups.Add(uniqueID);
         }
         public bool HasSavedData()
         {

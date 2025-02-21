@@ -49,16 +49,15 @@ namespace Core.Events
     {
         static RecipeGroupEvent e;
 
-        public string EventName;
         public RecipeGroupEventType EventType;
         public RecipeGroup RecipeGroup;
 
-        public static void Trigger(string eventName, RecipeGroupEventType recipeEventType, RecipeGroup recipeGroup
+        public static void Trigger(RecipeGroupEventType recipeGroupEventType, string recipeGroupUniqueID
         )
         {
-            e.EventName = eventName;
+            var recipeGroup = RecipeGroup.RetrieveCraftGroup(recipeGroupUniqueID);
             e.RecipeGroup = recipeGroup;
-            e.EventType = recipeEventType;
+            e.EventType = recipeGroupEventType;
             MMEventManager.TriggerEvent(e);
         }
     }

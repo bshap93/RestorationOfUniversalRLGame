@@ -10,7 +10,7 @@ using UnityEngine.Serialization;
 namespace Gameplay.Crafting.Cooking
 {
     public class CookingStationController : MonoBehaviour, ISelectableTrigger, ICraftingStation,
-        MMEventListener<RecipeEvent>
+        MMEventListener<RecipeEvent>, MMEventListener<RecipeGroupEvent>
     {
         public CraftingButtons craftingButtons;
 
@@ -46,16 +46,7 @@ namespace Gameplay.Crafting.Cooking
 
         void Start()
         {
-            if (!stationHasSetRecipes)
-            {
-                var craftableRecipesGroup = CraftingRecipeManager.ConvertToRecipeGroup(
-                    CraftingRecipeManager.GetAllKnownTTypeRecipes(RecipeType.Cooking).ToArray(), "AllKnownRecipes");
-
-                stationSetRecipes = craftableRecipesGroup;
-                craftingButtons.SetCraftRecipes(stationSetRecipes);
-
-                craftingButtons.CreateButtons();
-            }
+            if (!stationHasSetRecipes) RecreateCraftingOptionsWithNewRecipes();
         }
 
         void Update()
@@ -65,12 +56,14 @@ namespace Gameplay.Crafting.Cooking
 
         void OnEnable()
         {
-            this.MMEventStartListening();
+            this.MMEventStartListening<RecipeEvent>();
+            this.MMEventStartListening<RecipeGroupEvent>();
         }
 
         void OnDisable()
         {
-            this.MMEventStopListening();
+            this.MMEventStopListening<RecipeEvent>();
+            this.MMEventStopListening<RecipeGroupEvent>();
         }
 
         void OnTriggerEnter(Collider other)
@@ -144,6 +137,24 @@ namespace Gameplay.Crafting.Cooking
                 }
 
             if (eventType.EventType == RecipeEventType.CraftingFinished) HideStationChoicePanel();
+        }
+        public void OnMMEvent(RecipeGroupEvent eventType)
+        {
+            if (eventType.EventType == RecipeGroupEventType.RecipeGroupLearned)
+            {
+                RecreateCraftingOptionsWithNewRecipes();
+                Debug.Log("Recreated crafting options with new recipes");
+            }
+        }
+        void RecreateCraftingOptionsWithNewRecipes()
+        {
+            var craftableRecipesGroup = CraftingRecipeManager.ConvertToRecipeGroup(
+                CraftingRecipeManager.GetAllKnownTTypeRecipes(RecipeType.Cooking).ToArray(), "AllKnownRecipes");
+
+            stationSetRecipes = craftableRecipesGroup;
+            craftingButtons.SetCraftRecipes(stationSetRecipes);
+
+            craftingButtons.CreateButtons();
         }
         void HideCookingProgressDisplay()
         {

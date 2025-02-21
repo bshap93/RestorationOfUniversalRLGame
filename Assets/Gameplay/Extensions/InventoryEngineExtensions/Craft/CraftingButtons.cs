@@ -63,8 +63,15 @@ namespace Gameplay.Extensions.InventoryEngineExtensions.Craft
                 if (!_inventory.ContainsIngredientsForRecipe(recipe))
                 {
                     var craftingButton = transform.Find(recipe.Name).gameObject;
-                    craftingButton.GetComponent<Button>().interactable = false;
-                    craftingButton.transform.GetChild(4).gameObject.SetActive(true);
+                    if (craftingButton != null)
+                    {
+                        craftingButton.GetComponent<Button>().interactable = false;
+                        craftingButton.transform.GetChild(4).gameObject.SetActive(true);
+                    }
+                    else
+                    {
+                        Debug.LogWarning($"Crafting button not found for: {recipe.Name}");
+                    }
                 }
         }
 

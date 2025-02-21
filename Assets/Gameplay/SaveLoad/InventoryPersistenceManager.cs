@@ -171,8 +171,6 @@ namespace Gameplay.SaveLoad
             ES3.Save(MAIN_INVENTORY_KEY, mainInventoryData, savePath);
             ES3.Save(EQUIPMENT_INVENTORY_KEY, equipmentInventoryData, savePath);
             ES3.Save(HOTBAR_INVENTORY_KEY, hotbarInventoryData, savePath);
-
-            Debug.Log($"Inventories saved successfully to {savePath}");
         }
 
 

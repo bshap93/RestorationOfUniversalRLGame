@@ -6,12 +6,18 @@ using UnityEngine.UI;
 
 public class CraftedNewItemNotification : MonoBehaviour
 {
-    [SerializeField] DOTweenAnimation headerDotweenAnimation;
-    [SerializeField] Image itemImage;
+    [Header("Header")] [SerializeField] DOTweenAnimation headerDotweenAnimation;
+
+    [Header("Item Image")] [SerializeField]
+    Image itemImage;
     [SerializeField] DOTweenAnimation itemImageDotweenAnimation;
 
-    [SerializeField] TMP_Text itemName;
+    [Header("Item Name")] [SerializeField] TMP_Text itemName;
     [SerializeField] DOTweenAnimation itemNameDotweenAnimation;
+
+    [Header("Item Description")] [SerializeField]
+    TMP_Text itemDescription;
+    [SerializeField] DOTweenAnimation itemDescriptionDotweenAnimation;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -34,6 +40,10 @@ public class CraftedNewItemNotification : MonoBehaviour
         itemName.text = item.ItemName;
         itemNameDotweenAnimation.DORestart();
         itemNameDotweenAnimation.DOPlay();
+
+        itemDescription.text = item.Description;
+        itemDescriptionDotweenAnimation.DORestart();
+        itemDescriptionDotweenAnimation.DOPlay();
     }
 
     public void Hide()
@@ -41,5 +51,6 @@ public class CraftedNewItemNotification : MonoBehaviour
         headerDotweenAnimation.DOPause();
         itemImageDotweenAnimation.DOPause();
         itemNameDotweenAnimation.DOPause();
+        itemDescriptionDotweenAnimation.DOPause();
     }
 }

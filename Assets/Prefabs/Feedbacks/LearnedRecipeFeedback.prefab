@@ -108,7 +108,7 @@ MonoBehaviour:
     OnResume:
       m_PersistentCalls:
         m_Calls: []
-    OnRevert:
+    OnChangeDirection:
       m_PersistentCalls:
         m_Calls: []
     OnComplete:
@@ -130,10 +130,12 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls: []
   DebugActive: 0
+  InScriptDrivenPause: 0
   FeedbacksList:
   - rid: 961850773751201792
   KeepPlayModeChanges: 0
   PerformanceMode: 0
+  RestoreInitialValuesOnDisable: 0
   StopFeedbacksOnDisable: 0
   PlayCount: 0
   references:
@@ -145,11 +147,11 @@ MonoBehaviour:
         Active: 1
         UniqueID: 2081216853
         Label: Sound
+        OriginalLabel: Sound
         ChannelMode: 0
         Channel: 0
         MMChannelDefinition: {fileID: 0}
         Chance: 100
-        DisplayColor: {r: 0, g: 0, b: 0, a: 1}
         Timing:
           TimescaleMode: 0
           ExcludeFromHoldingPauses: 0
@@ -213,7 +215,7 @@ MonoBehaviour:
           ButtonText: Automatic Shaker Setup
         Owner: {fileID: 1942848093448818980}
         DebugActive: 0
-        Sfx: {fileID: 8300000, guid: 857beec89b3c4474f911f4203cf1dbe1, type: 3}
+        Sfx: {fileID: 8300000, guid: 7f56bd3b2ec394a2fb597b913ca2c36d, type: 3}
         RandomSfx: []
         TestPlayButton:
           ButtonText: Debug Play Sound

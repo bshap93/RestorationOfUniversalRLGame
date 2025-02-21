@@ -8,49 +8,42 @@ using UnityEngine.Serialization;
 
 namespace Gameplay.ItemManagement.InventoryItemTypes.Books
 {
-    public enum RecipeType
-    {
-        Cooking
-    }
-
-
     [CreateAssetMenu(
         fileName = "InventoryRecipeBook", menuName = "Crafting/Books/InventoryRecipeBook", order = 1)]
     [Serializable]
-    public class InventoryCookBook : InventoryBook
+    public class InventoryRecipeBook : InventoryBook
     {
-        public string AuthorName = "Unknown";
-        public RecipeType RecipeType;
+        [FormerlySerializedAs("RecipeType")] public RecipeType recipeType;
 
-        [FormerlySerializedAs("RecipesGroup")] public RecipeGroup recipesGroup;
-        [FormerlySerializedAs("RecipeLearnedFeedback")]
-        public MMFeedbacks recipeLearnedFeedback;
+        [FormerlySerializedAs("recipesGroup")] [FormerlySerializedAs("RecipesGroup")]
+        public RecipeGroup recipesGroupLearned;
+        [FormerlySerializedAs("recipeLearnedFeedback")] [FormerlySerializedAs("RecipeLearnedFeedback")]
+        public MMFeedbacks recipesLearnedFeedback;
 
         [Tooltip("The message to send when the book is read.")]
         public string message = "CookbookRead";
         [Tooltip("The message value to send with the message (optional).")]
         public override bool Use(string playerID)
         {
-            var recipeManager = FindObjectOfType<CraftingRecipeManager>();
+            var recipeManager = FindFirstObjectByType<CraftingRecipeManager>();
             if (recipeManager == null) Debug.LogWarning("JournalPersistenceManager not found in the scene.");
 
-            var hasLearnedNewRecipes = false;
-
-            if (CraftingRecipeManager.IsCraftGroupLearned(recipesGroup.UniqueID))
+            if (CraftingRecipeManager.IsCraftGroupLearned(recipesGroupLearned.UniqueID))
             {
                 Debug.Log("Already knew these recipes.");
                 RecipeGroupEvent.Trigger(
-                    "RecipesAlreadyKnown", RecipeGroupEventType.RecipeGroupAlreadyKnown, recipesGroup);
+                    RecipeGroupEventType.RecipeGroupAlreadyKnown, recipesGroupLearned.UniqueID);
             }
             else
             {
                 Debug.Log("Learning new recipes.");
-                CraftingRecipeManager.SaveLearnedCraftGroup(recipesGroup.UniqueID, true);
+
+                CraftingRecipeManager.SaveLearnedCraftGroup(recipesGroupLearned.UniqueID, true);
                 RecipeGroupEvent.Trigger(
-                    "RecipesLearned", RecipeGroupEventType.RecipeGroupLearned, recipesGroup);
+                    RecipeGroupEventType.RecipeGroupLearned, recipesGroupLearned.UniqueID);
 
                 // Play feedback for newly learned recipes
-                recipeLearnedFeedback?.PlayFeedbacks();
+                recipesLearnedFeedback?.PlayFeedbacks();
             }
 
 
