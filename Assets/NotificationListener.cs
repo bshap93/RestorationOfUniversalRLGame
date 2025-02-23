@@ -1,61 +1,90 @@
 using Core.Events;
+using Gameplay.Extensions.InventoryEngineExtensions.Craft;
 using MoreMountains.Tools;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-public class NotificationListener : MonoBehaviour, MMEventListener<RecipeEvent>
+public class NotificationListener : MonoBehaviour, MMEventListener<RecipeEvent>, MMEventListener<RecipeGroupEvent>
 {
-    [FormerlySerializedAs("craftedNewItemNotification")] [SerializeField]
-    CanvasGroup craftedNewItemNotificationCanvasGroup;
     [FormerlySerializedAs("_craftedNewItemNotification")] [SerializeField]
     CraftedNewItemNotification craftedNewItemNotification;
 
+    [SerializeField] LearnedNewRecipesNotification learnedNewRecipesNotification;
+    [SerializeField] CanvasGroup learnedNewRecipesNotificationCanvasGroup;
+
+    CanvasGroup _craftedNewItemNotificationCanvasGroup;
+
+
     void Start()
     {
-        if (craftedNewItemNotificationCanvasGroup == null)
-            craftedNewItemNotificationCanvasGroup = craftedNewItemNotification.gameObject.GetComponent<CanvasGroup>();
+        if (_craftedNewItemNotificationCanvasGroup == null)
+            _craftedNewItemNotificationCanvasGroup = craftedNewItemNotification.gameObject.GetComponent<CanvasGroup>();
 
         Debug.Log("NotificationListener disabled craftedNewItemNotification");
-        DisableCanvasGroup(craftedNewItemNotificationCanvasGroup, craftedNewItemNotification);
+        DisableCanvasGroup(_craftedNewItemNotificationCanvasGroup, craftedNewItemNotification);
+
+        if (learnedNewRecipesNotificationCanvasGroup == null)
+            learnedNewRecipesNotificationCanvasGroup =
+                learnedNewRecipesNotification.gameObject.GetComponent<CanvasGroup>();
+
+        Debug.Log("NotificationListener disabled learnedNewRecipesNotification");
+        DisableCanvasGroup(learnedNewRecipesNotificationCanvasGroup, learnedNewRecipesNotification);
     }
 
     void OnEnable()
     {
-        this.MMEventStartListening();
+        this.MMEventStartListening<RecipeGroupEvent>();
+        this.MMEventStartListening<RecipeEvent>();
     }
 
     void OnDisable()
     {
-        this.MMEventStopListening();
+        this.MMEventStopListening<RecipeGroupEvent>();
+        this.MMEventStopListening<RecipeEvent>();
     }
 
 
     public void OnMMEvent(RecipeEvent recipeEvent)
     {
         if (recipeEvent.EventType == RecipeEventType.CraftingFinished)
-            EnableCanvasGroup(craftedNewItemNotificationCanvasGroup, recipeEvent);
+            EnableCraftedNewItemCanvasGroup(_craftedNewItemNotificationCanvasGroup, recipeEvent);
+    }
+
+    public void OnMMEvent(RecipeGroupEvent recipeGroupEvent)
+    {
+        if (recipeGroupEvent.EventType == RecipeGroupEventType.RecipeGroupLearned)
+            EnableLearnedNewRecipesCanvasGroup(learnedNewRecipesNotificationCanvasGroup, recipeGroupEvent);
     }
     public void DisableAllNotifications()
     {
-        DisableCanvasGroup(craftedNewItemNotificationCanvasGroup, craftedNewItemNotification);
+        DisableCanvasGroup(_craftedNewItemNotificationCanvasGroup, craftedNewItemNotification);
+        DisableCanvasGroup(learnedNewRecipesNotificationCanvasGroup, learnedNewRecipesNotification);
     }
 
 
-    void DisableCanvasGroup(CanvasGroup canvasGroup, CraftedNewItemNotification craftedNewItemNotification1)
+    void DisableCanvasGroup(CanvasGroup canvasGroup, IURPNotification itemNotification1)
     {
         canvasGroup.alpha = 0;
         canvasGroup.interactable = false;
         canvasGroup.blocksRaycasts = false;
 
-        craftedNewItemNotification1.Hide();
+        itemNotification1.Hide();
     }
 
-    void EnableCanvasGroup(CanvasGroup canvasGroup, RecipeEvent craftingEvent)
+    void EnableCraftedNewItemCanvasGroup(CanvasGroup canvasGroup, RecipeEvent craftingEvent)
     {
         canvasGroup.alpha = 1;
         canvasGroup.interactable = true;
         canvasGroup.blocksRaycasts = true;
 
         craftedNewItemNotification.RestartWithNewItem(craftingEvent.RecipeParameter.Item);
+    }
+
+    void EnableLearnedNewRecipesCanvasGroup(CanvasGroup canvasGroup, RecipeGroupEvent recipeGroupEvent)
+    {
+        learnedNewRecipesNotification.Initialize(recipeGroupEvent.RecipeGroup);
+        canvasGroup.alpha = 1;
+        canvasGroup.interactable = true;
+        canvasGroup.blocksRaycasts = true;
     }
 }

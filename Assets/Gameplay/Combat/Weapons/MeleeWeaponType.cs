@@ -8,6 +8,7 @@ namespace Project.Gameplay.Combat.Weapons
     {
         Sword,
         Axe,
-        Pickaxe
+        Pickaxe,
+        WoodAxe
     }
 }

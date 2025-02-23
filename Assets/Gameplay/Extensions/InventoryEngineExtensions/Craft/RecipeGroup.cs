@@ -115,6 +115,7 @@ namespace Gameplay.Extensions.InventoryEngineExtensions.Craft
         Potion
     }
 
+
     [CreateAssetMenu]
     public class RecipeGroup : ScriptableObject
     {

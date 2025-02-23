@@ -1,10 +1,11 @@
 using DG.Tweening;
+using Gameplay.Extensions.InventoryEngineExtensions.Craft;
 using MoreMountains.InventoryEngine;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class CraftedNewItemNotification : MonoBehaviour
+public class CraftedNewItemNotification : MonoBehaviour, IURPNotification
 {
     [Header("Header")] [SerializeField] DOTweenAnimation headerDotweenAnimation;
 
@@ -28,6 +29,14 @@ public class CraftedNewItemNotification : MonoBehaviour
     {
     }
 
+    public void Hide()
+    {
+        headerDotweenAnimation.DOPause();
+        itemImageDotweenAnimation.DOPause();
+        itemNameDotweenAnimation.DOPause();
+        itemDescriptionDotweenAnimation.DOPause();
+    }
+
     public void RestartWithNewItem(InventoryItem item)
     {
         headerDotweenAnimation.DORestart();
@@ -44,13 +53,5 @@ public class CraftedNewItemNotification : MonoBehaviour
         itemDescription.text = item.Description;
         itemDescriptionDotweenAnimation.DORestart();
         itemDescriptionDotweenAnimation.DOPlay();
-    }
-
-    public void Hide()
-    {
-        headerDotweenAnimation.DOPause();
-        itemImageDotweenAnimation.DOPause();
-        itemNameDotweenAnimation.DOPause();
-        itemDescriptionDotweenAnimation.DOPause();
     }
 }

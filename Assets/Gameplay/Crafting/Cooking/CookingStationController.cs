@@ -87,7 +87,7 @@ namespace Gameplay.Crafting.Cooking
         public void OnValidate()
         {
             if (stationSetRecipes == null)
-                Debug.LogWarning($"CookingStation '{gameObject.name}': No recipes assigned!", this);
+                Debug.Log($"CookingStation '{gameObject.name}': No recipes assigned!", this);
 
             if (craftingButtons == null)
                 Debug.LogWarning($"CookingStation '{gameObject.name}': No crafting buttons assigned!", this);
