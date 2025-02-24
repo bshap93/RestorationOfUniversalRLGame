@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using MoreMountains.Feedbacks;
 using MoreMountains.Tools;
 using MoreMountains.TopDownEngine;
@@ -39,6 +40,24 @@ namespace Project.Gameplay.Combat.Weapons
         [Header("Weapon Equip Feedback")] [Tooltip("Feedback to play when a weapon is equipped")]
         public MMFeedbacks WeaponEquipFeedback;
 
+        [FormerlySerializedAs("BlockingStatusConditions")]
+        public StaminaStatusHandler.CharacterStatusConditions[] blockingStatusConditions;
+        StaminaStatusHandler _staminaStatusHandler;
+        StaminaStatusHandler.CharacterStatusConditions _statusCondition;
+
+
+        public override bool AbilityAuthorized
+        {
+            
+            get
+            {
+                _statusCondition = _staminaStatusHandler.GetStatusCondition();
+                if (blockingStatusConditions.Contains(_statusCondition)) return false;
+
+
+                return base.AbilityAuthorized;
+            }
+        }
 
         /// <summary>
         ///     Sets the weapon attachment based on WeaponAttachmentType.
@@ -46,6 +65,11 @@ namespace Project.Gameplay.Combat.Weapons
         protected override void PreInitialization()
         {
             base.PreInitialization();
+
+            _staminaStatusHandler = _character.FindAbility<StaminaStatusHandler>();
+
+            _statusCondition = _staminaStatusHandler.GetStatusCondition();
+
 
             weaponAttachment = transform; // Default if no specific attachment is found
             foreach (var point in AttachmentPointList)
@@ -165,6 +189,12 @@ namespace Project.Gameplay.Combat.Weapons
         {
             // Find the child object containing WeaponIK
             if (WeaponIK != null) WeaponIK.enabled = enable;
+        }
+
+        public void SetPlayerStatusCondition(StaminaStatusHandler.CharacterStatusConditions currentStatusCondition)
+        {
+            _statusCondition = currentStatusCondition;
+            Debug.Log("Status condition set to " + _statusCondition);
         }
 
         [Serializable]

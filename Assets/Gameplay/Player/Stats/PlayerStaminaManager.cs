@@ -21,7 +21,9 @@ namespace Gameplay.Player.Stats
     {
         public static float StaminaPoints;
         public static float MaxStaminaPoints;
-        public static float InitialCharacterStamina = 100;
+        // ReSharper disable once MemberCanBePrivate.Global
+        // ReSharper disable once FieldCanBeMadeReadOnly.Global
+        public static float InitialCharacterStamina = 10;
         public StaminaBarUpdater staminaBarUpdater;
 
 
@@ -92,6 +94,7 @@ namespace Gameplay.Player.Stats
 
         public static void RecoverStamina(float amount)
         {
+            if (StaminaPoints == 0 && amount > 0) PlayerStatusEvent.Trigger(PlayerStatusEventType.RegainedStamina);
             StaminaPoints += amount;
             SavePlayerStamina();
         }

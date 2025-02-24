@@ -9095,7 +9095,7 @@ MonoBehaviour:
         Active: 1
         UniqueID: 1440117238
         Label: Sound
-        OriginalLabel: 
+        OriginalLabel: Sound
         ChannelMode: 0
         Channel: 0
         MMChannelDefinition: {fileID: 0}
@@ -9223,7 +9223,7 @@ MonoBehaviour:
         Active: 1
         UniqueID: 14356234
         Label: Sound
-        OriginalLabel: 
+        OriginalLabel: Sound
         ChannelMode: 0
         Channel: 0
         MMChannelDefinition: {fileID: 0}
@@ -9351,7 +9351,7 @@ MonoBehaviour:
         Active: 1
         UniqueID: 969874641
         Label: Sound
-        OriginalLabel: 
+        OriginalLabel: Sound
         ChannelMode: 0
         Channel: 0
         MMChannelDefinition: {fileID: 0}
@@ -18844,7 +18844,7 @@ MonoBehaviour:
         Active: 1
         UniqueID: -335429155
         Label: Sound
-        OriginalLabel: 
+        OriginalLabel: Sound
         ChannelMode: 0
         Channel: 0
         MMChannelDefinition: {fileID: 0}
@@ -42304,7 +42304,7 @@ MonoBehaviour:
   AbilityStopFeedbacks: {fileID: 0}
   AbilityPermitted: 1
   BlockingMovementStates: 00000000
-  BlockingConditionStates: 
+  BlockingConditionStates: 06000000
   BlockingWeaponStates: 
   InitialWeapon: {fileID: 0}
   CanPickupWeapons: 1
@@ -42334,6 +42334,7 @@ MonoBehaviour:
   weaponAttachment: {fileID: 5810737014136237662}
   WeaponIK: {fileID: 0}
   WeaponEquipFeedback: {fileID: 0}
+  blockingStatusConditions: 00000000
 --- !u!114 &5831126372535588822
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -42837,9 +42838,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89a528d1716be704d995ada40a53f880, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  OutOfStaminaFeedback: {fileID: 0}
+  AbilityStartSfx: {fileID: 0}
+  AbilityInProgressSfx: {fileID: 0}
+  AbilityStopSfx: {fileID: 0}
+  AbilityStartFeedbacks: {fileID: 0}
+  AbilityStopFeedbacks: {fileID: 0}
+  AbilityPermitted: 1
+  BlockingMovementStates: 
+  BlockingConditionStates: 
+  BlockingWeaponStates: 
+  OutOfStaminaFeedback: {fileID: 2988399556189926512}
   RegainedStaminaFeedback: {fileID: 0}
-  outOfStamina: 0
 --- !u!1 &4196067256495071556
 GameObject:
   m_ObjectHideFlags: 0
@@ -51871,7 +51880,7 @@ MonoBehaviour:
         Active: 1
         UniqueID: 408837124
         Label: Sound
-        OriginalLabel: 
+        OriginalLabel: Sound
         ChannelMode: 0
         Channel: 0
         MMChannelDefinition: {fileID: 0}
