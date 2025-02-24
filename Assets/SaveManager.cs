@@ -1,5 +1,6 @@
 using System;
 using Gameplay.ItemsInteractions;
+using Gameplay.Player.Stats;
 using Gameplay.SaveLoad;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -13,7 +14,11 @@ public class SaveManager : MonoBehaviour
 
     [Header("Persistence Managers")] [SerializeField]
     InventoryPersistenceManager inventoryManager;
-    [SerializeField] ResourcesPersistenceManager resourcesManager;
+    [FormerlySerializedAs("playerMutableStatsManager")]
+    [FormerlySerializedAs("playerStatsManager")]
+    [FormerlySerializedAs("resourcesManager")]
+    [SerializeField]
+    PlayerStaminaManager playerStaminaManager;
     [FormerlySerializedAs("journalManager")] [SerializeField]
     CraftingRecipeManager craftingRecipeManager;
 
@@ -68,7 +73,7 @@ public class SaveManager : MonoBehaviour
     public void SaveAll()
     {
         inventoryManager?.SaveInventories();
-        resourcesManager?.SaveResources();
+        PlayerStaminaManager.SavePlayerStamina();
         // craftingRecipeManager?.SaveJournal();
 
 
@@ -80,11 +85,11 @@ public class SaveManager : MonoBehaviour
     public bool LoadAll()
     {
         var inventoryLoaded = inventoryManager != null && inventoryManager.HasSavedData();
-        var resourcesLoaded = resourcesManager != null && resourcesManager.HasSavedData();
+        var staminaLoaded = playerStaminaManager != null && playerStaminaManager.HasSavedData();
         var journalLoaded = craftingRecipeManager != null && craftingRecipeManager.HasSavedData();
 
         if (inventoryLoaded) inventoryManager.LoadInventories();
-        if (resourcesLoaded) resourcesManager.RevertResourcesToLastSave();
+        if (staminaLoaded) playerStaminaManager.LoadPlayerStamina();
         if (journalLoaded) CraftingRecipeManager.ResetLearnedCraftingGroups();
 
         // Load pickable items and destroyed containers
@@ -93,6 +98,6 @@ public class SaveManager : MonoBehaviour
 
         SaveSystem.LoadFromSlot(0);
 
-        return inventoryLoaded || resourcesLoaded || journalLoaded;
+        return inventoryLoaded || staminaLoaded || journalLoaded;
     }
 }

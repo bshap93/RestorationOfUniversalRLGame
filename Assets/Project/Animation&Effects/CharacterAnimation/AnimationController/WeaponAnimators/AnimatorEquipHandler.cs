@@ -16,13 +16,13 @@ namespace Project.Animation_Effects.CharacterAnimation.AnimationController.Weapo
         [Header("Weapon Data")] public InventoryItem[]
             weaponDataArray; // Array of ScriptableObjects holding each weapon's override controller
         public AnimatorController[] WeaponAnimatorControllers; // Array of override controllers for each weapon
+
+        readonly Dictionary<string, AnimatorController> animatorEquipmentDict = new();
         InventoryItem _customInventoryWeapon; // Store current weapon's data
         AnimatorOverrideController _defaultOverrideController; // Store current override
 
         Animator _playerAnimator;
         WeaponAnimationManager _weaponAnimationManager; // Reference to the WeaponAnimationManager
-
-        readonly Dictionary<string, AnimatorController> animatorEquipmentDict = new();
 
         public void Awake()
         {
@@ -30,7 +30,7 @@ namespace Project.Animation_Effects.CharacterAnimation.AnimationController.Weapo
 
             if (_playerAnimator == null) Debug.LogError("No Animator component found on this GameObject.");
 
-            _weaponAnimationManager = FindObjectOfType<WeaponAnimationManager>();
+            _weaponAnimationManager = FindFirstObjectByType<WeaponAnimationManager>();
             if (_weaponAnimationManager == null)
                 Debug.LogWarning("No WeaponAnimationManager found in the scene. This may cause issues.");
 

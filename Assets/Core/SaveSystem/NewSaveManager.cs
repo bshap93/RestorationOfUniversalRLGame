@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using Gameplay.Player;
 using MoreMountains.Tools;
 using Project.Gameplay.DungeonGeneration.Spawning;
 using UnityEngine;
@@ -105,28 +104,6 @@ namespace Project.Core.SaveSystem
             {
                 Debug.LogError($"Error loading game: {e.Message}");
                 return false;
-            }
-        }
-
-        public void ApplyCharacterCreationDataToPlayer()
-        {
-            var playerGameObject = GameObject.FindGameObjectWithTag("Player");
-            if (playerGameObject != null)
-            {
-                var playerStats = playerGameObject.GetComponent<PlayerStats>();
-                if (playerStats != null)
-                {
-                    playerStats.Initialize(CurrentSave.characterCreationData);
-                    Debug.Log("CharacterCreationData applied to PlayerStats.");
-                }
-                else
-                {
-                    Debug.LogError("PlayerStats component not found on Player GameObject.");
-                }
-            }
-            else
-            {
-                Debug.LogError("Player GameObject not found in the scene.");
             }
         }
 

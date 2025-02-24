@@ -1,46 +1,103 @@
+using Core.Events;
+using Gameplay.Player.Stats;
 using MoreMountains.Tools;
-using MoreMountains.TopDownEngine;
-using Project.Gameplay.TDEExtensions.Stamina;
+using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 
-namespace Stamina
+namespace Gameplay.Extensions.TopDownEngineExtensions.Stamina
 {
-    public class StaminaBarUpdater : MonoBehaviour, MMEventListener<StaminaUpdateEvent>,
-        MMEventListener<TopDownEngineEvent>
-    {
-        [SerializeField] [Tooltip("if this is false, the player character will be set as target automatically")]
-        bool UseCustomTarget;
-        [MMCondition(nameof(UseCustomTarget), true)] [SerializeField]
-        GameObject Target;
+    public class StaminaBarUpdater : MonoBehaviour, MMEventListener<StaminaEvent>
 
+    {
+        public bool useTextPlaceholder = true;
+
+        [FormerlySerializedAs("textPlaceholder")]
+        public TMP_Text textPlaceholderCurrentStamina;
+        public TMP_Text textPlaceholderMaxStamina;
         MMProgressBar _bar;
+        float _currentStamina;
+
+        float _maxStamina;
 
         void Awake()
         {
-            _bar = GetComponent<MMProgressBar>();
-            this.MMEventStartListening<TopDownEngineEvent>();
+            if (useTextPlaceholder)
+            {
+            }
+            else
+            {
+                _bar = GetComponent<MMProgressBar>();
+            }
         }
 
         void OnEnable()
         {
-            this.MMEventStartListening<StaminaUpdateEvent>();
+            this.MMEventStartListening();
         }
 
         void OnDisable()
         {
-            this.MMEventStopListening<StaminaUpdateEvent>();
+            this.MMEventStopListening();
         }
-
-        public void OnMMEvent(StaminaUpdateEvent mmEvent)
+        public void OnMMEvent(StaminaEvent eventType)
         {
-            if (mmEvent.Target != Target) return;
-            _bar.UpdateBar(mmEvent.Stamina, 0, mmEvent.MaxStamina);
+            if (useTextPlaceholder)
+                switch (eventType.EventType)
+                {
+                    case StaminaEventType.ConsumeStamina:
+                        _currentStamina -= eventType.ByValue;
+                        textPlaceholderCurrentStamina.text = _currentStamina.ToString();
+                        break;
+                    case StaminaEventType.RecoverStamina:
+                        _currentStamina += eventType.ByValue;
+                        textPlaceholderCurrentStamina.text = _currentStamina.ToString();
+                        break;
+                    case StaminaEventType.FullyRecoverStamina:
+                        _currentStamina = _maxStamina;
+                        textPlaceholderCurrentStamina.text = _currentStamina.ToString();
+                        break;
+                    case StaminaEventType.IncreaseMaximumStamina:
+                        _maxStamina += eventType.ByValue;
+                        textPlaceholderMaxStamina.text = _maxStamina.ToString();
+                        break;
+                }
+            else
+                switch (eventType.EventType)
+                {
+                    case StaminaEventType.ConsumeStamina:
+                        _currentStamina -= eventType.ByValue;
+                        _bar.UpdateBar(_currentStamina, 0, _maxStamina);
+                        break;
+                    case StaminaEventType.RecoverStamina:
+                        _currentStamina += eventType.ByValue;
+                        _bar.UpdateBar(_currentStamina, 0, _maxStamina);
+                        break;
+                    case StaminaEventType.FullyRecoverStamina:
+                        _currentStamina = _maxStamina;
+                        _bar.UpdateBar(_currentStamina, 0, _maxStamina);
+                        break;
+                    case StaminaEventType.IncreaseMaximumStamina:
+                        _maxStamina += eventType.ByValue;
+                        _bar.UpdateBar(_currentStamina, 0, _maxStamina);
+                        break;
+                }
         }
-
-        public void OnMMEvent(TopDownEngineEvent mmEvent)
+        public void Initialize()
         {
-            if (mmEvent.EventType == TopDownEngineEventTypes.SpawnCharacterStarts && !UseCustomTarget)
-                Target = LevelManager.Instance.Players[0].gameObject;
+            _maxStamina = PlayerStaminaManager.MaxStaminaPoints;
+            _currentStamina = PlayerStaminaManager.StaminaPoints;
+            if (useTextPlaceholder)
+            {
+d                textPlaceholderCurrentStamina.text = _currentStamina.ToString();
+                textPlaceholderMaxStamina.text = _maxStamina.ToString();
+            }
+            else
+            {
+                _bar.UpdateBar(_currentStamina, 0, _maxStamina);
+            }
+
+            Debug.Log("Stamina bar initialized");
         }
     }
 }

@@ -2,7 +2,6 @@
 
 using System.Threading.Tasks;
 using Core.SaveSystem;
-using Gameplay.Player;
 using MoreMountains.Tools;
 using MoreMountains.TopDownEngine;
 using Project.Core.SaveSystem;
@@ -60,11 +59,8 @@ namespace Core.GameInitialization
         public void OnMMEvent(TopDownEngineEvent engineEvent)
         {
             if (engineEvent.EventType == TopDownEngineEventTypes.CharacterSwitch)
-            {
                 // Apply character creation data to the player
-                NewSaveManager.Instance.ApplyCharacterCreationDataToPlayer();
-                Debug.Log("CharacterSwitch event received. Applied CharacterCreationData to PlayerStats.");
-            }
+                Debug.Log("CharacterSwitch event received. ");
         }
 
         async Task InitializeCore()
@@ -90,30 +86,20 @@ namespace Core.GameInitialization
         }
 
 
-        async Task StartNewGame()
+        Task StartNewGame()
         {
             // Reset item placements 
             // PickableManager.ResetPickedItems();
 
             // Spawn the player
-            var initialSpawnPoint = FindObjectOfType<SpawnPoint>();
+            var initialSpawnPoint = FindFirstObjectByType<SpawnPoint>();
             if (initialSpawnPoint == null) Debug.LogWarning("No CheckPoint found for initial spawn!");
+            return Task.CompletedTask;
         }
 
         void ApplyCharacterCreationDataToPlayer(GameObject playerGameObject)
         {
-            if (playerGameObject != null)
-            {
-                var playerStats = playerGameObject.GetComponent<PlayerStats>();
-                if (playerStats != null)
-                    playerStats.Initialize(NewSaveManager.Instance.CurrentSave.characterCreationData);
-                else
-                    Debug.LogError("PlayerStats component not found on Player GameObject.");
-            }
-            else
-            {
-                Debug.LogError("Player GameObject not found.");
-            }
+            Debug.Log("Applying CharacterCreationData to PlayerStats.");
         }
 
         void SpawnEnemiesIfPossible(GameObject playerGameObject)

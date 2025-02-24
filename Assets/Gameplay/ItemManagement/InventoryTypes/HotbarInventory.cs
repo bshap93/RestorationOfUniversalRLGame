@@ -1,14 +1,15 @@
 ﻿using MoreMountains.InventoryEngine;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Gameplay.ItemManagement.InventoryTypes
 {
     public class HotbarInventory : Inventory
     {
-        const string PlayerID = "Player1";
         public const string HotbarInventoryObjectName = "HotbarInventory";
         public const string HotbarInventoryTag = "HotbarInventory";
-        public Inventory MainInventory;
+        [FormerlySerializedAs("MainInventory")]
+        public Inventory mainInventory;
 
         public override bool AddItem(InventoryItem itemToAdd, int quantity)
         {
@@ -51,7 +52,7 @@ namespace Gameplay.ItemManagement.InventoryTypes
             // if we've reached the max size of our inventory, we try to add the item to the main inventory
             if (NumberOfFilledSlots >= Content.Length)
             {
-                if (MainInventory != null)
+                if (mainInventory != null)
                 {
                     // Trigger unequip event if this inventory is an equipment inventory
                     if (InventoryType == InventoryTypes.Equipment)
@@ -69,7 +70,7 @@ namespace Gameplay.ItemManagement.InventoryTypes
                         Debug.Log($"Triggered ItemUnEquipped for {itemToAdd.ItemID} from inventory {name}.");
                     }
 
-                    var res = MainInventory.AddItem(itemToAdd, quantity);
+                    var res = mainInventory.AddItem(itemToAdd, quantity);
                     return res;
                 }
 

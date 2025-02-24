@@ -17,7 +17,7 @@ namespace Project.Core.CharacterCreation
 
         // Add other base stats as needed
 
-        public Dictionary<string, int> GetModifiedStats(List<CharacterTrait> traits)
+        public Dictionary<string, int> GetModifiedStats()
         {
             var modified = new Dictionary<string, int>();
             // Apply trait modifications

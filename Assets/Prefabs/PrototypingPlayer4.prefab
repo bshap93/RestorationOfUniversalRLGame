@@ -25367,7 +25367,7 @@ MonoBehaviour:
   InputAuthorized: 1
   AnalogInput: 0
   ScriptDrivenInput: 0
-  WalkSpeed: 2
+  WalkSpeed: 6
   ShouldSetMovement: 1
   IdleThreshold: 0.05
   Acceleration: 10
@@ -26024,72 +26024,6 @@ SkinnedMeshRenderer:
     m_Center: {x: 0.10454932, y: 0.12901527, z: 0.1865915}
     m_Extent: {x: 0.13773726, y: 0.1774525, z: 0.14313239}
   m_DirtyAABB: 0
---- !u!1 &2952896119123541301
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4568006973812082559}
-  - component: {fileID: 6704017716676451590}
-  - component: {fileID: 8853568464346004475}
-  m_Layer: 10
-  m_Name: PlayerStats
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &4568006973812082559
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2952896119123541301}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 5537624061897635138}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6704017716676451590
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2952896119123541301}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6abce2a674864f41bcf836fdc8da9d20, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerExperiencePoints: 0
-  playerCurrentLevel: 1
-  playerXpForNextLevel: 0
---- !u!114 &8853568464346004475
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2952896119123541301}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d04c245d8a604a27b3fb8fdbcb0c5046, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Strength: 0
-  Agility: 0
-  Endurance: 0
-  Intelligence: 0
-  Intuition: 0
-  UnusedAttributePoints: 0
 --- !u!1 &2955723721760485572
 GameObject:
   m_ObjectHideFlags: 0
@@ -30725,7 +30659,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 4568006973812082559}
   - {fileID: 1118678150260712164}
   m_Father: {fileID: 145866661030460284}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -42025,10 +41958,8 @@ GameObject:
   - component: {fileID: 2147500982725304588}
   - component: {fileID: 743801165420944651}
   - component: {fileID: 8294267455872793848}
-  - component: {fileID: 2190125629540307051}
   - component: {fileID: 3122707553842577923}
   - component: {fileID: 9078600043551628577}
-  - component: {fileID: 7845501128029657194}
   - component: {fileID: 962769219621710381}
   - component: {fileID: 5831126372535588822}
   - component: {fileID: 4447566021230676104}
@@ -42300,39 +42231,6 @@ MonoBehaviour:
   AutoEquipOnlyIfEquipmentInventoryIsEmpty: 0
   AutoEquipOnRespawn: 1
   CharacterHandleWeapon: {fileID: 962769219621710381}
---- !u!114 &2190125629540307051
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4194478886614523176}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5df7bdd36239463aa15de19fb34795ab, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  XpManager: {fileID: 6704017716676451590}
-  AttributeManager: {fileID: 8853568464346004475}
-  moveSpeedMult: 0
-  attackPower: 0
-  damageMult: 0
-  overrideAutoHealth: 0
-  baseMoveSpeed: 6
-  baseRunSpeed: 9
-  baseMaxStamina: 100
-  playerClass: 
-  chosenTraits: []
-  health: 150
-  characterStats:
-    health: 0
-    stamina: 0
-    strength: 0
-    agility: 0
-    endurance: 0
-    intelligence: 0
-    intuition: 0
-  playerCurrency: 0
 --- !u!114 &3122707553842577923
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -42373,21 +42271,6 @@ MonoBehaviour:
   IgnoreUnknownDamageTypes: 0
   DamageResistanceList:
   - {fileID: 557013825266843806}
---- !u!114 &7845501128029657194
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4194478886614523176}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cc32baaa111c4a8f8d88a0f9089b7f90, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Kinema: {fileID: 5042032949878203872}
-  Favour: {fileID: 5473879459364201077}
-  characterClass: 0
 --- !u!114 &962769219621710381
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -42675,7 +42558,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4194478886614523176}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4643ffc4a58d576418593e1b193903cc, type: 3}
   m_Name: 

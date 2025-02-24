@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using Project.Core.CharacterCreation;
 using Project.Gameplay.DungeonGeneration.Spawning;
 using UnityEngine;
 
@@ -14,7 +13,6 @@ namespace Project.Core.SaveSystem
         public PlayerSaveData playerData;
         public DungeonSaveData dungeonData;
         public GameStateSaveData gameState;
-        public CharacterCreationData characterCreationData;
         public DateTime timestamp;
 
         public SaveData()
@@ -23,7 +21,6 @@ namespace Project.Core.SaveSystem
             playerData = new PlayerSaveData();
             dungeonData = new DungeonSaveData();
             gameState = new GameStateSaveData();
-            characterCreationData = new CharacterCreationData();
         }
     }
 
@@ -47,7 +44,7 @@ namespace Project.Core.SaveSystem
             stats = new Dictionary<string, float>();
         }
     }
-    
+
     [Serializable]
     public struct SerializableVector3
     {
@@ -89,7 +86,6 @@ namespace Project.Core.SaveSystem
             return new Quaternion(x, y, z, w);
         }
     }
-
 
 
     [Serializable]

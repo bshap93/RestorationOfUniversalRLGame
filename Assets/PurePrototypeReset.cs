@@ -1,4 +1,5 @@
 using Gameplay.ItemsInteractions;
+using Gameplay.Player.Stats;
 using Gameplay.SaveLoad;
 using PixelCrushers;
 using UnityEngine;
@@ -25,7 +26,7 @@ public class PurePrototypeReset : MonoBehaviour
         InventoryPersistenceManager.Instance?.ResetInventory();
 
         // Reset Resources (if applicable)
-        ResourcesPersistenceManager.Instance?.ResetResources();
+        PlayerStaminaManager.ResetPlayerStamina();
 
         DestructibleManager.ResetDestroyedObjects();
 

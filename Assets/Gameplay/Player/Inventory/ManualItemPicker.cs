@@ -6,6 +6,7 @@ using Gameplay.ItemManagement.InventoryItemTypes;
 using Gameplay.ItemManagement.InventoryItemTypes.Books;
 using Gameplay.ItemManagement.InventoryTypes;
 using Gameplay.ItemsInteractions;
+using Gameplay.Player.Stats;
 using MoreMountains.Feedbacks;
 using MoreMountains.InventoryEngine;
 using Project.UI.HUD;
@@ -133,14 +134,8 @@ namespace Gameplay.Player.Inventory
 
         void HandleCoinPickup(GameObject player, InventoryCoinPickup coinPickup)
         {
-            var playerStats = player.GetComponent<PlayerStats>();
-            if (playerStats != null)
-            {
-                var coinsToAdd = Random.Range(coinPickup.MinimumCoins, coinPickup.MaximumCoins + 1);
-                playerStats.AddCoins(coinsToAdd);
-            }
-
-            FinishPickup();
+            var coinsToAdd = Random.Range(coinPickup.MinimumCoins, coinPickup.MaximumCoins + 1);
+            PlayerCurrencyManager.AddCoins(coinsToAdd);
         }
 
         void HandleInventoryItemPickup()

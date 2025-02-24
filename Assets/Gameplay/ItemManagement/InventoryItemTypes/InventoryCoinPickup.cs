@@ -1,4 +1,4 @@
-﻿using Gameplay.Player;
+﻿using Gameplay.Player.Stats;
 using MoreMountains.InventoryEngine;
 using UnityEngine;
 
@@ -25,18 +25,14 @@ namespace Gameplay.ItemManagement.InventoryItemTypes
             if (player != null)
             {
                 // Access PlayerStats from the player object
-                var playerStats = player.GetComponent<PlayerStats>();
 
-                if (playerStats != null)
-                {
-                    // Randomize the amount of coins to add
-                    var coinsToAdd = Random.Range(MinimumCoins, MaximumCoins + 1);
-                    playerStats.AddCoins(coinsToAdd);
-                    Debug.Log(
-                        $"Used coin item and added {coinsToAdd} coins. Total Coins: {playerStats.playerCurrency}");
 
-                    return true; // Indicate successful use
-                }
+                // Randomize the amount of coins to add
+                var coinsToAdd = Random.Range(MinimumCoins, MaximumCoins + 1);
+                PlayerCurrencyManager.AddCoins(coinsToAdd);
+
+
+                return true; // Indicate successful use
             }
 
             return false; // Indicate failed use

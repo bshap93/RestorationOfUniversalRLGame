@@ -5,9 +5,7 @@ namespace Gameplay.ItemManagement.InventoryTypes
 {
     public class MainInventory : Inventory
     {
-        const string PlayerID = "Player1";
         public const string MainInventoryObjectName = "MainPlayerInventory";
-        public const string MainInventoryTag = "MainPlayerInventory";
 
         public override bool MoveItemToInventory(int startIndex, Inventory targetInventory, int endIndex)
         {
