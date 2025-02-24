@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Gameplay.Events;
 using Gameplay.ItemManagement.InventoryTypes.Destructables;
 using MoreMountains.TopDownEngine;
@@ -12,7 +11,6 @@ namespace Gameplay.ItemsInteractions
     {
         public string UniqueID;
         [FormerlySerializedAs("destructable")] public Destructible destructible;
-        [SerializeField] Loot _loot;
 
         public bool ShouldDestroy;
         [FormerlySerializedAs("_colliders")] [SerializeField]
@@ -21,6 +19,7 @@ namespace Gameplay.ItemsInteractions
         List<Renderer> renderers;
         GameObject _brokenPrefab;
         bool _isBeingDestroyed;
+        Loot _loot;
         int dropAmountMax;
         int dropAmountMin;
         protected Health Health;
@@ -29,18 +28,15 @@ namespace Gameplay.ItemsInteractions
         protected virtual void Awake()
         {
             if (string.IsNullOrEmpty(UniqueID))
-            {
-                UniqueID = Guid.NewGuid().ToString();
+                // UniqueID = Guid.NewGuid().ToString();
                 Debug.Log($"Generated new UniqueID for Destructable Object {gameObject.name}: {UniqueID}");
-            }
+
+            _loot = GetComponent<Loot>();
+
+            if (_loot == null) Debug.LogWarning("No loot component found on destructible object");
 
             Health = GetComponent<Health>();
 
-            // colliders = GetComponents<Collider>().ToList();
-            // renderers = GetComponents<Renderer>().ToList();
-            //
-            // colliders.Add(GetComponentInChildren<Collider>());
-            // renderers.Add(GetComponentInChildren<Renderer>());
 
             // On death
             Health.OnDeath += OnDeath;
@@ -99,20 +95,14 @@ namespace Gameplay.ItemsInteractions
         void DisableRendererAndCollider()
         {
             if (colliders != null)
-            {
                 foreach (var collider1 in colliders)
                     collider1.enabled = false;
 
-                Debug.Log("Collider disabled");
-            }
-
             if (renderers != null)
-            {
                 foreach (var renderer1 in renderers)
                     renderer1.enabled = false;
 
-                Debug.Log("Renderer disabled");
-            }
+            Debug.Log("Disabled renderer and collider for destructible object: " + gameObject.name);
         }
 
         void SaveDestroyedObject(string uniqueID)

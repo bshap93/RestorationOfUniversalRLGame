@@ -207,13 +207,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3beb49fcc5880ec40a513dd74067c683, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UniqueID: 4dfdbdf7-ae78-41d6-91be-a70096b9ae35
+  UniqueID: 
   Item: {fileID: 11400000, guid: 907e0101882ba9845b55be891f8ec91f, type: 2}
   Quantity: 1
   pickedMmFeedbacks: {fileID: 0}
   usedMmFeedbacks: {fileID: 0}
   disappearMmFeedbacks: {fileID: 0}
   NotPickable: 0
+  disappearAfterUse: 0
 --- !u!114 &7287438978392312995
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -227,9 +228,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Item: {fileID: 11400000, guid: 907e0101882ba9845b55be891f8ec91f, type: 2}
-  _selectionFeedbacks: {fileID: 2525934338687006712}
-  _deselectionFeedbacks: {fileID: 498737460001538880}
-  NotPickable: 0
+  selectionFeedbacks: {fileID: 2525934338687006712}
+  deselectionFeedbacks: {fileID: 498737460001538880}
+  notPickable: 0
 --- !u!1001 &3093584052617779348
 PrefabInstance:
   m_ObjectHideFlags: 0

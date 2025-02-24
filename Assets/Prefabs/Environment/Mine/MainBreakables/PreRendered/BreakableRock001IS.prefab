@@ -47,7 +47,7 @@ GameObject:
   - component: {fileID: 2648232080076920166}
   - component: {fileID: 1841257379649968664}
   - component: {fileID: 472058131111958029}
-  - component: {fileID: 6375103727303174355}
+  - component: {fileID: 5431758392900466500}
   m_Layer: 25
   m_Name: BreakableRock001IS
   m_TagString: Untagged
@@ -64,7 +64,7 @@ Transform:
   m_GameObject: {fileID: 6581229364094251250}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4, y: 1, z: -7}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -92,9 +92,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdd2b41c6aa677442bbf88c84b1ebbd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UniqueID: Rock01
+  UniqueID: bb655728-ebbd-47e9-8b68-37dfd92f42eb
   destructible: {fileID: 11400000, guid: 502fdee37cf70394485b055a49a3baac, type: 2}
-  _loot: {fileID: 6375103727303174355}
   ShouldDestroy: 0
   colliders:
   - {fileID: 2648232080076920166}
@@ -236,7 +235,7 @@ MonoBehaviour:
   TargetDamageResistanceProcessor: {fileID: 0}
   TargetAnimator: {fileID: 0}
   DisableAnimatorLogs: 1
---- !u!114 &6375103727303174355
+--- !u!114 &5431758392900466500
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -249,7 +248,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   LootMode: 2
-  GameObjectToLoot: {fileID: 0}
+  GameObjectToLoot: {fileID: 9213542176007057957, guid: a5a89e7bfa15018439fc5ba6ef5f43be,
+    type: 3}
   LootTable:
     ObjectsToLoot: []
     WeightsTotal: 0

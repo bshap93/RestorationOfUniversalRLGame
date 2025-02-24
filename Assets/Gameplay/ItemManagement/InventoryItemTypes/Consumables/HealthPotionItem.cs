@@ -19,7 +19,7 @@ namespace Gameplay.ItemManagement.InventoryItemTypes.Consumables
             Debug.Log("Using Health Potion");
 
             // Get Player1 character
-            var character = TargetInventory(playerID)?.Owner?.GetComponent<Character>();
+            var character = TargetInventory(playerID)?.Owner?.GetComponent<MoreMountains.TopDownEngine.Character>();
 
             if (character != null)
             {

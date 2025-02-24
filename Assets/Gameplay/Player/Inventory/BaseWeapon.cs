@@ -64,7 +64,8 @@ namespace Gameplay.Player.Inventory
             if (EquippableWeapon == null) return;
             if (TargetInventory(playerID).Owner == null) return;
 
-            var character = TargetInventory(playerID).Owner.GetComponentInParent<Character>();
+            var character = TargetInventory(playerID).Owner
+                .GetComponentInParent<MoreMountains.TopDownEngine.Character>();
 
             if (character == null) return;
 

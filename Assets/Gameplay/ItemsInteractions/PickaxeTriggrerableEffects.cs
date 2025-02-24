@@ -9,7 +9,6 @@ namespace Gameplay.ItemsInteractions
         public void TriggerEffects()
         {
             StaminaEvent.Trigger(StaminaEventType.ConsumeStamina, StaminaCost);
-            Debug.Log("Triggering pickaxe effects");
         }
     }
 }

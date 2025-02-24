@@ -1,9 +1,8 @@
-﻿using Gameplay.Combat.Shields;
-using MoreMountains.InventoryEngine;
-using MoreMountains.TopDownEngine;
+﻿using MoreMountains.InventoryEngine;
+using Project.Gameplay.Combat.Shields;
 using UnityEngine;
 
-namespace Project.Gameplay.Combat.Shields
+namespace Gameplay.Combat.Shields
 {
     [CreateAssetMenu(fileName = "ShieldItem", menuName = "Inventory/Equipment/Shield")]
     public class InventoryShieldItem : BaseItem
@@ -20,7 +19,7 @@ namespace Project.Gameplay.Combat.Shields
         public override bool Equip(string playerID)
         {
             // Find the character that owns this inventory
-            var character = TargetInventory(playerID)?.Owner?.GetComponent<Character>();
+            var character = TargetInventory(playerID)?.Owner?.GetComponent<MoreMountains.TopDownEngine.Character>();
             if (character == null) return false;
 
             // Find shield handler
@@ -45,7 +44,7 @@ namespace Project.Gameplay.Combat.Shields
 
         public override bool UnEquip(string playerID)
         {
-            var character = TargetInventory(playerID)?.Owner?.GetComponent<Character>();
+            var character = TargetInventory(playerID)?.Owner?.GetComponent<MoreMountains.TopDownEngine.Character>();
             if (character == null) return false;
 
             var shieldHandler = character.FindAbility<CharacterHandleShield>();

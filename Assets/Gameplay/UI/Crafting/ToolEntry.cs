@@ -3,14 +3,17 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ToolEntry : MonoBehaviour
+namespace Gameplay.UI.Crafting
 {
-    public TMP_Text toolName;
-    public Image toolImage;
-
-    public void SetTool(InventoryTool tool)
+    public class ToolEntry : MonoBehaviour
     {
-        toolName.text = tool.ItemName;
-        toolImage.sprite = tool.Icon;
+        public TMP_Text toolName;
+        public Image toolImage;
+
+        public void SetTool(InventoryTool tool)
+        {
+            toolName.text = tool.ItemName;
+            toolImage.sprite = tool.Icon;
+        }
     }
 }

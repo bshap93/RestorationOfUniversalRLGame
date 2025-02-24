@@ -77,7 +77,16 @@ namespace Gameplay.Player.Stats
 
         public static void ConsumeStamina(float amount)
         {
-            StaminaPoints -= amount;
+            if (StaminaPoints - amount < 0)
+            {
+                StaminaPoints = 0;
+                PlayerStatusEvent.Trigger(PlayerStatusEventType.OutOfStamina);
+            }
+            else
+            {
+                StaminaPoints -= amount;
+            }
+
             SavePlayerStamina();
         }
 
@@ -90,6 +99,8 @@ namespace Gameplay.Player.Stats
         public static void FullyRecoverStamina()
         {
             StaminaPoints = MaxStaminaPoints;
+            PlayerStatusEvent.Trigger(PlayerStatusEventType.RegainedStamina);
+
             SavePlayerStamina();
         }
 

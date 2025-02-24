@@ -10,7 +10,7 @@ namespace Gameplay.AI.Scripts
         public override void Initialization()
         {
             base.Initialization();
-            var character = gameObject.GetComponentInParent<Character>();
+            var character = gameObject.GetComponentInParent<MoreMountains.TopDownEngine.Character>();
             CharacterMovement = character?.FindAbility<CharacterMovement>();
             CharacterRun = character?.FindAbility<CharacterRun>();
         }
