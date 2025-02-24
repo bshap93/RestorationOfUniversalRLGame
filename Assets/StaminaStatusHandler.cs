@@ -27,7 +27,7 @@ public class StaminaStatusHandler : CharacterAbility, MMEventListener<PlayerStat
     protected override void Start()
     {
         base.Start();
-        if (PlayerStaminaManager.StaminaPoints <= 0)
+        if (PlayerStaminaManager.IsPlayerOutOfStamina())
             _currentStatusCondition = CharacterStatusConditions.OutOfStamina;
         else
             _currentStatusCondition = CharacterStatusConditions.Normal;
@@ -69,6 +69,9 @@ public class StaminaStatusHandler : CharacterAbility, MMEventListener<PlayerStat
     }
     public CharacterStatusConditions GetStatusCondition()
     {
-        return _currentStatusCondition;
+        if (PlayerStaminaManager.IsPlayerOutOfStamina())
+            return CharacterStatusConditions.OutOfStamina;
+
+        return CharacterStatusConditions.Normal;
     }
 }

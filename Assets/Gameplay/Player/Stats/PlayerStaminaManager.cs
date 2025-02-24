@@ -1,14 +1,16 @@
 ﻿#if UNITY_EDITOR
 
 using Core.Events;
-using Gameplay.Extensions.TopDownEngineExtensions.Stamina;
+using Gameplay.Character;
+using Gameplay.Character.Stamina;
 using MoreMountains.Tools;
+using PixelCrushers.DialogueSystem;
 using UnityEditor;
 using UnityEngine;
 
 namespace Gameplay.Player.Stats
 {
-    public static class PlayerMutableStatsManagerDebug
+    public static class PlayerStaminaManagerDebug
     {
         [MenuItem("Debug/Reset Stamina")]
         public static void ResetStamina()
@@ -23,8 +25,9 @@ namespace Gameplay.Player.Stats
         public static float MaxStaminaPoints;
         // ReSharper disable once MemberCanBePrivate.Global
         // ReSharper disable once FieldCanBeMadeReadOnly.Global
-        public static float InitialCharacterStamina = 10;
+        public static float InitialCharacterStamina;
         public StaminaBarUpdater staminaBarUpdater;
+        public CharacterStatProfile characterStatProfile;
 
 
         string _savePath;
@@ -32,6 +35,11 @@ namespace Gameplay.Player.Stats
         void Awake()
         {
             DontDestroyOnLoad(gameObject);
+
+            if (characterStatProfile != null)
+                InitialCharacterStamina = characterStatProfile.InitialMaxStamina;
+            else
+                Debug.LogError("CharacterStatProfile not set in PlayerStaminaManager");
         }
 
         void Start()
@@ -83,6 +91,7 @@ namespace Gameplay.Player.Stats
             {
                 StaminaPoints = 0;
                 PlayerStatusEvent.Trigger(PlayerStatusEventType.OutOfStamina);
+                DialogueManager.ShowAlert("Stamina Depleted");
             }
             else
             {
@@ -110,6 +119,12 @@ namespace Gameplay.Player.Stats
         public static void IncreaseMaximumStamina(float amount)
         {
             MaxStaminaPoints += amount;
+            SavePlayerStamina();
+        }
+
+        public static void DecreaseMaximumStamina(float amount)
+        {
+            MaxStaminaPoints -= amount;
             SavePlayerStamina();
         }
 
@@ -149,12 +164,16 @@ namespace Gameplay.Player.Stats
         {
             ES3.Save("StaminaPoints", StaminaPoints, GetSaveFilePath());
             ES3.Save("MaxStaminaPoints", MaxStaminaPoints, GetSaveFilePath());
-            Debug.Log("Saved player stamina");
+            Debug.Log("Saved player stamina: " + StaminaPoints + " / " + MaxStaminaPoints);
         }
 
         public bool HasSavedData()
         {
             return ES3.FileExists(GetSaveFilePath());
+        }
+        public static bool IsPlayerOutOfStamina()
+        {
+            return StaminaPoints <= 0;
         }
     }
 }

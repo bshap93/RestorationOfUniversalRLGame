@@ -7,7 +7,9 @@ namespace Core.Events
     public enum PlayerStatusEventType
     {
         OutOfStamina,
-        RegainedStamina
+        RegainedStamina,
+        OutOfHealth,
+        RegainedHealth
     }
 
     public struct PlayerStatusEvent
