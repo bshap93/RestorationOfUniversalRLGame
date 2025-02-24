@@ -10,6 +10,7 @@ namespace Core.Events
         RecoverStamina,
         FullyRecoverStamina,
         IncreaseMaximumStamina,
+        DecreaseMaximumStamina,
         Initialize
     }
 

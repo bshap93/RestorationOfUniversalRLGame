@@ -61,6 +61,10 @@ namespace Gameplay.Character.Stamina
                         _maxStamina += eventType.ByValue;
                         textPlaceholderMaxStamina.text = _maxStamina.ToString();
                         break;
+                    case StaminaEventType.DecreaseMaximumStamina:
+                        _maxStamina -= eventType.ByValue;
+                        textPlaceholderMaxStamina.text = _maxStamina.ToString();
+                        break;
                 }
             else
                 switch (eventType.EventType)
