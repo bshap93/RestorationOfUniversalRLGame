@@ -89,7 +89,7 @@ namespace Gameplay.Extensions.TopDownEngineExtensions.Stamina
             _currentStamina = PlayerStaminaManager.StaminaPoints;
             if (useTextPlaceholder)
             {
-d                textPlaceholderCurrentStamina.text = _currentStamina.ToString();
+                textPlaceholderCurrentStamina.text = _currentStamina.ToString();
                 textPlaceholderMaxStamina.text = _maxStamina.ToString();
             }
             else

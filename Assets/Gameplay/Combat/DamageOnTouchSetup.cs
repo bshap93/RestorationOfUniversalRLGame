@@ -2,7 +2,7 @@ using MoreMountains.TopDownEngine;
 using UnityEngine;
 
 // 3. Verify DamageOnTouch settings
-namespace Project.Gameplay.Combat
+namespace Gameplay.Character.Combat
 {
     public class DamageOnTouchSetup : MonoBehaviour
     {

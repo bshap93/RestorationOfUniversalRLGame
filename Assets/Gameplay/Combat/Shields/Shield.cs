@@ -40,7 +40,7 @@ namespace Gameplay.Combat.Shields
         protected CharacterMovement _characterMovement;
         protected CharacterHandleShield _handler;
 
-        protected Character _owner;
+        protected MoreMountains.TopDownEngine.Character _owner;
         protected float _recoveryTimer;
         protected int _shieldStateParameter;
 
@@ -80,13 +80,14 @@ namespace Gameplay.Combat.Shields
         }
 
 
-        public virtual void SetOwner(Character owner, CharacterHandleShield handler)
+        public virtual void SetOwner(MoreMountains.TopDownEngine.Character owner, CharacterHandleShield handler)
         {
             _owner = owner;
             _handler = handler;
             _animator = _handler.CharacterAnimator;
 
-            _characterMovement = _owner.GetComponent<Character>()?.FindAbility<CharacterMovement>();
+            _characterMovement = _owner.GetComponent<MoreMountains.TopDownEngine.Character>()
+                ?.FindAbility<CharacterMovement>();
         }
 
         public virtual void Initialization()

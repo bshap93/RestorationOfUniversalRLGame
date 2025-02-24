@@ -1,11 +1,11 @@
 ﻿using System;
+using Gameplay.Combat.Tools;
 using MoreMountains.InventoryEngine;
-using MoreMountains.TopDownEngine;
 using Project.Gameplay.Combat.Tools;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-namespace Gameplay.Combat.Tools
+namespace Gameplay.Character.Combat.Tools
 {
     [CreateAssetMenu(fileName = "TorchItem", menuName = "Inventory/Equipment/Torch", order = 2)]
     [Serializable]
@@ -26,7 +26,7 @@ namespace Gameplay.Combat.Tools
         public override bool Equip(string playerID)
         {
             // Find the character that owns this inventory
-            var character = TargetInventory(playerID)?.Owner?.GetComponent<Character>();
+            var character = TargetInventory(playerID)?.Owner?.GetComponent<MoreMountains.TopDownEngine.Character>();
             if (character == null) return false;
 
             // Find torch handler
@@ -52,7 +52,7 @@ namespace Gameplay.Combat.Tools
         public override bool UnEquip(string playerID)
         {
             // Find the character that owns this inventory
-            var character = TargetInventory(playerID)?.Owner?.GetComponent<Character>();
+            var character = TargetInventory(playerID)?.Owner?.GetComponent<MoreMountains.TopDownEngine.Character>();
             if (character == null) return false;
 
             // Find torch handler

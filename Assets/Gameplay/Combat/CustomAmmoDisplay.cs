@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 
-namespace Gameplay.Combat
+namespace Gameplay.Character.Combat
 {
     public class CustomAmmoDisplay : AmmoDisplay, MMEventListener<MMInventoryEvent>, MMEventListener<MMGameEvent>
     {

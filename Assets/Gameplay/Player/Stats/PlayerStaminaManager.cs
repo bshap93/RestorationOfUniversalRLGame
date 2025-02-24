@@ -36,11 +36,7 @@ namespace Gameplay.Player.Stats
         {
             _savePath = GetSaveFilePath();
 
-            Initialize();
-            // if (HasSavedData())
-            //     LoadPlayerStamina();
-            // else
-            //     Initialize();
+            LoadPlayerStamina();
         }
 
         void OnEnable()
@@ -82,11 +78,13 @@ namespace Gameplay.Player.Stats
         public static void ConsumeStamina(float amount)
         {
             StaminaPoints -= amount;
+            SavePlayerStamina();
         }
 
         public static void RecoverStamina(float amount)
         {
             StaminaPoints += amount;
+            SavePlayerStamina();
         }
 
         public static void FullyRecoverStamina()
@@ -115,6 +113,13 @@ namespace Gameplay.Player.Stats
             {
                 StaminaPoints = ES3.Load<float>("StaminaPoints", _savePath);
                 MaxStaminaPoints = ES3.Load<float>("MaxStaminaPoints", _savePath);
+                staminaBarUpdater.Initialize();
+            }
+            else
+            {
+                Debug.LogError("No saved stamina data found");
+                ResetPlayerStamina();
+                staminaBarUpdater.Initialize();
             }
         }
         public static void ResetPlayerStamina()
@@ -130,6 +135,7 @@ namespace Gameplay.Player.Stats
         {
             ES3.Save("StaminaPoints", StaminaPoints, GetSaveFilePath());
             ES3.Save("MaxStaminaPoints", MaxStaminaPoints, GetSaveFilePath());
+            Debug.Log("Saved player stamina");
         }
 
         public bool HasSavedData()
