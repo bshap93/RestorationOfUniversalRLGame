@@ -3,6 +3,8 @@
 using Core.Events;
 using Gameplay.Character;
 using Gameplay.Character.Health;
+using MoreMountains.Tools;
+using MoreMountains.TopDownEngine;
 using PixelCrushers.DialogueSystem;
 using UnityEditor;
 using UnityEngine;
@@ -19,14 +21,17 @@ namespace Gameplay.Player.Stats
     }
 #endif
 
-    public class PlayerHealthManager : MonoBehaviour
+    public class PlayerHealthManager : MonoBehaviour, MMEventListener<MMCameraEvent>
     {
         public static float HealthPoints;
         public static float MaxHealthPoints;
 
+
         public static float InitialCharacterHealth;
         public HealthBarUpdater healthBarUpdater;
         public CharacterStatProfile characterStatProfile;
+
+        public bool ImmuneToDamage;
 
         string _savePath;
 
@@ -49,12 +54,20 @@ namespace Gameplay.Player.Stats
 
         void OnEnable()
         {
-            // this.MMEventStartListening();  
+            this.MMEventStartListening();
         }
 
         void OnDisable()
         {
-            // this.MMEventStopListening();
+            this.MMEventStopListening();
+        }
+        public void OnMMEvent(MMCameraEvent eventType)
+        {
+            // MMCameraEventTypes.SetTargetCharacter is an acuurate measure of just after the player has been spawned
+            // and that then are its components initialized
+            if (eventType.EventType == MMCameraEventTypes.SetTargetCharacter)
+                if (ImmuneToDamage)
+                    PlayerStatusEvent.Trigger(PlayerStatusEventType.ImmuneToDamage);
         }
 
         public void Initialize()

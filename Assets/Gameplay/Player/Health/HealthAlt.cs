@@ -15,8 +15,8 @@ namespace Gameplay.Player.Health
     public class HealthAlt : MoreMountains.TopDownEngine.Health, MMEventListener<PlayerStatusEvent>,
         MMEventListener<HealthEvent>
     {
-        public
-            MMFeedbacks RecoveryFeedback;
+        [MMInspectorGroup("Health Status Change", true, 3)]
+        public MMFeedbacks RecoveryFeedback;
         public MMFeedbacks FullyRecoverFeedback;
         public MMFeedbacks IncreaseMaximumHealthFeedback;
         public MMFeedbacks DecreaseMaximumHealthFeedback;
@@ -82,6 +82,20 @@ namespace Gameplay.Player.Health
         }
         public void OnMMEvent(PlayerStatusEvent eventType)
         {
+            switch (eventType.EventType)
+            {
+                case PlayerStatusEventType.OutOfHealth:
+                    Debug.Log("Should be dead");
+                    break;
+                case PlayerStatusEventType.RegainedHealth:
+                    Debug.Log("Regained Health");
+                    break;
+                case PlayerStatusEventType.ImmuneToDamage:
+                    ImmuneToDamage = true;
+
+                    Debug.Log("Immune to damage");
+                    break;
+            }
         }
 
 

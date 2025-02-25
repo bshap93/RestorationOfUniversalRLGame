@@ -9,7 +9,8 @@ namespace Core.Events
         OutOfStamina,
         RegainedStamina,
         OutOfHealth,
-        RegainedHealth
+        RegainedHealth,
+        ImmuneToDamage
     }
 
     public struct PlayerStatusEvent
