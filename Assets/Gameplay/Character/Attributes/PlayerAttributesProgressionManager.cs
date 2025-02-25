@@ -1,10 +1,9 @@
-﻿using Gameplay.Character;
-using Gameplay.Character.Attributes;
-using Gameplay.Character.Attributes.Dexterity;
+﻿using Gameplay.Character.Attributes.Dexterity;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Serialization;
 
-namespace Gameplay.Player.Stats
+namespace Gameplay.Character.Attributes
 {
     public static class PlayerAttributesProgressionManagerDebug
     {
@@ -12,23 +11,29 @@ namespace Gameplay.Player.Stats
         public static void ResetAttributesProgression()
         {
             PlayerDexterityManager.ResetPlayerDexterity();
-            PlayerEnduranceManager.ResetPlayerEndurance();
+            SimplifiedEnduranceManager.ResetPlayerEndurance();
         }
     }
 
     public class PlayerAttributesProgressionManager : MonoBehaviour
     {
-        public PlayerDexterityManager playerDexterityManager;
-        public PlayerEnduranceManager playerEnduranceManager;
+        public SimplifiedDexterityManager playerDexterityManager;
+        [FormerlySerializedAs("playerEnduranceManager")] public SimplifiedEnduranceManager simplifiedEnduranceManager;
 
 
-        void Reset()
+        public void Reset()
         {
             var charStateProf =
                 Resources.Load<CharacterStatProfile>(CharacterResourcePaths.CharacterStatProfileFilePath);
 
-            PlayerDexterityManager.ResetPlayerDexterity();
-            PlayerEnduranceManager.ResetPlayerEndurance();
+            SimplifiedDexterityManager.ResetPlayerDexterity();
+            SimplifiedEnduranceManager.ResetPlayerEndurance();
+        }
+
+        public static void ResetPlayerAttributesProgression()
+        {
+            SimplifiedDexterityManager.ResetPlayerDexterity();
+            SimplifiedEnduranceManager.ResetPlayerEndurance();
         }
 
 

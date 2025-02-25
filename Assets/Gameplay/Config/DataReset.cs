@@ -1,3 +1,4 @@
+using Gameplay.Character.Attributes;
 using Gameplay.ItemsInteractions;
 using Gameplay.Player.Stats;
 using Gameplay.SaveLoad;
@@ -30,6 +31,8 @@ namespace Gameplay.Config
             // Reset  Mutable Stats
             PlayerStaminaManager.ResetPlayerStamina();
             PlayerHealthManager.ResetPlayerHealth();
+
+            PlayerAttributesProgressionManager.ResetPlayerAttributesProgression();
 
             DestructibleManager.ResetDestroyedObjects();
 

@@ -1,6 +1,6 @@
 ﻿using System;
+using Gameplay.Character.Attributes.LevelExperienceCurve;
 using Gameplay.Extensions.ProgressionSystem.Scripts.Variables;
-using ProgressionSystem.Scripts.Variables;
 using UnityEngine;
 
 namespace Gameplay.Extensions.ProgressionSystem.Scripts.Core

@@ -2,7 +2,7 @@
 {
     public interface IPlayerAttributeManager
     {
-        public int GetAttributeValue();
+        public int GetAttributeLevelValue();
         void Awake();
         void Start();
 

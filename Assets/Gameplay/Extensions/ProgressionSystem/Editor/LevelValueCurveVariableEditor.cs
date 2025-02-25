@@ -1,5 +1,5 @@
 ﻿using System.Globalization;
-using ProgressionSystem.Scripts.Variables;
+using Gameplay.Character.Attributes.LevelExperienceCurve;
 using UnityEditor;
 using UnityEngine;
 
@@ -9,7 +9,7 @@ namespace ProgressionSystem.Editor
     [CustomEditor(typeof(LevelValueCurveVariable))]
     public class LevelValueCurveVariableEditor : UnityEditor.Editor
     {
-        private Vector2 _scroll;
+        Vector2 _scroll;
         public override void OnInspectorGUI()
         {
             base.OnInspectorGUI();
@@ -20,10 +20,15 @@ namespace ProgressionSystem.Editor
             {
                 EditorGUILayout.BeginHorizontal("box");
                 EditorGUILayout.LabelField("Level " + i);
-                EditorGUILayout.LabelField((levelValueCurve.DisplayIntValues ? levelValueCurve.EvaluateInt(i).ToString() : levelValueCurve.Evaluate(i).ToString("F", CultureInfo.InvariantCulture)) + " " + levelValueCurve.ValueRepresents);
+                EditorGUILayout.LabelField(
+                    (levelValueCurve.DisplayIntValues
+                        ? levelValueCurve.EvaluateInt(i).ToString()
+                        : levelValueCurve.Evaluate(i).ToString("F", CultureInfo.InvariantCulture)) + " " +
+                    levelValueCurve.ValueRepresents);
+
                 EditorGUILayout.EndHorizontal();
             }
-            
+
             EditorGUILayout.EndScrollView();
         }
     }

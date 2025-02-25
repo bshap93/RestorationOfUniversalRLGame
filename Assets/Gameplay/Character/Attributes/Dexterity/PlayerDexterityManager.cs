@@ -1,7 +1,6 @@
 using Core.Events;
-using Gameplay.Player.Stats;
+using Gameplay.Character.Attributes.LevelExperienceCurve;
 using MoreMountains.Tools;
-using ProgressionSystem.Scripts.Variables;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -13,9 +12,6 @@ namespace Gameplay.Character.Attributes.Dexterity
     {
         static int _playerDexterityLevel;
         static float _playerDexterityExperiencePoints;
-
-        static int _initialDexterityLevel;
-        static float _initialDexterityExperiencePoints;
 
 
         public LevelValueCurveVariable levelValueCurveVariable;
@@ -38,7 +34,7 @@ namespace Gameplay.Character.Attributes.Dexterity
             this.MMEventStopListening<AttributeEvent>();
             this.MMEventStopListening<AttributeLevelEvent>();
         }
-        public int GetAttributeValue()
+        public int GetAttributeLevelValue()
         {
             return _playerDexterityLevel;
         }
@@ -101,10 +97,7 @@ namespace Gameplay.Character.Attributes.Dexterity
                 case AttributeLevelEventType.Initialize:
                     Debug.Log("Initializing dexterity level");
                     break;
-                case AttributeLevelEventType.LevelUp:
-                    AddAttributeLevel(eventType.Level);
-                    Debug.Log("Leveling up dexterity");
-                    break;
+
                 case AttributeLevelEventType.Reset:
                     Debug.Log("Resetting dexterity level");
                     break;
@@ -122,14 +115,11 @@ namespace Gameplay.Character.Attributes.Dexterity
 
 
             if (newLevel > _playerDexterityLevel)
-            {
                 AddAttributeLevel(newLevel - _playerDexterityLevel);
-            }
             else
-            {
-                SavePlayerDexterity();
                 Debug.Log("Saved dex: lvl: " + _playerDexterityLevel + " / exp: " + _playerDexterityExperiencePoints);
-            }
+
+            SavePlayerDexterity();
         }
 
 
@@ -137,10 +127,11 @@ namespace Gameplay.Character.Attributes.Dexterity
         {
             _playerDexterityLevel += levels;
 
+            AttributeLevelEvent.Trigger(
+                AttributeInQuestion.Dexterity, AttributeLevelEventType.LevelUp,
+                _playerDexterityLevel);
+
             Debug.Log("Dexterity leveled up by: " + _playerDexterityLevel);
-
-
-            SavePlayerDexterity();
         }
 
         static void SavePlayerDexterity()
@@ -162,9 +153,6 @@ namespace Gameplay.Character.Attributes.Dexterity
         public static void ResetPlayerDexterity()
         {
             var characterStatProfile = PlayerAttributesProgressionManager.GetCharacterStatProfile();
-
-            _initialDexterityLevel = characterStatProfile.InitialDexterityLevel;
-            _initialDexterityExperiencePoints = characterStatProfile.InitialDexterityExperiencePoints;
 
             _playerDexterityLevel = characterStatProfile.InitialDexterityLevel;
             _playerDexterityExperiencePoints = characterStatProfile.InitialDexterityExperiencePoints;

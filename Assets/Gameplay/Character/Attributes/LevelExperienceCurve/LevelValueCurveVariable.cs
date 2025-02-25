@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace ProgressionSystem.Scripts.Variables
+namespace Gameplay.Character.Attributes.LevelExperienceCurve
 {
     [CreateAssetMenu(fileName = "LevelValueCurve", menuName = "Progression/Variables/LevelValueCurve")]
     public class LevelValueCurveVariable : ScriptableObject
@@ -29,9 +29,10 @@ namespace ProgressionSystem.Scripts.Variables
 
         public int GetLevelGivenExperience(float experience)
         {
-            for (var i = 0; i < LevelValueCurve.length; i++)
+            // Start from min level, not from 0
+            for (var i = MinLevel; i <= MaxLevel; i++)
                 if (LevelValueCurve.Evaluate(i) > experience)
-                    return i;
+                    return i - 1; // Return the level you've completed, not the one you haven't
 
             return MaxLevel;
         }

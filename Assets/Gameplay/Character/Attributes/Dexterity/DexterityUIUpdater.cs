@@ -58,7 +58,7 @@ namespace Gameplay.Character.Attributes.Dexterity
                         lvl.text = _currentDexterityLevel.ToString();
                         break;
                     case AttributeLevelEventType.LevelUp:
-                        _currentDexterityLevel += eventType.Level;
+                        _currentDexterityLevel = eventType.Level;
                         lvl.text = _currentDexterityLevel.ToString();
                         break;
                     case AttributeLevelEventType.Reset:
