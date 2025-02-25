@@ -1,5 +1,6 @@
 ﻿using Gameplay.Character;
 using Gameplay.Character.Attributes;
+using Gameplay.Character.Attributes.Dexterity;
 using UnityEditor;
 using UnityEngine;
 

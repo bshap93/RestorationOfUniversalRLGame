@@ -16,7 +16,7 @@ namespace Core.Events
 
     public struct StaminaEvent
     {
-        static StaminaEvent e;
+        static StaminaEvent _e;
 
         public StaminaEventType EventType;
         public float ByValue;
@@ -24,9 +24,9 @@ namespace Core.Events
         public static void Trigger(StaminaEventType staminaEventType,
             float byValue)
         {
-            e.EventType = staminaEventType;
-            e.ByValue = byValue;
-            MMEventManager.TriggerEvent(e);
+            _e.EventType = staminaEventType;
+            _e.ByValue = byValue;
+            MMEventManager.TriggerEvent(_e);
         }
     }
 }

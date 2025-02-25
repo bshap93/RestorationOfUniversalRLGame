@@ -1,31 +1,50 @@
 using System;
-using Gameplay.Character.Attributes.Dexterity;
+using Core.Events;
+using MoreMountains.Tools;
 using UnityEngine;
 
-namespace Gameplay.Character.Attributes
+namespace Gameplay.Character.Attributes.Dexterity
 {
-    public class PlayerDexterityManager : MonoBehaviour, IPlayerAttributeManager
+    public class PlayerDexterityManager : MonoBehaviour, IPlayerAttributeManager,
+        MMEventListener<AttributeLevelEvent>, MMEventListener<AttributeExperienceEvent>
     {
         public static int PlayerDexterityLevel;
         public static int PlayerDexterityExperiencePoints;
         public static int PlayerDexterityExperiencePointsToNextLevel;
 
-        public static int InitialDexterityLevel;
-        public static int InitialDexterityExperiencePoints;
-        public static int InitialDexterityExperiencePointsToNextLevel;
+        static int _initialDexterityLevel;
+        static int _initialDexterityExperiencePoints;
+        static int _initialDexterityExperiencePointsToNextLevel;
+
 
         public DexterityBarUpdater dexterityBarUpdater;
+
+
+        string _savePath;
+
+        void OnEnable()
+        {
+            this.MMEventStartListening<AttributeLevelEvent>();
+            this.MMEventStartListening<AttributeExperienceEvent>();
+        }
+
+        void OnDisable()
+        {
+            this.MMEventStopListening<AttributeLevelEvent>();
+            this.MMEventStopListening<AttributeExperienceEvent>();
+        }
         public int GetAttributeValue()
         {
-            throw new NotImplementedException();
+            return PlayerDexterityLevel;
         }
         public void Awake()
         {
-            throw new NotImplementedException();
+            DontDestroyOnLoad(gameObject);
         }
         public void Start()
         {
-            throw new NotImplementedException();
+            _savePath = GetSaveFilePath();
+            LoadPlayerAttribute();
         }
         public void LoadPlayerAttribute()
         {
@@ -35,15 +54,80 @@ namespace Gameplay.Character.Attributes
         {
             throw new NotImplementedException();
         }
+        public void OnMMEvent(AttributeExperienceEvent eventType)
+        {
+            switch (eventType.EventType)
+            {
+            }
+        }
+        public void OnMMEvent(AttributeLevelEvent eventType)
+        {
+            switch (eventType.EventType)
+            {
+            }
+        }
+
+        public static void AddExperiencePoints(int experiencePoints)
+        {
+            PlayerDexterityExperiencePoints += experiencePoints;
+            if (experiencePoints > PlayerDexterityExperiencePointsToNextLevel) 
+            {
+                SetAttributeLevel(PlayerDexterityExperiencePoints);
+                
+            }
+
+            SavePlayerDexterity();
+        }
+
+        public static void SetAttributeLevel(int experiencePoints)
+        {
+            
+        }
+
+        public static void AddAttributeLevel(int levels)
+        {
+            PlayerDexterityLevel += levels;
+            SavePlayerDexterity();
+        }
+
+        public static void SavePlayerDexterity()
+        {
+            ES3.Save("PlayerDexterityLevel", PlayerDexterityLevel, GetSaveFilePath());
+            ES3.Save("PlayerDexterityExperiencePoints", PlayerDexterityExperiencePoints, GetSaveFilePath());
+            ES3.Save(
+                "PlayerDexterityExperiencePointsToNextLevel", PlayerDexterityExperiencePointsToNextLevel,
+                GetSaveFilePath());
+
+            Debug.Log(
+                "Saved player dexterity: LVL: " + PlayerDexterityLevel + " / PTS: " + PlayerDexterityExperiencePoints +
+                " / PTS_NEXT_LEVEL" + PlayerDexterityExperiencePointsToNextLevel);
+        }
+
+        static string GetSaveFilePath()
+        {
+            var slotPath = ES3SlotManager.selectedSlotPath;
+            return string.IsNullOrEmpty(slotPath) ? "PlayerDexterity.es3" : $"{slotPath}/PlayerDexterity.es3";
+        }
+        public static void Initialize(CharacterStatProfile characterStatProfile)
+        {
+            _initialDexterityLevel = characterStatProfile.InitialDexterityLevel;
+            _initialDexterityExperiencePoints = characterStatProfile.InitialDexterityExperiencePoints;
+            _initialDexterityExperiencePointsToNextLevel =
+                characterStatProfile.InitialDexterityExperiencePointsToNextLevel;
+
+            PlayerDexterityLevel = _initialDexterityLevel;
+            PlayerDexterityExperiencePoints = _initialDexterityExperiencePoints;
+            PlayerDexterityExperiencePointsToNextLevel = _initialDexterityExperiencePointsToNextLevel;
+        }
 
 
         public static void ResetPlayerDexterity()
         {
-            throw new NotImplementedException();
-        }
-        public static void Initialize(CharacterStatProfile characterStatProfile)
-        {
-            throw new NotImplementedException();
+            PlayerDexterityLevel = _initialDexterityLevel;
+            PlayerDexterityExperiencePoints = _initialDexterityExperiencePoints;
+            PlayerDexterityExperiencePointsToNextLevel = _initialDexterityExperiencePointsToNextLevel;
+
+            SavePlayerDexterity();
         }
     }
 }

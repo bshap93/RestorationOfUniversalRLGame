@@ -80,7 +80,6 @@ namespace Gameplay.Player.Stats
 
         public void Initialize()
         {
-            Debug.LogError("Initializing player stamina");
             ResetPlayerStamina();
             staminaBarUpdater.Initialize();
         }

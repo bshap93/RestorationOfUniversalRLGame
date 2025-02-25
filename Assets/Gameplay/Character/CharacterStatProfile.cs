@@ -5,13 +5,13 @@ namespace Gameplay.Character
     [CreateAssetMenu(fileName = "CharacterStatProfile", menuName = "Character/Character Stat Profile")]
     public class CharacterStatProfile : ScriptableObject
     {
-        public float InitialMaxStamina;
+        [Header("Initial Stats")] public float InitialMaxStamina;
         public float InitialMaxHealth;
-        public int InitialDexterityLevel;
+        [Header("Initial Dexterity")] public int InitialDexterityLevel;
         public int InitialDexterityExperiencePoints;
         public int InitialDexterityExperiencePointsToNextLevel;
 
-        public int InitialEnduranceLevel;
+        [Header("Initial Endurance")] public int InitialEnduranceLevel;
         public int InitialEnduranceExperiencePoints;
         public int InitialEnduranceExperiencePointsToNextLevel;
     }
