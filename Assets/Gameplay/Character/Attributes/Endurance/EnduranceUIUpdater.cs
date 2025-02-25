@@ -1,7 +1,9 @@
-﻿namespace Gameplay.Character.Attributes
+﻿using Core.Events;
+
+namespace Gameplay.Character.Attributes.Endurance
 {
-    public class EnduranceUIUpdater
+    public class EnduranceUIUpdater : AttributeUIUpdater
     {
-        
+        protected override AttributeInQuestion AttributeType => AttributeInQuestion.Endurance;
     }
 }

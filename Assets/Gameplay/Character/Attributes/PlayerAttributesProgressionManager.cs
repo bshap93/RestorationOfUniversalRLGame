@@ -1,4 +1,5 @@
 ﻿using Gameplay.Character.Attributes.Dexterity;
+using Gameplay.Character.Attributes.Endurance;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -18,7 +19,8 @@ namespace Gameplay.Character.Attributes
     public class PlayerAttributesProgressionManager : MonoBehaviour
     {
         public SimplifiedDexterityManager playerDexterityManager;
-        [FormerlySerializedAs("playerEnduranceManager")] public SimplifiedEnduranceManager simplifiedEnduranceManager;
+        [FormerlySerializedAs("playerEnduranceManager")]
+        public SimplifiedEnduranceManager simplifiedEnduranceManager;
 
 
         public void Reset()

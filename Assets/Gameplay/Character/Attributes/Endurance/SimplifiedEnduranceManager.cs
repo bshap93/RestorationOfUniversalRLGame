@@ -1,26 +1,35 @@
-using System;
 using Core.Events;
 using UnityEngine;
 
-namespace Gameplay.Character.Attributes
+namespace Gameplay.Character.Attributes.Endurance
 {
-    public class SimplifiedEnduranceManager :  BasePlayerAttributeManager
+    public class SimplifiedEnduranceManager : BasePlayerAttributeManager
     {
-        public EnduranceUIUpdater enduranceUIUpdater;
+        public EnduranceUIUpdater EnduranceUIUpdater;
+
+        protected override AttributeInQuestion AttributeType => AttributeInQuestion.Endurance;
+        protected override string SaveFileName => "PlayerEndurance";
+
+        public override void ResetAttribute()
+        {
+            var characterStatProfile = PlayerAttributesProgressionManager.GetCharacterStatProfile();
+
+            attributeLevel = characterStatProfile.InitialEnduranceLevel;
+
+            attributeExperiencePoints = characterStatProfile.InitialEnduranceExperiencePoints;
+
+            AttributeEvent.Trigger(AttributeType, AttributeEventType.Reset, attributeExperiencePoints);
+
+            AttributeLevelEvent.Trigger(AttributeType, AttributeLevelEventType.Reset, attributeLevel);
+
+            SaveAttribute();
+        }
 
         public static void ResetPlayerEndurance()
         {
-            throw new NotImplementedException();
-        }
-        public static void Initialize(CharacterStatProfile characterStatProfile)
-        {
-            throw new NotImplementedException();
-        }
-        protected override AttributeInQuestion AttributeType { get; }
-        protected override string SaveFileName { get; }
-        public override void ResetAttribute()
-        {
-            throw new NotImplementedException();
+            var instance = FindFirstObjectByType<SimplifiedEnduranceManager>();
+            if (instance != null) instance.ResetAttribute();
+            else Debug.LogError("No instance of SimplifiedEnduranceManager found in the scene.");
         }
     }
 }

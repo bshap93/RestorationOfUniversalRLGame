@@ -6,7 +6,8 @@ namespace Core.Events
     [Serializable]
     public enum AttributeInQuestion
     {
-        Dexterity
+        Dexterity,
+        Endurance
     }
 
     [Serializable]
