@@ -8,9 +8,7 @@ namespace Project.Gameplay.SaveLoad.Triggers
         // Start is called before the first frame update
         public static void Revert()
         {
-            MMGameEvent.Trigger("RevertInventory");
-            MMGameEvent.Trigger("RevertResources");
-            MMGameEvent.Trigger("RevertJournal");
+
         }
     }
 }

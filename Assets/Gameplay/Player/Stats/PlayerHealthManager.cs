@@ -6,6 +6,7 @@ using Gameplay.Character.Health;
 using MoreMountains.Tools;
 using MoreMountains.TopDownEngine;
 using PixelCrushers.DialogueSystem;
+using Sirenix.OdinInspector;
 using UnityEditor;
 using UnityEngine;
 
@@ -83,11 +84,13 @@ namespace Gameplay.Player.Stats
             {
                 HealthPoints = 0;
                 PlayerStatusEvent.Trigger(PlayerStatusEventType.OutOfHealth);
+                HealthEvent.Trigger(HealthEventType.ConsumeHealth, healthToConsume);
                 DialogueManager.ShowAlert("Health Depleted");
             }
             else
             {
                 HealthPoints -= healthToConsume;
+                HealthEvent.Trigger(HealthEventType.ConsumeHealth, healthToConsume);
             }
 
             SavePlayerHealth();
@@ -97,6 +100,7 @@ namespace Gameplay.Player.Stats
         {
             if (HealthPoints == 0 && amount > 0) PlayerStatusEvent.Trigger(PlayerStatusEventType.RegainedHealth);
             HealthPoints += amount;
+            HealthEvent.Trigger(HealthEventType.RecoverHealth, amount);
             SavePlayerHealth();
         }
 
@@ -104,18 +108,21 @@ namespace Gameplay.Player.Stats
         {
             HealthPoints = MaxHealthPoints;
             PlayerStatusEvent.Trigger(PlayerStatusEventType.RegainedHealth);
+            HealthEvent.Trigger(HealthEventType.RecoverHealth, MaxHealthPoints - HealthPoints);
             SavePlayerHealth();
         }
 
         public static void IncreaseMaximumHealth(float amount)
         {
             MaxHealthPoints += amount;
+            HealthEvent.Trigger(HealthEventType.IncreaseMaximumHealth, amount);
             SavePlayerHealth();
         }
 
         public static void DecreaseMaximumHealth(float amount)
         {
             MaxHealthPoints -= amount;
+            HealthEvent.Trigger(HealthEventType.DecreaseMaximumHealth, amount);
             SavePlayerHealth();
         }
 
@@ -166,6 +173,13 @@ namespace Gameplay.Player.Stats
         public static bool IsPlayerOutOfHealth()
         {
             return HealthPoints <= 0;
+        }
+
+        [Button(ButtonSizes.Medium)]
+        public void HurtPlayer(float damage = 10)
+        {
+            if (ImmuneToDamage) return;
+            ConsumeHealth(damage);
         }
     }
 }

@@ -27,10 +27,19 @@ namespace Gameplay.Player.Health
         protected override void Awake()
         {
             base.Awake();
+            // Set the initial health to the player's health
             InitialHealth = PlayerHealthManager.HealthPoints;
-            MaximumHealth = PlayerHealthManager.HealthPoints;
+            // Set the maximum health to the player's max health
+            MaximumHealth = PlayerHealthManager.MaxHealthPoints;
 
             ShieldProtectionArea.OnShieldEquipped += AssignShield;
+        }
+
+        protected override void Start()
+        {
+            base.Start();
+            if (PlayerHealthManager.IsPlayerOutOfHealth())
+                Kill();
         }
 
         protected override void OnEnable()
