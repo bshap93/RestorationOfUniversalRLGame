@@ -7,5 +7,12 @@ namespace Gameplay.Character
     {
         public float InitialMaxStamina;
         public float InitialMaxHealth;
+        public int InitialDexterityLevel;
+        public int InitialDexterityExperiencePoints;
+        public int InitialDexterityExperiencePointsToNextLevel;
+
+        public int InitialEnduranceLevel;
+        public int InitialEnduranceExperiencePoints;
+        public int InitialEnduranceExperiencePointsToNextLevel;
     }
 }

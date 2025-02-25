@@ -1,4 +1,5 @@
-﻿using Gameplay.Character.Attributes;
+﻿using Gameplay.Character;
+using Gameplay.Character.Attributes;
 using UnityEditor;
 using UnityEngine;
 
@@ -9,14 +10,23 @@ namespace Gameplay.Player.Stats
         [MenuItem("Debug/Reset Attributes Progression")]
         public static void ResetAttributesProgression()
         {
-            
+            PlayerDexterityManager.ResetPlayerDexterity();
+            PlayerEnduranceManager.ResetPlayerEndurance();
         }
     }
+
     public class PlayerAttributesProgressionManager : MonoBehaviour
     {
-        public static void ResetPlayerAttributesProgression()
+        public CharacterStatProfile characterStatProfile;
+
+        public PlayerDexterityManager playerDexterityManager;
+        public PlayerEnduranceManager playerEnduranceManager;
+
+
+        void InitializeAttributes()
         {
-            PlayerDexterityManager.ResetPlayerDexterity();
+            PlayerDexterityManager.Initialize(characterStatProfile);
+            PlayerEnduranceManager.Initialize(characterStatProfile);
         }
     }
 }
