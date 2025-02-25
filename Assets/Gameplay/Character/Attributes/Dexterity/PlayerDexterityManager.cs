@@ -1,15 +1,18 @@
 using Core.Events;
+using Gameplay.Player.Stats;
 using MoreMountains.Tools;
 using ProgressionSystem.Scripts.Variables;
+using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Gameplay.Character.Attributes.Dexterity
 {
     public class PlayerDexterityManager : MonoBehaviour, IPlayerAttributeManager,
-        MMEventListener<AttributeExperienceEvent>
+        MMEventListener<AttributeEvent>, MMEventListener<AttributeLevelEvent>
     {
-        public static int PlayerDexterityLevel;
-        public static float PlayerDexterityExperiencePoints;
+        static int _playerDexterityLevel;
+        static float _playerDexterityExperiencePoints;
 
         static int _initialDexterityLevel;
         static float _initialDexterityExperiencePoints;
@@ -18,23 +21,26 @@ namespace Gameplay.Character.Attributes.Dexterity
         public LevelValueCurveVariable levelValueCurveVariable;
 
 
-        public DexterityBarUpdater dexterityBarUpdater;
+        [FormerlySerializedAs("dexterityBarUpdater")]
+        public DexterityUIUpdater dexterityUIUpdater;
 
 
         string _savePath;
 
         void OnEnable()
         {
-            this.MMEventStartListening();
+            this.MMEventStartListening<AttributeEvent>();
+            this.MMEventStartListening<AttributeLevelEvent>();
         }
 
         void OnDisable()
         {
-            this.MMEventStopListening();
+            this.MMEventStopListening<AttributeEvent>();
+            this.MMEventStopListening<AttributeLevelEvent>();
         }
         public int GetAttributeValue()
         {
-            return PlayerDexterityLevel;
+            return _playerDexterityLevel;
         }
         public void Awake()
         {
@@ -51,22 +57,28 @@ namespace Gameplay.Character.Attributes.Dexterity
             var exists = ES3.FileExists(saveFilePath);
             if (exists)
             {
-                PlayerDexterityLevel = ES3.Load<int>("PlayerDexterityLevel", saveFilePath);
-                PlayerDexterityExperiencePoints = ES3.Load<float>("PlayerDexterityExperiencePoints", saveFilePath);
-                dexterityBarUpdater.Initialize();
+                _playerDexterityLevel = ES3.Load<int>("PlayerDexterityLevel", saveFilePath);
+                _playerDexterityExperiencePoints = ES3.Load<float>("PlayerDexterityExperiencePoints", saveFilePath);
             }
             else
             {
                 Debug.LogError("No save file found for player dexterity");
                 ResetPlayerDexterity();
-                dexterityBarUpdater.Initialize();
             }
+
+            AttributeEvent.Trigger(
+                AttributeInQuestion.Dexterity, AttributeEventType.Initialize,
+                _playerDexterityExperiencePoints);
+
+            AttributeLevelEvent.Trigger(
+                AttributeInQuestion.Dexterity, AttributeLevelEventType.Initialize,
+                _playerDexterityLevel);
         }
         public bool HasSavedData()
         {
             return ES3.FileExists(GetSaveFilePath());
         }
-        public void OnMMEvent(AttributeExperienceEvent eventType)
+        public void OnMMEvent(AttributeEvent eventType)
         {
             switch (eventType.EventType)
             {
@@ -74,7 +86,7 @@ namespace Gameplay.Character.Attributes.Dexterity
                     Debug.Log("Initializing dexterity");
                     break;
                 case AttributeEventType.IncreaseExperiencePoints:
-                    AddExperiencePoints(eventType.ByValue);
+                    AddExperiencePoints(eventType.ExperienceByValue);
                     break;
                 case AttributeEventType.DecreaseExperiencePoints:
                     Debug.Log("Decreasing dexterity experience points");
@@ -82,46 +94,61 @@ namespace Gameplay.Character.Attributes.Dexterity
                     break;
             }
         }
-
-
-        public void AddExperiencePoints(int experiencePoints)
+        public void OnMMEvent(AttributeLevelEvent eventType)
         {
-            PlayerDexterityExperiencePoints += experiencePoints;
+            switch (eventType.EventType)
+            {
+                case AttributeLevelEventType.Initialize:
+                    Debug.Log("Initializing dexterity level");
+                    break;
+                case AttributeLevelEventType.LevelUp:
+                    AddAttributeLevel(eventType.Level);
+                    Debug.Log("Leveling up dexterity");
+                    break;
+                case AttributeLevelEventType.Reset:
+                    Debug.Log("Resetting dexterity level");
+                    break;
+            }
+        }
+
+
+        void AddExperiencePoints(float experiencePoints)
+        {
+            _playerDexterityExperiencePoints += experiencePoints;
+
 
             var newLevel =
-                levelValueCurveVariable.GetLevelGivenExperience((int)PlayerDexterityExperiencePoints);
+                levelValueCurveVariable.GetLevelGivenExperience((int)_playerDexterityExperiencePoints);
 
 
-            if (newLevel > PlayerDexterityLevel)
+            if (newLevel > _playerDexterityLevel)
             {
-                AddAttributeLevel(newLevel - PlayerDexterityLevel);
+                AddAttributeLevel(newLevel - _playerDexterityLevel);
             }
             else
             {
                 SavePlayerDexterity();
-                Debug.Log("Saved dex: lvl: " + PlayerDexterityLevel + " / exp: " + PlayerDexterityExperiencePoints);
+                Debug.Log("Saved dex: lvl: " + _playerDexterityLevel + " / exp: " + _playerDexterityExperiencePoints);
             }
         }
 
-        public static void SetAttributeLevel(int experiencePoints)
-        {
-            PlayerDexterityLevel = experiencePoints;
-            SavePlayerDexterity();
-            Debug.Log("Saved dex: lvl: " + PlayerDexterityLevel + " / exp: " + PlayerDexterityExperiencePoints);
-        }
 
         static void AddAttributeLevel(int levels)
         {
-            PlayerDexterityLevel += levels;
+            _playerDexterityLevel += levels;
+
+            Debug.Log("Dexterity leveled up by: " + _playerDexterityLevel);
+
+
             SavePlayerDexterity();
         }
 
-        public static void SavePlayerDexterity()
+        static void SavePlayerDexterity()
         {
-            ES3.Save("PlayerDexterityLevel", PlayerDexterityLevel, GetSaveFilePath());
-            ES3.Save("PlayerDexterityExperiencePoints", PlayerDexterityExperiencePoints, GetSaveFilePath());
+            ES3.Save("PlayerDexterityLevel", _playerDexterityLevel, GetSaveFilePath());
+            ES3.Save("PlayerDexterityExperiencePoints", _playerDexterityExperiencePoints, GetSaveFilePath());
             Debug.Log(
-                "Saved player dexterity: LVL: " + PlayerDexterityLevel + " / PTS: " + PlayerDexterityExperiencePoints
+                "Saved player dexterity: LVL: " + _playerDexterityLevel + " / PTS: " + _playerDexterityExperiencePoints
             );
         }
 
@@ -130,22 +157,35 @@ namespace Gameplay.Character.Attributes.Dexterity
             var slotPath = ES3SlotManager.selectedSlotPath;
             return string.IsNullOrEmpty(slotPath) ? "PlayerDexterity.es3" : $"{slotPath}/PlayerDexterity.es3";
         }
-        public static void Initialize(CharacterStatProfile characterStatProfile)
-        {
-            _initialDexterityLevel = characterStatProfile.InitialDexterityLevel;
-            _initialDexterityExperiencePoints = characterStatProfile.InitialDexterityExperiencePoints;
-
-            PlayerDexterityLevel = _initialDexterityLevel;
-            PlayerDexterityExperiencePoints = _initialDexterityExperiencePoints;
-        }
 
 
         public static void ResetPlayerDexterity()
         {
-            PlayerDexterityLevel = _initialDexterityLevel;
-            PlayerDexterityExperiencePoints = _initialDexterityExperiencePoints;
+            var characterStatProfile = PlayerAttributesProgressionManager.GetCharacterStatProfile();
+
+            _initialDexterityLevel = characterStatProfile.InitialDexterityLevel;
+            _initialDexterityExperiencePoints = characterStatProfile.InitialDexterityExperiencePoints;
+
+            _playerDexterityLevel = characterStatProfile.InitialDexterityLevel;
+            _playerDexterityExperiencePoints = characterStatProfile.InitialDexterityExperiencePoints;
+
+
+            AttributeEvent.Trigger(
+                AttributeInQuestion.Dexterity, AttributeEventType.Reset,
+                _playerDexterityExperiencePoints);
+
+            AttributeLevelEvent.Trigger(
+                AttributeInQuestion.Dexterity, AttributeLevelEventType.Reset,
+                _playerDexterityLevel);
 
             SavePlayerDexterity();
+        }
+
+        [Button(ButtonSizes.Medium)]
+        public void IncreaseDexterityExperience(float experiencePoints)
+        {
+            AttributeEvent.Trigger(
+                AttributeInQuestion.Dexterity, AttributeEventType.IncreaseExperiencePoints, experiencePoints);
         }
     }
 }

@@ -14,55 +14,56 @@ namespace Core.Events
     {
         IncreaseExperiencePoints,
         DecreaseExperiencePoints,
-        Initialize
+        Initialize,
+        SetAttributeLevel,
+        Reset
     }
 
     [Serializable]
     public enum AttributeLevelEventType
     {
-        IncreaseLevel,
-        DecreaseLevel,
+        LevelUp,
+        Reset,
         Initialize
     }
 
     /// <summary>
     ///     Used to change the experience of an attribute
     /// </summary>
-    public struct AttributeExperienceEvent
+    public struct AttributeEvent
     {
-        static AttributeExperienceEvent _e;
+        static AttributeEvent _e;
 
         public AttributeInQuestion AttributeInQuestion;
         public AttributeEventType EventType;
-        public int ByValue;
+        public float ExperienceByValue;
 
         public static void Trigger(AttributeInQuestion attributeInQuestion,
-            AttributeEventType attributeEventType, int byValue)
+            AttributeEventType attributeEventType, float experienceByValue)
         {
             _e.AttributeInQuestion = attributeInQuestion;
             _e.EventType = attributeEventType;
-            _e.ByValue = byValue;
+            _e.ExperienceByValue = experienceByValue;
+
             MMEventManager.TriggerEvent(_e);
         }
     }
 
-    /// <summary>
-    ///     Used to change the level of an attribute
-    /// </summary>
     public struct AttributeLevelEvent
     {
         static AttributeLevelEvent _e;
 
-        public AttributeLevelEventType EventType;
         public AttributeInQuestion AttributeInQuestion;
-        public int ByValue;
+        public AttributeLevelEventType EventType;
+        public int Level;
 
         public static void Trigger(AttributeInQuestion attributeInQuestion,
-            AttributeLevelEventType attributeEventType, int byValue)
+            AttributeLevelEventType attributeEventType, int level)
         {
             _e.AttributeInQuestion = attributeInQuestion;
             _e.EventType = attributeEventType;
-            _e.ByValue = byValue;
+            _e.Level = level;
+
             MMEventManager.TriggerEvent(_e);
         }
     }

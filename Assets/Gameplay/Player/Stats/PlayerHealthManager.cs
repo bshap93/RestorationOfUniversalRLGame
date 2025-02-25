@@ -152,8 +152,11 @@ namespace Gameplay.Player.Stats
         }
         public static void ResetPlayerHealth()
         {
-            HealthPoints = InitialCharacterHealth;
-            MaxHealthPoints = InitialCharacterHealth;
+            var characterStatProfile =
+                Resources.Load<CharacterStatProfile>(CharacterResourcePaths.CharacterStatProfileFilePath);
+
+            HealthPoints = characterStatProfile.InitialMaxHealth;
+            MaxHealthPoints = characterStatProfile.InitialMaxHealth;
 
             SavePlayerHealth();
         }

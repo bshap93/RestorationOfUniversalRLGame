@@ -18,16 +18,24 @@ namespace Gameplay.Player.Stats
 
     public class PlayerAttributesProgressionManager : MonoBehaviour
     {
-        public CharacterStatProfile characterStatProfile;
-
         public PlayerDexterityManager playerDexterityManager;
         public PlayerEnduranceManager playerEnduranceManager;
 
 
-        void InitializeAttributes()
+        void Reset()
         {
-            PlayerDexterityManager.Initialize(characterStatProfile);
-            PlayerEnduranceManager.Initialize(characterStatProfile);
+            var charStateProf =
+                Resources.Load<CharacterStatProfile>(CharacterResourcePaths.CharacterStatProfileFilePath);
+
+            PlayerDexterityManager.ResetPlayerDexterity();
+            PlayerEnduranceManager.ResetPlayerEndurance();
+        }
+
+
+        public static CharacterStatProfile GetCharacterStatProfile()
+        {
+            return Resources.Load<CharacterStatProfile>(
+                CharacterResourcePaths.CharacterStatProfileFilePath);
         }
     }
 }

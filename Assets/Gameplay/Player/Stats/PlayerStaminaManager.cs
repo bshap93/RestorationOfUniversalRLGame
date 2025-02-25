@@ -32,6 +32,7 @@ namespace Gameplay.Player.Stats
 
         string _savePath;
 
+
         void Awake()
         {
             DontDestroyOnLoad(gameObject);
@@ -152,8 +153,11 @@ namespace Gameplay.Player.Stats
         }
         public static void ResetPlayerStamina()
         {
-            StaminaPoints = InitialCharacterStamina;
-            MaxStaminaPoints = InitialCharacterStamina;
+            var characterStatProfile =
+                Resources.Load<CharacterStatProfile>(CharacterResourcePaths.CharacterStatProfileFilePath);
+
+            StaminaPoints = characterStatProfile.InitialMaxStamina;
+            MaxStaminaPoints = characterStatProfile.InitialMaxStamina;
 
             SavePlayerStamina();
         }
