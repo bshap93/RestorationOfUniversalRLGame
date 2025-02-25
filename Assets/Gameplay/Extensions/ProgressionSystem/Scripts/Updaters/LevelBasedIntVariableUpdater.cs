@@ -1,4 +1,4 @@
-﻿using ProgressionSystem.Scripts.Variables;
+﻿using Gameplay.Extensions.ProgressionSystem.Scripts.Variables;
 using UnityEngine;
 
 namespace ProgressionSystem.Scripts.Updaters
@@ -7,6 +7,9 @@ namespace ProgressionSystem.Scripts.Updaters
     public class LevelBasedIntVariableUpdater : LevelBasedVariableUpdater
     {
         [SerializeField] protected IntVariable Variable;
-        protected override void UpdateVariable() { Variable.Value = LevelValueCurve.EvaluateInt(Level.Value); }
+        protected override void UpdateVariable()
+        {
+            Variable.Value = LevelValueCurve.EvaluateInt(Level.Value);
+        }
     }
 }

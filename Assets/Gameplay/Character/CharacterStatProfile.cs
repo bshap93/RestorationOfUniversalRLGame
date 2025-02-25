@@ -9,10 +9,8 @@ namespace Gameplay.Character
         public float InitialMaxHealth;
         [Header("Initial Dexterity")] public int InitialDexterityLevel;
         public int InitialDexterityExperiencePoints;
-        public int InitialDexterityExperiencePointsToNextLevel;
 
         [Header("Initial Endurance")] public int InitialEnduranceLevel;
         public int InitialEnduranceExperiencePoints;
-        public int InitialEnduranceExperiencePointsToNextLevel;
     }
 }

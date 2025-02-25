@@ -1,28 +1,34 @@
-﻿using MoreMountains.Tools;
-using ProgressionSystem.Scripts.Core;
+﻿using Gameplay.Extensions.ProgressionSystem.Scripts.Core;
+using MoreMountains.Tools;
 using UnityEngine;
 
 namespace ProgressionSystem.Scripts.UI
 {
     public class ExperienceProgressBar : MonoBehaviour
     {
-        [SerializeField] private Progression Progression;
-        private MMProgressBar _bar;
-        
-        private void Awake() { _bar = GetComponent<MMProgressBar>(); }
+        [SerializeField] Progression Progression;
+        MMProgressBar _bar;
 
-        private void UpdateBar()
+        void Awake()
+        {
+            _bar = GetComponent<MMProgressBar>();
+        }
+        void OnEnable()
+        {
+            _bar.SetBar(Progression.LevelExperience, 0, Progression.NextLevelExperience);
+            Progression.Progressed += UpdateBar;
+        }
+        void OnDisable()
+        {
+            Progression.Progressed -= UpdateBar;
+        }
+
+        void UpdateBar()
         {
             if (Progression.NextLevelExperience > 0)
                 _bar.UpdateBar(Progression.LevelExperience, 0, Progression.NextLevelExperience);
             else
                 _bar.SetBar01(1);
         }
-        private void OnEnable()
-        {
-            _bar.SetBar(Progression.LevelExperience, 0, Progression.NextLevelExperience);
-            Progression.Progressed += UpdateBar;
-        }
-        private void OnDisable() { Progression.Progressed -= UpdateBar; }
     }
 }

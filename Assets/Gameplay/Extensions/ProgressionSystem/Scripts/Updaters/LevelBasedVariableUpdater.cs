@@ -1,4 +1,5 @@
-﻿using ProgressionSystem.Scripts.Variables;
+﻿using Gameplay.Extensions.ProgressionSystem.Scripts.Variables;
+using ProgressionSystem.Scripts.Variables;
 using UnityEngine;
 
 namespace ProgressionSystem.Scripts.Updaters
@@ -8,13 +9,16 @@ namespace ProgressionSystem.Scripts.Updaters
         [SerializeField] protected IntVariable Level;
         [SerializeField] protected LevelValueCurveVariable LevelValueCurve;
 
-        protected abstract void UpdateVariable();
-
-        private void OnEnable()
+        void OnEnable()
         {
             UpdateVariable();
             Level.Changed += UpdateVariable;
         }
-        private void OnDisable() { Level.Changed -= UpdateVariable; }
+        void OnDisable()
+        {
+            Level.Changed -= UpdateVariable;
+        }
+
+        protected abstract void UpdateVariable();
     }
 }
