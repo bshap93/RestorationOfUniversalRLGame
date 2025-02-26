@@ -12,8 +12,13 @@ namespace Gameplay.Extensions.InventoryEngineExtensions.Craft
         [SerializeField] string playerID = "Player1";
 
         [Header("Cooking Feedbacks")] public bool isCookingStation;
+
         public MMFeedbacks startCookingFeedback;
         public MMFeedbacks finishCookingFeedback;
+
+        [Header("Artificing Feedbacks")] public bool isArtificingStation;
+        public MMFeedbacks startArtificingFeedback;
+        public MMFeedbacks finishArtificingFeedback;
 
         GameObject _craftingButton;
         Inventory _inventory;

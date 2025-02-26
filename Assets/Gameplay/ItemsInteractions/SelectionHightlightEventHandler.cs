@@ -25,7 +25,7 @@ namespace Gameplay.ItemsInteractions
                 return false;
             }
 
-            if (_selectedObjectController is CookingStationController controller)
+            if (_selectedObjectController is CraftingStationController controller)
             {
                 Debug.Log("ShowStation");
                 controller.ShowStationChoicePanel();
@@ -42,7 +42,7 @@ namespace Gameplay.ItemsInteractions
             if (_selectedObjectController == null)
                 _selectedObjectController = go.GetComponentInParent<ISelectableTrigger>();
 
-            if (_selectedObjectController is CookingStationController controller) controller.HideStationChoicePanel();
+            if (_selectedObjectController is CraftingStationController controller) controller.HideStationChoicePanel();
 
 
             if (_selectedObjectController != null) _selectedObjectController.OnUnSelectedItem();
