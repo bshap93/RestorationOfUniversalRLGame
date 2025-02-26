@@ -30,10 +30,9 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6065603073099951103}
-  - {fileID: 1513674766919498208}
   m_Father: {fileID: 5311144864940782907}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &6282392988720766721
+--- !u!1 &3339089363067343760
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -41,22 +40,24 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1513674766919498208}
-  - component: {fileID: 7523426070332407101}
+  - component: {fileID: 6065603073099951103}
+  - component: {fileID: 6565412725245905599}
+  - component: {fileID: 8943088627722858967}
+  - component: {fileID: 5509685905826950997}
   m_Layer: 25
-  m_Name: DeathFeedbacks
+  m_Name: DamageFeedbacks
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &1513674766919498208
+--- !u!4 &6065603073099951103
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6282392988720766721}
+  m_GameObject: {fileID: 3339089363067343760}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
@@ -65,13 +66,13 @@ Transform:
   m_Children: []
   m_Father: {fileID: 6281572117225219595}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7523426070332407101
+--- !u!114 &6565412725245905599
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6282392988720766721}
+  m_GameObject: {fileID: 3339089363067343760}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6da43522623d4704e979466dc7650b65, type: 3}
@@ -165,7 +166,8 @@ MonoBehaviour:
   DebugActive: 0
   InScriptDrivenPause: 0
   FeedbacksList:
-  - rid: 3635046499612623008
+  - rid: 3635046021588582500
+  - rid: 3635046499612623009
   KeepPlayModeChanges: 0
   PerformanceMode: 0
   RestoreInitialValuesOnDisable: 0
@@ -174,11 +176,144 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
-    - rid: 3635046499612623008
+    - rid: 3635046021588582500
+      type: {class: MMF_Sound, ns: MoreMountains.Feedbacks, asm: MoreMountains.Tools}
+      data:
+        Active: 1
+        UniqueID: 1010189964
+        Label: Sound
+        OriginalLabel: Sound
+        ChannelMode: 0
+        Channel: 0
+        MMChannelDefinition: {fileID: 0}
+        Chance: 100
+        Timing:
+          TimescaleMode: 0
+          ExcludeFromHoldingPauses: 0
+          ContributeToTotalDuration: 1
+          InitialDelay: 0
+          CooldownDuration: 0
+          InterruptsOnStop: 1
+          NumberOfRepeats: 0
+          RepeatForever: 0
+          DelayBetweenRepeats: 1
+          PlayCount: 0
+          LimitPlayCount: 0
+          MaxPlayCount: 3
+          SetPlayCountToZeroOnReset: 0
+          MMFeedbacksDirectionCondition: 0
+          PlayDirection: 0
+          ConstantIntensity: 0
+          UseIntensityInterval: 0
+          IntensityIntervalMin: 0
+          IntensityIntervalMax: 0
+          Sequence: {fileID: 0}
+          TrackID: 0
+          Quantized: 0
+          TargetBPM: 120
+        AutomatedTargetAcquisition:
+          Mode: 0
+          ChildIndex: 0
+        RandomizeOutput: 0
+        RandomMultiplier: {x: 0.8, y: 1}
+        RandomizeDuration: 0
+        RandomDurationMultiplier: {x: 0.5, y: 2}
+        UseRange: 0
+        RangeDistance: 5
+        UseRangeFalloff: 0
+        RangeFalloff:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: 0
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 0
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        RemapRangeFalloff: {x: 0, y: 1}
+        AutomaticShakerSetupButton:
+          ButtonText: Automatic Shaker Setup
+        Owner: {fileID: 6565412725245905599}
+        DebugActive: 0
+        Sfx: {fileID: 0}
+        RandomSfx:
+        - {fileID: 8300000, guid: 66b3bfff55983455c93e137fa700254d, type: 3}
+        - {fileID: 8300000, guid: 2ce407ae434b4461e9f38cf41b750ea3, type: 3}
+        - {fileID: 8300000, guid: e63c10ef451b443c28085a9c0fe092f3, type: 3}
+        - {fileID: 8300000, guid: 4493829e593524af584441db56bdd8e0, type: 3}
+        - {fileID: 8300000, guid: e14b9c5a6f38e494ebd17d4fc61aae12, type: 3}
+        - {fileID: 8300000, guid: f2f7fe7aca5b24e7c8b3ff2815028f77, type: 3}
+        - {fileID: 8300000, guid: ed0b8875dfd0a46aeb6883316405b459, type: 3}
+        - {fileID: 8300000, guid: 2b3f3be54a908483f8886b8fefa7419a, type: 3}
+        TestPlayButton:
+          ButtonText: Debug Play Sound
+        TestStopButton:
+          ButtonText: Debug Stop Sound
+        PlayMethod: 0
+        PoolSize: 10
+        UseLegacyEventsMode: 0
+        StopSoundOnFeedbackStop: 1
+        MinVolume: 0.693
+        MaxVolume: 0.692
+        MinPitch: 1
+        MaxPitch: 1
+        SfxAudioMixerGroup: {fileID: 0}
+        Priority: 128
+        PanStereo: 0
+        SpatialBlend: 0
+        DopplerLevel: 1
+        Spread: 0
+        RolloffMode: 0
+        MinDistance: 1
+        MaxDistance: 500
+        UseCustomRolloffCurve: 0
+        CustomRolloffCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        UseSpatialBlendCurve: 0
+        SpatialBlendCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        UseReverbZoneMixCurve: 0
+        ReverbZoneMixCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        UseSpreadCurve: 0
+        SpreadCurve:
+          serializedVersion: 2
+          m_Curve: []
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+    - rid: 3635046499612623009
       type: {class: MMF_Events, ns: MoreMountains.Feedbacks, asm: MoreMountains.Tools}
       data:
         Active: 1
-        UniqueID: -320280532
+        UniqueID: -35647166
         Label: Unity Events
         OriginalLabel: Unity Events
         ChannelMode: 0
@@ -246,14 +381,26 @@ MonoBehaviour:
         RemapRangeFalloff: {x: 0, y: 1}
         AutomaticShakerSetupButton:
           ButtonText: 
-        Owner: {fileID: 7523426070332407101}
+        Owner: {fileID: 6565412725245905599}
         DebugActive: 0
         PlayEvents:
           m_PersistentCalls:
             m_Calls:
-            - m_Target: {fileID: 0}
+            - m_Target: {fileID: 5509685905826950997}
               m_TargetAssemblyTypeName: MinableDeathFeedback, Assembly-CSharp
               m_MethodName: DispatchEvent
+              m_Mode: 1
+              m_Arguments:
+                m_ObjectArgument: {fileID: 0}
+                m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+                m_IntArgument: 0
+                m_FloatArgument: 0
+                m_StringArgument: 
+                m_BoolArgument: 0
+              m_CallState: 2
+            - m_Target: {fileID: 6423206285663199728}
+              m_TargetAssemblyTypeName: DG.Tweening.DOTweenAnimation, Assembly-CSharp-firstpass
+              m_MethodName: DOPlay
               m_Mode: 1
               m_Arguments:
                 m_ObjectArgument: {fileID: 0}
@@ -271,7 +418,45 @@ MonoBehaviour:
             m_Calls: []
         ResetEvents:
           m_PersistentCalls:
-            m_Calls: []
+            m_Calls:
+            - m_Target: {fileID: 6423206285663199728}
+              m_TargetAssemblyTypeName: DG.Tweening.DOTweenAnimation, Assembly-CSharp-firstpass
+              m_MethodName: DORestart
+              m_Mode: 1
+              m_Arguments:
+                m_ObjectArgument: {fileID: 0}
+                m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+                m_IntArgument: 0
+                m_FloatArgument: 0
+                m_StringArgument: 
+                m_BoolArgument: 0
+              m_CallState: 2
+--- !u!114 &8943088627722858967
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3339089363067343760}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9069f8cd233e61646919a1137a253ef0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enduranceExperiencePoints: 6
+--- !u!114 &5509685905826950997
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3339089363067343760}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9069f8cd233e61646919a1137a253ef0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enduranceExperiencePoints: 4
 --- !u!1 &6581229364094251250
 GameObject:
   m_ObjectHideFlags: 0
@@ -288,6 +473,7 @@ GameObject:
   - component: {fileID: 1841257379649968664}
   - component: {fileID: 472058131111958029}
   - component: {fileID: 5431758392900466500}
+  - component: {fileID: 6423206285663199728}
   m_Layer: 25
   m_Name: BreakableRock001IS
   m_TagString: Untagged
@@ -332,7 +518,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdd2b41c6aa677442bbf88c84b1ebbd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UniqueID: 
+  UniqueID: 61862b8f-da09-4b20-afe7-4ce126065b90
   destructible: {fileID: 11400000, guid: 502fdee37cf70394485b055a49a3baac, type: 2}
   ShouldDestroy: 0
   colliders:
@@ -488,7 +674,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   LootMode: 2
-  GameObjectToLoot: {fileID: 9213542176007057957, guid: a5a89e7bfa15018439fc5ba6ef5f43be,
+  GameObjectToLoot: {fileID: 3886272315086541421, guid: e7aef9942b0343f4f8d8bf3e4073da05,
     type: 3}
   LootTable:
     ObjectsToLoot: []
@@ -560,6 +746,114 @@ MonoBehaviour:
   GizmosColor: {r: 0.827451, g: 0.827451, b: 0.827451, a: 1}
   GimosSize: 1
   SpawnLootButton: 0
+--- !u!114 &6423206285663199728
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6581229364094251250}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d0390bd8b8ffd640b34fe25065ff1df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  updateType: 0
+  isSpeedBased: 0
+  hasOnStart: 0
+  hasOnPlay: 0
+  hasOnUpdate: 0
+  hasOnStepComplete: 0
+  hasOnComplete: 0
+  hasOnTweenCreated: 0
+  hasOnRewind: 0
+  onStart:
+    m_PersistentCalls:
+      m_Calls: []
+  onPlay:
+    m_PersistentCalls:
+      m_Calls: []
+  onUpdate:
+    m_PersistentCalls:
+      m_Calls: []
+  onStepComplete:
+    m_PersistentCalls:
+      m_Calls: []
+  onComplete:
+    m_PersistentCalls:
+      m_Calls: []
+  onTweenCreated:
+    m_PersistentCalls:
+      m_Calls: []
+  onRewind:
+    m_PersistentCalls:
+      m_Calls: []
+  targetIsSelf: 1
+  targetGO: {fileID: 0}
+  tweenTargetIsTargetGO: 1
+  delay: 0
+  duration: 0.1
+  easeType: 7
+  easeCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  loopType: 0
+  loops: 1
+  id: 
+  isRelative: 1
+  isFrom: 0
+  isIndependentUpdate: 0
+  autoKill: 0
+  autoGenerate: 1
+  isActive: 1
+  isValid: 1
+  target: {fileID: 5311144864940782907}
+  animationType: 9
+  targetType: 11
+  forcedTargetType: 0
+  autoPlay: 0
+  useTargetAsV3: 0
+  endValueFloat: 0
+  endValueV3: {x: 0, y: 0.1, z: 0}
+  endValueV2: {x: 0, y: 0}
+  endValueColor: {r: 1, g: 1, b: 1, a: 1}
+  endValueString: 
+  endValueRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 0
+    height: 0
+  endValueTransform: {fileID: 0}
+  optionalBool0: 0
+  optionalBool1: 0
+  optionalFloat0: 1
+  optionalInt0: 10
+  optionalRotationMode: 0
+  optionalScrambleMode: 0
+  optionalShakeRandomnessMode: 0
+  optionalString: 
 --- !u!1 &6658375602889732803
 GameObject:
   m_ObjectHideFlags: 0
@@ -587,7 +881,7 @@ Transform:
   m_GameObject: {fileID: 6658375602889732803}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.00001001358, y: 0.030412495, z: 0.000005722046}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -646,547 +940,3 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!1001 &8375413873343817691
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 6281572117225219595}
-    m_Modifications:
-    - target: {fileID: 2312083087056079908, guid: 04a08c9599251934880b293debebfc7a,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2312083087056079908, guid: 04a08c9599251934880b293debebfc7a,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2312083087056079908, guid: 04a08c9599251934880b293debebfc7a,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2312083087056079908, guid: 04a08c9599251934880b293debebfc7a,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2312083087056079908, guid: 04a08c9599251934880b293debebfc7a,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2312083087056079908, guid: 04a08c9599251934880b293debebfc7a,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2312083087056079908, guid: 04a08c9599251934880b293debebfc7a,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2312083087056079908, guid: 04a08c9599251934880b293debebfc7a,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2312083087056079908, guid: 04a08c9599251934880b293debebfc7a,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2312083087056079908, guid: 04a08c9599251934880b293debebfc7a,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3397537780733439332, guid: 04a08c9599251934880b293debebfc7a,
-        type: 3}
-      propertyPath: FeedbacksList.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 3397537780733439332, guid: 04a08c9599251934880b293debebfc7a,
-        type: 3}
-      propertyPath: 'FeedbacksList.Array.data[1]'
-      value: 3635046499612623009
-      objectReference: {fileID: 0}
-    - target: {fileID: 3397537780733439332, guid: 04a08c9599251934880b293debebfc7a,
-        type: 3}
-      propertyPath: 'managedReferences[3635046499612623009]'
-      value: MoreMountains.Tools MoreMountains.Feedbacks.MMF_Events
-      objectReference: {fileID: 0}
-    - target: {fileID: 3397537780733439332, guid: 04a08c9599251934880b293debebfc7a,
-        type: 3}
-      propertyPath: managedReferences[3635046499612623009].Label
-      value: Unity Events
-      objectReference: {fileID: 0}
-    - target: {fileID: 3397537780733439332, guid: 04a08c9599251934880b293debebfc7a,
-        type: 3}
-      propertyPath: managedReferences[3635046499612623009].Owner
-      value: 
-      objectReference: {fileID: 6565412725245905599}
-    - target: {fileID: 3397537780733439332, guid: 04a08c9599251934880b293debebfc7a,
-        type: 3}
-      propertyPath: managedReferences[3635046499612623009].Active
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3397537780733439332, guid: 04a08c9599251934880b293debebfc7a,
-        type: 3}
-      propertyPath: managedReferences[3635046499612623009].Chance
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 3397537780733439332, guid: 04a08c9599251934880b293debebfc7a,
-        type: 3}
-      propertyPath: managedReferences[3635046499612623009].Channel
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3397537780733439332, guid: 04a08c9599251934880b293debebfc7a,
-        type: 3}
-      propertyPath: managedReferences[3635046499612623009].UniqueID
-      value: -35647166
-      objectReference: {fileID: 0}
-    - target: {fileID: 3397537780733439332, guid: 04a08c9599251934880b293debebfc7a,
-        type: 3}
-      propertyPath: managedReferences[3635046499612623009].UseRange
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3397537780733439332, guid: 04a08c9599251934880b293debebfc7a,
-        type: 3}
-      propertyPath: managedReferences[3635046499612623009].ChannelMode
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3397537780733439332, guid: 04a08c9599251934880b293debebfc7a,
-        type: 3}
-      propertyPath: managedReferences[3635046499612623009].DebugActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3397537780733439332, guid: 04a08c9599251934880b293debebfc7a,
-        type: 3}
-      propertyPath: managedReferences[3635046021588582500].OriginalLabel
-      value: Sound
-      objectReference: {fileID: 0}
-    - target: {fileID: 3397537780733439332, guid: 04a08c9599251934880b293debebfc7a,
-        type: 3}
-      propertyPath: managedReferences[3635046499612623009].OriginalLabel
-      value: Unity Events
-      objectReference: {fileID: 0}
-    - target: {fileID: 3397537780733439332, guid: 04a08c9599251934880b293debebfc7a,
-        type: 3}
-      propertyPath: managedReferences[3635046499612623009].RangeDistance
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 3397537780733439332, guid: 04a08c9599251934880b293debebfc7a,
-        type: 3}
-      propertyPath: managedReferences[3635046499612623009].Timing.TrackID
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3397537780733439332, guid: 04a08c9599251934880b293debebfc7a,
-        type: 3}
-      propertyPath: managedReferences[3635046499612623009].RandomizeOutput
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3397537780733439332, guid: 04a08c9599251934880b293debebfc7a,
-        type: 3}
-      propertyPath: managedReferences[3635046499612623009].Timing.Sequence
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 3397537780733439332, guid: 04a08c9599251934880b293debebfc7a,
-        type: 3}
-      propertyPath: managedReferences[3635046499612623009].UseRangeFalloff
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3397537780733439332, guid: 04a08c9599251934880b293debebfc7a,
-        type: 3}
-      propertyPath: managedReferences[3635046499612623009].Timing.PlayCount
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3397537780733439332, guid: 04a08c9599251934880b293debebfc7a,
-        type: 3}
-      propertyPath: managedReferences[3635046499612623009].Timing.Quantized
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3397537780733439332, guid: 04a08c9599251934880b293debebfc7a,
-        type: 3}
-      propertyPath: managedReferences[3635046499612623009].Timing.TargetBPM
-      value: 120
-      objectReference: {fileID: 0}
-    - target: {fileID: 3397537780733439332, guid: 04a08c9599251934880b293debebfc7a,
-        type: 3}
-      propertyPath: managedReferences[3635046499612623009].RandomizeDuration
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3397537780733439332, guid: 04a08c9599251934880b293debebfc7a,
-        type: 3}
-      propertyPath: managedReferences[3635046499612623009].RandomMultiplier.x
-      value: 0.8
-      objectReference: {fileID: 0}
-    - target: {fileID: 3397537780733439332, guid: 04a08c9599251934880b293debebfc7a,
-        type: 3}
-      propertyPath: managedReferences[3635046499612623009].RandomMultiplier.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3397537780733439332, guid: 04a08c9599251934880b293debebfc7a,
-        type: 3}
-      propertyPath: managedReferences[3635046499612623009].MMChannelDefinition
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 3397537780733439332, guid: 04a08c9599251934880b293debebfc7a,
-        type: 3}
-      propertyPath: managedReferences[3635046499612623009].RemapRangeFalloff.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3397537780733439332, guid: 04a08c9599251934880b293debebfc7a,
-        type: 3}
-      propertyPath: managedReferences[3635046499612623009].RemapRangeFalloff.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3397537780733439332, guid: 04a08c9599251934880b293debebfc7a,
-        type: 3}
-      propertyPath: managedReferences[3635046499612623009].Timing.InitialDelay
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3397537780733439332, guid: 04a08c9599251934880b293debebfc7a,
-        type: 3}
-      propertyPath: managedReferences[3635046499612623009].Timing.MaxPlayCount
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 3397537780733439332, guid: 04a08c9599251934880b293debebfc7a,
-        type: 3}
-      propertyPath: managedReferences[3635046499612623009].Timing.PlayDirection
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3397537780733439332, guid: 04a08c9599251934880b293debebfc7a,
-        type: 3}
-      propertyPath: managedReferences[3635046499612623009].Timing.RepeatForever
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3397537780733439332, guid: 04a08c9599251934880b293debebfc7a,
-        type: 3}
-      propertyPath: managedReferences[3635046499612623009].Timing.TimescaleMode
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3397537780733439332, guid: 04a08c9599251934880b293debebfc7a,
-        type: 3}
-      propertyPath: managedReferences[3635046499612623009].Timing.LimitPlayCount
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3397537780733439332, guid: 04a08c9599251934880b293debebfc7a,
-        type: 3}
-      propertyPath: managedReferences[3635046499612623009].Timing.NumberOfRepeats
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3397537780733439332, guid: 04a08c9599251934880b293debebfc7a,
-        type: 3}
-      propertyPath: managedReferences[3635046499612623009].Timing.CooldownDuration
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3397537780733439332, guid: 04a08c9599251934880b293debebfc7a,
-        type: 3}
-      propertyPath: managedReferences[3635046499612623009].Timing.InterruptsOnStop
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3397537780733439332, guid: 04a08c9599251934880b293debebfc7a,
-        type: 3}
-      propertyPath: managedReferences[3635046499612623009].Timing.ConstantIntensity
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3397537780733439332, guid: 04a08c9599251934880b293debebfc7a,
-        type: 3}
-      propertyPath: managedReferences[3635046499612623009].RandomDurationMultiplier.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 3397537780733439332, guid: 04a08c9599251934880b293debebfc7a,
-        type: 3}
-      propertyPath: managedReferences[3635046499612623009].RandomDurationMultiplier.y
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 3397537780733439332, guid: 04a08c9599251934880b293debebfc7a,
-        type: 3}
-      propertyPath: managedReferences[3635046499612623009].RangeFalloff.m_PreInfinity
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 3397537780733439332, guid: 04a08c9599251934880b293debebfc7a,
-        type: 3}
-      propertyPath: managedReferences[3635046499612623009].Timing.DelayBetweenRepeats
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3397537780733439332, guid: 04a08c9599251934880b293debebfc7a,
-        type: 3}
-      propertyPath: managedReferences[3635046499612623009].RangeFalloff.m_PostInfinity
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 3397537780733439332, guid: 04a08c9599251934880b293debebfc7a,
-        type: 3}
-      propertyPath: managedReferences[3635046499612623009].Timing.IntensityIntervalMax
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3397537780733439332, guid: 04a08c9599251934880b293debebfc7a,
-        type: 3}
-      propertyPath: managedReferences[3635046499612623009].Timing.IntensityIntervalMin
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3397537780733439332, guid: 04a08c9599251934880b293debebfc7a,
-        type: 3}
-      propertyPath: managedReferences[3635046499612623009].Timing.UseIntensityInterval
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3397537780733439332, guid: 04a08c9599251934880b293debebfc7a,
-        type: 3}
-      propertyPath: managedReferences[3635046499612623009].RangeFalloff.m_RotationOrder
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 3397537780733439332, guid: 04a08c9599251934880b293debebfc7a,
-        type: 3}
-      propertyPath: managedReferences[3635046499612623009].AutomatedTargetAcquisition.Mode
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3397537780733439332, guid: 04a08c9599251934880b293debebfc7a,
-        type: 3}
-      propertyPath: managedReferences[3635046499612623009].RangeFalloff.m_Curve.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 3397537780733439332, guid: 04a08c9599251934880b293debebfc7a,
-        type: 3}
-      propertyPath: managedReferences[3635046499612623009].Timing.ExcludeFromHoldingPauses
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3397537780733439332, guid: 04a08c9599251934880b293debebfc7a,
-        type: 3}
-      propertyPath: managedReferences[3635046499612623009].Timing.ContributeToTotalDuration
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3397537780733439332, guid: 04a08c9599251934880b293debebfc7a,
-        type: 3}
-      propertyPath: managedReferences[3635046499612623009].Timing.SetPlayCountToZeroOnReset
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3397537780733439332, guid: 04a08c9599251934880b293debebfc7a,
-        type: 3}
-      propertyPath: managedReferences[3635046499612623009].Timing.MMFeedbacksDirectionCondition
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3397537780733439332, guid: 04a08c9599251934880b293debebfc7a,
-        type: 3}
-      propertyPath: managedReferences[3635046499612623009].AutomatedTargetAcquisition.ChildIndex
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3397537780733439332, guid: 04a08c9599251934880b293debebfc7a,
-        type: 3}
-      propertyPath: managedReferences[3635046499612623009].AutomaticShakerSetupButton.ButtonText
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 3397537780733439332, guid: 04a08c9599251934880b293debebfc7a,
-        type: 3}
-      propertyPath: managedReferences[3635046499612623009].RangeFalloff.m_Curve.Array.data[0].time
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3397537780733439332, guid: 04a08c9599251934880b293debebfc7a,
-        type: 3}
-      propertyPath: managedReferences[3635046499612623009].RangeFalloff.m_Curve.Array.data[1].time
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3397537780733439332, guid: 04a08c9599251934880b293debebfc7a,
-        type: 3}
-      propertyPath: managedReferences[3635046499612623009].RangeFalloff.m_Curve.Array.data[0].value
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3397537780733439332, guid: 04a08c9599251934880b293debebfc7a,
-        type: 3}
-      propertyPath: managedReferences[3635046499612623009].RangeFalloff.m_Curve.Array.data[1].value
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3397537780733439332, guid: 04a08c9599251934880b293debebfc7a,
-        type: 3}
-      propertyPath: managedReferences[3635046499612623009].RangeFalloff.m_Curve.Array.data[0].inSlope
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3397537780733439332, guid: 04a08c9599251934880b293debebfc7a,
-        type: 3}
-      propertyPath: managedReferences[3635046499612623009].RangeFalloff.m_Curve.Array.data[1].inSlope
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3397537780733439332, guid: 04a08c9599251934880b293debebfc7a,
-        type: 3}
-      propertyPath: managedReferences[3635046499612623009].RangeFalloff.m_Curve.Array.data[0].inWeight
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3397537780733439332, guid: 04a08c9599251934880b293debebfc7a,
-        type: 3}
-      propertyPath: managedReferences[3635046499612623009].RangeFalloff.m_Curve.Array.data[0].outSlope
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3397537780733439332, guid: 04a08c9599251934880b293debebfc7a,
-        type: 3}
-      propertyPath: managedReferences[3635046499612623009].RangeFalloff.m_Curve.Array.data[1].inWeight
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3397537780733439332, guid: 04a08c9599251934880b293debebfc7a,
-        type: 3}
-      propertyPath: managedReferences[3635046499612623009].RangeFalloff.m_Curve.Array.data[1].outSlope
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3397537780733439332, guid: 04a08c9599251934880b293debebfc7a,
-        type: 3}
-      propertyPath: managedReferences[3635046499612623009].RangeFalloff.m_Curve.Array.data[0].outWeight
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3397537780733439332, guid: 04a08c9599251934880b293debebfc7a,
-        type: 3}
-      propertyPath: managedReferences[3635046499612623009].RangeFalloff.m_Curve.Array.data[1].outWeight
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3397537780733439332, guid: 04a08c9599251934880b293debebfc7a,
-        type: 3}
-      propertyPath: managedReferences[3635046499612623009].RangeFalloff.m_Curve.Array.data[0].tangentMode
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3397537780733439332, guid: 04a08c9599251934880b293debebfc7a,
-        type: 3}
-      propertyPath: managedReferences[3635046499612623009].RangeFalloff.m_Curve.Array.data[1].tangentMode
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3397537780733439332, guid: 04a08c9599251934880b293debebfc7a,
-        type: 3}
-      propertyPath: managedReferences[3635046499612623009].PlayEvents.m_PersistentCalls.m_Calls.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3397537780733439332, guid: 04a08c9599251934880b293debebfc7a,
-        type: 3}
-      propertyPath: managedReferences[3635046499612623009].RangeFalloff.m_Curve.Array.data[0].weightedMode
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3397537780733439332, guid: 04a08c9599251934880b293debebfc7a,
-        type: 3}
-      propertyPath: managedReferences[3635046499612623009].RangeFalloff.m_Curve.Array.data[1].weightedMode
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3397537780733439332, guid: 04a08c9599251934880b293debebfc7a,
-        type: 3}
-      propertyPath: managedReferences[3635046499612623009].StopEvents.m_PersistentCalls.m_Calls.Array.size
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3397537780733439332, guid: 04a08c9599251934880b293debebfc7a,
-        type: 3}
-      propertyPath: managedReferences[3635046499612623009].ResetEvents.m_PersistentCalls.m_Calls.Array.size
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3397537780733439332, guid: 04a08c9599251934880b293debebfc7a,
-        type: 3}
-      propertyPath: managedReferences[3635046499612623009].InitializationEvents.m_PersistentCalls.m_Calls.Array.size
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3397537780733439332, guid: 04a08c9599251934880b293debebfc7a,
-        type: 3}
-      propertyPath: managedReferences[3635046499612623009].PlayEvents.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3397537780733439332, guid: 04a08c9599251934880b293debebfc7a,
-        type: 3}
-      propertyPath: managedReferences[3635046499612623009].PlayEvents.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 5509685905826950997}
-    - target: {fileID: 3397537780733439332, guid: 04a08c9599251934880b293debebfc7a,
-        type: 3}
-      propertyPath: managedReferences[3635046499612623009].PlayEvents.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 3397537780733439332, guid: 04a08c9599251934880b293debebfc7a,
-        type: 3}
-      propertyPath: managedReferences[3635046499612623009].PlayEvents.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: DispatchEvent
-      objectReference: {fileID: 0}
-    - target: {fileID: 3397537780733439332, guid: 04a08c9599251934880b293debebfc7a,
-        type: 3}
-      propertyPath: managedReferences[3635046499612623009].PlayEvents.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: MinableDeathFeedback, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 3397537780733439332, guid: 04a08c9599251934880b293debebfc7a,
-        type: 3}
-      propertyPath: managedReferences[3635046499612623009].PlayEvents.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3397537780733439332, guid: 04a08c9599251934880b293debebfc7a,
-        type: 3}
-      propertyPath: managedReferences[3635046499612623009].PlayEvents.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_BoolArgument
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3397537780733439332, guid: 04a08c9599251934880b293debebfc7a,
-        type: 3}
-      propertyPath: managedReferences[3635046499612623009].PlayEvents.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_FloatArgument
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3397537780733439332, guid: 04a08c9599251934880b293debebfc7a,
-        type: 3}
-      propertyPath: managedReferences[3635046499612623009].PlayEvents.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 3397537780733439332, guid: 04a08c9599251934880b293debebfc7a,
-        type: 3}
-      propertyPath: managedReferences[3635046499612623009].PlayEvents.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 3397537780733439332, guid: 04a08c9599251934880b293debebfc7a,
-        type: 3}
-      propertyPath: managedReferences[3635046499612623009].PlayEvents.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
-    - target: {fileID: 6516047439338894411, guid: 04a08c9599251934880b293debebfc7a,
-        type: 3}
-      propertyPath: m_Name
-      value: DamageFeedbacks
-      objectReference: {fileID: 0}
-    - target: {fileID: 6516047439338894411, guid: 04a08c9599251934880b293debebfc7a,
-        type: 3}
-      propertyPath: m_Layer
-      value: 25
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 6516047439338894411, guid: 04a08c9599251934880b293debebfc7a,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 5509685905826950997}
-  m_SourcePrefab: {fileID: 100100000, guid: 04a08c9599251934880b293debebfc7a, type: 3}
---- !u!1 &3339089363067343760 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6516047439338894411, guid: 04a08c9599251934880b293debebfc7a,
-    type: 3}
-  m_PrefabInstance: {fileID: 8375413873343817691}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &5509685905826950997
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3339089363067343760}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9069f8cd233e61646919a1137a253ef0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enduranceExperiencePoints: 4
---- !u!4 &6065603073099951103 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2312083087056079908, guid: 04a08c9599251934880b293debebfc7a,
-    type: 3}
-  m_PrefabInstance: {fileID: 8375413873343817691}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &6565412725245905599 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3397537780733439332, guid: 04a08c9599251934880b293debebfc7a,
-    type: 3}
-  m_PrefabInstance: {fileID: 8375413873343817691}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3339089363067343760}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6da43522623d4704e979466dc7650b65, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

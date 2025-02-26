@@ -124,6 +124,7 @@ GameObject:
   - component: {fileID: 8974581273065073706}
   - component: {fileID: 8447915931890839478}
   - component: {fileID: 5301144623691181216}
+  - component: {fileID: 6347915905210305477}
   m_Layer: 25
   m_Name: BreakableDwarvenIronIS
   m_TagString: Untagged
@@ -162,7 +163,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   UniqueID: Sheolite01
   destructible: {fileID: 11400000, guid: fcc57809271fa814b8da1aa9f02cedfb, type: 2}
-  _loot: {fileID: 5301144623691181216}
   ShouldDestroy: 0
   colliders:
   - {fileID: 8974581273065073706}
@@ -374,6 +374,114 @@ MonoBehaviour:
   GizmosColor: {r: 0.827451, g: 0.827451, b: 0.827451, a: 1}
   GimosSize: 1
   SpawnLootButton: 0
+--- !u!114 &6347915905210305477
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8679229251232656611}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d0390bd8b8ffd640b34fe25065ff1df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  updateType: 0
+  isSpeedBased: 0
+  hasOnStart: 0
+  hasOnPlay: 0
+  hasOnUpdate: 0
+  hasOnStepComplete: 0
+  hasOnComplete: 0
+  hasOnTweenCreated: 0
+  hasOnRewind: 0
+  onStart:
+    m_PersistentCalls:
+      m_Calls: []
+  onPlay:
+    m_PersistentCalls:
+      m_Calls: []
+  onUpdate:
+    m_PersistentCalls:
+      m_Calls: []
+  onStepComplete:
+    m_PersistentCalls:
+      m_Calls: []
+  onComplete:
+    m_PersistentCalls:
+      m_Calls: []
+  onTweenCreated:
+    m_PersistentCalls:
+      m_Calls: []
+  onRewind:
+    m_PersistentCalls:
+      m_Calls: []
+  targetIsSelf: 1
+  targetGO: {fileID: 0}
+  tweenTargetIsTargetGO: 1
+  delay: 0
+  duration: 0.1
+  easeType: 7
+  easeCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  loopType: 0
+  loops: 1
+  id: 
+  isRelative: 1
+  isFrom: 0
+  isIndependentUpdate: 0
+  autoKill: 0
+  autoGenerate: 1
+  isActive: 1
+  isValid: 1
+  target: {fileID: 5911335241066819814}
+  animationType: 9
+  targetType: 11
+  forcedTargetType: 0
+  autoPlay: 0
+  useTargetAsV3: 0
+  endValueFloat: 0
+  endValueV3: {x: 0, y: 0.1, z: 0}
+  endValueV2: {x: 0, y: 0}
+  endValueColor: {r: 1, g: 1, b: 1, a: 1}
+  endValueString: 
+  endValueRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 0
+    height: 0
+  endValueTransform: {fileID: 0}
+  optionalBool0: 0
+  optionalBool1: 0
+  optionalFloat0: 1
+  optionalInt0: 10
+  optionalRotationMode: 0
+  optionalScrambleMode: 0
+  optionalShakeRandomnessMode: 0
+  optionalString: 
 --- !u!1001 &7833822795902360347
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -436,6 +544,76 @@ PrefabInstance:
         type: 3}
       propertyPath: managedReferences[3635046021588582500].OriginalLabel
       value: Sound
+      objectReference: {fileID: 0}
+    - target: {fileID: 3397537780733439332, guid: 04a08c9599251934880b293debebfc7a,
+        type: 3}
+      propertyPath: managedReferences[3635046499612623009].PlayEvents.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3397537780733439332, guid: 04a08c9599251934880b293debebfc7a,
+        type: 3}
+      propertyPath: managedReferences[3635046499612623009].ResetEvents.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3397537780733439332, guid: 04a08c9599251934880b293debebfc7a,
+        type: 3}
+      propertyPath: managedReferences[3635046499612623009].PlayEvents.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3397537780733439332, guid: 04a08c9599251934880b293debebfc7a,
+        type: 3}
+      propertyPath: managedReferences[3635046499612623009].ResetEvents.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3397537780733439332, guid: 04a08c9599251934880b293debebfc7a,
+        type: 3}
+      propertyPath: managedReferences[3635046499612623009].PlayEvents.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 6347915905210305477}
+    - target: {fileID: 3397537780733439332, guid: 04a08c9599251934880b293debebfc7a,
+        type: 3}
+      propertyPath: managedReferences[3635046499612623009].ResetEvents.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 6347915905210305477}
+    - target: {fileID: 3397537780733439332, guid: 04a08c9599251934880b293debebfc7a,
+        type: 3}
+      propertyPath: managedReferences[3635046499612623009].PlayEvents.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3397537780733439332, guid: 04a08c9599251934880b293debebfc7a,
+        type: 3}
+      propertyPath: managedReferences[3635046499612623009].PlayEvents.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: DOPlay
+      objectReference: {fileID: 0}
+    - target: {fileID: 3397537780733439332, guid: 04a08c9599251934880b293debebfc7a,
+        type: 3}
+      propertyPath: managedReferences[3635046499612623009].ResetEvents.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3397537780733439332, guid: 04a08c9599251934880b293debebfc7a,
+        type: 3}
+      propertyPath: managedReferences[3635046499612623009].ResetEvents.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: DORestart
+      objectReference: {fileID: 0}
+    - target: {fileID: 3397537780733439332, guid: 04a08c9599251934880b293debebfc7a,
+        type: 3}
+      propertyPath: managedReferences[3635046499612623009].PlayEvents.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: DG.Tweening.DOTweenAnimation, Assembly-CSharp-firstpass
+      objectReference: {fileID: 0}
+    - target: {fileID: 3397537780733439332, guid: 04a08c9599251934880b293debebfc7a,
+        type: 3}
+      propertyPath: managedReferences[3635046499612623009].ResetEvents.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: DG.Tweening.DOTweenAnimation, Assembly-CSharp-firstpass
+      objectReference: {fileID: 0}
+    - target: {fileID: 3397537780733439332, guid: 04a08c9599251934880b293debebfc7a,
+        type: 3}
+      propertyPath: managedReferences[3635046499612623009].PlayEvents.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 3397537780733439332, guid: 04a08c9599251934880b293debebfc7a,
+        type: 3}
+      propertyPath: managedReferences[3635046499612623009].ResetEvents.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 6516047439338894411, guid: 04a08c9599251934880b293debebfc7a,
         type: 3}
