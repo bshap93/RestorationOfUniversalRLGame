@@ -54,10 +54,10 @@ public class RecipeItemElement : MonoBehaviour
                 case RecipeType.Cooking:
                     craftingStationTypeIcon.sprite = RecipeTypeIcons.CookingIcon;
                     break;
-                case RecipeType.Crafting:
+                case RecipeType.Artificing:
                     craftingStationTypeIcon.sprite = RecipeTypeIcons.CraftingIcon;
                     break;
-                case RecipeType.Potion:
+                case RecipeType.Alchemy:
                     craftingStationTypeIcon.sprite = RecipeTypeIcons.PotionIcon;
                     break;
             }

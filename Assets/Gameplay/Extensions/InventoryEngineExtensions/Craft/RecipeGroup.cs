@@ -111,7 +111,8 @@ namespace Gameplay.Extensions.InventoryEngineExtensions.Craft
     public enum RecipeType
     {
         Cooking,
-        Artificing
+        Artificing,
+        Alchemy
     }
 
 
